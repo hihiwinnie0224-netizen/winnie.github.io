@@ -14,128 +14,122 @@
             --card-bg: #ffffff;
             --text-main: #333333;
             --border-color: #D1CDC4;
-            --transition: all 0.3s ease;
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
 
         body { 
-            font-family: "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif; 
+            font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif; 
             margin: 0; padding: 0; 
-            background-color: var(--paper-warm); color: var(--text-main); 
-            line-height: 1.7;
+            background-color: var(--paper-warm); 
+            color: var(--text-main); 
+            line-height: 1.8;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* ===== 1. 全站通用導覽列 ===== */
+        /* ===== 1. Navbar (與全站同步) ===== */
         header {
             background: #ffffff;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+            position: sticky; top: 0; z-index: 1000;
         }
         .navbar {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 18px 25px;
+            max-width: 1200px; margin: 0 auto;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 25px;
         }
         .logo a {
-            font-size: 26px;
-            font-weight: 800;
-            color: var(--ubot-blue);
-            text-decoration: none;
-            letter-spacing: 2px;
-            display: flex;
-            align-items: center;
+            font-size: 24px; font-weight: 800; color: var(--ubot-blue);
+            text-decoration: none; display: flex; align-items: center; letter-spacing: 1px;
         }
-        .logo a::before { content: "●"; color: var(--ubot-red); margin-right: 8px; }
-        .menu { display: flex; list-style: none; margin: 0; padding: 0; }
-        .menu li { margin-left: 25px; }
-        .menu a { text-decoration: none; color: #555; font-weight: 600; font-size: 15px; transition: 0.3s; }
+        .logo a::before { content: ""; width: 8px; height: 8px; background: var(--ubot-red); border-radius: 50%; margin-right: 10px; }
+        .menu { display: flex; list-style: none; margin: 0; }
+        .menu li { margin-left: 20px; }
+        .menu a { text-decoration: none; color: #666; font-weight: 600; font-size: 14px; transition: 0.3s; }
         .menu a:hover { color: var(--ubot-red); }
 
         /* ===== 2. 內容容器 ===== */
-        .container { max-width: 1000px; margin: 60px auto 100px; padding: 0 20px; }
+        .container { max-width: 1100px; margin: 60px auto 100px; padding: 0 25px; }
 
         /* 標題區 */
-        .header { text-align: center; margin-bottom: 50px; }
-        .header h2 { font-size: 2.5rem; color: var(--ubot-blue); letter-spacing: 8px; margin-bottom: 10px; font-weight: 900; }
-        .header p { color: var(--ubot-gold); font-weight: bold; font-size: 0.95rem; letter-spacing: 3px; }
+        .page-header { text-align: center; margin-bottom: 60px; }
+        .page-header h2 { font-size: 2.6rem; color: var(--ubot-blue); letter-spacing: 10px; margin-bottom: 5px; font-weight: 900; }
+        .page-header p { color: var(--ubot-gold); font-weight: bold; font-size: 0.9rem; letter-spacing: 4px; text-transform: uppercase; }
 
-        /* 說明區塊 */
-        .notice-box {
-            background: var(--soft-sage); padding: 40px; margin-bottom: 50px;
-            border-left: 6px solid var(--ubot-blue); font-size: 0.95rem;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.03);
-        }
-        .notice-box h4 { margin-top: 0; color: var(--ubot-blue); font-size: 1.1rem; display: flex; align-items: center; }
-        .notice-box ul { padding-left: 20px; margin-bottom: 0; }
-        .notice-box li { margin-bottom: 10px; }
-
-        /* 表格樣式 */
-        .lost-table-wrapper { 
-            background: #fff; 
-            border: 1px solid var(--border-color); 
-            overflow: hidden;
+        /* 領取須知卡片 */
+        .notice-card {
+            background: white; padding: 40px; margin-bottom: 50px;
+            border-top: 4px solid var(--ubot-blue);
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            display: grid; grid-template-columns: 1fr 2fr; gap: 40px;
+            align-items: center;
         }
-        table { width: 100%; border-collapse: collapse; min-width: 600px; }
-        th { background: #f8f9fa; color: var(--ubot-blue); padding: 20px 15px; text-align: left; border-bottom: 2px solid var(--border-color); font-weight: 700; }
-        td { padding: 18px 15px; border-bottom: 1px solid #eee; font-size: 0.95rem; color: #444; }
-        
-        tr:hover td { background-color: #fafafa; }
-        
-        .status { padding: 5px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: bold; text-transform: uppercase; }
-        .status-keeping { background: #fff3cd; color: #856404; border: 1px solid #ffeeba; } /* 保管中 */
-        .status-claimed { background: #e2e3e5; color: #666; border: 1px solid #d6d8db; } /* 已領取 */
+        .notice-title { color: var(--ubot-blue); }
+        .notice-title h4 { font-size: 1.4rem; margin: 0 0 10px 0; }
+        .notice-content ul { padding-left: 20px; margin: 0; color: #666; font-size: 0.95rem; }
+        .notice-content li { margin-bottom: 12px; }
 
-        /* 表單區塊 */
-        .form-section { 
-            margin-top: 60px; 
-            background: #fff; 
-            padding: 50px; 
-            border: 1px solid var(--border-color); 
-            box-shadow: 20px 20px 0px rgba(0, 51, 102, 0.05);
+        /* 表格區 */
+        .section-title { 
+            font-size: 1.2rem; color: var(--ubot-blue); font-weight: 800; 
+            margin-bottom: 25px; display: flex; align-items: center;
         }
-        .form-section h3 { 
-            color: var(--ubot-blue); 
-            margin-bottom: 25px; 
-            border-bottom: 1px solid #eee; 
-            padding-bottom: 15px; 
-            font-size: 1.5rem;
-            letter-spacing: 2px;
+        .section-title::before { content: ""; width: 20px; height: 2px; background: var(--ubot-gold); margin-right: 15px; }
+
+        .lost-table-wrapper { 
+            background: #fff; border-radius: 4px; overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            margin-bottom: 80px;
         }
+        table { width: 100%; border-collapse: collapse; }
+        th { background: #fdfdfd; color: #888; padding: 20px; text-align: left; font-size: 13px; letter-spacing: 1px; border-bottom: 1px solid #eee; }
+        td { padding: 22px 20px; border-bottom: 1px solid #f7f7f7; font-size: 0.95rem; color: #444; }
         
+        tr:last-child td { border-bottom: none; }
+        tr:hover td { background-color: #fcfcfc; }
+        
+        /* 狀態標籤優化 */
+        .status { 
+            padding: 4px 14px; border-radius: 2px; font-size: 11px; font-weight: bold; 
+            letter-spacing: 1px; display: inline-block;
+        }
+        .status-keeping { background: #fff9e6; color: #d4a017; border: 1px solid #f9ebc8; } 
+        .status-claimed { background: #f5f5f5; color: #aaa; border: 1px solid #eee; }
+
+        /* 通報表單 */
+        .form-container {
+            display: grid; grid-template-columns: 1fr 1.5fr; gap: 60px;
+            background: #fff; padding: 60px; border: 1px solid var(--border-color);
+            box-shadow: 15px 15px 0px rgba(0, 51, 102, 0.03);
+        }
+        .form-info h3 { font-size: 1.8rem; color: var(--ubot-blue); margin-top: 0; }
+        .form-info p { color: #888; font-size: 0.9rem; }
+
         .form-group { margin-bottom: 25px; }
-        .form-group label { display: block; margin-bottom: 10px; font-weight: bold; font-size: 0.9rem; color: var(--ubot-blue); }
+        .form-group label { display: block; margin-bottom: 10px; font-weight: bold; font-size: 0.85rem; color: #555; letter-spacing: 1px; }
         .form-group input, .form-group textarea {
-            width: 100%; padding: 15px; border: 1px solid #eee;
-            background: #fcfcfc;
-            box-sizing: border-box; font-size: 1rem;
-            transition: var(--transition);
+            width: 100%; padding: 15px; border: 1px solid #eee; background: #fafafa;
+            box-sizing: border-box; font-size: 15px; transition: var(--transition); border-radius: 2px;
         }
         .form-group input:focus, .form-group textarea:focus {
-            outline: none; border-color: var(--ubot-gold); background: #fff; box-shadow: 0 5px 15px rgba(184, 145, 48, 0.1);
+            outline: none; border-color: var(--ubot-gold); background: #fff;
+            box-shadow: 0 8px 20px rgba(184, 145, 48, 0.08);
         }
         
         .submit-btn {
             background: var(--ubot-blue); color: white; border: none;
-            padding: 20px; cursor: pointer; font-weight: bold; letter-spacing: 4px;
-            transition: var(--transition); width: 100%; font-size: 1rem;
+            padding: 20px; cursor: pointer; font-weight: bold; letter-spacing: 5px;
+            transition: var(--transition); width: 100%; font-size: 14px;
         }
-        .submit-btn:hover { background: var(--ubot-gold); letter-spacing: 8px; }
+        .submit-btn:hover { background: var(--ubot-gold); letter-spacing: 8px; transform: translateY(-2px); }
 
-        /* ===== 3. 頁尾 Footer ===== */
-        footer {
-            background: #222; color: #eee; padding: 60px 20px; text-align: center;
-        }
+        /* ===== 3. Footer ===== */
+        footer { background: #1a1a1a; color: #666; padding: 60px 20px; text-align: center; font-size: 13px; }
 
-        @media (max-width: 768px) {
+        @media (max-width: 900px) {
+            .notice-card, .form-container { grid-template-columns: 1fr; gap: 30px; padding: 30px; }
             .navbar { flex-direction: column; padding: 15px; }
             .menu { margin-top: 15px; }
-            .form-section { padding: 30px 20px; }
-            .header h2 { font-size: 1.8rem; }
+            .page-header h2 { font-size: 2rem; }
         }
     </style>
 </head>
@@ -143,14 +137,9 @@
 
 <header>
     <nav class="navbar">
-        <div class="logo">
-            <a href="index.html">聯邦藝術中心</a>
-        </div>
+        <div class="logo"><a href="index.html">聯邦藝術中心</a></div>
         <ul class="menu">
             <li><a href="about.html">關於我們</a></li>
-            <li><a href="exhibitions.html">展覽動態</a></li>
-            <li><a href="awards.html">美術獎項</a></li>
-            <li><a href="artists.html">藝術家</a></li>
             <li><a href="artworks.html">作品總覽</a></li>
             <li><a href="visit.html">參觀資訊</a></li>
             <li><a href="contact.html">聯絡我們</a></li>
@@ -159,48 +148,54 @@
 </header>
 
 <div class="container">
-    <div class="header">
+    <div class="page-header">
         <h2>LOST & FOUND</h2>
-        <p>失物招領查詢與通報</p>
+        <p>失物招領服務</p>
     </div>
 
-    <div class="notice-box">
-        <h4>📢 領取須知 / PICKUP POLICY</h4>
-        <ul>
-            <li>請失主攜帶<strong>身分證明文件</strong>（身分證、健保卡或駕照）至一樓服務台領取。</li>
-            <li>委託他人代領者，請攜帶失主及代領人雙方之身分證正本。</li>
-            <li>拾獲物品由本中心保管三個月，逾期將移交轄區警察局或依規定處理。</li>
-        </ul>
+    <div class="notice-card">
+        <div class="notice-title">
+            <h4>📢 領取須知</h4>
+            <span style="font-size: 12px; color: var(--ubot-gold); letter-spacing: 2px;">PICKUP POLICY</span>
+        </div>
+        <div class="notice-content">
+            <ul>
+                <li>請攜帶<strong>身分證明文件</strong>（身分證、健保卡或駕照）至一樓服務台辦理。</li>
+                <li>委託代領請出示失主及代領人雙方之身分證明文件。</li>
+                <li>物品由本中心保管三個月，逾期將依法移交轄區警察局處理。</li>
+            </ul>
+        </div>
     </div>
 
+    <div class="section-title">目前拾獲物品清單</div>
     <div class="lost-table-wrapper">
         <div style="overflow-x: auto;">
             <table>
                 <thead>
                     <tr>
-                        <th>拾獲日期</th>
-                        <th>品項名稱</th>
-                        <th>拾獲地點</th>
-                        <th>目前狀態</th>
+                        <th>拾獲日期 DATE</th>
+                        <th>品項描述 DESCRIPTION</th>
+                        <th>拾獲地點 LOCATION</th>
+                        <th>狀態 STATUS</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>2026/02/20</td>
-                        <td>黑色長型錢包 (內有證件)</td>
-                        <td>2F 特展區沙發</td>
+                        <td style="font-weight: 600;">黑色皮質長夾 (內有證件)</td>
+                        <td>2F 特展區休憩沙發</td>
                         <td><span class="status status-keeping">保管中</span></td>
                     </tr>
                     <tr>
                         <td>2026/02/18</td>
-                        <td>藍色折疊傘</td>
-                        <td>1F 休息區</td>
+                        <td>深藍色折疊傘</td>
+                        <td>1F 售票大廳休憩區</td>
                         <td><span class="status status-claimed">已領取</span></td>
                     </tr>
                     <tr>
                         <td>2026/02/15</td>
-                        <td>無線藍牙耳機 (白色)</td>
-                        <td>B1 停車場電梯口</td>
+                        <td style="font-weight: 600;">白色無線耳機 (含充電盒)</td>
+                        <td>B1 停車場電梯廳</td>
                         <td><span class="status status-keeping">保管中</span></td>
                     </tr>
                 </tbody>
@@ -208,40 +203,41 @@
         </div>
     </div>
 
-    <div class="form-section">
-        <h3>遺失物通報</h3>
-        <p style="font-size: 0.9rem; color: #666; margin-bottom: 30px;">
-            如果您在館內遺失物品，請填寫下表。若尋獲與描述相符之物品，我們將主動與您聯繫。
-        </p>
-        <form action="#">
-            <div class="form-group">
-                <label>您的姓名 / Name *</label>
-                <input type="text" placeholder="請輸入姓名" required>
+    <div class="form-container">
+        <div class="form-info">
+            <h3>遺失物通報</h3>
+            <p>若清單中未見您的物品，請填寫此通報表。尋獲相似物品時，我們將優先與您聯絡。</p>
+            <div style="margin-top: 30px; font-size: 13px; color: var(--ubot-blue);">
+                <strong>服務專線：</strong><br>(02) 2536-9999
             </div>
-            <div class="form-group">
-                <label>聯絡電話 / Phone *</label>
-                <input type="tel" placeholder="請輸入聯絡電話" required>
-            </div>
-            <div class="form-group">
-                <label>遺失品項描述 / Item Description *</label>
-                <textarea rows="4" placeholder="請詳細描述物品顏色、品牌或明顯特徵（例如：Sony 白色耳機、有吊飾的鑰匙）" required></textarea>
-            </div>
-            <div class="form-group">
-                <label>估計遺失時間與地點 / Time & Location</label>
-                <input type="text" placeholder="例如：2/20 下午 2 點，3 樓油畫展區">
-            </div>
-            <button type="submit" class="submit-btn">提交通報資訊 SEND REPORT</button>
-        </form>
+        </div>
+        <div class="form-box">
+            <form action="#">
+                <div class="form-group">
+                    <label>姓名 NAME <span style="color: var(--ubot-red);">*</span></label>
+                    <input type="text" placeholder="請輸入真實姓名" required>
+                </div>
+                <div class="form-group">
+                    <label>聯絡電話 PHONE <span style="color: var(--ubot-red);">*</span></label>
+                    <input type="tel" placeholder="請輸入手機或市話" required>
+                </div>
+                <div class="form-group">
+                    <label>物品特徵描述 DESCRIPTION <span style="color: var(--ubot-red);">*</span></label>
+                    <textarea rows="4" placeholder="例如：品牌、顏色、特殊吊飾或損壞特徵" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>估計遺失時間與地點 TIME & LOCATION</label>
+                    <input type="text" placeholder="例如：2/20 下午 3 點左右，3F 水彩畫展廳">
+                </div>
+                <button type="submit" class="submit-btn">提交線上通報 REPORT</button>
+            </form>
+        </div>
     </div>
 </div>
 
 <footer>
-    <div class="footer-content">
-        <p>© 2026 聯邦藝術中心 Union Art Center</p>
-        <p style="font-size: 0.85rem; color: #888; margin-top: 10px;">
-            台北市中山北路二段83號7樓 | 服務專線：(02) 2536-9999
-        </p>
-    </div>
+    <p>© 2026 聯邦藝術中心 Union Art Center</p>
+    <p style="color: #444; margin-top: 10px;">台北市中山北路二段83號7樓 | (02) 2536-9999</p>
 </footer>
 
 </body>
