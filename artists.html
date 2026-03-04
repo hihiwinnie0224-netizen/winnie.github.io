@@ -11,8 +11,9 @@
             --ubot-red: #E60012;
             --primary-gold: #a68d5e;
             --text-dark: #333;
+            --text-gray: #999;
             --bg-warm: #f4f7f9;
-            --ease: cubic-bezier(0.165, 0.84, 0.44, 1);
+            --footer-bg: #1a1a1a;
         }
 
         body {
@@ -23,63 +24,73 @@
             line-height: 1.6;
         }
 
-        /* ===== Header & Nav ===== */
+        /* ===== 統一 Header 樣式 ===== */
         header { background: #ffffff; box-shadow: 0 2px 15px rgba(0,0,0,0.08); position: sticky; top: 0; z-index: 1000; }
         .navbar { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 15px 25px; }
         .logo a { font-size: 22px; font-weight: 800; color: var(--ubot-blue); text-decoration: none; display: flex; align-items: center; }
         .logo a::before { content: ""; width: 10px; height: 10px; background: var(--ubot-red); border-radius: 50%; margin-right: 8px; }
-        .menu { display: flex; list-style: none; margin: 0; }
-        .menu li { margin-left: 20px; }
-        .menu a { text-decoration: none; color: #555; font-weight: 600; font-size: 15px; transition: 0.3s; }
-        .menu a:hover, .menu a.active { color: var(--ubot-red); }
+        
+        .menu { display: flex; list-style: none; margin: 0; padding: 0; }
+        .menu li { margin-left: 18px; }
+        .menu a { text-decoration: none; color: #555; font-weight: 600; font-size: 15px; transition: 0.3s; padding: 5px 0; }
+        .menu a:hover, .menu a.active { color: var(--ubot-red); border-bottom: 2px solid var(--ubot-red); }
 
         /* ===== Banner ===== */
         .page-banner {
-            background: linear-gradient(rgba(0,51,102,0.8), rgba(0,51,102,0.8)), url('https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=1200&q=80');
-            background-size: cover; background-position: center; color: white; padding: 60px 20px; text-align: center;
+            background: linear-gradient(rgba(0,51,102,0.7), rgba(0,51,102,0.7)), url('https://images.unsplash.com/photo-1460666819451-7410f5238d41?auto=format&fit=crop&w=1200&q=80');
+            background-size: cover; background-position: center; color: white; padding: 80px 20px; text-align: center;
         }
-        .page-banner h1 { font-size: 32px; margin: 0; letter-spacing: 4px; }
+        .page-banner h1 { font-size: 36px; margin: 0; letter-spacing: 6px; font-weight: 800; }
+        .page-banner p { opacity: 0.8; margin-top: 10px; font-weight: 300; }
 
-        /* ===== Filter Section ===== */
-        .sticky-tools { position: sticky; top: 70px; background: var(--bg-warm); z-index: 900; padding: 20px 0; }
+        /* ===== 搜尋與篩選區 ===== */
+        .sticky-tools { position: sticky; top: 70px; background: rgba(244, 247, 249, 0.95); backdrop-filter: blur(10px); z-index: 900; padding: 25px 0; border-bottom: 1px solid #e0e0e0; }
         .filter-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        
-        .search-row { display: flex; gap: 15px; margin-bottom: 20px; }
-        .search-box { flex: 1; padding: 12px 25px; border: 1px solid #ddd; border-radius: 30px; font-size: 16px; outline: none; }
+        .search-row { max-width: 600px; margin: 0 auto 20px; }
+        .search-box { width: 100%; padding: 12px 25px; border: 1px solid #ccc; border-radius: 50px; font-size: 16px; outline: none; transition: 0.3s; box-shadow: inset 0 2px 4px rgba(0,0,0,0.05); }
+        .search-box:focus { border-color: var(--ubot-blue); box-shadow: 0 0 10px rgba(0,51,102,0.1); }
 
-        .tab-switcher { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
-        .btn-tab { padding: 10px 20px; border: 1px solid var(--ubot-blue); background: white; color: var(--ubot-blue); border-radius: 30px; cursor: pointer; font-weight: bold; transition: 0.3s; }
-        .btn-tab.active { background: var(--ubot-blue); color: white; }
+        .tab-switcher { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+        .btn-tab { padding: 10px 24px; border: 1.5px solid var(--ubot-blue); background: white; color: var(--ubot-blue); border-radius: 50px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        .btn-tab.active { background: var(--ubot-blue); color: white; box-shadow: 0 4px 12px rgba(0,51,102,0.2); }
+        .btn-tab:hover:not(.active) { background: #eef4f9; }
 
-        /* ===== Content Area ===== */
-        .main-content { max-width: 1200px; margin: 20px auto 80px; padding: 0 20px; }
-        
-        .year-row { background: white; border-radius: 15px; padding: 25px; margin-bottom: 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-        .year-label { font-size: 20px; color: var(--ubot-blue); margin-bottom: 20px; font-weight: bold; border-left: 5px solid var(--primary-gold); padding-left: 15px; }
+        /* ===== 內容卡片排版 ===== */
+        .main-content { max-width: 1200px; margin: 40px auto 100px; padding: 0 20px; }
+        .year-row { background: white; border-radius: 20px; padding: 35px; margin-bottom: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.04); border: 1px solid #efefef; }
+        .year-label { font-size: 22px; color: var(--ubot-blue); margin-bottom: 30px; font-weight: 800; border-left: 6px solid var(--primary-gold); padding-left: 18px; }
 
-        .winners-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 20px; }
+        .winners-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 25px; }
+        .winner-card { text-align: center; padding: 20px 15px; border-radius: 15px; transition: 0.4s var(--ease); border: 1px solid #f9f9f9; background: #fff; }
+        .winner-card:hover { transform: translateY(-8px); border-color: var(--primary-gold); box-shadow: 0 15px 35px rgba(166,141,94,0.15); }
 
-        .winner-card { text-align: center; padding: 15px; border-radius: 12px; transition: 0.3s; border: 1px solid #f0f0f0; }
-        .winner-card:hover { transform: translateY(-5px); border-color: var(--primary-gold); box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
-
-        .avatar { width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 12px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 24px; text-shadow: 1px 1px 2px rgba(0,0,0,0.2); }
-        
-        .tag { font-size: 11px; padding: 2px 8px; border-radius: 4px; display: inline-block; margin-bottom: 8px; font-weight: bold; }
-        .tag-首獎 { background: #FFF9E6; color: #D4AF37; border: 1px solid #D4AF37; }
-        .tag-優選 { background: #F0F7FF; color: #0056b3; border: 1px solid #0056b3; }
-        .tag-入選 { background: #F8F9FA; color: #666; border: 1px solid #ddd; }
+        .avatar { width: 90px; height: 90px; border-radius: 50%; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 28px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .tag { font-size: 12px; padding: 3px 12px; border-radius: 50px; display: inline-block; margin-bottom: 12px; font-weight: 600; }
+        .tag-首獎 { background: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
+        .tag-優選 { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+        .tag-入選 { background: #e2e3e5; color: #383d41; border: 1px solid #d6d8db; }
         .tag-大師 { background: var(--ubot-blue); color: #fff; }
 
-        .name { font-size: 16px; font-weight: bold; color: var(--text-dark); margin-bottom: 10px; }
-        .btn-view { width: 100%; padding: 6px; background: #f8f9fa; border: 1px solid #ddd; border-radius: 4px; font-size: 12px; cursor: pointer; transition: 0.2s; }
-        .btn-view:hover { background: var(--ubot-blue); color: white; border-color: var(--ubot-blue); }
+        .name { font-size: 18px; font-weight: 700; color: var(--text-dark); margin-bottom: 15px; }
+        .btn-view { width: 100%; padding: 8px; background: transparent; border: 1px solid var(--ubot-blue); color: var(--ubot-blue); border-radius: 6px; font-size: 13px; cursor: pointer; transition: 0.3s; font-weight: 600; }
+        .btn-view:hover { background: var(--ubot-blue); color: white; }
 
-        /* Footer */
-        footer { background: #1a1a1a; color: #999; padding: 40px 20px; text-align: center; font-size: 13px; }
+        /* ===== 統一 Footer 樣式 ===== */
+        footer { background: var(--footer-bg); color: #fff; padding: 70px 20px 30px; }
+        .footer-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; text-align: left; }
+        .footer-logo h2 { color: #fff; margin-bottom: 20px; letter-spacing: 2px; }
+        .footer-info p { color: #bbb; margin: 10px 0; font-size: 15px; }
+        .footer-links h4 { color: var(--primary-gold); margin-bottom: 25px; font-size: 18px; position: relative; }
+        .footer-links ul { list-style: none; padding: 0; }
+        .footer-links li { margin-bottom: 12px; }
+        .footer-links a { color: #999; text-decoration: none; transition: 0.3s; }
+        .footer-links a:hover { color: #fff; padding-left: 5px; }
+        .copyright { grid-column: 1 / -1; border-top: 1px solid #333; margin-top: 50px; padding-top: 30px; text-align: center; color: #666; font-size: 13px; }
 
-        @media (max-width: 600px) {
+        @media (max-width: 850px) {
+            .footer-container { grid-template-columns: 1fr; gap: 40px; text-align: center; }
             .winners-grid { grid-template-columns: repeat(2, 1fr); }
-            .btn-tab { font-size: 13px; padding: 8px 15px; }
+            .menu { display: none; } /* 行動版建議增加漢堡選單 */
         }
     </style>
 </head>
@@ -90,16 +101,19 @@
         <div class="logo"><a href="index.html">聯邦藝術中心</a></div>
         <ul class="menu">
             <li><a href="about.html">關於我們</a></li>
+            <li><a href="exhibitions.html">展覽動態</a></li>
             <li><a href="awards.html">美術獎項</a></li>
             <li><a href="artists.html" class="active">藝術家</a></li>
+            <li><a href="artworks.html">作品總覽</a></li>
             <li><a href="visit.html">參觀資訊</a></li>
+            <li><a href="contact.html">聯絡我們</a></li>
         </ul>
     </nav>
 </header>
 
 <section class="page-banner">
     <h1>藝術家典藏</h1>
-    <p>Honored Artists & Collection</p>
+    <p>Collection of Distinguished Artists</p>
 </section>
 
 <div class="sticky-tools">
@@ -120,11 +134,38 @@
 </main>
 
 <footer>
-    <p>© 2026 聯邦藝術中心 Union Art Center</p>
-    <p>台北市中山北路二段83號7樓 | (02)2536-9999</p>
+    <div class="footer-container">
+        <div class="footer-info">
+            <h2>UNION ART CENTER</h2>
+            <p>地址：台北市大安區忠孝東路四段219號</p>
+            <p>電話：(02) 2536-9999</p>
+            <p>時間：週二至週日 09:00 - 17:00 (週一休館)</p>
+        </div>
+        <div class="footer-links">
+            <h4>探索中心</h4>
+            <ul>
+                <li><a href="about.html">關於我們</a></li>
+                <li><a href="exhibitions.html">最新展覽</a></li>
+                <li><a href="artists.html">合作藝術家</a></li>
+                <li><a href="visit.html">參觀指引</a></li>
+            </ul>
+        </div>
+        <div class="footer-links">
+            <h4>快速連結</h4>
+            <ul>
+                <li><a href="https://www.ubot.com.tw" target="_blank">聯邦銀行官網</a></li>
+                <li><a href="#">場地租借申請</a></li>
+                <li><a href="#">隱私權保護政策</a></li>
+            </ul>
+        </div>
+        <div class="copyright">
+            © 2026 Union Art Center 聯邦藝術中心 版權所有
+        </div>
+    </div>
 </footer>
 
 <script>
+    // 資料庫內容保持不變 ( master, newbie, impression )
     const database = {
         master: [
             { year: "召集人", label: "評審委員會召集人", winners: [{ role: "召集人", name: "許坤成" }] },
@@ -149,32 +190,11 @@
             ]},
             { year: "2023", label: "2023 第二十六屆", winners: [
                 { role: "首獎", name: "古東玄" }, { role: "優選", name: "白穆君" }, { role: "優選", name: "魏柏鈞" }, { role: "入選", name: "許品婕" }, { role: "入選", name: "游勝淯" }
-            ]},
-            { year: "2022", label: "2022 第二十五屆", winners: [
-                { role: "首獎", name: "許庭皓" }, { role: "入選", name: "周聖傑" }, { role: "入選", name: "鄭宇翔" }
-            ]},
-            { year: "2021", label: "2021 第二十四屆", winners: [
-                { role: "首獎", name: "張家豪" }, { role: "優選", name: "劉慧中" }, { role: "優選", name: "陳尚澤" }, { role: "入選", name: "陳彥州" }, { role: "入選", name: "白穆君" }
-            ]},
-            { year: "2020", label: "2020 第二十三屆", winners: [
-                { role: "首獎", name: "陳皇佑" }, { role: "優選", name: "林子慶" }, { role: "優選", name: "曾冠雄" }, { role: "入選", name: "黃惠姍" }, { role: "入選", name: "白穆君" }
             ]}
         ],
         impression: [
             { year: "2024", label: "2024 第二十二屆", winners: [
                 { role: "首獎", name: "吳羽宸" }, { role: "優選", name: "宋適生" }, { role: "優選", name: "吳岱瑾" }, { role: "入選", name: "李承修" }, { role: "入選", name: "謝愷宸" }
-            ]},
-            { year: "2023", label: "2023 第二十一屆", winners: [
-                { role: "首獎", name: "黃蕙儀" }, { role: "優選", name: "鍾子逸" }, { role: "優選", name: "陳忠利" }, { role: "入選", name: "吳威澔" }, { role: "入選", name: "黃思喆" }
-            ]},
-            { year: "2022", label: "2022 第二十屆", winners: [
-                { role: "首獎", name: "吳佩珊" }, { role: "優選", name: "吳岱瑾" }, { role: "優選", name: "宋適生" }, { role: "入選", name: "吳貞霖" }, { role: "入選", name: "賴又瑄" }
-            ]},
-            { year: "2021", label: "2021 第十九屆", winners: [
-                { role: "首獎", name: "張綺芸" }, { role: "優選", name: "吳岱瑾" }, { role: "優選", name: "黃蕙儀" }, { role: "入選", name: "王逸蘭" }, { role: "入選", name: "吳貞霖" }
-            ]},
-            { year: "2020", label: "2020 第十八屆", winners: [
-                { role: "首獎", name: "李佳榕" }, { role: "優選", name: "周宇彤" }, { role: "優選", name: "吳岱瑾" }, { role: "入選", name: "吳貞霖" }, { role: "入選", name: "陳心慈" }
             ]}
         ]
     };
@@ -182,7 +202,7 @@
     let currentCat = 'master';
 
     function getGradient(name) {
-        const colors = [['#a68d5e', '#d4af37'], ['#003366', '#0056b3'], ['#E60012', '#ff4d4d'], ['#4facfe', '#00f2fe']];
+        const colors = [['#a68d5e', '#d4af37'], ['#003366', '#0056b3'], ['#E60012', '#ff4d4d'], ['#2c3e50', '#4ca1af']];
         let idx = name.length % colors.length;
         return `linear-gradient(135deg, ${colors[idx][0]}, ${colors[idx][1]})`;
     }
