@@ -11,16 +11,16 @@
             --ubot-light-blue: #EAF6FC;  /* 聯邦淺藍背景 */
             --ubot-sky-blue: #00A1E9;    /* 聯邦淺藍點綴 */
             --soft-sage: #E8EDE7;
-            --paper-warm: #f8fbfd;       /* 配合其他頁面的背景色 */
+            --paper-warm: #f8fbfd;       
             --card-bg: #ffffff;
-            --text-main: #333333;
-            --text-gray: #666666;
+            --text-main: #222222;        /* 與關於頁面一致 */
+            --text-sub: #666666;
             --border-color: #D1CDC4;
             --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
 
         body { 
-            font-family: "PingFang TC", "STHeitiTC-Light", "Microsoft JhengHei", sans-serif; 
+            font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif; 
             margin: 0; padding: 0; 
             background-color: var(--paper-warm); 
             color: var(--text-main); 
@@ -28,10 +28,10 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* ===== 1. Navbar (與其他頁面同步) ===== */
+        /* ===== 1. Navbar (與關於頁面完全同步) ===== */
         header {
             background: #ffffff;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
             position: sticky; top: 0; z-index: 1000;
         }
         .navbar {
@@ -43,50 +43,49 @@
             font-size: 24px; font-weight: 800; color: var(--ubot-blue);
             text-decoration: none; display: flex; align-items: center; letter-spacing: 1px;
         }
-        .logo a span {
-            color: var(--ubot-red);
-            font-size: 28px; margin-right: 5px;
+        /* 同步紅色圓點樣式 */
+        .logo a::before { 
+            content: ""; width: 8px; height: 8px; background: var(--ubot-red); 
+            border-radius: 50%; margin-right: 10px; 
         }
         
         .menu { display: flex; list-style: none; margin: 0; padding: 0; }
-        .menu li { margin-left: 20px; }
+        .menu li { margin-left: 15px; }
         .menu a { 
-            text-decoration: none; color: var(--text-main); 
-            font-weight: 500; font-size: 15px; transition: 0.3s; 
-            padding: 8px 12px; border-radius: 4px;
+            text-decoration: none; color: #666; 
+            font-weight: 600; font-size: 14px; transition: 0.3s; 
+            padding: 8px 10px;
         }
         .menu a:hover, .menu a.active { 
             color: var(--ubot-red); 
-            background: var(--ubot-light-blue);
         }
 
-        /* ===== 2. 頁面 Banner (與其他頁面一致) ===== */
+        /* ===== 2. 頁面 Banner ===== */
         .page-banner {
-            width: 100%; height: 300px;
-            background: linear-gradient(rgba(0,51,102,0.7), rgba(0,51,102,0.5)),
+            width: 100%; height: 350px;
+            background: linear-gradient(rgba(0,51,102,0.6), rgba(0,51,102,0.6)),
                         url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1600&q=80');
             background-size: cover; background-position: center;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             color: white; text-align: center;
         }
-        .page-banner h1 { font-size: 42px; letter-spacing: 6px; margin: 0; font-weight: 700; }
-        .page-banner p { font-size: 16px; letter-spacing: 4px; margin-top: 10px; opacity: 0.9; }
+        .page-banner h1 { font-size: 42px; letter-spacing: 6px; margin: 0; font-weight: 900; }
+        .page-banner p { font-size: 16px; letter-spacing: 3px; margin-top: 10px; opacity: 0.9; text-transform: uppercase; }
 
         /* ===== 3. 參觀資訊主體 ===== */
-        .visit-container { max-width: 1100px; margin: -40px auto 100px; padding: 0 25px; position: relative; z-index: 10; }
+        .visit-container { max-width: 1100px; margin: -60px auto 100px; padding: 0 25px; position: relative; z-index: 10; }
         
-        /* 網格系統 */
         .visit-grid {
             display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 30px;
         }
 
         .info-card {
             background: var(--card-bg); padding: 50px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border-radius: 4px; /* 稍微調整圓角以搭配關於頁面的方正感 */
+            box-shadow: 0 10px 40px rgba(0,0,0,0.04);
             transition: var(--transition);
             display: flex; flex-direction: column;
-            border: 1px solid #f0f0f0;
+            border: 1px solid var(--border-color);
         }
         .info-card.sage-theme {
             background: var(--soft-sage); border-top: 6px solid var(--ubot-blue);
@@ -110,8 +109,8 @@
         .status-open { 
             align-self: flex-start; margin-top: auto; padding: 12px 20px;
             background: #fff; color: #2e7d32; font-size: 12px; font-weight: bold;
-            border: 1px solid #c8e6c9; letter-spacing: 1px; border-radius: 12px;
-            display: inline-flex; align-items: center;
+            border: 1px solid #c8e6c9; letter-spacing: 1px; border-radius: 40px;
+            display: inline-flex; align-items: center; margin-top: 30px;
         }
         .status-open::before {
             content: ""; width: 8px; height: 8px; background: #27ae60; border-radius: 50%;
@@ -128,9 +127,9 @@
         .location-card {
             background: var(--card-bg); margin-bottom: 30px;
             display: grid; grid-template-columns: 1.3fr 0.7fr;
-            border-radius: 20px; overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            border: 1px solid #f0f0f0;
+            border-radius: 4px; overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.04);
+            border: 1px solid var(--border-color);
         }
         .map-container {
             width: 100%; height: 500px; background: #f0f0f0;
@@ -152,7 +151,7 @@
 
         /* 手風琴 */
         .accordion { margin-top: 60px; }
-        .acc-item { margin-bottom: 15px; background: #fff; border: 1px solid #f0f0f0; border-radius: 12px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.03); }
+        .acc-item { margin-bottom: 15px; background: #fff; border: 1px solid #f0f0f0; border-radius: 4px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.03); }
         .acc-btn {
             width: 100%; padding: 25px 35px; text-align: left; background: none; border: none;
             cursor: pointer; font-size: 1rem; font-weight: 800; color: var(--ubot-blue);
@@ -166,7 +165,7 @@
         .acc-content { padding: 0 35px; max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; }
         .acc-inner { padding-bottom: 35px; color: #666; font-size: 0.9rem; border-top: 1px solid #f5f5f5; padding-top: 25px; }
 
-        /* ===== 4. Footer (與其他頁面同步) ===== */
+        /* ===== 4. Footer (完全同步) ===== */
         footer {
             background: var(--ubot-light-blue);
             color: var(--ubot-blue);
@@ -206,7 +205,7 @@
 
 <header>
     <nav class="navbar">
-        <div class="logo"><a href="index.html"><span>●</span>聯邦藝術中心</a></div>
+        <div class="logo"><a href="index.html">聯邦藝術中心</a></div>
         <ul class="menu">
             <li><a href="about.html">關於我們</a></li>
             <li><a href="exhibitions.html">展覽動態</a></li>
@@ -253,7 +252,7 @@
     <div class="location-card">
         <div class="map-container">
             <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m12!1m3!1d3614.7036494491!2d121.5484833150065!3d25.04071398396788!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442abc49970366d%3A0x66f9a066498f3951!2zMTA26Ie65YyX5biC5aSn5a6J5Y2A5b_lrZ3mnbHot6_lm5vaut段2196Jmf!5e0!3m2!1szh-TW!2stw!4v1650000000000!5m2!1szh-TW!2stw" 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3614.702213193234!2d121.5492484!3d25.041132!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442abc5f643f803%3A0x6e2606556f849e7b!2zMTA26Ie65YyX5biC5aSn5a6J5Y2A5bab5a2d5p2x6Lev5Zub5q61MjE56Jmf!5e0!3m2!1szh-TW!2stw!4v1710000000000!5m2!1szh-TW!2stw" 
                 width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
             </iframe>
         </div>
