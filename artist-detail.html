@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>許坤成 教授 - 藝術家典藏｜聯邦藝術中心</title>
+    <link rel="stylesheet" href="css/style.css">
+    
+    <style>
+        :root {
+            --ubot-blue: #003366;     /* 聯邦深藍 */
+            --ubot-red: #E60012;      /* 聯邦紅 */
+            --ubot-gold: #B89130;     /* 典藏金 */
+            --light-bg: #F9F9F7;      /* 宣紙感底色 */
+            --border-color: #D1D1D1;
+        }
+        
+        body { 
+            font-family: "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", serif; 
+            margin: 0; padding: 0; 
+            background: var(--light-bg); 
+            color: #333; 
+            line-height: 1.8; 
+        }
+
+        /* ===== 1. 全站通用導覽列 (與 Index 一致) ===== */
+        header {
+            background: #ffffff;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .navbar {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 25px;
+        }
+        .logo a {
+            font-size: 26px;
+            font-weight: 800;
+            color: var(--ubot-blue);
+            text-decoration: none;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+        }
+        .logo a::before { content: "●"; color: var(--ubot-red); margin-right: 8px; }
+        
+        .menu { display: flex; list-style: none; margin: 0; padding: 0; }
+        .menu li { margin-left: 25px; }
+        .menu a { text-decoration: none; color: #555; font-weight: 600; font-size: 15px; transition: 0.3s; }
+        .menu a:hover { color: var(--ubot-red); }
+
+        /* ===== 2. 返回導覽列 ===== */
+        .back-nav { 
+            padding: 15px 25px; 
+            background: #f0f0f0; 
+            border-bottom: 1px solid var(--border-color);
+        }
+        .back-container { max-width: 1200px; margin: 0 auto; }
+        .back-btn { 
+            text-decoration: none; 
+            color: var(--ubot-blue); 
+            font-size: 14px; 
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            transition: 0.3s;
+        }
+        .back-btn:hover { color: var(--ubot-red); }
+
+        /* ===== 3. 主要內容佈局 ===== */
+        .detail-container {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 40px;
+            display: grid;
+            grid-template-columns: 380px 1fr;
+            gap: 80px;
+        }
+
+        /* 左側側欄 */
+        .profile-sidebar { position: sticky; top: 120px; }
+        .photo-wrapper {
+            padding: 15px;
+            background: #fff;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+        .main-photo {
+            width: 100%;
+            aspect-ratio: 3/4;
+            background-color: #eee;
+            /* 建議替換為許坤成教授真實照片路徑 */
+            background-image: url('https://api.dicebear.com/8.x/notionists-neutral/svg?seed=Hsu'); 
+            background-size: cover;
+            background-position: center;
+        }
+        .role-tag {
+            background: var(--ubot-blue);
+            color: #fff;
+            padding: 5px 15px;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            display: inline-block;
+            margin-bottom: 15px;
+            border-radius: 2px;
+        }
+        .sidebar-info {
+            border-left: 3px solid var(--ubot-gold);
+            padding-left: 20px;
+            font-size: 0.95rem;
+            color: #666;
+        }
+
+        /* 右側內文 */
+        .bio-content h1 { 
+            font-size: 3.2rem; 
+            margin: 0; 
+            letter-spacing: 8px; 
+            color: var(--ubot-blue); 
+            font-weight: 900;
+        }
+        .english-name {
+            letter-spacing: 6px; 
+            color: var(--ubot-gold); 
+            font-weight: bold;
+            margin-bottom: 40px;
+            font-size: 1.1rem;
+        }
+        .bio-section { margin-top: 60px; }
+        .bio-section h3 { 
+            font-size: 1.3rem; 
+            letter-spacing: 3px; 
+            color: var(--ubot-blue); 
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+        }
+        .bio-section h3 i { color: var(--ubot-red); margin-right: 15px; font-style: normal; }
+        .bio-list { list-style: none; padding: 0; margin: 0; }
+        .bio-list li { 
+            margin-bottom: 15px; 
+            color: #444; 
+            padding-left: 25px; 
+            position: relative; 
+            font-size: 1rem;
+        }
+        .bio-list li::before {
+            content: "◆"; 
+            position: absolute; 
+            left: 0; 
+            color: var(--ubot-gold);
+            font-size: 0.8rem;
+            top: 2px;
+        }
+
+        /* ===== 4. 代表作品區 ===== */
+        .artwork-section {
+            grid-column: 1 / span 2;
+            margin-top: 100px;
+            padding: 80px 0;
+            border-top: 1px solid var(--border-color);
+        }
+        .section-title-center { text-align: center; margin-bottom: 50px; }
+        .section-title-center h2 { font-size: 2rem; color: var(--ubot-blue); letter-spacing: 5px; }
+
+        .artwork-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+        .artwork-card {
+            text-decoration: none;
+            color: inherit;
+            background: #fff;
+            padding: 15px;
+            border: 1px solid var(--border-color);
+            transition: 0.4s;
+        }
+        .artwork-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            border-color: var(--ubot-blue);
+        }
+        .work-img { width: 100%; aspect-ratio: 1/1; background: #f5f5f5; margin-bottom: 15px; overflow: hidden; }
+        .work-img img { width: 100%; height: 100%; object-fit: cover; }
+        .work-title { text-align: center; font-size: 15px; font-weight: 700; color: var(--ubot-blue); margin: 10px 0 5px; }
+        .work-meta { text-align: center; font-size: 12px; color: #999; }
+
+        /* ===== 5. 頁尾 ===== */
+        footer {
+            background: #222;
+            color: #eee;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        @media (max-width: 950px) {
+            .detail-container { grid-template-columns: 1fr; padding: 0 20px; }
+            .profile-sidebar { position: static; width: 100%; max-width: 320px; margin: 0 auto 50px; }
+            .artwork-grid { grid-template-columns: repeat(2, 1fr); }
+            .bio-content h1 { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <nav class="navbar">
+        <div class="logo">
+            <a href="index.html">聯邦藝術中心</a>
+        </div>
+        <ul class="menu">
+            <li><a href="about.html">關於我們</a></li>
+            <li><a href="exhibitions.html">展覽動態</a></li>
+            <li><a href="awards.html">美術獎項</a></li>
+            <li><a href="artists.html" class="active">藝術家</a></li>
+            <li><a href="artworks.html">作品總覽</a></li>
+            <li><a href="visit.html">參觀資訊</a></li>
+            <li><a href="contact.html">聯絡我們</a></li>
+        </ul>
+    </nav>
+</header>
+
+<nav class="back-nav">
+    <div class="back-container">
+        <a href="artists.html" class="back-btn">← 返回藝術家列表</a>
+    </div>
+</nav>
+
+<div class="detail-container">
+    
+    <aside class="profile-sidebar">
+        <div class="photo-wrapper">
+            <div class="main-photo"></div>
+        </div>
+        <div class="role-tag">評審委員會召集人</div>
+        <div class="sidebar-info">
+            <p>聯邦美術獎 第一屆至第二十八屆<br>總召集人</p>
+        </div>
+    </aside>
+
+    <article class="bio-content">
+        <h1>許坤成</h1>
+        <div class="english-name">PROF. HSU KUN-CHENG</div>
+
+        <section class="bio-section">
+            <h3><i>01</i> EXPERIENCE / 學經歷</h3>
+            <ul class="bio-list">
+                <li>法國國立東方研究院美術史博士學位</li>
+                <li>文化大學專任教授 (1977-2016)</li>
+                <li>華岡藝術學校校長 (1994)</li>
+                <li>中國文化大學美術系主任兼所長</li>
+                <li>國立台灣藝術大學造形藝術研究所兼任教授</li>
+            </ul>
+        </section>
+
+        <section class="bio-section">
+            <h3><i>02</i> ACCOLADES / 藝術成就與榮譽</h3>
+            <ul class="bio-list">
+                <li>後立體派畫會榮譽理事長</li>
+                <li>榮獲文化部文協獎章 (2021)</li>
+                <li>漆畫學會理事長</li>
+                <li>國父紀念館中山國家畫廊個展 (1997)</li>
+            </ul>
+        </section>
+
+        <section class="bio-section">
+            <h3><i>03</i> PUBLIC SERVICE / 評審資歷</h3>
+            <ul class="bio-list">
+                <li>聯邦美術獎 歷屆評審委員會召集人</li>
+                <li>全國美術獎、文化部藝術家徵選 評審委員</li>
+                <li>國父紀念館審議委員會評議組委員</li>
+            </ul>
+        </section>
+    </article>
+
+    <div class="artwork-section">
+        <div class="section-title-center">
+            <h2>代表作品賞析 / SELECTED WORKS</h2>
+            <div style="width: 50px; height: 3px; background: var(--ubot-red); margin: 20px auto;"></div>
+        </div>
+        <div class="artwork-grid">
+            <a href="#" class="artwork-card">
+                <div class="work-img"><img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=400" alt="作品"></div>
+                <div class="work-title">白色系列 NO.10</div>
+                <div class="work-meta">2023 | 油彩 畫布</div>
+            </a>
+            <a href="#" class="artwork-card">
+                <div class="work-img"><img src="https://images.unsplash.com/photo-1582555172866-f73bb12a2ab3?w=400" alt="作品"></div>
+                <div class="work-title">白色系列 NO.27</div>
+                <div class="work-meta">2022 | 油彩 畫布</div>
+            </a>
+            <a href="#" class="artwork-card">
+                <div class="work-img"><img src="https://images.unsplash.com/photo-1549490349-8643362247b5?w=400" alt="作品"></div>
+                <div class="work-title">白色系列 NO.42</div>
+                <div class="work-meta">2023 | 油彩 畫布</div>
+            </a>
+            <a href="#" class="artwork-card">
+                <div class="work-img"><img src="https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?w=400" alt="作品"></div>
+                <div class="work-title">白色系列 NO.43</div>
+                <div class="work-meta">2024 | 油彩 畫布</div>
+            </a>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    <div class="footer-content">
+        <p>© 2026 聯邦藝術中心 Union Art Center</p>
+        <p>地址：台北市中山北路二段83號7樓 | 電話：(02)2536-9999</p>
+    </div>
+</footer>
+
+</body>
+</html>
