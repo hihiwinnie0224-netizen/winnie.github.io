@@ -109,3 +109,18 @@ body {
 .btn-map:hover { background: var(--ubot-gold); }
 
 footer { background: #333; color: white; padding: 40px 0; text-align: center; margin-top: 50px; }
+
+// 處理報名表單送出 (範例)
+function validateForm() {
+    alert("報名資料已暫存，請繼續上傳作品檔案。");
+    return false; // 防止網頁跳轉
+}
+
+// 如果有需要從其他頁面跳轉到特定分頁，可以解析 URL
+window.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const tab = urlParams.get('tab');
+    if (tab) {
+        showTab('tab-' + tab);
+    }
+});
