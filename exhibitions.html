@@ -12,20 +12,21 @@
             --ubot-sky-blue: #00A1E9;    /* 聯邦淺藍點綴 */
             --text-dark: #333333;
             --text-gray: #666666;
+            --border-color: #D1CDC4;
         }
 
         body {
             margin: 0;
-            font-family: "PingFang TC", "STHeitiTC-Light", "Microsoft JhengHei", sans-serif;
+            font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
             background-color: #f8fbfd;
             color: var(--text-dark);
-            line-height: 1.6;
+            line-height: 1.8;
         }
 
-        /* ===== 1. 導覽列 Navbar ===== */
+        /* ===== 1. 導覽列 Navbar (同步自關於頁面) ===== */
         header {
             background: #ffffff;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -50,41 +51,30 @@
             letter-spacing: 1px;
         }
 
-        .logo a span {
-            color: var(--ubot-red);
-            font-size: 28px;
-            margin-right: 5px;
+        /* 紅點裝飾 */
+        .logo a::before { 
+            content: ""; width: 8px; height: 8px; background: var(--ubot-red); 
+            border-radius: 50%; margin-right: 10px; 
         }
 
-        .menu {
-            display: flex;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-
-        .menu li { margin-left: 20px; }
-
+        .menu { display: flex; list-style: none; margin: 0; padding: 0; }
+        .menu li { margin-left: 15px; }
         .menu a {
             text-decoration: none;
-            color: var(--text-dark);
-            font-weight: 500;
-            font-size: 15px;
+            color: #666;
+            font-weight: 600;
+            font-size: 14px;
             transition: 0.3s;
-            padding: 8px 12px;
-            border-radius: 4px;
+            padding: 8px 10px;
         }
-
-        .menu a:hover, .menu a.active { 
-            color: var(--ubot-red); 
-            background: var(--ubot-light-blue);
-        }
+        
+        .menu a:hover, .menu a.active { color: var(--ubot-red); }
 
         /* ===== 2. 頁面 Banner ===== */
         .page-banner {
             width: 100%;
-            height: 300px;
-            background: linear-gradient(rgba(0,51,102,0.7), rgba(0,51,102,0.5)),
+            height: 350px; /* 增加高度以符合關於頁面感 */
+            background: linear-gradient(rgba(0,51,102,0.6), rgba(0,51,102,0.6)),
                         url('https://images.unsplash.com/photo-1531050171669-70c47aca81b9?auto=format&fit=crop&w=1600&q=80');
             background-size: cover;
             background-position: center;
@@ -100,20 +90,21 @@
             font-size: 42px; 
             letter-spacing: 6px; 
             margin: 0; 
-            font-weight: 700;
+            font-weight: 900;
         }
 
         .page-banner p { 
             font-size: 16px; 
-            letter-spacing: 4px; 
+            letter-spacing: 3px; 
             margin-top: 10px; 
             opacity: 0.9;
+            text-transform: uppercase;
         }
 
         /* ===== 3. 主內容區 ===== */
         .container {
             max-width: 1200px;
-            margin: -40px auto 100px;
+            margin: -60px auto 100px; /* 稍微向上挪與關於頁面一致 */
             padding: 0 20px;
             position: relative;
             z-index: 10;
@@ -129,17 +120,18 @@
             width: 100%;
             max-width: 600px;
             padding: 18px 30px;
-            border: none;
+            border: 1px solid var(--border-color);
             border-radius: 50px;
             font-size: 16px;
             transition: 0.3s;
             outline: none;
-            box-shadow: 0 10px 25px rgba(0,51,102,0.1);
+            box-shadow: 0 10px 25px rgba(0,51,102,0.05);
         }
 
         .search-input:focus {
-            box-shadow: 0 10px 30px rgba(0,161,233,0.25);
+            box-shadow: 0 10px 30px rgba(0,161,233,0.15);
             transform: scale(1.02);
+            border-color: var(--ubot-sky-blue);
         }
 
         .ex-grid {
@@ -236,7 +228,7 @@
             pointer-events: none;
         }
 
-        /* ===== 4. 頁尾 Footer ===== */
+        /* ===== 4. 頁尾 Footer (與關於頁面一致) ===== */
         footer {
             background: var(--ubot-light-blue);
             color: var(--ubot-blue);
@@ -287,8 +279,8 @@
             <a href="index.html">聯邦藝術中心</a>
         </div>
         <ul class="menu">
-            <li><a href="about.html" class="active">關於我們</a></li>
-            <li><a href="exhibitions.html">展覽動態</a></li>
+            <li><a href="about.html">關於我們</a></li>
+            <li><a href="exhibitions.html" class="active">展覽動態</a></li>
             <li><a href="awards.html">美術獎項</a></li>
             <li><a href="artists.html">藝術家</a></li>
             <li><a href="artworks.html">作品總覽</a></li>
@@ -323,7 +315,7 @@
             <span class="ex-date">03.06 - 03.17</span>
             <div class="ex-location">高雄市文化中心</div>
             <div class="ex-address">高雄市苓雅區五福一路67號</div>
-            <a href="https://www.google.com/maps/search/?api=1&query=高雄市文化中心" target="_blank" class="btn-map">📍 導航前往</a>
+            <a href="https://maps.google.com" target="_blank" class="btn-map">📍 導航前往</a>
         </div>
 
         <div class="ex-card" data-info="台中 大墩文化中心">
@@ -331,82 +323,9 @@
             <span class="ex-date">03.21 - 04.01</span>
             <div class="ex-location">大墩文化中心</div>
             <div class="ex-address">臺中市西區英才路600號</div>
-            <a href="https://www.google.com/maps/search/?api=1&query=大墩文化中心" target="_blank" class="btn-map">📍 導航前往</a>
+            <a href="https://maps.google.com" target="_blank" class="btn-map">📍 導航前往</a>
         </div>
-
-        <div class="ex-card" data-info="南投 虎山藝術館">
-            <span class="status-tag">預計展出</span>
-            <span class="ex-date">04.11 - 05.06</span>
-            <div class="ex-location">虎山藝術館</div>
-            <div class="ex-address">南投縣南投市環山路95巷26號</div>
-            <a href="https://www.google.com/maps/search/?api=1&query=虎山藝術館" target="_blank" class="btn-map">📍 導航前往</a>
         </div>
-
-        <div class="ex-card" data-info="苗栗 苗栗縣政府文化觀光局">
-            <span class="status-tag">預計展出</span>
-            <span class="ex-date">05.20 - 06.07</span>
-            <div class="ex-location">苗栗縣文化觀光局</div>
-            <div class="ex-address">苗栗縣苗栗市自治路50號</div>
-            <a href="https://www.google.com/maps/search/?api=1&query=苗栗縣政府文化觀光局" target="_blank" class="btn-map">📍 導航前往</a>
-        </div>
-
-        <div class="ex-card" data-info="彰化 彰化縣立美術館">
-            <span class="status-tag">預計展出</span>
-            <span class="ex-date">06.16 - 07.05</span>
-            <div class="ex-location">彰化縣立美術館</div>
-            <div class="ex-address">彰化市卦山路3號</div>
-            <a href="https://www.google.com/maps/search/?api=1&query=彰化縣立美術館" target="_blank" class="btn-map">📍 導航前往</a>
-        </div>
-
-        <div class="ex-card" data-info="新北 蘆洲 林建生紀念圖書館">
-            <span class="status-tag">預計展出</span>
-            <span class="ex-date">07.08 - 07.21</span>
-            <div class="ex-location">林建生紀念圖書館</div>
-            <div class="ex-address">新北市蘆洲區三民路178號</div>
-            <a href="https://www.google.com/maps/search/?api=1&query=林建生紀念圖書館" target="_blank" class="btn-map">📍 導航前往</a>
-        </div>
-
-        <div class="ex-card" data-info="台南 新營文化中心">
-            <span class="status-tag">預計展出</span>
-            <span class="ex-date">07.24 - 08.16</span>
-            <div class="ex-location">新營文化中心</div>
-            <div class="ex-address">臺南市新營區中正路23號</div>
-            <a href="https://www.google.com/maps/search/?api=1&query=新營文化中心" target="_blank" class="btn-map">📍 導航前往</a>
-        </div>
-
-        <div class="ex-card" data-info="台東 臺東文化處藝文中心">
-            <span class="status-tag">預計展出</span>
-            <span class="ex-date">09.01 - 09.27</span>
-            <div class="ex-location">臺東文化處藝文中心</div>
-            <div class="ex-address">臺東市南京路25號</div>
-            <a href="https://www.google.com/maps/search/?api=1&query=臺東文化處藝文中心" target="_blank" class="btn-map">📍 導航前往</a>
-        </div>
-
-        <div class="ex-card" data-info="台北 北投 國防美術館">
-            <span class="status-tag">預計展出</span>
-            <span class="ex-date">10.02 - 10.22</span>
-            <div class="ex-location">國防美術館</div>
-            <div class="ex-address">臺北市北投區中央北路二段70號</div>
-            <a href="https://www.google.com/maps/search/?api=1&query=國防美術館" target="_blank" class="btn-map">📍 導航前往</a>
-        </div>
-
-        <div class="ex-card" data-info="基隆 基隆美術館">
-            <span class="status-tag">預計展出</span>
-            <span class="ex-date">10.28 - 11.05</span>
-            <div class="ex-location">基隆美術館</div>
-            <div class="ex-address">基隆市信一路181號</div>
-            <a href="https://www.google.com/maps/search/?api=1&query=基隆美術館" target="_blank" class="btn-map">📍 導航前往</a>
-        </div>
-
-        <div class="ex-card" data-info="屏東 屏東演藝廳">
-            <span class="status-tag">預計展出</span>
-            <span class="ex-date">11.21 - 12.20</span>
-            <div class="ex-location">屏東演藝廳</div>
-            <div class="ex-address">屏東市民生路4之17號</div>
-            <a href="https://www.google.com/maps/search/?api=1&query=屏東演藝廳" target="_blank" class="btn-map">📍 導航前往</a>
-        </div>
-
-    </div>
 </div>
 
 <footer>
