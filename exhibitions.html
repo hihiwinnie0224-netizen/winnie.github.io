@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>展覽動態｜聯邦藝術中心</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header>
+    <nav class="navbar">
+        <div class="logo"><a href="index.html">聯邦藝術中心</a></div>
+        <ul class="menu">
+            <li><a href="about.html">關於我們</a></li>
+            <li><a href="exhibitions.html" class="active">展覽動態</a></li>
+            <li><a href="awards.html">美術獎項</a></li>
+            <li><a href="artists.html">藝術家</a></li>
+            <li><a href="artworks.html">作品總覽</a></li>
+            <li><a href="visit.html">參觀資訊</a></li>
+            <li><a href="contact.html">聯絡我們</a></li>
+        </ul>
+    </nav>
+</header>
+
+<div class="hero-banner"></div>
+
+<div class="container main-content">
+    <div class="search-section">
+        <input type="text" id="searchInput" class="search-input" placeholder="請輸入地點或城市搜尋展覽場次" onkeyup="searchEx()">
+    </div>
+
+    <div class="ex-grid" id="exGrid">
+        
+        <div class="ex-card past" data-info="台北 聯邦銀行總行">
+            <span class="status-tag">展覽已結束</span>
+            <span class="ex-date">01/06 - 02/13</span>
+            <div class="ex-location">聯邦銀行總行</div>
+            <div class="ex-address">臺北市松山區民生東路三段109號</div>
+            <a href="#" class="btn-map">結束展出</a>
+        </div>
+
+        <div class="ex-card upcoming-soon" data-info="高雄 高雄市文化中心">
+            <span class="status-tag">下一站：即將開幕</span>
+            <span class="ex-date">03/06 - 03/17</span>
+            <div class="ex-location">高雄市文化中心</div>
+            <div class="ex-address">高雄市苓雅區五福一路67號</div>
+            <a href="https://www.google.com/maps/search/?api=1&query=高雄市文化中心" target="_blank" class="btn-map">📍 導航前往</a>
+        </div>
+
+        <div class="ex-card" data-info="台中 大墩文化中心">
+            <span class="status-tag">預計展出</span>
+            <span class="ex-date">03/21 - 04/01</span>
+            <div class="ex-location">大墩文化中心</div>
+            <div class="ex-address">臺中市西區英才路600號</div>
+            <a href="https://www.google.com/maps/search/?api=1&query=大墩文化中心" target="_blank" class="btn-map">📍 導航前往</a>
+        </div>
+
+        <div class="ex-card" data-info="南投 虎山藝術館">
+            <span class="status-tag">預計展出</span>
+            <span class="ex-date">04/11 - 05/06</span>
+            <div class="ex-location">虎山藝術館</div>
+            <div class="ex-address">南投縣南投市環山路95巷26號</div>
+            <a href="https://www.google.com/maps/search/?api=1&query=虎山藝術館" target="_blank" class="btn-map">📍 導航前往</a>
+        </div>
+
+        <div class="ex-card" data-info="苗栗 苗栗縣政府文化觀光局">
+            <span class="status-tag">預計展出</span>
+            <span class="ex-date">05/20 - 06/07</span>
+            <div class="ex-location">苗栗縣政府文化觀光局</div>
+            <div class="ex-address">苗栗縣苗栗市自治路50號</div>
+            <a href="https://www.google.com/maps/search/?api=1&query=苗栗縣政府文化觀光局" target="_blank" class="btn-map">📍 導航前往</a>
+        </div>
+
+        <div class="ex-card" data-info="彰化 彰化縣立美術館">
+            <span class="status-tag">預計展出</span>
+            <span class="ex-date">06/16 - 07/05</span>
+            <div class="ex-location">彰化縣立美術館</div>
+            <div class="ex-address">彰化市卦山路3號</div>
+            <a href="https://www.google.com/maps/search/?api=1&query=彰化縣立美術館" target="_blank" class="btn-map">📍 導航前往</a>
+        </div>
+
+        <div class="ex-card" data-info="新北 蘆洲 林建生紀念圖書館">
+            <span class="status-tag">預計展出</span>
+            <span class="ex-date">07/08 - 07/21</span>
+            <div class="ex-location">林建生紀念圖書館</div>
+            <div class="ex-address">新北市蘆洲區三民路178號</div>
+            <a href="https://www.google.com/maps/search/?api=1&query=林建生紀念圖書館" target="_blank" class="btn-map">📍 導航前往</a>
+        </div>
+
+        <div class="ex-card" data-info="台南 新營文化中心">
+            <span class="status-tag">預計展出</span>
+            <span class="ex-date">07/24 - 08/16</span>
+            <div class="ex-location">新營文化中心</div>
+            <div class="ex-address">臺南市新營區中正路23號</div>
+            <a href="https://www.google.com/maps/search/?api=1&query=新營文化中心" target="_blank" class="btn-map">📍 導航前往</a>
+        </div>
+
+        <div class="ex-card" data-info="台東 臺東文化處藝文中心">
+            <span class="status-tag">預計展出</span>
+            <span class="ex-date">09/01 - 09/27</span>
+            <div class="ex-location">臺東文化處藝文中心</div>
+            <div class="ex-address">臺東市南京路25號</div>
+            <a href="https://www.google.com/maps/search/?api=1&query=臺東文化處藝文中心" target="_blank" class="btn-map">📍 導航前往</a>
+        </div>
+
+        <div class="ex-card" data-info="台北 北投 國防美術館">
+            <span class="status-tag">預計展出</span>
+            <span class="ex-date">10/02 - 10/22</span>
+            <div class="ex-location">國防美術館</div>
+            <div class="ex-address">臺北市北投區中央北路二段70號</div>
+            <a href="https://www.google.com/maps/search/?api=1&query=國防美術館" target="_blank" class="btn-map">📍 導航前往</a>
+        </div>
+
+        <div class="ex-card" data-info="基隆 基隆美術館">
+            <span class="status-tag">預計展出</span>
+            <span class="ex-date">10/28 - 11/05</span>
+            <div class="ex-location">基隆美術館</div>
+            <div class="ex-address">基隆市信一路181號</div>
+            <a href="https://www.google.com/maps/search/?api=1&query=基隆美術館" target="_blank" class="btn-map">📍 導航前往</a>
+        </div>
+
+        <div class="ex-card" data-info="屏東 屏東演藝廳">
+            <span class="status-tag">預計展出</span>
+            <span class="ex-date">11/21 - 12/20</span>
+            <div class="ex-location">屏東演藝廳</div>
+            <div class="ex-address">屏東市民生路4之17號</div>
+            <a href="https://www.google.com/maps/search/?api=1&query=屏東演藝廳" target="_blank" class="btn-map">📍 導航前往</a>
+        </div>
+
+    </div>
+</div>
+
+<footer>
+    <div class="footer-content">
+        <p>© 2026 聯邦藝術中心 Union Art Center</p>
+        <p>地址：台北市中山北路二段83號7樓 | 電話：(02)2536-9999</p>
+    </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
