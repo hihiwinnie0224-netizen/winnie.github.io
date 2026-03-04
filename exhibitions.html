@@ -3,8 +3,211 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>展覽動態｜聯邦藝術中心</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>展覽動態｜聯邦藝術中心 Union Art Center</title>
+    <style>
+        :root {
+            --ubot-red: #E60012;         /* 聯邦紅 */
+            --ubot-blue: #003366;        /* 聯邦深藍 */
+            --ubot-light-blue: #EAF6FC;  /* 聯邦淺藍底色 */
+            --ubot-sky-blue: #00A1E9;    /* 聯邦淺藍 */
+            --text-main: #222222;
+            --text-sub: #666666;
+            --bg-gray: #f4f7f9;
+        }
+
+        body {
+            margin: 0;
+            font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+            background-color: var(--bg-gray);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        /* ===== 導覽列 ===== */
+        header {
+            background: #ffffff;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 25px;
+        }
+
+        .logo a {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--ubot-blue);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo a::before { content: "●"; color: var(--ubot-red); margin-right: 8px; }
+
+        .menu { display: flex; list-style: none; margin: 0; padding: 0; }
+        .menu li { margin-left: 20px; }
+        .menu a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 500;
+            font-size: 15px;
+            transition: 0.3s;
+        }
+        .menu a:hover, .menu a.active { color: var(--ubot-red); }
+
+        /* ===== Banner ===== */
+        .hero-banner {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(rgba(0,51,102,0.8), rgba(0,51,102,0.6)), 
+                        url('https://images.unsplash.com/photo-1531050171669-70c47aca81b9?auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+
+        .hero-banner h1 { font-size: 36px; letter-spacing: 4px; margin: 0; }
+        .hero-banner p { font-size: 16px; opacity: 0.8; margin-top: 10px; }
+
+        /* ===== 主內容區 ===== */
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        /* 搜尋框 */
+        .search-section {
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .search-input {
+            width: 100%;
+            max-width: 500px;
+            padding: 15px 25px;
+            border: 2px solid #ddd;
+            border-radius: 50px;
+            font-size: 16px;
+            transition: 0.3s;
+            outline: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .search-input:focus {
+            border-color: var(--ubot-sky-blue);
+            box-shadow: 0 4px 15px rgba(0,161,233,0.2);
+        }
+
+        /* 展覽網格 */
+        .ex-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .ex-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            transition: 0.4s;
+            position: relative;
+            border-top: 5px solid var(--ubot-blue);
+        }
+
+        .ex-card:hover { transform: translateY(-10px); box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
+
+        /* 狀態標籤 */
+        .status-tag {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            background: var(--ubot-blue);
+            color: white;
+        }
+
+        /* 顏色區分 */
+        .ex-card.past { border-top-color: #ccc; opacity: 0.8; }
+        .ex-card.past .status-tag { background: #999; }
+        .ex-card.upcoming-soon { border-top-color: var(--ubot-red); }
+        .ex-card.upcoming-soon .status-tag { background: var(--ubot-red); }
+
+        .ex-date {
+            display: block;
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--ubot-blue);
+            margin-bottom: 10px;
+        }
+
+        .ex-location {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .ex-address {
+            font-size: 14px;
+            color: var(--text-sub);
+            margin-bottom: 25px;
+            min-height: 40px;
+        }
+
+        .btn-map {
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+            padding: 12px 0;
+            background: var(--ubot-light-blue);
+            color: var(--ubot-blue);
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 700;
+            transition: 0.3s;
+        }
+
+        .btn-map:hover { background: var(--ubot-blue); color: white; }
+        .past .btn-map { background: #eee; color: #aaa; cursor: default; }
+
+        /* ===== Footer (聯邦淺藍) ===== */
+        footer {
+            background: var(--ubot-light-blue);
+            color: var(--ubot-blue);
+            padding: 60px 20px 30px;
+            margin-top: 80px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-content p { margin: 8px 0; font-size: 14px; }
+
+        @media (max-width: 768px) {
+            .ex-grid { grid-template-columns: 1fr; }
+            .hero-banner h1 { font-size: 28px; }
+        }
+    </style>
 </head>
 <body>
 
@@ -23,11 +226,14 @@
     </nav>
 </header>
 
-<div class="hero-banner"></div>
+<div class="hero-banner">
+    <h1>展覽動態</h1>
+    <p>全國巡迴展出資訊</p>
+</div>
 
 <div class="container main-content">
     <div class="search-section">
-        <input type="text" id="searchInput" class="search-input" placeholder="請輸入地點或城市搜尋展覽場次" onkeyup="searchEx()">
+        <input type="text" id="searchInput" class="search-input" placeholder="🔍 輸入城市或館名搜尋展覽 (如：台北、高雄)" onkeyup="searchEx()">
     </div>
 
     <div class="ex-grid" id="exGrid">
@@ -37,7 +243,7 @@
             <span class="ex-date">01/06 - 02/13</span>
             <div class="ex-location">聯邦銀行總行</div>
             <div class="ex-address">臺北市松山區民生東路三段109號</div>
-            <a href="#" class="btn-map">結束展出</a>
+            <span class="btn-map">結束展出</span>
         </div>
 
         <div class="ex-card upcoming-soon" data-info="高雄 高雄市文化中心">
@@ -53,7 +259,7 @@
             <span class="ex-date">03/21 - 04/01</span>
             <div class="ex-location">大墩文化中心</div>
             <div class="ex-address">臺中市西區英才路600號</div>
-            <a href="https://www.google.com/maps/search/?api=1&query=大墩文化中心" target="_blank" class="btn-map">📍 導航前往</a>
+            <a href="https://www.google.com/maps/search/?api=1&query=台中大墩文化中心" target="_blank" class="btn-map">📍 導航前往</a>
         </div>
 
         <div class="ex-card" data-info="南投 虎山藝術館">
@@ -61,13 +267,13 @@
             <span class="ex-date">04/11 - 05/06</span>
             <div class="ex-location">虎山藝術館</div>
             <div class="ex-address">南投縣南投市環山路95巷26號</div>
-            <a href="https://www.google.com/maps/search/?api=1&query=虎山藝術館" target="_blank" class="btn-map">📍 導航前往</a>
+            <a href="https://www.google.com/maps/search/?api=1&query=南投虎山藝術館" target="_blank" class="btn-map">📍 導航前往</a>
         </div>
 
         <div class="ex-card" data-info="苗栗 苗栗縣政府文化觀光局">
             <span class="status-tag">預計展出</span>
             <span class="ex-date">05/20 - 06/07</span>
-            <div class="ex-location">苗栗縣政府文化觀光局</div>
+            <div class="ex-location">苗栗縣文化觀光局</div>
             <div class="ex-address">苗栗縣苗栗市自治路50號</div>
             <a href="https://www.google.com/maps/search/?api=1&query=苗栗縣政府文化觀光局" target="_blank" class="btn-map">📍 導航前往</a>
         </div>
@@ -96,30 +302,6 @@
             <a href="https://www.google.com/maps/search/?api=1&query=新營文化中心" target="_blank" class="btn-map">📍 導航前往</a>
         </div>
 
-        <div class="ex-card" data-info="台東 臺東文化處藝文中心">
-            <span class="status-tag">預計展出</span>
-            <span class="ex-date">09/01 - 09/27</span>
-            <div class="ex-location">臺東文化處藝文中心</div>
-            <div class="ex-address">臺東市南京路25號</div>
-            <a href="https://www.google.com/maps/search/?api=1&query=臺東文化處藝文中心" target="_blank" class="btn-map">📍 導航前往</a>
-        </div>
-
-        <div class="ex-card" data-info="台北 北投 國防美術館">
-            <span class="status-tag">預計展出</span>
-            <span class="ex-date">10/02 - 10/22</span>
-            <div class="ex-location">國防美術館</div>
-            <div class="ex-address">臺北市北投區中央北路二段70號</div>
-            <a href="https://www.google.com/maps/search/?api=1&query=國防美術館" target="_blank" class="btn-map">📍 導航前往</a>
-        </div>
-
-        <div class="ex-card" data-info="基隆 基隆美術館">
-            <span class="status-tag">預計展出</span>
-            <span class="ex-date">10/28 - 11/05</span>
-            <div class="ex-location">基隆美術館</div>
-            <div class="ex-address">基隆市信一路181號</div>
-            <a href="https://www.google.com/maps/search/?api=1&query=基隆美術館" target="_blank" class="btn-map">📍 導航前往</a>
-        </div>
-
         <div class="ex-card" data-info="屏東 屏東演藝廳">
             <span class="status-tag">預計展出</span>
             <span class="ex-date">11/21 - 12/20</span>
@@ -135,9 +317,24 @@
     <div class="footer-content">
         <p>© 2026 聯邦藝術中心 Union Art Center</p>
         <p>地址：台北市中山北路二段83號7樓 | 電話：(02)2536-9999</p>
+        <p style="opacity: 0.6; font-size: 12px;">開放時間：依各展覽場館公告為準</p>
     </div>
 </footer>
 
-<script src="js/main.js"></script>
+<script>
+    function searchEx() {
+        let input = document.getElementById('searchInput').value.toLowerCase();
+        let cards = document.getElementsByClassName('ex-card');
+        
+        for (let i = 0; i < cards.length; i++) {
+            let info = cards[i].getAttribute('data-info').toLowerCase();
+            if (info.includes(input)) {
+                cards[i].style.display = "";
+            } else {
+                cards[i].style.display = "none";
+            }
+        }
+    }
+</script>
 </body>
 </html>
