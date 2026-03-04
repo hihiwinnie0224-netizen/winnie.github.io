@@ -4,191 +4,158 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>參觀資訊｜聯邦藝術中心 Union Art Center</title>
-    <link rel="stylesheet" href="css/style.css">
-    
     <style>
         :root {
-            --ubot-blue: #003366;     /* 聯邦深藍 */
-            --ubot-red: #E60012;      /* 聯邦紅 */
-            --ubot-gold: #B89130;     /* 典藏金 */
-            --soft-sage: #E8EDE7;     /* 稍亮一點的鼠尾草綠 */
-            --paper-warm: #F4F1ED;    /* 更細緻的畫紙色 */
+            --ubot-blue: #003366;
+            --ubot-red: #E60012;
+            --ubot-gold: #B89130;
+            --soft-sage: #E8EDE7;
+            --paper-warm: #F4F1ED;
             --card-bg: #ffffff;
             --text-main: #333333;
             --border-color: #D1CDC4;
-            --transition: all 0.5s cubic-bezier(0.2, 1, 0.3, 1);
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
 
         body { 
-            font-family: "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif; 
+            font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif; 
             margin: 0; padding: 0; 
             background-color: var(--paper-warm); 
             color: var(--text-main); 
-            line-height: 1.8; 
+            line-height: 1.8;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* ===== 1. 全站通用導覽列 (同步 Logo 風格) ===== */
+        /* ===== 1. Navbar ===== */
         header {
             background: #ffffff;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+            position: sticky; top: 0; z-index: 1000;
         }
         .navbar {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 18px 25px;
+            max-width: 1200px; margin: 0 auto;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 25px;
         }
         .logo a {
-            font-size: 26px;
-            font-weight: 800;
-            color: var(--ubot-blue);
-            text-decoration: none;
-            letter-spacing: 2px;
-            display: flex;
-            align-items: center;
+            font-size: 24px; font-weight: 800; color: var(--ubot-blue);
+            text-decoration: none; display: flex; align-items: center; letter-spacing: 1px;
         }
-        .logo a::before { content: "●"; color: var(--ubot-red); margin-right: 8px; }
-        .menu { display: flex; list-style: none; margin: 0; padding: 0; }
-        .menu li { margin-left: 25px; }
-        .menu a { text-decoration: none; color: #555; font-weight: 600; font-size: 15px; transition: 0.3s; }
+        .logo a::before { content: ""; width: 8px; height: 8px; background: var(--ubot-red); border-radius: 50%; margin-right: 10px; }
+        
+        .menu { display: flex; list-style: none; margin: 0; }
+        .menu li { margin-left: 20px; }
+        .menu a { text-decoration: none; color: #666; font-weight: 600; font-size: 14px; transition: 0.3s; }
         .menu a:hover, .menu a.active { color: var(--ubot-red); }
 
-        /* ===== 2. 參觀資訊容器 ===== */
-        .visit-container { max-width: 1100px; margin: 60px auto 100px; padding: 0 20px; }
+        /* ===== 2. 參觀資訊主體 ===== */
+        .visit-container { max-width: 1100px; margin: 60px auto 100px; padding: 0 25px; }
         
-        /* 頂部引言感標題 */
         .section-header { text-align: center; margin-bottom: 80px; }
         .section-header h2 {
-            font-size: 2.8rem;
-            letter-spacing: 12px;
-            color: var(--ubot-blue);
-            margin-bottom: 15px;
-            font-weight: 900;
+            font-size: 2.6rem; letter-spacing: 10px; color: var(--ubot-blue);
+            margin-bottom: 10px; font-weight: 900;
         }
         .section-header p { 
-            color: var(--ubot-gold); 
-            letter-spacing: 5px; 
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            color: var(--ubot-gold); letter-spacing: 4px; font-weight: bold; font-size: 0.9rem;
+            display: flex; align-items: center; justify-content: center; text-transform: uppercase;
         }
         .section-header p::before, .section-header p::after {
-            content: ""; width: 30px; height: 1px; background: var(--ubot-gold); margin: 0 15px;
+            content: ""; width: 25px; height: 1px; background: var(--ubot-gold); margin: 0 15px;
         }
 
         /* 網格系統 */
         .visit-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-bottom: 30px;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 30px;
         }
 
         .info-card {
-            background: var(--card-bg);
-            padding: 50px;
+            background: var(--card-bg); padding: 50px;
             border: 1px solid var(--border-color);
             transition: var(--transition);
-            position: relative;
-            overflow: hidden;
+            display: flex; flex-direction: column;
         }
         .info-card.sage-theme {
-            background: var(--soft-sage);
-            border-top: 4px solid var(--ubot-blue);
+            background: var(--soft-sage); border-top: 4px solid var(--ubot-blue);
         }
 
         h3 { 
-            font-size: 1.2rem; 
-            letter-spacing: 4px;
-            margin: 0 0 35px 0;
-            display: flex;
-            align-items: center;
-            color: var(--ubot-blue);
-            font-weight: bold;
+            font-size: 1.1rem; letter-spacing: 3px; margin: 0 0 30px 0;
+            color: var(--ubot-blue); font-weight: 800; border-bottom: 1px solid rgba(0,0,0,0.05);
+            padding-bottom: 15px;
         }
-        h3::after { content: ""; flex: 1; height: 1px; background: rgba(0, 51, 102, 0.1); margin-left: 20px; }
 
         .time-item { 
             display: flex; justify-content: space-between; 
-            padding: 18px 0; border-bottom: 1px solid rgba(0,0,0,0.06);
-            font-size: 1rem;
+            padding: 15px 0; border-bottom: 1px solid rgba(0,0,0,0.04);
+            font-size: 15px;
         }
         
-        /* 呼吸燈效果 */
         .status-open { 
+            align-self: flex-start; margin-top: auto; padding: 12px 20px;
+            background: #fff; color: #2e7d32; font-size: 12px; font-weight: bold;
+            border: 1px solid #c8e6c9; letter-spacing: 1px; border-radius: 2px;
             display: inline-flex; align-items: center;
-            margin-top: 40px; padding: 10px 20px;
-            background: #fff;
-            color: #2e7d32; font-size: 13px; font-weight: bold;
-            border: 1px solid #c8e6c9;
-            letter-spacing: 1px;
         }
         .status-open::before {
             content: ""; width: 8px; height: 8px; background: #27ae60; border-radius: 50%;
             margin-right: 12px; animation: pulse 2s infinite;
         }
 
-        @keyframes pulse { 0% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.5); opacity: 0.4; } 100% { transform: scale(1); opacity: 1; } }
+        @keyframes pulse { 
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(39, 174, 96, 0.7); }
+            70% { transform: scale(1.2); box-shadow: 0 0 0 10px rgba(39, 174, 96, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(39, 174, 96, 0); }
+        }
 
-        /* 交通資訊區塊 */
+        /* 交通與地圖區塊 */
         .location-card {
-            background: var(--card-bg);
-            margin-bottom: 30px;
-            display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
-            border: 1px solid var(--border-color);
+            background: var(--card-bg); margin-bottom: 30px;
+            display: grid; grid-template-columns: 1.3fr 0.7fr;
+            border: 1px solid var(--border-color); overflow: hidden;
         }
         .map-container {
-            width: 100%; height: 500px; 
-            background: #eee;
-            filter: grayscale(0.2) contrast(0.9);
+            width: 100%; height: 500px; background: #f0f0f0;
+            filter: grayscale(0.3); transition: 0.5s;
         }
-        .transport-info { padding: 50px; }
-        .transport-info h3::after { display: none; }
-        .transport-info .item { margin-bottom: 30px; }
+        .map-container:hover { filter: grayscale(0); }
+        
+        .transport-info { padding: 50px; background: #fff; }
+        .transport-info .item { margin-bottom: 35px; }
         .transport-info strong { 
-            color: var(--ubot-blue); font-size: 0.95rem; 
-            display: flex; align-items: center; margin-bottom: 8px; letter-spacing: 1px;
+            color: var(--ubot-blue); font-size: 0.9rem; letter-spacing: 1px;
+            display: flex; align-items: center; margin-bottom: 10px; font-weight: 800;
         }
-        .transport-info strong::before { content: "•"; color: var(--ubot-red); margin-right: 8px; font-size: 1.2rem; }
-        .transport-info p { margin: 0; color: #666; font-size: 0.95rem; padding-left: 18px; }
+        .transport-info strong::before { 
+            content: ""; width: 6px; height: 6px; background: var(--ubot-red); 
+            margin-right: 12px; border-radius: 50%;
+        }
+        .transport-info p { margin: 0; color: #666; font-size: 0.9rem; padding-left: 18px; }
 
-        /* 摺疊面板 */
+        /* 手風琴 */
         .accordion { margin-top: 60px; }
-        .acc-item { margin-bottom: 15px; background: var(--card-bg); border: 1px solid var(--border-color); }
+        .acc-item { margin-bottom: 15px; background: #fff; border: 1px solid var(--border-color); border-radius: 2px; }
         .acc-btn {
-            width: 100%; padding: 25px 35px;
-            text-align: left; background: none; border: none;
-            cursor: pointer; font-size: 1.1rem; font-weight: bold;
+            width: 100%; padding: 25px 35px; text-align: left; background: none; border: none;
+            cursor: pointer; font-size: 1rem; font-weight: 800; color: var(--ubot-blue);
             display: flex; justify-content: space-between; align-items: center;
-            color: var(--ubot-blue);
-            transition: 0.3s;
         }
-        .acc-btn:hover { background: #fafafa; }
-        .acc-btn span { font-size: 20px; color: var(--ubot-gold); transition: 0.3s; }
-
-        .acc-content { padding: 0 35px; max-height: 0; overflow: hidden; transition: max-height 0.5s cubic-bezier(0, 1, 0, 1); }
-        .acc-inner { padding-bottom: 35px; color: #555; font-size: 0.95rem; border-top: 1px solid #f0f0f0; padding-top: 20px; }
-
-        /* ===== 3. 頁尾 Footer ===== */
-        footer {
-            background: #222;
-            color: #eee;
-            padding: 60px 20px;
-            text-align: center;
+        .acc-btn .icon { 
+            font-size: 14px; color: var(--ubot-gold); transition: transform 0.4s;
+            width: 24px; height: 24px; border: 1px solid var(--border-color);
+            display: flex; align-items: center; justify-content: center; border-radius: 50%;
         }
+
+        .acc-content { padding: 0 35px; max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; }
+        .acc-inner { padding-bottom: 35px; color: #666; font-size: 0.9rem; border-top: 1px solid #f5f5f5; padding-top: 25px; }
+
+        /* ===== 3. Footer ===== */
+        footer { background: #1a1a1a; color: #666; padding: 60px 20px; text-align: center; font-size: 13px; }
 
         @media (max-width: 900px) {
-            .navbar { flex-direction: column; padding: 15px; }
-            .menu { margin-top: 15px; }
             .visit-grid, .location-card { grid-template-columns: 1fr; }
-            .map-container { height: 300px; }
+            .transport-info { padding: 30px; }
+            .map-container { height: 350px; }
         }
     </style>
 </head>
@@ -196,14 +163,9 @@
 
 <header>
     <nav class="navbar">
-        <div class="logo">
-            <a href="index.html">聯邦藝術中心</a>
-        </div>
+        <div class="logo"><a href="index.html">聯邦藝術中心</a></div>
         <ul class="menu">
             <li><a href="about.html">關於我們</a></li>
-            <li><a href="exhibitions.html">展覽動態</a></li>
-            <li><a href="awards.html">美術獎項</a></li>
-            <li><a href="artists.html">藝術家</a></li>
             <li><a href="artworks.html">作品總覽</a></li>
             <li><a href="visit.html" class="active">參觀資訊</a></li>
             <li><a href="contact.html">聯絡我們</a></li>
@@ -214,29 +176,29 @@
 <div class="visit-container">
     <header class="section-header">
         <h2>VISIT US</h2>
-        <p>參觀與交通資訊</p>
+        <p>參觀與交通指引</p>
     </header>
     
     <div class="visit-grid">
         <div class="info-card sage-theme">
-            <h3>OPENING HOURS</h3>
-            <div class="time-item"><span>週二至週日</span> <span>09:00 - 17:00</span></div>
-            <div class="time-item"><span>週一與國定假日</span> <span style="color:var(--ubot-red); font-weight:bold;">休館</span></div>
-            <p style="font-size: 13px; color: #888; margin-top: 35px; font-style: italic;">※ 閉館前 30 分鐘停止現場取票與入場</p>
+            <h3>開放時間 / OPENING HOURS</h3>
+            <div class="time-item"><span>週二至週日</span> <strong>09:00 - 17:00</strong></div>
+            <div class="time-item"><span>週一與國定假日</span> <span style="color:var(--ubot-red);">休館</span></div>
+            <p style="font-size: 12px; color: #8a9a8a; margin-top: 25px;">※ 閉館前 30 分鐘停止現場取票與入場</p>
             <div class="status-open">目前開放中 CURRENTLY OPENING</div>
         </div>
 
         <div class="info-card">
-            <h3>GUIDE SERVICE</h3>
-            <div class="item" style="margin-bottom: 30px;">
-                <p><strong>定時導覽 / FIXED TIME</strong></p>
-                <p style="font-size: 15px; color: #666;">每日 10:30、14:30 於一樓大廳集合。<br>無需預約，請準時集合。</p>
+            <h3>導覽服務 / GUIDE SERVICE</h3>
+            <div class="item" style="margin-bottom: 25px;">
+                <p><strong>定時導覽 FIXED TIME</strong></p>
+                <p style="font-size: 14px; color: #666;">每日 10:30、14:30 於一樓大廳集合。<br>無需預約，請於導覽開始前 5 分鐘抵達。</p>
             </div>
             <div class="item">
-                <p><strong>語音導覽 / AUDIO GUIDE</strong></p>
-                <p style="font-size: 15px; color: #666;">租借費用 NT$100 / 次。</p>
-                <div style="margin-top:10px; font-size: 12px; color: var(--ubot-gold); border: 1px dashed var(--ubot-gold); padding: 5px 10px; display: inline-block;">
-                    持聯邦指定信用卡支付享 8 折優惠
+                <p><strong>團體預約 GROUP TOUR</strong></p>
+                <p style="font-size: 14px; color: #666;">20 人以上團體請於 7 日前線上預約。</p>
+                <div style="margin-top:12px; font-size: 11px; color: var(--ubot-gold); border: 1px solid var(--ubot-gold); padding: 4px 12px; display: inline-block; letter-spacing: 1px;">
+                    持聯邦信用卡享書店 9 折優惠
                 </div>
             </div>
         </div>
@@ -244,43 +206,47 @@
 
     <div class="location-card">
         <div class="map-container">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3614.463286392078!2d121.52044877595565!3d25.052285137553227!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442a969e26a421d%3A0xc023f274718501e7!2z6IGv6YKm6YqA6KGM!5e0!3m2!1szh-TW!2stw!4v1710000000000!5m2!1szh-TW!2stw" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3614.7021448835847!2d121.5484857!3d25.0407767!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442abc499718423%3A0x6b801088c3f4e246!2zMTA26Ie65YyX5biC5aSn5a6J5Y2A5b_lrp3mnaHot6_lm5vaut8yMTnomZ8!5e0!3m2!1szh-TW!2stw!4v1700000000000!5m2!1szh-TW!2stw" 
+                width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
         </div>
+        
         <div class="transport-info">
-            <h3>LOCATION</h3>
+            <h3>位置與交通 / LOCATION</h3>
             <div class="item">
                 <strong>捷運 SUBWAY</strong>
-                <p>捷運 [雙連站] 站，由 [1號] 出口出站後步行約 5 分鐘。</p>
+                <p>板南線 [忠孝敦化站] 2 號出口，步行約 2 分鐘（位於屈臣氏旁入口）。</p>
             </div>
             <div class="item">
                 <strong>公車 BUS</strong>
-                <p>搭乘 [266, 292, 306] 至 [南京中山路口] 站下車即可抵達。</p>
+                <p>[捷運忠孝敦化站]：<br>204, 212, 232, 299, 600, 忠孝幹線。</p>
             </div>
             <div class="item">
-                <strong>停車 PARKING</strong>
-                <p>大樓附設地下貴賓停車場，參觀者憑當日門票可折抵停車費。</p>
+                <strong>地址 ADDRESS</strong>
+                <p>台北市大安區忠孝東路四段 219 號</p>
             </div>
         </div>
     </div>
 
     <div class="accordion">
         <div class="acc-item">
-            <button class="acc-btn" onclick="toggleAcc(this)">🏛️ 參觀規則 VISIT RULES <span>+</span></button>
+            <button class="acc-btn" onclick="toggleAcc(this)">🏛️ 參觀禮節 VISIT RULES <div class="icon">+</div></button>
             <div class="acc-content">
                 <div class="acc-inner">
-                    <p>• 為維護作品安全，場內禁止攜帶長傘、自拍棒及食物飲料。</p>
-                    <p>• 館內請保持低聲細語，並請關閉手機鈴聲或切換至震動模式。</p>
-                    <p>• 12 歲以下兒童請由家長全程陪同參觀。</p>
+                    <p>• 為維護作品安全，場內請勿攜帶長傘、自拍棒及食物飲料。</p>
+                    <p>• 館內請保持低聲細語，並將手機切換至震動模式。</p>
+                    <p>• 請勿觸摸展品，並與作品保持適當之觀賞距離。</p>
                 </div>
             </div>
         </div>
         <div class="acc-item">
-            <button class="acc-btn" onclick="toggleAcc(this)">📷 攝影須知 PHOTOGRAPHY <span>+</span></button>
+            <button class="acc-btn" onclick="toggleAcc(this)">📷 攝影須知 PHOTOGRAPHY <div class="icon">+</div></button>
             <div class="acc-content">
                 <div class="acc-inner">
-                    <p>• 展覽空間歡迎非商業性攝影，惟嚴禁使用閃光燈、腳架及錄影。</p>
-                    <p>• 部份標明「禁止攝影」之作品，請尊重智慧財產權，切勿拍照。</p>
-                    <p>• 媒體採訪或特殊攝影需求，請預先向行政部門提出申請。</p>
+                    <p>• 展間開放非商業性攝影，惟嚴禁使用閃光燈、腳架及錄影。</p>
+                    <p>• 部份特展因版權限制禁止攝影，請遵循現場告示。</p>
+                    <p>• 商業攝影或媒體採訪需預先向本中心行政部申請。</p>
                 </div>
             </div>
         </div>
@@ -288,33 +254,31 @@
 </div>
 
 <footer>
-    <div class="footer-content">
-        <p>© 2026 聯邦藝術中心 Union Art Center</p>
-        <p>地址：台北市中山北路二段83號7樓 | 電話：(02)2536-9999</p>
-    </div>
+    <p>© 2026 聯邦藝術中心 Union Art Center</p>
+    <p style="margin-top: 10px; color: #444;">台北市大安區忠孝東路四段219號 | 服務專線 (02) 2536-9999</p>
 </footer>
 
 <script>
     function toggleAcc(btn) {
-        var content = btn.nextElementSibling;
-        var span = btn.querySelector('span');
+        const content = btn.nextElementSibling;
+        const icon = btn.querySelector('.icon');
         
         document.querySelectorAll('.acc-content').forEach(el => {
             if (el !== content) {
                 el.style.maxHeight = null;
-                el.previousElementSibling.querySelector('span').innerText = '+';
-                el.previousElementSibling.querySelector('span').style.transform = 'rotate(0deg)';
+                el.previousElementSibling.querySelector('.icon').innerText = '+';
+                el.previousElementSibling.querySelector('.icon').style.transform = 'rotate(0deg)';
             }
         });
 
         if (content.style.maxHeight) {
             content.style.maxHeight = null;
-            span.innerText = '+';
-            span.style.transform = 'rotate(0deg)';
+            icon.innerText = '+';
+            icon.style.transform = 'rotate(0deg)';
         } else {
             content.style.maxHeight = content.scrollHeight + "px";
-            span.innerText = '−';
-            span.style.transform = 'rotate(180deg)';
+            icon.innerText = '−';
+            icon.style.transform = 'rotate(180deg)';
         }
     }
 </script>
