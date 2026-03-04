@@ -8,21 +8,21 @@
     
     <style>
         :root {
-            --ubot-red: #E60012;       
-            --ubot-blue: #003366;      
-            --ubot-light-blue: #F0F7FA; 
-            --ubot-sky-blue: #00A1E9;   
-            --text-dark: #333333;
+            --ubot-blue: #003366;     /* 聯邦深藍 */
+            --ubot-red: #E60012;      /* 聯邦紅 */
+            --ubot-gold: #B89130;     /* 典藏金 */
+            --bg-light: #F4F4F2;      /* 畫廊灰白 */
+            --transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        
+        body { 
+            font-family: "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", serif; 
+            margin: 0; padding: 0; 
+            background-color: var(--bg-light); 
+            color: #333; 
         }
 
-        body {
-            margin: 0;
-            font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
-            background-color: #f4f4f4; /* 稍微深一點的灰色，模擬展間牆面 */
-            color: var(--text-dark);
-        }
-
-        /* ===== 1. 導覽列 Navbar (同步全站) ===== */
+        /* ===== 1. 導覽列 Navbar (同步全站風格) ===== */
         header {
             background: #ffffff;
             box-shadow: 0 2px 15px rgba(0,0,0,0.08);
@@ -30,7 +30,6 @@
             top: 0;
             z-index: 1000;
         }
-
         .navbar {
             max-width: 1200px;
             margin: 0 auto;
@@ -39,7 +38,6 @@
             align-items: center;
             padding: 18px 25px;
         }
-
         .logo a {
             font-size: 26px;
             font-weight: 800;
@@ -49,9 +47,7 @@
             display: flex;
             align-items: center;
         }
-
         .logo a::before { content: "●"; color: var(--ubot-red); margin-right: 8px; }
-
         .menu { display: flex; list-style: none; margin: 0; padding: 0; }
         .menu li { margin-left: 25px; }
         .menu a { text-decoration: none; color: #555; font-weight: 600; font-size: 15px; transition: 0.3s; }
@@ -59,200 +55,213 @@
 
         /* ===== 2. 頁面 Banner ===== */
         .page-banner {
-            background: linear-gradient(rgba(0,51,102,0.85), rgba(0,51,102,0.85)), 
-                        url('https://images.unsplash.com/photo-1577083552431-6e5fd01988ec?auto=format&fit=crop&w=1500&q=80');
+            background: linear-gradient(rgba(0,51,102,0.8), rgba(0,51,102,0.8)), 
+                        url('https://images.unsplash.com/photo-1518998053574-53f026344594?auto=format&fit=crop&w=1500&q=80');
             background-size: cover;
             background-position: center;
             color: white;
-            padding: 70px 20px;
+            padding: 60px 20px;
             text-align: center;
             border-bottom: 6px solid var(--ubot-red);
         }
+        .page-banner h1 { font-size: 32px; margin: 0; letter-spacing: 4px; }
+        .page-banner p { font-size: 16px; margin-top: 10px; opacity: 0.8; letter-spacing: 2px; }
 
-        .page-banner h1 { font-size: 36px; margin: 0; letter-spacing: 5px; }
-        .page-banner p { font-size: 16px; margin-top: 10px; opacity: 0.8; letter-spacing: 3px; font-style: italic; }
-
-        /* ===== 3. 作品過濾與搜尋 ===== */
-        .gallery-controls {
+        /* ===== 3. 搜尋與篩選區 ===== */
+        .filter-container {
             max-width: 1200px;
-            margin: 40px auto;
+            margin: 60px auto 40px;
+            text-align: center;
             padding: 0 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
         }
-
-        .category-tabs { display: flex; gap: 10px; }
-        .tab {
-            padding: 8px 20px;
-            background: white;
-            border: 1px solid #ddd;
+        .search-wrapper { position: relative; max-width: 500px; margin: 0 auto 40px; }
+        .search-bar {
+            width: 100%;
+            padding: 18px 30px;
+            border: 2px solid var(--ubot-blue);
+            background: #fff;
+            font-size: 16px;
+            outline: none;
+            transition: var(--transition);
+            letter-spacing: 1px;
             border-radius: 4px;
+        }
+        .search-bar:focus { border-color: var(--ubot-red); box-shadow: 0 10px 30px rgba(0, 51, 102, 0.1); }
+
+        .btn-group { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+        .filter-btn {
+            padding: 10px 28px;
+            background: #fff;
+            border: 1px solid var(--ubot-blue);
             cursor: pointer;
             font-size: 14px;
-            transition: 0.3s;
+            letter-spacing: 2px;
+            transition: var(--transition);
+            color: var(--ubot-blue);
+            font-weight: 500;
         }
-        .tab.active { background: var(--ubot-blue); color: white; border-color: var(--ubot-blue); }
+        .filter-btn.active { background: var(--ubot-blue); color: #fff; font-weight: bold; }
+        .filter-btn:hover:not(.active) { color: var(--ubot-red); border-color: var(--ubot-red); }
 
-        /* ===== 4. 作品網格 (藝廊樣式) ===== */
-        .gallery-grid {
+        /* ===== 4. 作品網格 ===== */
+        .work-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 40px;
             max-width: 1200px;
             margin: 0 auto 100px;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 40px;
             padding: 0 20px;
         }
-
-        .artwork-item {
-            background: white;
-            padding: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            transition: 0.4s;
-            border: 1px solid #eee;
-        }
-
-        .artwork-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
-        }
-
-        .artwork-frame {
-            width: 100%;
+        .work-card {
+            background: #ffffff;
+            transition: var(--transition);
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #e0e0e0;
             overflow: hidden;
-            background: #eee;
-            margin-bottom: 20px;
-            /* 模擬油畫框線 */
-            border: 10px solid #222; 
-            outline: 2px solid #B89130; /* 典藏金外邊 */
         }
+        .work-card:hover { transform: translateY(-15px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); border-color: var(--ubot-gold); }
 
-        .artwork-frame img {
-            width: 100%;
-            height: auto;
-            display: block;
-            transition: 0.6s;
-        }
+        .work-img-container { width: 100%; aspect-ratio: 1 / 1; overflow: hidden; background: #eee; position: relative; }
+        .work-img { width: 100%; height: 100%; background-size: cover; background-position: center; transition: transform 1.2s ease; }
+        .work-card:hover .work-img { transform: scale(1.1); }
 
-        .artwork-item:hover img { transform: scale(1.05); }
+        .work-info { padding: 30px 20px; text-align: center; }
+        .work-tag { font-size: 11px; color: var(--ubot-gold); letter-spacing: 3px; font-weight: 700; display: block; margin-bottom: 15px; }
+        .work-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 10px; color: var(--ubot-blue); }
+        .work-artist { 
+            font-size: 14px; color: #777; display: flex; align-items: center; justify-content: center; gap: 10px; 
+        }
+        .work-artist::before, .work-artist::after { content: ""; width: 15px; height: 1px; background: #ddd; }
 
-        .artwork-caption { text-align: center; }
-        .artwork-title {
-            font-size: 18px;
-            color: var(--ubot-blue);
-            font-weight: 800;
-            margin-bottom: 5px;
-            letter-spacing: 1px;
-        }
-        .artwork-meta {
-            font-size: 14px;
-            color: #777;
-            margin-bottom: 10px;
-        }
-        .artwork-award-tag {
-            display: inline-block;
-            font-size: 12px;
-            color: var(--ubot-red);
-            border: 1px solid var(--ubot-red);
-            padding: 2px 10px;
-            border-radius: 20px;
-            font-weight: 600;
-        }
+        #noResult { display: none; text-align: center; color: #999; margin: 100px 0; font-size: 1.2rem; }
 
-        /* ===== 5. 頁尾 Footer ===== */
-        footer {
-            background: #222;
-            color: #eee;
-            padding: 60px 20px;
-            text-align: center;
-        }
+        /* ===== 5. 頁尾 ===== */
+        footer { background: #222; color: #eee; padding: 60px 20px; text-align: center; }
 
-        @media (max-width: 768px) {
-            .gallery-grid { grid-template-columns: 1fr; }
-            .gallery-controls { flex-direction: column; align-items: flex-start; }
-        }
+        @media (max-width: 768px) { .navbar { flex-direction: column; padding: 15px; } .menu { margin-top: 15px; } }
     </style>
 </head>
 <body>
 
-<header>
-    <nav class="navbar">
-        <div class="logo">
-            <a href="index.html">聯邦藝術中心</a>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="index.html">聯邦藝術中心</a>
+            </div>
+            <ul class="menu">
+                <li><a href="about.html">關於我們</a></li>
+                <li><a href="exhibitions.html">展覽動態</a></li>
+                <li><a href="awards.html">美術獎項</a></li>
+                <li><a href="artists.html">藝術家</a></li>
+                <li><a href="artworks.html" class="active">作品總覽</a></li>
+                <li><a href="visit.html">參觀資訊</a></li>
+                <li><a href="contact.html">聯絡我們</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="page-banner">
+        <h1>作品典藏總覽</h1>
+        <p>Digital Art Collection</p>
+    </section>
+
+    <div class="filter-container">
+        <div class="search-wrapper">
+            <input type="text" id="workSearch" class="search-bar" placeholder="搜尋典藏作品名稱或藝術家..." onkeyup="filterWorks()">
         </div>
-        <ul class="menu">
-            <li><a href="about.html">關於我們</a></li>
-            <li><a href="exhibitions.html">展覽動態</a></li>
-            <li><a href="awards.html">美術獎項</a></li>
-            <li><a href="artists.html">藝術家</a></li>
-            <li><a href="artworks.html" class="active">作品總覽</a></li>
-            <li><a href="visit.html">參觀資訊</a></li>
-            <li><a href="contact.html">聯絡我們</a></li>
-        </ul>
-    </nav>
-</header>
-
-<section class="page-banner">
-    <h1>作品總覽</h1>
-    <p>Digital Collection & Gallery</p>
-</section>
-
-<div class="gallery-controls">
-    <div class="category-tabs">
-        <div class="tab active">全部作品</div>
-        <div class="tab">印象大獎</div>
-        <div class="tab">新人獎</div>
-    </div>
-    <div style="font-size: 14px; color: #666;">
-        顯示 1-12 件作品，共 150 件
-    </div>
-</div>
-
-<section class="gallery-grid">
-    
-    <div class="artwork-item">
-        <div class="artwork-frame">
-            <img src="https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?auto=format&fit=crop&w=600&q=80" alt="作品">
-        </div>
-        <div class="artwork-caption">
-            <div class="artwork-title">靜謐光影</div>
-            <div class="artwork-meta">許坤成 | 2023 | 油彩．畫布</div>
-            <div class="artwork-award-tag">典藏作品</div>
+        
+        <div class="btn-group">
+            <button class="filter-btn active" onclick="filterCategory(event, 'all')">全部 ALL</button>
+            <button class="filter-btn" onclick="filterCategory(event, 'white')">白色系列</button>
+            <button class="filter-btn" onclick="filterCategory(event, 'history')">歷史主題</button>
+            <button class="filter-btn" onclick="filterCategory(event, 'landscape')">地景與生活</button>
         </div>
     </div>
 
-    <div class="artwork-item">
-        <div class="artwork-frame">
-            <img src="https://images.unsplash.com/photo-1541963463532-d68292c34b19?auto=format&fit=crop&w=600&q=80" alt="作品">
-        </div>
-        <div class="artwork-caption">
-            <div class="artwork-title">溪畔秋色</div>
-            <div class="artwork-meta">王小明 | 2022 | 50F</div>
-            <div class="artwork-award-tag">第22屆印象大獎首獎</div>
-        </div>
+    <div class="work-grid" id="workGrid">
+        <a href="artist-detail.html" class="work-card" data-category="white" data-title="白色系列 NO.10" data-artist="許坤成">
+            <div class="work-img-container">
+                <div class="work-img" style="background-image: url('https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=600');"></div>
+            </div>
+            <div class="work-info">
+                <span class="work-tag">WHITE SERIES / NO.10</span>
+                <div class="work-title">《白色系列 NO.10》</div>
+                <div class="work-artist">許坤成</div>
+            </div>
+        </a>
+
+        <a href="artist-detail.html" class="work-card" data-category="history" data-title="能久親王進台北城" data-artist="許坤成">
+            <div class="work-img-container">
+                <div class="work-img" style="background-image: url('https://images.unsplash.com/photo-1549490349-8643362247b5?w=600');"></div>
+            </div>
+            <div class="work-info">
+                <span class="work-tag">HISTORY / ART COLLECTION</span>
+                <div class="work-title">能久親王進台北城</div>
+                <div class="work-artist">許坤成</div>
+            </div>
+        </a>
+
+        <a href="artist-detail.html" class="work-card" data-category="landscape" data-title="雷亞托夜曲" data-artist="許坤成">
+            <div class="work-img-container">
+                <div class="work-img" style="background-image: url('https://images.unsplash.com/photo-1527631746610-bca00a040d60?w=600');"></div>
+            </div>
+            <div class="work-info">
+                <span class="work-tag">LANDSCAPE / ITALY</span>
+                <div class="work-title">雷亞托夜曲</div>
+                <div class="work-artist">許坤成</div>
+            </div>
+        </a>
     </div>
 
-    <div class="artwork-item">
-        <div class="artwork-frame">
-            <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?auto=format&fit=crop&w=600&q=80" alt="作品">
-        </div>
-        <div class="artwork-caption">
-            <div class="artwork-title">都市脈絡</div>
-            <div class="artwork-meta">李芳華 | 2023 | 40F</div>
-            <div class="artwork-award-tag">第23屆新人獎首獎</div>
-        </div>
-    </div>
+    <div id="noResult">查無相關典藏作品 / NO COLLECTION FOUND</div>
 
-</section>
+    <footer>
+        <div class="footer-content">
+            <p>© 2026 聯邦藝術中心 Union Art Center</p>
+            <p>地址：台北市中山北路二段83號7樓 | 電話：(02)2536-9999</p>
+        </div>
+    </footer>
 
-<footer>
-    <div class="footer-content">
-        <p>© 2026 聯邦藝術中心 Union Art Center</p>
-        <p>地址：台北市中山北路二段83號7樓 | 電話：(02)2536-9999</p>
-    </div>
-</footer>
+    <script>
+        let currentCategory = 'all';
+
+        function filterCategory(evt, category) {
+            currentCategory = category;
+            let btns = document.getElementsByClassName("filter-btn");
+            for (let btn of btns) { btn.classList.remove("active"); }
+            evt.currentTarget.classList.add("active");
+            executeFilter();
+        }
+
+        function filterWorks() { executeFilter(); }
+
+        function executeFilter() {
+            let searchInput = document.getElementById('workSearch').value.toLowerCase();
+            let cards = document.getElementsByClassName('work-card');
+            let noResult = document.getElementById('noResult');
+            let visibleCount = 0;
+
+            for (let card of cards) {
+                let title = card.getAttribute('data-title').toLowerCase();
+                let artist = card.getAttribute('data-artist').toLowerCase();
+                let category = card.getAttribute('data-category');
+
+                let matchesSearch = title.includes(searchInput) || artist.includes(searchInput);
+                let matchesCategory = (currentCategory === 'all' || category === currentCategory);
+
+                if (matchesSearch && matchesCategory) {
+                    card.style.display = "flex";
+                    visibleCount++;
+                } else {
+                    card.style.display = "none";
+                }
+            }
+            noResult.style.display = (visibleCount === 0) ? "block" : "none";
+        }
+    </script>
 
 </body>
 </html>
