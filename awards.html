@@ -6,27 +6,28 @@
     <title>美術獎項｜聯邦藝術中心 Union Art Center</title>
     <style>
         :root {
-            --ubot-red: #E60012;
-            --ubot-blue: #003366;
-            --ubot-light-blue: #EAF6FC;
-            --ubot-sky-blue: #00A1E9;
+            --ubot-red: #E60012;         /* 聯邦紅 */
+            --ubot-blue: #003366;        /* 聯邦深藍 */
+            --ubot-light-blue: #EAF6FC;  /* 聯邦淺藍底色 */
+            --ubot-sky-blue: #00A1E9;    /* 聯邦淺藍 */
             --gold: #B89130;
-            --text-dark: #333333;
-            --text-gray: #666666;
+            --text-main: #222222;
+            --text-sub: #666666;
+            --border-color: #D1CDC4;
         }
 
         body {
             margin: 0;
-            font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+            font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
             background-color: #f8fbfd;
-            color: var(--text-dark);
+            color: var(--text-main);
             line-height: 1.8;
         }
 
-        /* ===== 導覽列 Navbar (同步樣式) ===== */
+        /* ===== 1. 完整導覽列 (與關於我們同步) ===== */
         header {
             background: #ffffff;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -48,40 +49,63 @@
             text-decoration: none;
             display: flex;
             align-items: center;
+            letter-spacing: 1px;
         }
 
-        .logo a span { color: var(--ubot-red); font-size: 28px; margin-right: 5px; }
+        .logo a::before { 
+            content: ""; width: 8px; height: 8px; background: var(--ubot-red); 
+            border-radius: 50%; margin-right: 10px; 
+        }
 
         .menu { display: flex; list-style: none; margin: 0; padding: 0; }
-        .menu li { margin-left: 20px; }
+        .menu li { margin-left: 15px; }
         .menu a {
             text-decoration: none;
-            color: var(--text-dark);
-            font-weight: 500;
-            font-size: 15px;
+            color: #666;
+            font-weight: 600;
+            font-size: 14px;
             transition: 0.3s;
-            padding: 8px 12px;
+            padding: 8px 10px;
         }
         .menu a:hover, .menu a.active { color: var(--ubot-red); }
 
-        /* ===== 分頁按鈕區域 ===== */
+        /* ===== 2. 頁面 Banner (與各分頁格式同步) ===== */
+        .page-banner {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(rgba(0,51,102,0.7), rgba(0,51,102,0.7)), 
+                        url('https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+        }
+        .page-banner h1 { font-size: 36px; margin: 0; letter-spacing: 6px; font-weight: 900; }
+        .page-banner p { font-size: 14px; opacity: 0.9; margin-top: 10px; letter-spacing: 3px; }
+
+        /* ===== 3. 美術獎項專用：分頁按鈕區域 ===== */
         .tab-container {
             background: white;
             border-bottom: 1px solid #eee;
-            padding: 20px 0;
+            padding: 15px 0;
             text-align: center;
             position: sticky;
             top: 70px;
             z-index: 999;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
         }
 
         .tab-button {
             background: none;
             border: 2px solid var(--ubot-blue);
             color: var(--ubot-blue);
-            padding: 10px 25px;
+            padding: 8px 25px;
             margin: 5px;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 700;
             border-radius: 50px;
             cursor: pointer;
@@ -97,17 +121,18 @@
             background: var(--ubot-light-blue);
         }
 
-        /* ===== 內容區塊控制 ===== */
+        /* ===== 4. 內容區塊控制 ===== */
         .tab-content { display: none; max-width: 1000px; margin: 40px auto; padding: 0 20px; }
         .tab-content.active { display: block; animation: fadeIn 0.5s ease; }
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* ===== 簡章卡片樣式 ===== */
+        /* ===== 5. 簡章與表單原始樣式 (保持不變) ===== */
         .section-card {
             background: white;
             padding: 50px;
-            border-radius: 20px;
+            border-radius: 4px; /* 與關於我們風格一致 */
+            border: 1px solid var(--border-color);
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
             margin-bottom: 50px;
         }
@@ -136,7 +161,7 @@
         .reward-item {
             text-align: center;
             padding: 25px;
-            border-radius: 15px;
+            border-radius: 10px;
             background: var(--ubot-light-blue);
             border: 1px solid #d0e4f0;
         }
@@ -144,8 +169,7 @@
         .reward-title { font-weight: bold; color: var(--gold); font-size: 18px; display: block; }
         .reward-money { font-size: 24px; font-weight: 900; color: var(--ubot-blue); }
 
-        /* ===== 表單樣式 ===== */
-        .form-section { background: #fff; padding: 40px; border-radius: 20px; border-top: 8px solid var(--ubot-red); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .form-section { background: #fff; padding: 40px; border-radius: 4px; border: 1px solid var(--border-color); border-top: 8px solid var(--ubot-red); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
         .form-group { margin-bottom: 25px; }
         .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         label { display: block; font-weight: bold; margin-bottom: 8px; color: var(--ubot-blue); }
@@ -163,13 +187,43 @@
         }
         .btn-submit:hover { background: var(--ubot-red); transform: translateY(-3px); box-shadow: 0 10px 20px rgba(230,0,18,0.2); }
 
-        /* ===== Footer (同步樣式) ===== */
-        footer { background: var(--ubot-light-blue); color: var(--ubot-blue); padding: 60px 20px 30px; margin-top: 80px; }
-        .footer-content { max-width: 1200px; margin: 0 auto; text-align: center; }
-        .footer-content h3 { margin-bottom: 10px; }
-        .footer-content p { margin: 5px 0; font-size: 14px; }
+        /* ===== 6. 頁尾 (同步為聯邦淺藍與網格結構) ===== */
+        footer {
+            background: var(--ubot-light-blue);
+            color: var(--ubot-blue);
+            padding: 60px 20px 30px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+
+        .footer-logo { font-size: 22px; font-weight: 800; margin-bottom: 15px; }
+        .footer-info p { margin: 5px 0; font-size: 14px; }
+
+        .footer-links h4 { margin: 0 0 15px; border-left: 3px solid var(--ubot-red); padding-left: 10px; }
+        .footer-links ul { list-style: none; padding: 0; margin: 0; }
+        .footer-links li { margin-bottom: 8px; }
+        .footer-links a { text-decoration: none; color: var(--ubot-blue); font-size: 14px; opacity: 0.8; }
+        .footer-links a:hover { opacity: 1; color: var(--ubot-red); }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 40px auto 0;
+            padding-top: 20px;
+            border-top: 1px solid rgba(0,51,102,0.1);
+            text-align: center;
+            font-size: 13px;
+            opacity: 0.7;
+        }
 
         @media (max-width: 768px) {
+            .navbar { flex-direction: column; }
+            .menu { margin-top: 15px; }
             .reward-grid, .form-row { grid-template-columns: 1fr; }
             .section-card { padding: 30px 20px; }
             .tab-button { padding: 8px 15px; font-size: 14px; }
@@ -180,16 +234,25 @@
 
 <header>
     <nav class="navbar">
-        <div class="logo"><a href="index.html"><span>●</span> 聯邦藝術中心</a></div>
+        <div class="logo">
+            <a href="index.html">聯邦藝術中心</a>
+        </div>
         <ul class="menu">
             <li><a href="about.html">關於我們</a></li>
             <li><a href="exhibitions.html">展覽動態</a></li>
             <li><a href="awards.html" class="active">美術獎項</a></li>
+            <li><a href="artists.html">藝術家</a></li>
             <li><a href="artworks.html">作品總覽</a></li>
             <li><a href="visit.html">參觀資訊</a></li>
+            <li><a href="contact.html">聯絡我們</a></li>
         </ul>
     </nav>
 </header>
+
+<section class="page-banner">
+    <h1>美術獎項</h1>
+    <p>Art Awards & Exhibition Rules</p>
+</section>
 
 <div class="tab-container">
     <button class="tab-button active" onclick="openTab('rules-1')">新人獎簡章</button>
@@ -224,7 +287,7 @@
             <div class="reward-item"><span class="reward-title">優選獎 (2名)</span><span class="reward-money">NT$ 200,000</span><p>及證書乙紙</p></div>
             <div class="reward-item"><span class="reward-title">入選獎 (2名)</span><span class="reward-money">NT$ 100,000</span><p>及證書乙紙</p></div>
         </div>
-        <p style="font-size: 14px; color: var(--text-gray); text-align: center;">(實領需扣10%之所得稅)</p>
+        <p style="font-size: 14px; color: var(--text-sub); text-align: center;">(實領需扣10%之所得稅)</p>
         <h2>玖、畫作典藏</h2>
         <p>一、「首獎」1名：5幅得獎作品全數由本會典藏，典藏畫作之所有權全數歸屬本會所有。<br>二、「優選獎」2名：得獎作品分別由評審委員會評選2幅作品由本會典藏，典藏畫作之所有權歸屬本會所有。<br>三、「入選獎」2名：得獎作品分別由評審委員會評選2幅作品由本會典藏，典藏畫作之所有權歸屬本會所有。<br>四、其餘得獎作品本會將依情形收購典藏，如獲本會收購典藏，其典藏畫作之所有權歸屬本會所有。</p>
         <h2>壹拾、頒獎、展出與退件</h2>
@@ -264,7 +327,7 @@
             <div class="reward-item"><span class="reward-title">優選獎 (2名)</span><span class="reward-money">NT$ 200,000</span><p>及證書乙紙</p></div>
             <div class="reward-item"><span class="reward-title">入選獎 (2名)</span><span class="reward-money">NT$ 100,000</span><p>及證書乙紙</p></div>
         </div>
-        <p style="font-size: 14px; color: var(--text-gray); text-align: center;">(實領需扣10%之所得稅)</p>
+        <p style="font-size: 14px; color: var(--text-sub); text-align: center;">(實領需扣10%之所得稅)</p>
         <h2>玖、畫作典藏</h2>
         <p>一、「首獎」1名：5幅得獎作品全數由本會典藏，典藏畫作之所有權全數歸屬本會所有。<br>二、「優選獎」2名：得獎作品分別由評審委員會評選2幅作品由本會典藏，典藏畫作之所有權歸屬本會所有。<br>三、「入選獎」2名：得獎作品分別由評審委員會評選2幅作品由本會典藏，典藏畫作之所有權歸屬本會所有。<br>四、其餘得獎作品本會將依情形收購典藏，如獲本會收購典藏，其典藏畫作之所有權歸屬本會所有。</p>
         <h2>壹拾、頒獎、展出與退件</h2>
@@ -396,35 +459,56 @@
 </div>
 
 <footer>
-    <div class="footer-content">
-        <h3>聯邦文教基金會</h3>
-        <p>若有相關事宜與建議，歡迎您來信 <a href="mailto:ubart@ubot.com.tw" style="color:var(--ubot-red); text-decoration:none; font-weight:bold;">ubart@ubot.com.tw</a></p>
-        <p>或來電 02-25369999，將竭誠為您服務。祝您 順心</p>
-        <hr style="width: 50px; border: 1px solid rgba(0,51,102,0.1); margin: 20px auto;">
-        <p style="opacity: 0.6; font-size: 12px;">© 2026 Union Art Center. All Rights Reserved.</p>
+    <div class="footer-container">
+        <div class="footer-info">
+            <div class="footer-logo">UNION ART CENTER</div>
+            <p><strong>地址：</strong>台北市大安區忠孝東路四段219號</p>
+            <p><strong>電話：</strong>(02) 2536-9999</p>
+            <p><strong>時間：</strong>週二至週日 09:00 - 17:00 (週一休館)</p>
+        </div>
+        <div class="footer-links">
+            <h4>探索中心</h4>
+            <ul>
+                <li><a href="about.html">關於我們</a></li>
+                <li><a href="exhibitions.html">最新展覽</a></li>
+                <li><a href="artists.html">合作藝術家</a></li>
+                <li><a href="visit.html">參觀指引</a></li>
+            </ul>
+        </div>
+        <div class="footer-links">
+            <h4>快速連結</h4>
+            <ul>
+                <li><a href="https://www.ubot.com.tw/">聯邦銀行官網</a></li>
+                <li><a href="contact.html">場地租借申請</a></li>
+                <li><a href="privacy.html">隱私權保護政策</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2026 Union Art Center 聯邦藝術中心 版權所有</p>
     </div>
 </footer>
 
 <script>
     function openTab(tabName) {
-        // 隱藏所有內容
         var contents = document.getElementsByClassName("tab-content");
         for (var i = 0; i < contents.length; i++) {
             contents[i].classList.remove("active");
         }
         
-        // 移除所有按鈕的 active 狀態
         var buttons = document.getElementsByClassName("tab-button");
         for (var i = 0; i < buttons.length; i++) {
             buttons[i].classList.remove("active");
         }
         
-        // 顯示指定的內容並啟動按鈕
         document.getElementById(tabName).classList.add("active");
         event.currentTarget.classList.add("active");
         
-        // 切換時捲動到頂部
-        window.scrollTo({top: 0, behavior: 'smooth'});
+        // 捲動到導覽列下方，而非頁面最頂端，以維持視覺流暢
+        const yOffset = -150; 
+        const element = document.getElementById(tabName);
+        const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+        window.scrollTo({top: y, behavior: 'smooth'});
     }
 </script>
 
