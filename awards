@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>美術獎項｜聯邦藝術中心</title>
+    <meta name="description" content="聯邦美術獎新人獎與印象大獎徵件資訊與線上報名系統。">
+
+    <!-- 共用CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<!-- ===== 導覽列 ===== -->
+<header>
+    <nav class="navbar">
+        <div class="logo">
+            <a href="index.html">聯邦藝術中心</a>
+        </div>
+
+        <ul class="menu">
+            <li><a href="about.html">關於我們</a></li>
+            <li><a href="exhibitions.html">展覽動態</a></li>
+            <li><a href="awards.html" class="active">美術獎項</a></li>
+            <li><a href="artists.html">藝術家</a></li>
+            <li><a href="artworks.html">作品總覽</a></li>
+            <li><a href="visit.html">參觀資訊</a></li>
+            <li><a href="contact.html">聯絡我們</a></li>
+        </ul>
+    </nav>
+</header>
+
+<!-- ===== 頁面標題 ===== -->
+<section class="page-banner">
+    <div class="container">
+        <h1>聯邦美術獎</h1>
+        <p>Art Award Program</p>
+    </div>
+</section>
+
+
+<!-- ===== 分頁按鈕 ===== -->
+<section class="tabs-section">
+    <div class="container">
+        <div class="tabs">
+            <button onclick="showTab('newcomer')" class="tab-btn active">新人獎</button>
+            <button onclick="showTab('impression')" class="tab-btn">印象大獎</button>
+            <button onclick="showTab('apply')" class="tab-btn">線上報名</button>
+        </div>
+    </div>
+</section>
+
+
+<!-- ===== 新人獎內容 ===== -->
+<section id="newcomer" class="tab-content active">
+    <div class="container">
+        <h2>聯邦美術新人獎</h2>
+        <ul>
+            <li>參賽資格：40歲以下</li>
+            <li>創作媒材：具象油畫</li>
+            <li>作品規格：30F</li>
+            <li>送審件數：5件作品</li>
+            <li>首獎獎金：新台幣60萬元</li>
+        </ul>
+    </div>
+</section>
+
+
+<!-- ===== 印象大獎內容 ===== -->
+<section id="impression" class="tab-content">
+    <div class="container">
+        <h2>聯邦印象大獎</h2>
+        <ul>
+            <li>參賽資格：不限年齡</li>
+            <li>創作風格：印象派風格</li>
+            <li>創作媒材：油畫</li>
+            <li>作品規格：30F</li>
+            <li>送審件數：5件作品</li>
+        </ul>
+    </div>
+</section>
+
+
+<!-- ===== 線上報名 ===== -->
+<section id="apply" class="tab-content">
+    <div class="container">
+        <h2>線上報名表</h2>
+
+        <form onsubmit="return validateForm()">
+            <label>姓名</label>
+            <input type="text" id="name">
+
+            <label>Email</label>
+            <input type="email" id="email">
+
+            <label>參賽獎項</label>
+            <select id="category">
+                <option value="">請選擇</option>
+                <option value="新人獎">新人獎</option>
+                <option value="印象大獎">印象大獎</option>
+            </select>
+
+            <label>聯絡電話</label>
+            <input type="text" id="phone">
+
+            <label>
+                <input type="checkbox" id="agree">
+                我已閱讀並同意相關規定
+            </label>
+
+            <button type="submit">送出報名</button>
+        </form>
+    </div>
+</section>
+
+
+<!-- ===== 頁尾 ===== -->
+<footer>
+    <div class="footer-content">
+        <p>© 2026 聯邦藝術中心 Union Art Center</p>
+        <p>地址：台北市中山北路二段83號7樓</p>
+        <p>電話：(02)2536-9999</p>
+
+        <div class="footer-links">
+            <a href="privacy.html">隱私權聲明</a> |
+            <a href="lost-found.html">失物招領</a>
+        </div>
+    </div>
+</footer>
+
+<!-- 共用JS -->
+<script src="js/main.js"></script>
+
+</body>
+</html>
