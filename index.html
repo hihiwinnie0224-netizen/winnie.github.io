@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>聯邦藝術中心 Union Art Center</title>
+
+<style>
+:root{
+--blue:#003366;
+--sky:#00A1E9;
+--red:#E60012;
+--gold:#B89130;
+--light:#F4F8FB;
+}
+
+body{
+margin:0;
+font-family:"Microsoft JhengHei",sans-serif;
+background:#fff;
+color:#333;
+}
+
+/* 導覽列 */
+header{
+background:var(--blue);
+color:#fff;
+padding:15px 0;
+position:sticky;
+top:0;
+z-index:1000;
+}
+
+nav{
+max-width:1200px;
+margin:auto;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:0 20px;
+}
+
+nav a{
+color:#fff;
+text-decoration:none;
+margin-left:25px;
+font-weight:bold;
+cursor:pointer;
+}
+
+nav a:hover{
+color:var(--sky);
+}
+
+/* 區塊 */
+section{
+display:none;
+padding:80px 20px;
+max-width:1200px;
+margin:auto;
+}
+
+section.active{
+display:block;
+}
+
+/* 首頁 */
+.hero{
+height:400px;
+background:linear-gradient(135deg,var(--blue),var(--sky));
+color:#fff;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+}
+
+.hero h1{
+font-size:42px;
+letter-spacing:8px;
+margin:0;
+}
+
+.hero p{
+margin-top:15px;
+font-size:18px;
+}
+
+.card-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+margin-top:40px;
+}
+
+.card{
+background:#fff;
+padding:30px;
+border-radius:8px;
+box-shadow:0 5px 15px rgba(0,0,0,0.08);
+text-align:center;
+}
+
+/* 展覽 */
+.ex-card{
+background:#fff;
+padding:25px;
+border-radius:10px;
+margin-bottom:20px;
+box-shadow:0 4px 12px rgba(0,0,0,0.05);
+}
+
+/* 表單 */
+input,select{
+width:100%;
+padding:10px;
+margin-top:8px;
+margin-bottom:20px;
+border:1px solid #ccc;
+border-radius:4px;
+}
+
+button{
+background:var(--blue);
+color:#fff;
+padding:12px 30px;
+border:none;
+border-radius:4px;
+cursor:pointer;
+}
+
+button:hover{
+background:var(--sky);
+}
+
+/* 藝術家 */
+.artist-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+gap:25px;
+margin-top:40px;
+}
+
+.artist{
+background:#fff;
+padding:20px;
+text-align:center;
+border-radius:6px;
+box-shadow:0 4px 10px rgba(0,0,0,0.05);
+}
+
+/* 頁尾 */
+footer{
+background:var(--blue);
+color:#fff;
+text-align:center;
+padding:40px 20px;
+margin-top:80px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<nav>
+<div><b>聯邦藝術中心</b></div>
+<div>
+<a onclick="showPage('home')">首頁</a>
+<a onclick="showPage('about')">關於我們</a>
+<a onclick="showPage('exhibition')">展覽動態</a>
+<a onclick="showPage('award')">美術獎項</a>
+<a onclick="showPage('artist')">藝術家典藏</a>
+</div>
+</nav>
+</header>
+
+<!-- 首頁 -->
+<section id="home" class="active">
+<div class="hero">
+<h1>聯邦藝術中心</h1>
+<p>深耕本土藝術 ‧ 傳承台灣美學薪火</p>
+</div>
+
+<div class="card-grid">
+<div class="card">
+<h3>當期特展</h3>
+<p>光影交織 ‧ 第23屆聯邦美術獎得獎展</p>
+</div>
+
+<div class="card">
+<h3>聯邦美術獎</h3>
+<p>新人獎 / 印象大獎 徵件中</p>
+</div>
+
+<div class="card">
+<h3>數位典藏</h3>
+<p>線上探索歷屆得獎作品</p>
+</div>
+</div>
+</section>
+
+<!-- 關於 -->
+<section id="about">
+<h2>中心簡介</h2>
+<p>聯邦藝術中心致力於推廣本土藝術創作，透過展覽與競賽制度培育青年藝術家。</p>
+
+<h2>使命與理念</h2>
+<p>結合企業資源與藝術文化，實踐企業社會責任，打造永續藝術平台。</p>
+</section>
+
+<!-- 展覽 -->
+<section id="exhibition">
+<h2>2026 全台巡迴展覽</h2>
+
+<div class="ex-card">
+<h3>高雄市文化中心</h3>
+<p>03/06 - 03/17</p>
+</div>
+
+<div class="ex-card">
+<h3>台中大墩文化中心</h3>
+<p>03/21 - 04/01</p>
+</div>
+
+<div class="ex-card">
+<h3>台南新營文化中心</h3>
+<p>07/24 - 08/16</p>
+</div>
+
+</section>
+
+<!-- 獎項 -->
+<section id="award">
+<h2>聯邦美術新人獎</h2>
+<p>限40歲以下，具象油畫，30F規格，首獎60萬元。</p>
+
+<h2>線上報名</h2>
+<input type="text" placeholder="姓名">
+<input type="email" placeholder="Email">
+<select>
+<option>請選擇獎項</option>
+<option>新人獎</option>
+<option>印象大獎</option>
+</select>
+<button>提交報名</button>
+</section>
+
+<!-- 藝術家 -->
+<section id="artist">
+<h2>藝術家典藏</h2>
+
+<div class="artist-grid">
+<div class="artist">
+<h3>許坤成</h3>
+<p>評審召集人</p>
+</div>
+
+<div class="artist">
+<h3>祁連</h3>
+<p>聯邦美術獎得主</p>
+</div>
+
+<div class="artist">
+<h3>蘇瑞明</h3>
+<p>聯邦美術獎得主</p>
+</div>
+
+<div class="artist">
+<h3>高慶元</h3>
+<p>聯邦美術獎得主</p>
+</div>
+</div>
+</section>
+
+<footer>
+<p>© 2026 聯邦藝術中心 Union Art Center</p>
+<p>台北市中山北路二段83號7樓</p>
+<p>(02)2536-9999</p>
+</footer>
+
+<script>
+function showPage(page){
+let sections=document.querySelectorAll("section");
+sections.forEach(sec=>sec.classList.remove("active"));
+document.getElementById(page).classList.add("active");
+window.scrollTo(0,0);
+}
+</script>
+
+</body>
+</html>
