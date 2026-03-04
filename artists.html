@@ -7,62 +7,108 @@
     
     <style>
         :root {
-            --ubot-blue: #003366;
-            --ubot-red: #E60012;
-            --primary-gold: #a68d5e;
-            --text-dark: #333;
-            --text-gray: #999;
-            --bg-warm: #f4f7f9;
-            --footer-bg: #1a1a1a;
+            --ubot-red: #E60012;         /* 聯邦紅 */
+            --ubot-blue: #003366;        /* 聯邦深藍 */
+            --ubot-light-blue: #EAF6FC;  /* 聯邦淺藍底色 */
+            --ubot-sky-blue: #00A1E9;    /* 聯邦淺藍 */
+            --primary-gold: #a68d5e;     /* 保留原本藝術家頁面的金色 */
+            --text-main: #222222;
+            --text-sub: #666666;
+            --border-color: #D1CDC4;
+            --bg-warm: #f8fbfd;
         }
 
         body {
             margin: 0;
-            font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+            font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
             background-color: var(--bg-warm);
-            color: var(--text-dark);
-            line-height: 1.6;
+            color: var(--text-main);
+            line-height: 1.8;
         }
 
-        /* ===== 統一 Header 樣式 ===== */
-        header { background: #ffffff; box-shadow: 0 2px 15px rgba(0,0,0,0.08); position: sticky; top: 0; z-index: 1000; }
-        .navbar { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 15px 25px; }
-        .logo a { font-size: 22px; font-weight: 800; color: var(--ubot-blue); text-decoration: none; display: flex; align-items: center; }
-        .logo a::before { content: ""; width: 10px; height: 10px; background: var(--ubot-red); border-radius: 50%; margin-right: 8px; }
-        
+        /* ===== 統一 Header 樣式 (同步自關於頁面) ===== */
+        header {
+            background: #ffffff;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 25px;
+        }
+
+        .logo a {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--ubot-blue);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            letter-spacing: 1px;
+        }
+
+        .logo a::before { 
+            content: ""; width: 8px; height: 8px; background: var(--ubot-red); 
+            border-radius: 50%; margin-right: 10px; 
+        }
+
         .menu { display: flex; list-style: none; margin: 0; padding: 0; }
-        .menu li { margin-left: 18px; }
-        .menu a { text-decoration: none; color: #555; font-weight: 600; font-size: 15px; transition: 0.3s; padding: 5px 0; }
-        .menu a:hover, .menu a.active { color: var(--ubot-red); border-bottom: 2px solid var(--ubot-red); }
-
-        /* ===== Banner ===== */
-        .page-banner {
-            background: linear-gradient(rgba(0,51,102,0.7), rgba(0,51,102,0.7)), url('https://images.unsplash.com/photo-1460666819451-7410f5238d41?auto=format&fit=crop&w=1200&q=80');
-            background-size: cover; background-position: center; color: white; padding: 80px 20px; text-align: center;
+        .menu li { margin-left: 15px; }
+        .menu a {
+            text-decoration: none;
+            color: #666;
+            font-weight: 600;
+            font-size: 14px;
+            transition: 0.3s;
+            padding: 8px 10px;
         }
-        .page-banner h1 { font-size: 36px; margin: 0; letter-spacing: 6px; font-weight: 800; }
-        .page-banner p { opacity: 0.8; margin-top: 10px; font-weight: 300; }
+        .menu a:hover, .menu a.active { color: var(--ubot-red); }
 
-        /* ===== 搜尋與篩選區 ===== */
-        .sticky-tools { position: sticky; top: 70px; background: rgba(244, 247, 249, 0.95); backdrop-filter: blur(10px); z-index: 900; padding: 25px 0; border-bottom: 1px solid #e0e0e0; }
+        /* ===== Banner (同步關於頁面風格) ===== */
+        .page-banner {
+            width: 100%;
+            height: 350px;
+            background: linear-gradient(rgba(0,51,102,0.6), rgba(0,51,102,0.6)), 
+                        url('https://images.unsplash.com/photo-1460666819451-7410f5238d41?auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+        }
+        .page-banner h1 { font-size: 42px; margin: 0; letter-spacing: 6px; font-weight: 900; }
+        .page-banner p { font-size: 16px; opacity: 0.9; margin-top: 10px; letter-spacing: 3px; text-transform: uppercase; }
+
+        /* ===== 搜尋與篩選區 (微調以適應新風格) ===== */
+        .sticky-tools { position: sticky; top: 70px; background: rgba(248, 251, 253, 0.95); backdrop-filter: blur(10px); z-index: 900; padding: 30px 0; border-bottom: 1px solid #e0e0e0; }
         .filter-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        .search-row { max-width: 600px; margin: 0 auto 20px; }
-        .search-box { width: 100%; padding: 12px 25px; border: 1px solid #ccc; border-radius: 50px; font-size: 16px; outline: none; transition: 0.3s; box-shadow: inset 0 2px 4px rgba(0,0,0,0.05); }
-        .search-box:focus { border-color: var(--ubot-blue); box-shadow: 0 0 10px rgba(0,51,102,0.1); }
+        .search-row { max-width: 600px; margin: 0 auto 25px; }
+        .search-box { width: 100%; padding: 12px 25px; border: 1px solid var(--border-color); border-radius: 50px; font-size: 16px; outline: none; transition: 0.3s; box-shadow: inset 0 2px 4px rgba(0,0,0,0.03); }
+        .search-box:focus { border-color: var(--ubot-sky-blue); box-shadow: 0 0 10px rgba(0,161,233,0.1); }
 
         .tab-switcher { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
         .btn-tab { padding: 10px 24px; border: 1.5px solid var(--ubot-blue); background: white; color: var(--ubot-blue); border-radius: 50px; cursor: pointer; font-weight: bold; transition: 0.3s; }
         .btn-tab.active { background: var(--ubot-blue); color: white; box-shadow: 0 4px 12px rgba(0,51,102,0.2); }
-        .btn-tab:hover:not(.active) { background: #eef4f9; }
+        .btn-tab:hover:not(.active) { background: var(--ubot-light-blue); }
 
         /* ===== 內容卡片排版 ===== */
         .main-content { max-width: 1200px; margin: 40px auto 100px; padding: 0 20px; }
-        .year-row { background: white; border-radius: 20px; padding: 35px; margin-bottom: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.04); border: 1px solid #efefef; }
-        .year-label { font-size: 22px; color: var(--ubot-blue); margin-bottom: 30px; font-weight: 800; border-left: 6px solid var(--primary-gold); padding-left: 18px; }
+        .year-row { background: white; border-radius: 8px; padding: 35px; margin-bottom: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.04); border: 1px solid var(--border-color); }
+        .year-label { font-size: 22px; color: var(--ubot-blue); margin-bottom: 30px; font-weight: 800; border-left: 6px solid var(--ubot-red); padding-left: 18px; }
 
         .winners-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 25px; }
-        .winner-card { text-align: center; padding: 20px 15px; border-radius: 15px; transition: 0.4s var(--ease); border: 1px solid #f9f9f9; background: #fff; }
-        .winner-card:hover { transform: translateY(-8px); border-color: var(--primary-gold); box-shadow: 0 15px 35px rgba(166,141,94,0.15); }
+        .winner-card { text-align: center; padding: 20px 15px; border-radius: 12px; transition: 0.4s; border: 1px solid #f2f2f2; background: #fff; }
+        .winner-card:hover { transform: translateY(-8px); border-color: var(--ubot-sky-blue); box-shadow: 0 15px 35px rgba(0,51,102,0.1); }
 
         .avatar { width: 90px; height: 90px; border-radius: 50%; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 28px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
         .tag { font-size: 12px; padding: 3px 12px; border-radius: 50px; display: inline-block; margin-bottom: 12px; font-weight: 600; }
@@ -71,26 +117,50 @@
         .tag-入選 { background: #e2e3e5; color: #383d41; border: 1px solid #d6d8db; }
         .tag-大師 { background: var(--ubot-blue); color: #fff; }
 
-        .name { font-size: 18px; font-weight: 700; color: var(--text-dark); margin-bottom: 15px; }
+        .name { font-size: 18px; font-weight: 700; color: var(--text-main); margin-bottom: 15px; }
         .btn-view { width: 100%; padding: 8px; background: transparent; border: 1px solid var(--ubot-blue); color: var(--ubot-blue); border-radius: 6px; font-size: 13px; cursor: pointer; transition: 0.3s; font-weight: 600; }
         .btn-view:hover { background: var(--ubot-blue); color: white; }
 
-        /* ===== 統一 Footer 樣式 ===== */
-        footer { background: var(--footer-bg); color: #fff; padding: 70px 20px 30px; }
-        .footer-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; text-align: left; }
-        .footer-logo h2 { color: #fff; margin-bottom: 20px; letter-spacing: 2px; }
-        .footer-info p { color: #bbb; margin: 10px 0; font-size: 15px; }
-        .footer-links h4 { color: var(--primary-gold); margin-bottom: 25px; font-size: 18px; position: relative; }
-        .footer-links ul { list-style: none; padding: 0; }
-        .footer-links li { margin-bottom: 12px; }
-        .footer-links a { color: #999; text-decoration: none; transition: 0.3s; }
-        .footer-links a:hover { color: #fff; padding-left: 5px; }
-        .copyright { grid-column: 1 / -1; border-top: 1px solid #333; margin-top: 50px; padding-top: 30px; text-align: center; color: #666; font-size: 13px; }
+        /* ===== 統一 Footer 樣式 (同步自關於頁面) ===== */
+        footer {
+            background: var(--ubot-light-blue);
+            color: var(--ubot-blue);
+            padding: 60px 20px 30px;
+            margin-top: 100px;
+        }
 
-        @media (max-width: 850px) {
-            .footer-container { grid-template-columns: 1fr; gap: 40px; text-align: center; }
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+
+        .footer-logo { font-size: 22px; font-weight: 800; margin-bottom: 15px; }
+        .footer-info p { margin: 5px 0; font-size: 14px; }
+
+        .footer-links h4 { margin: 0 0 15px; border-left: 3px solid var(--ubot-red); padding-left: 10px; }
+        .footer-links ul { list-style: none; padding: 0; margin: 0; }
+        .footer-links li { margin-bottom: 8px; }
+        .footer-links a { text-decoration: none; color: var(--ubot-blue); font-size: 14px; opacity: 0.8; }
+        .footer-links a:hover { opacity: 1; color: var(--ubot-red); }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 40px auto 0;
+            padding-top: 20px;
+            border-top: 1px solid rgba(0,51,102,0.1);
+            text-align: center;
+            font-size: 13px;
+            opacity: 0.7;
+        }
+
+        @media (max-width: 768px) {
+            .navbar { flex-direction: column; }
+            .menu { margin-top: 15px; }
             .winners-grid { grid-template-columns: repeat(2, 1fr); }
-            .menu { display: none; } /* 行動版建議增加漢堡選單 */
+            .sticky-tools { top: 110px; } /* 適應手機版導覽列高度 */
         }
     </style>
 </head>
@@ -136,10 +206,10 @@
 <footer>
     <div class="footer-container">
         <div class="footer-info">
-            <h2>UNION ART CENTER</h2>
-            <p>地址：台北市大安區忠孝東路四段219號</p>
-            <p>電話：(02) 2536-9999</p>
-            <p>時間：週二至週日 09:00 - 17:00 (週一休館)</p>
+            <div class="footer-logo">UNION ART CENTER</div>
+            <p><strong>地址：</strong>台北市大安區忠孝東路四段219號</p>
+            <p><strong>電話：</strong>(02) 2536-9999</p>
+            <p><strong>時間：</strong>週二至週日 09:00 - 17:00 (週一休館)</p>
         </div>
         <div class="footer-links">
             <h4>探索中心</h4>
@@ -153,19 +223,19 @@
         <div class="footer-links">
             <h4>快速連結</h4>
             <ul>
-                <li><a href="https://www.ubot.com.tw" target="_blank">聯邦銀行官網</a></li>
-                <li><a href="#">場地租借申請</a></li>
-                <li><a href="#">隱私權保護政策</a></li>
+                <li><a href="https://www.ubot.com.tw/" target="_blank">聯邦銀行官網</a></li>
+                <li><a href="contact.html">場地租借申請</a></li>
+                <li><a href="privacy.html">隱私權保護政策</a></li>
             </ul>
         </div>
-        <div class="copyright">
-            © 2026 Union Art Center 聯邦藝術中心 版權所有
-        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2026 Union Art Center 聯邦藝術中心 版權所有</p>
     </div>
 </footer>
 
 <script>
-    // 資料庫內容保持不變 ( master, newbie, impression )
+    // 資料庫內容
     const database = {
         master: [
             { year: "召集人", label: "評審委員會召集人", winners: [{ role: "召集人", name: "許坤成" }] },
@@ -202,7 +272,7 @@
     let currentCat = 'master';
 
     function getGradient(name) {
-        const colors = [['#a68d5e', '#d4af37'], ['#003366', '#0056b3'], ['#E60012', '#ff4d4d'], ['#2c3e50', '#4ca1af']];
+        const colors = [['#a68d5e', '#d4af37'], ['#003366', '#0056b3'], ['#E60012', '#ff4d4d'], ['#00A1E9', '#0056b3']];
         let idx = name.length % colors.length;
         return `linear-gradient(135deg, ${colors[idx][0]}, ${colors[idx][1]})`;
     }
