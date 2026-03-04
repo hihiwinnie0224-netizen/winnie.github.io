@@ -13,21 +13,22 @@
             --paper-warm: #F4F1ED;    /* 溫暖燕麥 */
             --text-main: #333333;
             --border-color: #D1CDC4;
-            --transition: all 0.5s cubic-bezier(0.2, 1, 0.3, 1);
+            --transition: all 0.4s cubic-bezier(0.2, 1, 0.3, 1);
         }
 
         body { 
-            font-family: "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif; 
+            font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif; 
             margin: 0; padding: 0; 
             background-color: var(--paper-warm); 
             color: var(--text-main); 
             line-height: 1.8;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* ===== 1. 全站通用導覽列 (補回遺失按鈕) ===== */
+        /* ===== 1. Navbar 優化 ===== */
         header {
             background: #ffffff;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -38,42 +39,43 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 18px 25px;
+            padding: 15px 25px;
         }
         .logo a {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 800;
             color: var(--ubot-blue);
             text-decoration: none;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
             display: flex;
             align-items: center;
         }
-        .logo a::before { content: "●"; color: var(--ubot-red); margin-right: 8px; }
+        .logo a::before { content: ""; width: 8px; height: 8px; background: var(--ubot-red); border-radius: 50%; margin-right: 10px; }
         
         .menu { display: flex; list-style: none; margin: 0; padding: 0; align-items: center; }
-        .menu li { margin-left: 20px; }
-        .menu a { text-decoration: none; color: #555; font-weight: 600; font-size: 14px; transition: 0.3s; }
+        .menu li { margin-left: 18px; }
+        .menu a { text-decoration: none; color: #555; font-weight: 600; font-size: 13px; transition: 0.3s; }
         .menu a:hover, .menu a.active { color: var(--ubot-red); }
 
-        /* 特殊按鈕樣式 */
-        .btn-award { color: var(--ubot-gold) !important; }
+        /* 特殊功能鍵 */
+        .btn-award { color: var(--ubot-gold) !important; border-bottom: 1px solid transparent; }
+        .btn-award:hover { border-bottom-color: var(--ubot-gold); }
         .btn-register { 
             background: var(--ubot-red); 
             color: white !important; 
-            padding: 8px 16px; 
-            border-radius: 4px; 
+            padding: 6px 15px; 
+            border-radius: 2px; 
+            transition: 0.3s;
         }
-        .btn-register:hover { background: var(--ubot-blue) !important; }
+        .btn-register:hover { background: var(--ubot-blue) !important; transform: translateY(-2px); }
 
-        /* ===== 2. 聯絡區塊佈局 (保持原有內容) ===== */
+        /* ===== 2. 聯絡區塊佈局 ===== */
         .contact-container {
             display: flex;
-            min-height: calc(100vh - 80px);
             max-width: 1200px;
-            margin: 0 auto;
-            gap: 60px;
-            padding: 80px 40px;
+            margin: 60px auto;
+            gap: 40px;
+            padding: 0 25px;
             box-sizing: border-box;
         }
 
@@ -81,108 +83,116 @@
         .contact-info-panel {
             flex: 0.8;
             background-color: var(--soft-sage);
-            padding: 60px;
-            border-radius: 2px;
-            display: flex;
-            flex-direction: column;
+            padding: 50px;
+            border-radius: 4px;
             border: 1px solid var(--border-color);
             position: relative;
+            overflow: hidden;
         }
-        .contact-info-panel::before {
-            content: ""; position: absolute; top: 30px; left: 30px; width: 40px; height: 4px; background: var(--ubot-red);
+        /* 增加裝飾性背後文字 */
+        .contact-info-panel::after {
+            content: "UNION ART";
+            position: absolute; bottom: -20px; right: -10px;
+            font-size: 80px; font-weight: 900; color: rgba(255,255,255,0.3);
+            pointer-events: none;
         }
         .contact-info-panel h2 { 
-            font-size: 2.8rem; 
+            font-size: 2.4rem; 
             color: var(--ubot-blue); 
-            letter-spacing: 10px; 
-            margin: 20px 0 10px 0; 
+            letter-spacing: 8px; 
+            margin: 20px 0 15px 0; 
             font-weight: 900;
         }
         .contact-desc {
             color: #666;
-            font-size: 0.95rem;
-            margin-bottom: 50px;
-            letter-spacing: 1px;
+            font-size: 0.9rem;
+            margin-bottom: 40px;
+            max-width: 300px;
         }
         .dept-item {
-            margin-bottom: 40px;
-            position: relative;
+            margin-bottom: 35px;
             padding-left: 20px;
-            border-left: 1px solid var(--ubot-gold);
+            border-left: 2px solid var(--ubot-gold);
         }
         .dept-name { 
-            font-weight: 700; color: var(--ubot-blue); font-size: 1rem;
-            margin-bottom: 10px; display: block; letter-spacing: 2px;
+            font-weight: 700; color: var(--ubot-blue); font-size: 0.95rem;
+            margin-bottom: 8px; display: block; letter-spacing: 1px;
         }
         .dept-contact { 
             font-size: 14px; color: #777; display: block;
-            font-family: "Constantia", "Georgia", serif;
-            line-height: 1.8;
+            line-height: 1.6;
         }
 
         /* 右側：留言表單 */
-        .contact-form-panel { flex: 1.2; display: flex; }
+        .contact-form-panel { flex: 1.2; }
         .contact-form-box {
-            width: 100%;
             background: #fff;
-            padding: 70px;
+            padding: 50px;
             border: 1px solid var(--border-color);
-            box-shadow: 20px 20px 0px rgba(0, 51, 102, 0.05);
+            box-shadow: 15px 15px 0px rgba(0, 51, 102, 0.03);
+            border-radius: 4px;
         }
         .form-title {
             font-size: 1.4rem;
-            letter-spacing: 6px;
-            margin-bottom: 50px;
+            letter-spacing: 5px;
+            margin-bottom: 40px;
             color: var(--ubot-blue);
             font-weight: 700;
             text-align: center;
-            position: relative;
-        }
-        .form-title::after {
-            content: "MESSAGE";
-            position: absolute; bottom: -15px; left: 50%; transform: translateX(-50%);
-            font-size: 10px; color: var(--ubot-gold); letter-spacing: 4px; font-weight: 400;
         }
 
-        .form-group { margin-bottom: 35px; }
+        .form-group { margin-bottom: 25px; }
         .form-group label { 
-            display: block; font-size: 12px; margin-bottom: 12px; 
-            font-weight: 700; color: var(--ubot-blue); letter-spacing: 2px;
+            display: block; font-size: 11px; margin-bottom: 8px; 
+            font-weight: 700; color: #888; letter-spacing: 1.5px;
             text-transform: uppercase;
         }
         .form-group input, .form-group textarea, .form-group select {
-            width: 100%; padding: 15px; background: #F9F9F9; border: 1px solid #EDEDED;
-            border-radius: 0; font-size: 1rem; transition: var(--transition); box-sizing: border-box;
-            color: var(--text-main);
+            width: 100%; padding: 12px 15px; background: #fafafa; border: 1px solid #eee;
+            border-radius: 2px; font-size: 15px; transition: var(--transition); box-sizing: border-box;
         }
         .form-group input:focus, .form-group textarea:focus {
             outline: none; background: #fff; border-color: var(--ubot-gold);
-            box-shadow: 0 5px 15px rgba(184, 145, 48, 0.1);
+            box-shadow: 0 4px 12px rgba(184, 145, 48, 0.08);
         }
 
         .submit-btn {
-            width: 100%; padding: 20px; background: var(--ubot-blue); color: white;
-            border: none; cursor: pointer; font-weight: bold; letter-spacing: 6px;
-            transition: var(--transition); font-size: 15px; margin-top: 15px;
+            width: 100%; padding: 18px; background: var(--ubot-blue); color: white;
+            border: none; cursor: pointer; font-weight: bold; letter-spacing: 4px;
+            transition: var(--transition); font-size: 14px; margin-top: 10px;
         }
-        .submit-btn:hover { background: var(--ubot-gold); letter-spacing: 10px; }
+        .submit-btn:hover { background: var(--ubot-gold); letter-spacing: 6px; }
+
+        /* ===== 地點資訊區塊 ===== */
+        .location-section {
+            max-width: 1200px;
+            margin: 40px auto 100px;
+            padding: 0 25px;
+        }
+        .map-placeholder {
+            width: 100%; height: 350px; background: #eee;
+            display: flex; align-items: center; justify-content: center;
+            border: 1px solid var(--border-color);
+            color: #999; letter-spacing: 2px; font-size: 14px;
+            background-image: linear-gradient(45deg, #f0f0f0 25%, transparent 25%), linear-gradient(-45deg, #f0f0f0 25%, transparent 25%);
+            background-size: 40px 40px;
+        }
 
         .social-links {
-            margin-top: 50px; display: flex; gap: 30px; justify-content: center;
-            border-top: 1px solid #F0F0F0; padding-top: 30px;
+            margin-top: 40px; display: flex; gap: 20px; justify-content: center;
+            border-top: 1px solid #f5f5f5; padding-top: 25px;
         }
         .social-icon {
-            font-size: 11px; letter-spacing: 2px; text-decoration: none;
-            color: #999; font-weight: bold; transition: 0.3s;
+            font-size: 11px; letter-spacing: 1px; text-decoration: none;
+            color: #bbb; font-weight: bold; transition: 0.3s;
         }
         .social-icon:hover { color: var(--ubot-red); }
 
-        @media (max-width: 1000px) { 
+        @media (max-width: 950px) { 
             .navbar { flex-direction: column; padding: 15px; }
-            .menu { margin-top: 15px; flex-wrap: wrap; justify-content: center; gap: 10px; }
-            .menu li { margin: 5px; }
-            .contact-container { flex-direction: column; padding: 40px 20px; } 
-            .contact-info-panel, .contact-form-box { padding: 50px 30px; }
+            .menu { margin-top: 15px; flex-wrap: wrap; justify-content: center; gap: 8px; }
+            .contact-container { flex-direction: column; } 
+            .contact-info-panel, .contact-form-box { padding: 40px 25px; }
         }
     </style>
 </head>
@@ -196,81 +206,122 @@
         <ul class="menu">
             <li><a href="newbie-award.html" class="btn-award">新人獎</a></li>
             <li><a href="impression-award.html" class="btn-award">印象大獎</a></li>
-            <li><a href="online-register.html" class="btn-register">線上報名</a></li>
-            <li><a href="registration-query.html">報名查詢</a></li>
+            <li><a href="artworks.html">作品總覽</a></li>
             <li><a href="about.html">關於我們</a></li>
             <li><a href="contact.html" class="active">聯絡我們</a></li>
+            <li><a href="online-register.html" class="btn-register">線上報名</a></li>
         </ul>
     </nav>
 </header>
 
-<div class="contact-container">
-    <div class="contact-info-panel">
-        <h2>CONTACT</h2>
-        <p class="contact-desc">歡迎與聯邦藝術中心取得聯繫。您可以透過表單留下您的訊息，或是直接與各專業部門洽談合作。</p>
+<main>
+    <div class="contact-container">
+        <div class="contact-info-panel">
+            <h2>CONTACT</h2>
+            <p class="contact-desc">與聯邦藝術中心聯繫，共同推廣台灣本土藝術之美。我們將於 2-3 個工作日內回覆您的訊息。</p>
+            
+            <div class="dept-list">
+                <div class="dept-item">
+                    <span class="dept-name">一般諮詢 / ADMIN</span>
+                    <span class="dept-contact">
+                        T. (02) 2718-0001<br>
+                        E. service@ubot-art.org.tw
+                    </span>
+                </div>
+                <div class="dept-item">
+                    <span class="dept-name">展覽與典藏 / CURATORIAL</span>
+                    <span class="dept-contact">
+                        E. archive@ubot-art.org.tw
+                    </span>
+                </div>
+                <div class="dept-item" style="border:none">
+                    <span class="dept-name">媒體與贊助 / PRESS & SPONSOR</span>
+                    <span class="dept-contact">
+                        E. press@ubot-art.org.tw
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="contact-form-panel">
+            <div class="contact-form-box">
+                <h3 class="form-title">MESSAGE / 留言諮詢</h3>
+                
+                <form id="contactForm" onsubmit="handleFormSubmit(event)">
+                    <div class="form-group">
+                        <label>Name / 姓名</label>
+                        <input type="text" placeholder="請輸入姓名" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Email / 電子郵件</label>
+                        <input type="email" placeholder="example@mail.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Category / 諮詢類別</label>
+                        <select>
+                            <option>典藏作品詢問 Archive Inquiry</option>
+                            <option>場地租借申請 Venue Rental</option>
+                            <option>美術獎報名諮詢 Award Inquiry</option>
+                            <option>藝術贊助合作 Partnership</option>
+                            <option>其他 General Inquiry</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Message / 訊息內容</label>
+                        <textarea rows="4" placeholder="請輸入訊息內容..." required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn" id="submitBtn">發送訊息 SEND MESSAGE</button>
+                </form>
+
+                <div class="social-links">
+                    <a href="#" class="social-icon">FACEBOOK</a>
+                    <a href="#" class="social-icon">INSTAGRAM</a>
+                    <a href="#" class="social-icon">UNION BANK</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="location-section">
+        <div style="margin-bottom: 20px;">
+            <span style="font-size: 12px; color: var(--ubot-gold); font-weight: bold; letter-spacing: 2px;">LOCATION</span>
+            <div style="font-size: 16px; color: var(--ubot-blue); font-weight: bold;">台北市中山北路二段 83 號 7 樓</div>
+        </div>
+        <div class="map-placeholder">
+            [ 互動地圖區域 - 可嵌入 Google Map Iframe ]
+        </div>
+    </section>
+</main>
+
+<script>
+    function handleFormSubmit(e) {
+        e.preventDefault();
+        const btn = document.getElementById('submitBtn');
+        const originalText = btn.innerText;
         
-        <div class="dept-list">
-            <div class="dept-item">
-                <span class="dept-name">一般諮詢 / ADMIN</span>
-                <span class="dept-contact">
-                    T. (02) 2718-0001<br>
-                    E. service@ubot-art.org.tw
-                </span>
-            </div>
-            <div class="dept-item">
-                <span class="dept-name">展覽與典藏 / CURATORIAL</span>
-                <span class="dept-contact">
-                    E. archive@ubot-art.org.tw
-                </span>
-            </div>
-            <div class="dept-item" style="border:none">
-                <span class="dept-name">媒體關係 / PRESS</span>
-                <span class="dept-contact">
-                    E. press@ubot-art.org.tw
-                </span>
-            </div>
-        </div>
-    </div>
+        // 模擬發送過程
+        btn.innerText = "傳送中 SENDING...";
+        btn.style.background = "#B89130";
+        btn.disabled = true;
 
-    <div class="contact-form-panel">
-        <div class="contact-form-box">
-            <h3 class="form-title">留言諮詢</h3>
+        setTimeout(() => {
+            alert("感謝您的留言！我們已收到您的訊息，將儘速回覆。");
+            btn.innerText = "訊息已送出 SENT SUCCESS";
+            btn.style.background = "#28a745";
+            document.getElementById('contactForm').reset();
             
-            <div class="form-group">
-                <label>Name / 姓名</label>
-                <input type="text" placeholder="請輸入您的姓名">
-            </div>
-            
-            <div class="form-group">
-                <label>Email / 電子郵件</label>
-                <input type="email" placeholder="example@mail.com">
-            </div>
-            
-            <div class="form-group">
-                <label>Category / 諮詢類別</label>
-                <select>
-                    <option>典藏作品詢問 Archive Inquiry</option>
-                    <option>場地租借申請 Venue Rental</option>
-                    <option>藝術贊助合作 Partnership</option>
-                    <option>其他 General Inquiry</option>
-                </select>
-            </div>
-            
-            <div class="form-group">
-                <label>Message / 訊息內容</label>
-                <textarea rows="5" placeholder="請詳細描述您的需求..."></textarea>
-            </div>
-            
-            <button class="submit-btn">發送訊息 SEND MESSAGE</button>
-
-            <div class="social-links">
-                <a href="#" class="social-icon">FACEBOOK</a>
-                <a href="#" class="social-icon">INSTAGRAM</a>
-                <a href="#" class="social-icon">UNION BANK</a>
-            </div>
-        </div>
-    </div>
-</div>
+            setTimeout(() => {
+                btn.innerText = originalText;
+                btn.style.background = "#003366";
+                btn.disabled = false;
+            }, 3000);
+        }, 1500);
+    }
+</script>
 
 </body>
 </html>
