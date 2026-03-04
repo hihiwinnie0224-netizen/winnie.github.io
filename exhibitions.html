@@ -8,22 +8,21 @@
         :root {
             --ubot-red: #E60012;         /* 聯邦紅 */
             --ubot-blue: #003366;        /* 聯邦深藍 */
-            --ubot-light-blue: #EAF6FC;  /* 聯邦淺藍底色 */
-            --ubot-sky-blue: #00A1E9;    /* 聯邦淺藍 */
-            --text-main: #222222;
-            --text-sub: #666666;
-            --bg-gray: #f4f7f9;
+            --ubot-light-blue: #EAF6FC;  /* 聯邦淺藍背景 */
+            --ubot-sky-blue: #00A1E9;    /* 聯邦淺藍點綴 */
+            --text-dark: #333333;
+            --text-gray: #666666;
         }
 
         body {
             margin: 0;
-            font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
-            background-color: var(--bg-gray);
-            color: var(--text-main);
+            font-family: "PingFang TC", "STHeitiTC-Light", "Microsoft JhengHei", sans-serif;
+            background-color: #f8fbfd;
+            color: var(--text-dark);
             line-height: 1.6;
         }
 
-        /* ===== 導覽列 ===== */
+        /* ===== 1. 導覽列 Navbar (同步首頁) ===== */
         header {
             background: #ffffff;
             box-shadow: 0 2px 15px rgba(0,0,0,0.05);
@@ -48,27 +47,45 @@
             text-decoration: none;
             display: flex;
             align-items: center;
+            letter-spacing: 1px;
         }
 
-        .logo a::before { content: "●"; color: var(--ubot-red); margin-right: 8px; }
+        .logo a span {
+            color: var(--ubot-red);
+            font-size: 28px;
+            margin-right: 5px;
+        }
 
-        .menu { display: flex; list-style: none; margin: 0; padding: 0; }
+        .menu {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
         .menu li { margin-left: 20px; }
+
         .menu a {
             text-decoration: none;
-            color: var(--text-main);
+            color: var(--text-dark);
             font-weight: 500;
             font-size: 15px;
             transition: 0.3s;
+            padding: 8px 12px;
+            border-radius: 4px;
         }
-        .menu a:hover, .menu a.active { color: var(--ubot-red); }
 
-        /* ===== Banner ===== */
-        .hero-banner {
+        .menu a:hover, .menu a.active { 
+            color: var(--ubot-red); 
+            background: var(--ubot-light-blue);
+        }
+
+        /* ===== 2. 頁面 Banner ===== */
+        .page-banner {
             width: 100%;
-            height: 250px;
-            background: linear-gradient(rgba(0,51,102,0.8), rgba(0,51,102,0.6)), 
-                        url('https://images.unsplash.com/photo-1531050171669-70c47aca81b9?auto=format&fit=crop&w=1200&q=80');
+            height: 300px;
+            background: linear-gradient(rgba(0,51,102,0.7), rgba(0,51,102,0.5)),
+                        url('https://images.unsplash.com/photo-1531050171669-70c47aca81b9?auto=format&fit=crop&w=1600&q=80');
             background-size: cover;
             background-position: center;
             display: flex;
@@ -76,136 +93,189 @@
             justify-content: center;
             align-items: center;
             color: white;
+            text-align: center;
         }
 
-        .hero-banner h1 { font-size: 36px; letter-spacing: 4px; margin: 0; }
-        .hero-banner p { font-size: 16px; opacity: 0.8; margin-top: 10px; }
+        .page-banner h1 { 
+            font-size: 42px; 
+            letter-spacing: 6px; 
+            margin: 0; 
+            font-weight: 700;
+        }
 
-        /* ===== 主內容區 ===== */
+        .page-banner p { 
+            font-size: 16px; 
+            letter-spacing: 4px; 
+            margin-top: 10px; 
+            opacity: 0.9;
+        }
+
+        /* ===== 3. 主內容區 ===== */
         .container {
             max-width: 1200px;
-            margin: 40px auto;
+            margin: -40px auto 100px;
             padding: 0 20px;
+            position: relative;
+            z-index: 10;
         }
 
-        /* 搜尋框 */
+        /* 搜尋框優化 */
         .search-section {
-            margin-bottom: 40px;
+            margin-bottom: 50px;
             display: flex;
             justify-content: center;
         }
 
         .search-input {
             width: 100%;
-            max-width: 500px;
-            padding: 15px 25px;
-            border: 2px solid #ddd;
+            max-width: 600px;
+            padding: 18px 30px;
+            border: none;
             border-radius: 50px;
             font-size: 16px;
             transition: 0.3s;
             outline: none;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            box-shadow: 0 10px 25px rgba(0,51,102,0.1);
         }
 
         .search-input:focus {
-            border-color: var(--ubot-sky-blue);
-            box-shadow: 0 4px 15px rgba(0,161,233,0.2);
+            box-shadow: 0 10px 30px rgba(0,161,233,0.25);
+            transform: scale(1.02);
         }
 
         /* 展覽網格 */
         .ex-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
         }
 
         .ex-card {
             background: white;
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            border-radius: 20px;
+            padding: 40px 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
             transition: 0.4s;
             position: relative;
-            border-top: 5px solid var(--ubot-blue);
+            overflow: hidden;
+            border: 1px solid #f0f0f0;
         }
 
-        .ex-card:hover { transform: translateY(-10px); box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
+        .ex-card:hover { 
+            transform: translateY(-12px); 
+            box-shadow: 0 20px 40px rgba(0,51,102,0.12);
+        }
 
         /* 狀態標籤 */
         .status-tag {
             display: inline-block;
-            padding: 4px 12px;
-            border-radius: 4px;
+            padding: 4px 14px;
+            border-radius: 50px;
             font-size: 12px;
             font-weight: 700;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             background: var(--ubot-blue);
             color: white;
         }
 
-        /* 顏色區分 */
-        .ex-card.past { border-top-color: #ccc; opacity: 0.8; }
-        .ex-card.past .status-tag { background: #999; }
-        .ex-card.upcoming-soon { border-top-color: var(--ubot-red); }
+        /* 卡片顏色區分 */
+        .ex-card.upcoming-soon { border-top: 6px solid var(--ubot-red); }
         .ex-card.upcoming-soon .status-tag { background: var(--ubot-red); }
+        .ex-card.past { opacity: 0.7; grayscale: 100%; }
+        .ex-card.past .status-tag { background: #999; }
+        .ex-card:not(.past):not(.upcoming-soon) { border-top: 6px solid var(--ubot-sky-blue); }
 
         .ex-date {
             display: block;
-            font-size: 20px;
+            font-size: 24px;
             font-weight: 800;
             color: var(--ubot-blue);
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            font-family: 'Arial', sans-serif;
         }
 
         .ex-location {
             font-size: 22px;
             font-weight: 700;
-            margin-bottom: 8px;
-            color: #333;
+            margin-bottom: 10px;
+            color: #222;
         }
 
         .ex-address {
             font-size: 14px;
-            color: var(--text-sub);
-            margin-bottom: 25px;
-            min-height: 40px;
+            color: var(--text-gray);
+            margin-bottom: 30px;
+            min-height: 44px;
+            line-height: 1.5;
         }
 
         .btn-map {
-            display: inline-block;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             width: 100%;
-            text-align: center;
-            padding: 12px 0;
+            padding: 14px 0;
             background: var(--ubot-light-blue);
             color: var(--ubot-blue);
             text-decoration: none;
-            border-radius: 8px;
+            border-radius: 12px;
             font-weight: 700;
             transition: 0.3s;
+            border: 1px solid transparent;
         }
 
-        .btn-map:hover { background: var(--ubot-blue); color: white; }
-        .past .btn-map { background: #eee; color: #aaa; cursor: default; }
+        .btn-map:hover { 
+            background: var(--ubot-blue); 
+            color: white; 
+        }
 
-        /* ===== Footer (聯邦淺藍) ===== */
+        .past .btn-map { 
+            background: #f0f0f0; 
+            color: #bbb; 
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        /* ===== 4. 頁尾 Footer (同步首頁) ===== */
         footer {
             background: var(--ubot-light-blue);
             color: var(--ubot-blue);
             padding: 60px 20px 30px;
-            margin-top: 80px;
         }
 
-        .footer-content {
+        .footer-container {
             max-width: 1200px;
             margin: 0 auto;
-            text-align: center;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
         }
 
-        .footer-content p { margin: 8px 0; font-size: 14px; }
+        .footer-logo { font-size: 22px; font-weight: 800; margin-bottom: 15px; }
+        .footer-info p { margin: 5px 0; font-size: 14px; }
+
+        .footer-links h4 { margin: 0 0 15px; border-left: 3px solid var(--ubot-red); padding-left: 10px; }
+        .footer-links ul { list-style: none; padding: 0; margin: 0; }
+        .footer-links li { margin-bottom: 8px; }
+        .footer-links a { text-decoration: none; color: var(--ubot-blue); font-size: 14px; opacity: 0.8; }
+        .footer-links a:hover { opacity: 1; color: var(--ubot-red); }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 40px auto 0;
+            padding-top: 20px;
+            border-top: 1px solid rgba(0,51,102,0.1);
+            text-align: center;
+            font-size: 13px;
+            opacity: 0.7;
+        }
 
         @media (max-width: 768px) {
+            .navbar { flex-direction: column; }
+            .menu { margin-top: 15px; flex-wrap: wrap; justify-content: center; }
+            .menu li { margin: 5px 10px; }
+            .page-banner h1 { font-size: 32px; }
             .ex-grid { grid-template-columns: 1fr; }
-            .hero-banner h1 { font-size: 28px; }
         }
     </style>
 </head>
@@ -213,12 +283,13 @@
 
 <header>
     <nav class="navbar">
-        <div class="logo"><a href="index.html">聯邦藝術中心</a></div>
+        <div class="logo">
+            <a href="index.html"><span>●</span> 聯邦藝術中心</a>
+        </div>
         <ul class="menu">
             <li><a href="about.html">關於我們</a></li>
             <li><a href="exhibitions.html" class="active">展覽動態</a></li>
             <li><a href="awards.html">美術獎項</a></li>
-            <li><a href="artists.html">藝術家</a></li>
             <li><a href="artworks.html">作品總覽</a></li>
             <li><a href="visit.html">參觀資訊</a></li>
             <li><a href="contact.html">聯絡我們</a></li>
@@ -226,12 +297,12 @@
     </nav>
 </header>
 
-<div class="hero-banner">
+<section class="page-banner">
     <h1>展覽動態</h1>
-    <p>全國巡迴展出資訊</p>
-</div>
+    <p>Exhibition Schedule & Locations</p>
+</section>
 
-<div class="container main-content">
+<div class="container">
     <div class="search-section">
         <input type="text" id="searchInput" class="search-input" placeholder="🔍 輸入城市或館名搜尋展覽 (如：台北、高雄)" onkeyup="searchEx()">
     </div>
@@ -240,7 +311,7 @@
         
         <div class="ex-card past" data-info="台北 聯邦銀行總行">
             <span class="status-tag">展覽已結束</span>
-            <span class="ex-date">01/06 - 02/13</span>
+            <span class="ex-date">01.06 - 02.13</span>
             <div class="ex-location">聯邦銀行總行</div>
             <div class="ex-address">臺北市松山區民生東路三段109號</div>
             <span class="btn-map">結束展出</span>
@@ -248,76 +319,74 @@
 
         <div class="ex-card upcoming-soon" data-info="高雄 高雄市文化中心">
             <span class="status-tag">下一站：即將開幕</span>
-            <span class="ex-date">03/06 - 03/17</span>
+            <span class="ex-date">03.06 - 03.17</span>
             <div class="ex-location">高雄市文化中心</div>
             <div class="ex-address">高雄市苓雅區五福一路67號</div>
-            <a href="https://www.google.com/maps/search/?api=1&query=高雄市文化中心" target="_blank" class="btn-map">📍 導航前往</a>
+            <a href="https://www.google.com/maps/search/高雄市文化中心" target="_blank" class="btn-map">📍 導航前往</a>
         </div>
 
         <div class="ex-card" data-info="台中 大墩文化中心">
             <span class="status-tag">預計展出</span>
-            <span class="ex-date">03/21 - 04/01</span>
+            <span class="ex-date">03.21 - 04.01</span>
             <div class="ex-location">大墩文化中心</div>
             <div class="ex-address">臺中市西區英才路600號</div>
-            <a href="https://www.google.com/maps/search/?api=1&query=台中大墩文化中心" target="_blank" class="btn-map">📍 導航前往</a>
+            <a href="https://www.google.com/maps/search/大墩文化中心" target="_blank" class="btn-map">📍 導航前往</a>
         </div>
 
         <div class="ex-card" data-info="南投 虎山藝術館">
             <span class="status-tag">預計展出</span>
-            <span class="ex-date">04/11 - 05/06</span>
+            <span class="ex-date">04.11 - 05.06</span>
             <div class="ex-location">虎山藝術館</div>
             <div class="ex-address">南投縣南投市環山路95巷26號</div>
-            <a href="https://www.google.com/maps/search/?api=1&query=南投虎山藝術館" target="_blank" class="btn-map">📍 導航前往</a>
+            <a href="https://www.google.com/maps/search/虎山藝術館" target="_blank" class="btn-map">📍 導航前往</a>
         </div>
 
         <div class="ex-card" data-info="苗栗 苗栗縣政府文化觀光局">
             <span class="status-tag">預計展出</span>
-            <span class="ex-date">05/20 - 06/07</span>
+            <span class="ex-date">05.20 - 06.07</span>
             <div class="ex-location">苗栗縣文化觀光局</div>
             <div class="ex-address">苗栗縣苗栗市自治路50號</div>
-            <a href="https://www.google.com/maps/search/?api=1&query=苗栗縣政府文化觀光局" target="_blank" class="btn-map">📍 導航前往</a>
+            <a href="https://www.google.com/maps/search/苗栗縣文化觀光局" target="_blank" class="btn-map">📍 導航前往</a>
         </div>
 
         <div class="ex-card" data-info="彰化 彰化縣立美術館">
             <span class="status-tag">預計展出</span>
-            <span class="ex-date">06/16 - 07/05</span>
+            <span class="ex-date">06.16 - 07.05</span>
             <div class="ex-location">彰化縣立美術館</div>
             <div class="ex-address">彰化市卦山路3號</div>
-            <a href="https://www.google.com/maps/search/?api=1&query=彰化縣立美術館" target="_blank" class="btn-map">📍 導航前往</a>
-        </div>
-
-        <div class="ex-card" data-info="新北 蘆洲 林建生紀念圖書館">
-            <span class="status-tag">預計展出</span>
-            <span class="ex-date">07/08 - 07/21</span>
-            <div class="ex-location">林建生紀念圖書館</div>
-            <div class="ex-address">新北市蘆洲區三民路178號</div>
-            <a href="https://www.google.com/maps/search/?api=1&query=林建生紀念圖書館" target="_blank" class="btn-map">📍 導航前往</a>
-        </div>
-
-        <div class="ex-card" data-info="台南 新營文化中心">
-            <span class="status-tag">預計展出</span>
-            <span class="ex-date">07/24 - 08/16</span>
-            <div class="ex-location">新營文化中心</div>
-            <div class="ex-address">臺南市新營區中正路23號</div>
-            <a href="https://www.google.com/maps/search/?api=1&query=新營文化中心" target="_blank" class="btn-map">📍 導航前往</a>
-        </div>
-
-        <div class="ex-card" data-info="屏東 屏東演藝廳">
-            <span class="status-tag">預計展出</span>
-            <span class="ex-date">11/21 - 12/20</span>
-            <div class="ex-location">屏東演藝廳</div>
-            <div class="ex-address">屏東市民生路4之17號</div>
-            <a href="https://www.google.com/maps/search/?api=1&query=屏東演藝廳" target="_blank" class="btn-map">📍 導航前往</a>
+            <a href="https://www.google.com/maps/search/彰化縣立美術館" target="_blank" class="btn-map">📍 導航前往</a>
         </div>
 
     </div>
 </div>
 
 <footer>
-    <div class="footer-content">
-        <p>© 2026 聯邦藝術中心 Union Art Center</p>
-        <p>地址：台北市中山北路二段83號7樓 | 電話：(02)2536-9999</p>
-        <p style="opacity: 0.6; font-size: 12px;">開放時間：依各展覽場館公告為準</p>
+    <div class="footer-container">
+        <div class="footer-info">
+            <div class="footer-logo">聯邦藝術中心</div>
+            <p>地址：台北市中山北路二段83號7樓</p>
+            <p>電話：(02)2536-9999</p>
+            <p>開放時間：依各展覽場館公告為準</p>
+        </div>
+        <div class="footer-links">
+            <h4>快速連結</h4>
+            <ul>
+                <li><a href="about.html">關於我們</a></li>
+                <li><a href="awards.html">美術獎徵件規範</a></li>
+                <li><a href="visit.html">交通資訊</a></li>
+            </ul>
+        </div>
+        <div class="footer-links">
+            <h4>相關平台</h4>
+            <ul>
+                <li><a href="https://www.ubot.com.tw/">聯邦銀行官網</a></li>
+                <li><a href="#">聯邦文教基金會</a></li>
+                <li><a href="#">官方粉絲專頁</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2026 Union Art Center 聯邦藝術中心 | <a href="privacy.html" style="color:inherit;">隱私權政策</a></p>
     </div>
 </footer>
 
