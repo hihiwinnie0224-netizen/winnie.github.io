@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>關於我們｜聯邦藝術中心</title>
+    <meta name="description" content="了解聯邦藝術中心的成立宗旨、使命理念與發展沿革。">
+
+    <!-- 共用CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<!-- ===== 導覽列開始 ===== -->
+<header>
+    <nav class="navbar">
+        <div class="logo">
+            <a href="index.html">聯邦藝術中心</a>
+        </div>
+
+        <ul class="menu">
+            <li><a href="about.html" class="active">關於我們</a></li>
+            <li><a href="exhibitions.html">展覽動態</a></li>
+            <li><a href="awards.html">美術獎項</a></li>
+            <li><a href="artists.html">藝術家</a></li>
+            <li><a href="artworks.html">作品總覽</a></li>
+            <li><a href="visit.html">參觀資訊</a></li>
+            <li><a href="contact.html">聯絡我們</a></li>
+        </ul>
+    </nav>
+</header>
+<!-- ===== 導覽列結束 ===== -->
+
+
+<!-- ===== 頁面標題區 ===== -->
+<section class="page-banner">
+    <div class="container">
+        <h1>關於聯邦藝術中心</h1>
+        <p>About Union Art Center</p>
+    </div>
+</section>
+
+
+<!-- ===== 中心簡介 ===== -->
+<section class="content-section">
+    <div class="container">
+        <h2>中心簡介</h2>
+        <p>
+            聯邦藝術中心成立於1998年，
+            長期致力於推廣台灣本土藝術創作，
+            透過展覽策劃、藝術競賽與典藏制度，
+            建立企業支持藝術文化之永續平台。
+        </p>
+    </div>
+</section>
+
+
+<!-- ===== 使命理念 ===== -->
+<section class="content-section light-bg">
+    <div class="container">
+        <h2>使命與理念</h2>
+        <ul class="about-list">
+            <li>推動本土藝術發展與國際交流</li>
+            <li>培育青年藝術創作者</li>
+            <li>建立企業與藝術共融的文化價值</li>
+            <li>落實企業社會責任（CSR）</li>
+        </ul>
+    </div>
+</section>
+
+
+<!-- ===== 發展沿革 ===== -->
+<section class="content-section">
+    <div class="container">
+        <h2>發展沿革</h2>
+
+        <div class="timeline">
+            <div class="timeline-item">
+                <span class="year">1998</span>
+                <p>成立聯邦藝術中心，開始舉辦年度藝術展覽。</p>
+            </div>
+
+            <div class="timeline-item">
+                <span class="year">2003</span>
+                <p>創辦「聯邦美術獎」，鼓勵青年藝術創作。</p>
+            </div>
+
+            <div class="timeline-item">
+                <span class="year">2015</span>
+                <p>啟動全台巡迴展覽計畫，擴大藝術推廣範圍。</p>
+            </div>
+
+            <div class="timeline-item">
+                <span class="year">2024</span>
+                <p>數位典藏平台上線，提供線上作品瀏覽服務。</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ===== 空間介紹 ===== -->
+<section class="content-section light-bg">
+    <div class="container">
+        <h2>展覽空間</h2>
+        <p>
+            本中心展覽空間位於台北市中心，
+            提供專業展場規劃與完善燈光設備，
+            致力於打造優質藝術展示環境。
+        </p>
+    </div>
+</section>
+
+
+<!-- ===== 頁尾開始 ===== -->
+<footer>
+    <div class="footer-content">
+        <p>© 2026 聯邦藝術中心 Union Art Center</p>
+        <p>地址：台北市中山北路二段83號7樓</p>
+        <p>電話：(02)2536-9999</p>
+
+        <div class="footer-links">
+            <a href="privacy.html">隱私權聲明</a> |
+            <a href="lost-found.html">失物招領</a>
+        </div>
+    </div>
+</footer>
+<!-- ===== 頁尾結束 ===== -->
+
+
+<!-- 共用JS -->
+<script src="js/main.js"></script>
+
+</body>
+</html>
