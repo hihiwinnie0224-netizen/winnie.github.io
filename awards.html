@@ -4,21 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>美術獎項｜聯邦藝術中心</title>
-    <meta name="description" content="聯邦美術獎新人獎與印象大獎徵件資訊與線上報名系統。">
-
-    <!-- 共用CSS -->
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* 針對此頁面特別強化的樣式 */
+        .rules-body h3 {
+            color: var(--ubot-blue);
+            margin-top: 30px;
+            border-left: 5px solid var(--ubot-red);
+            padding-left: 15px;
+            background: #f9f9f9;
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+        .rules-text { margin-bottom: 20px; white-space: pre-wrap; text-align: justify; line-height: 1.8; }
+        .form-group { margin-bottom: 20px; text-align: left; }
+        .form-group label { display: block; font-weight: bold; margin-bottom: 8px; color: var(--ubot-blue); }
+        .form-control { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .address-row { display: grid; grid-template-columns: 1fr 1fr 2fr; gap: 10px; margin-top: 10px; }
+        .checkbox-group { background: #fdf7f7; padding: 20px; border: 1px solid #f5e1e1; margin: 30px 0; border-radius: 8px; }
+        .checkbox-item { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 15px; font-size: 14px; text-align: left; }
+        .tab-content { display: none; padding: 40px 0; }
+        .tab-content.active { display: block; animation: fadeIn 0.5s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
 </head>
-
 <body>
 
-<!-- ===== 導覽列 ===== -->
 <header>
     <nav class="navbar">
-        <div class="logo">
-            <a href="index.html">聯邦藝術中心</a>
-        </div>
-
+        <div class="logo"><a href="index.html">聯邦藝術中心</a></div>
         <ul class="menu">
             <li><a href="about.html">關於我們</a></li>
             <li><a href="exhibitions.html">展覽動態</a></li>
@@ -31,106 +46,130 @@
     </nav>
 </header>
 
-<!-- ===== 頁面標題 ===== -->
-<section class="page-banner">
+<section class="page-banner" style="background: linear-gradient(rgba(0,51,102,0.8), rgba(0,51,102,0.8)), url('https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=1200&q=80'); background-size: cover; color: white; padding: 80px 0; text-align: center;">
     <div class="container">
-        <h1>聯邦美術獎</h1>
-        <p>Art Award Program</p>
+        <h1>2026 聯邦美術比賽</h1>
+        <p>報名時間：自即日起至 115/09/30</p>
     </div>
 </section>
 
+<section class="tabs-section" style="background: white; border-bottom: 2px solid #003366; position: sticky; top: 0; z-index: 100;">
+    <div class="container" style="display: flex; justify-content: center;">
+        <button onclick="showTab('tab-newbie')" class="tab-btn active" id="btn-newbie" style="padding: 20px 30px; border: none; background: none; font-weight: bold; cursor: pointer;">新人獎簡章</button>
+        <button onclick="showTab('tab-impression')" class="tab-btn" id="btn-impression" style="padding: 20px 30px; border: none; background: none; font-weight: bold; cursor: pointer;">印象大獎簡章</button>
+        <button onclick="showTab('tab-register')" class="tab-btn" id="btn-register" style="padding: 20px 30px; border: none; background: none; font-weight: bold; cursor: pointer;">線上報名</button>
+        <button onclick="showTab('tab-query')" class="tab-btn" id="btn-query" style="padding: 20px 30px; border: none; background: none; font-weight: bold; cursor: pointer;">報名查詢</button>
+    </div>
+</section>
 
-<!-- ===== 分頁按鈕 ===== -->
-<section class="tabs-section">
-    <div class="container">
-        <div class="tabs">
-            <button onclick="showTab('newcomer')" class="tab-btn active">新人獎</button>
-            <button onclick="showTab('impression')" class="tab-btn">印象大獎</button>
-            <button onclick="showTab('apply')" class="tab-btn">線上報名</button>
+<div class="container" style="max-width: 1000px; margin: 40px auto; background: white; padding: 40px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+    
+    <div id="tab-newbie" class="tab-content active">
+        <h2 style="text-align: center; color: #003366; border-bottom: 2px double #B89130; padding-bottom: 15px;">第二十九屆「聯邦美術新人獎」簡章</h2>
+        <div class="rules-body">
+            <h3>壹、宗旨</h3><div class="rules-text">鼓勵青年從事藝術研究與創作...</div>
+            <h3>貳、活動單位</h3><div class="rules-text">主辦單位：聯邦文教基金會...</div>
+            <h3>參、參賽資格</h3><div class="rules-text">一、凡具中華民國國籍且年滿40歲以下之藝術工作者...</div>
+            <h3>拾參、活動報名資訊</h3><div class="rules-text">請洽聯邦文教基金會網站(https://www.ubot.org.tw)或來電(02)2536-9999。</div>
+        </div>
+        <div style="text-align: center; margin-top: 40px;">
+            <button class="btn-map" onclick="showTab('tab-register')" style="padding: 15px 40px; cursor: pointer; border: none; background: #003366; color: white; border-radius: 5px; font-weight: bold;">前往線上報名</button>
         </div>
     </div>
-</section>
 
-
-<!-- ===== 新人獎內容 ===== -->
-<section id="newcomer" class="tab-content active">
-    <div class="container">
-        <h2>聯邦美術新人獎</h2>
-        <ul>
-            <li>參賽資格：40歲以下</li>
-            <li>創作媒材：具象油畫</li>
-            <li>作品規格：30F</li>
-            <li>送審件數：5件作品</li>
-            <li>首獎獎金：新台幣60萬元</li>
-        </ul>
+    <div id="tab-impression" class="tab-content">
+        <h2 style="text-align: center; color: #003366; border-bottom: 2px double #B89130; padding-bottom: 15px;">第二十四屆「聯邦美術印象大獎」簡章</h2>
+        <div class="rules-body">
+            <h3>壹、宗旨</h3><div class="rules-text">鼓勵社會大眾從事專業藝術研究，倡導印象派自然光線之藝術創作...</div>
+            </div>
     </div>
-</section>
 
-
-<!-- ===== 印象大獎內容 ===== -->
-<section id="impression" class="tab-content">
-    <div class="container">
-        <h2>聯邦印象大獎</h2>
-        <ul>
-            <li>參賽資格：不限年齡</li>
-            <li>創作風格：印象派風格</li>
-            <li>創作媒材：油畫</li>
-            <li>作品規格：30F</li>
-            <li>送審件數：5件作品</li>
-        </ul>
-    </div>
-</section>
-
-
-<!-- ===== 線上報名 ===== -->
-<section id="apply" class="tab-content">
-    <div class="container">
-        <h2>線上報名表</h2>
-
-        <form onsubmit="return validateForm()">
-            <label>姓名</label>
-            <input type="text" id="name">
-
-            <label>Email</label>
-            <input type="email" id="email">
-
-            <label>參賽獎項</label>
-            <select id="category">
-                <option value="">請選擇</option>
-                <option value="新人獎">新人獎</option>
-                <option value="印象大獎">印象大獎</option>
-            </select>
-
-            <label>聯絡電話</label>
-            <input type="text" id="phone">
-
-            <label>
-                <input type="checkbox" id="agree">
-                我已閱讀並同意相關規定
-            </label>
-
-            <button type="submit">送出報名</button>
+    <div id="tab-register" class="tab-content">
+        <h2 style="text-align: center; color: #003366;">聯邦美術比賽線上報名</h2>
+        <form id="applyForm">
+            <div class="form-group">
+                <label>比賽項目</label>
+                <select class="form-control" required>
+                    <option value="">請選擇</option>
+                    <option>第二十九屆聯邦美術新人獎</option>
+                    <option>第二十四屆聯邦美術印象大獎</option>
+                </select>
+            </div>
+            <div class="form-row">
+                <div class="form-group"><label>中文姓名</label><input type="text" class="form-control" required></div>
+                <div class="form-group"><label>身分證字號</label><input type="text" class="form-control" required></div>
+            </div>
+            <div class="form-group">
+                <label>出生年月日</label>
+                <div class="address-row">
+                    <select class="form-control" id="year-select"></select>
+                    <select class="form-control" id="month-select"></select>
+                    <select class="form-control" id="day-select"></select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>電子信箱</label>
+                <input type="email" class="form-control" required>
+            </div>
+            <div class="checkbox-group">
+                <div class="checkbox-item"><input type="checkbox" required> <span>同意遵守簡章之規定，資料均屬實。</span></div>
+                <div class="checkbox-item"><input type="checkbox" required> <span>同意個人資料蒐集、處理及利用。</span></div>
+            </div>
+            <button type="submit" style="width: 100%; padding: 15px; background: #003366; color: white; border: none; border-radius: 5px; font-size: 18px; cursor: pointer;">下一步：上傳作品檔案</button>
         </form>
     </div>
-</section>
 
+    <div id="tab-query" class="tab-content">
+        <h2 style="text-align: center; color: #003366;">報名進度查詢</h2>
+        <div style="max-width: 500px; margin: 0 auto;">
+            <div class="form-group"><label>身分證字號</label><input type="text" class="form-control"></div>
+            <div class="form-group"><label>連絡電話</label><input type="tel" class="form-control"></div>
+            <button style="width: 100%; padding: 12px; background: #B89130; color: white; border: none; border-radius: 5px; cursor: pointer;">開始查詢</button>
+        </div>
+    </div>
 
-<!-- ===== 頁尾 ===== -->
+</div>
+
 <footer>
     <div class="footer-content">
         <p>© 2026 聯邦藝術中心 Union Art Center</p>
-        <p>地址：台北市中山北路二段83號7樓</p>
-        <p>電話：(02)2536-9999</p>
-
-        <div class="footer-links">
-            <a href="privacy.html">隱私權聲明</a> |
-            <a href="lost-found.html">失物招領</a>
-        </div>
+        <p>地址：台北市中山北路二段83號7樓 | 電話：(02)2536-9999</p>
     </div>
 </footer>
 
-<!-- 共用JS -->
 <script src="js/main.js"></script>
+<script>
+    // 頁面內部的分頁控制 (切換 Active 狀態)
+    function showTab(tabId) {
+        // 隱藏所有內容
+        document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+        // 移除所有按鈕 active 樣式
+        document.querySelectorAll('.tab-btn').forEach(el => {
+            el.style.color = '#666';
+            el.style.boxShadow = 'none';
+        });
+        
+        // 顯示目標內容
+        document.getElementById(tabId).classList.add('active');
+        // 設定按鈕 active 樣式
+        const activeBtn = document.querySelector(`button[onclick="showTab('${tabId}')"]`);
+        activeBtn.style.color = '#003366';
+        activeBtn.style.boxShadow = 'inset 0 -4px 0 #003366';
+        
+        window.scrollTo(0, 400); // 切換時自動捲動到內容區
+    }
 
+    // 初始化日期選單
+    function initDate() {
+        const y = document.getElementById('year-select');
+        const m = document.getElementById('month-select');
+        const d = document.getElementById('day-select');
+        if(!y) return;
+        for(let i=1940; i<=2015; i++) y.innerHTML += `<option>${i}年</option>`;
+        for(let i=1; i<=12; i++) m.innerHTML += `<option>${i}月</option>`;
+        for(let i=1; i<=31; i++) d.innerHTML += `<option>${i}日</option>`;
+    }
+    window.onload = initDate;
+</script>
 </body>
 </html>
