@@ -3,15 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>聯邦美術獎項與線上報名系統｜聯邦文教基金會</title>
+    <title>聯邦美術獎項與報名系統｜聯邦藝術中心 Union Art Center</title>
     <style>
         :root {
             --ubot-blue: #003366;     /* 聯邦深藍 */
             --ubot-red: #E60012;      /* 聯邦紅 */
             --ubot-gold: #B89130;     /* 典藏金 */
+            --soft-sage: #E8EDE7;     /* 鼠尾草灰綠 */
             --paper-warm: #F4F1ED;    /* 溫暖燕麥 */
             --text-main: #333333;
             --border-color: #D1CDC4;
+            --transition: all 0.5s cubic-bezier(0.2, 1, 0.3, 1);
         }
 
         body { 
@@ -20,78 +22,70 @@
             scroll-behavior: smooth;
         }
 
-        /* ===== 1. 導覽列 (確保按鈕不消失) ===== */
+        /* ===== 1. 全站通用導覽列 (保留頁首) ===== */
         header {
-            background: #ffffff; box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            background: #ffffff; box-shadow: 0 2px 15px rgba(0,0,0,0.08);
             position: sticky; top: 0; z-index: 1000;
         }
         .navbar {
             max-width: 1200px; margin: 0 auto; display: flex;
-            justify-content: space-between; align-items: center; padding: 15px 25px;
+            justify-content: space-between; align-items: center; padding: 18px 25px;
         }
-        .logo a { font-size: 24px; font-weight: 800; color: var(--ubot-blue); text-decoration: none; }
+        .logo a {
+            font-size: 26px; font-weight: 800; color: var(--ubot-blue);
+            text-decoration: none; letter-spacing: 2px; display: flex; align-items: center;
+        }
         .logo a::before { content: "●"; color: var(--ubot-red); margin-right: 8px; }
         
-        .menu { display: flex; list-style: none; gap: 10px; margin: 0; }
-        .menu a { 
-            text-decoration: none; color: #555; font-weight: 600; font-size: 14px; 
-            padding: 10px 15px; border-radius: 4px; transition: 0.3s;
-        }
-        .menu a:hover { color: var(--ubot-red); background: #f0f0f0; }
-        .menu a.btn-apply { background: var(--ubot-red); color: white; }
+        .menu { display: flex; list-style: none; margin: 0; padding: 0; }
+        .menu li { margin-left: 20px; }
+        .menu a { text-decoration: none; color: #555; font-weight: 600; font-size: 15px; transition: 0.3s; padding: 5px 10px; }
+        .menu a:hover { color: var(--ubot-red); }
+        .menu a.active-btn { background: var(--ubot-red); color: white; border-radius: 4px; }
 
-        /* ===== 2. 頁面 Banner ===== */
-        .page-banner {
-            background: var(--ubot-blue); color: white; padding: 60px 20px; text-align: center;
-        }
-        .page-banner h1 { margin: 0; font-size: 2.2rem; letter-spacing: 2px; }
-        .page-banner p { opacity: 0.8; margin-top: 10px; }
-
-        /* ===== 3. 內容容器 ===== */
-        .container { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
+        /* ===== 2. 頁面內容區塊 ===== */
+        .container { max-width: 1100px; margin: 40px auto; padding: 0 25px; }
         
-        section { 
-            background: white; padding: 50px; border: 1px solid var(--border-color); 
-            margin-bottom: 60px; box-shadow: 10px 10px 0px rgba(0, 51, 102, 0.05);
+        .section-card { 
+            background: white; padding: 60px; border: 1px solid var(--border-color); 
+            margin-bottom: 50px; box-shadow: 20px 20px 0px rgba(0, 51, 102, 0.05);
         }
 
-        .section-title { 
-            color: var(--ubot-blue); border-bottom: 2px solid var(--ubot-red); 
-            padding-bottom: 15px; margin-bottom: 30px; font-size: 1.6rem; text-align: center;
-        }
+        .title-group { text-align: center; margin-bottom: 50px; }
+        .title-group h2 { color: var(--ubot-blue); font-size: 1.8rem; letter-spacing: 4px; margin-bottom: 10px; }
+        .title-group .sub-line { width: 60px; height: 4px; background: var(--ubot-red); margin: 0 auto; }
 
-        /* 簡章排版 */
-        .rule-box { font-size: 15px; color: #444; }
-        .rule-box h4 { color: var(--ubot-gold); margin: 25px 0 10px 0; font-size: 1.1rem; border-left: 4px solid var(--ubot-gold); padding-left: 10px; }
-        .rule-box p { margin: 5px 0; }
+        /* 簡章文字樣式 */
+        .content-body h3 { color: var(--ubot-gold); border-left: 5px solid var(--ubot-gold); padding-left: 15px; margin-top: 30px; }
+        .content-body p { margin: 10px 0 10px 20px; font-size: 15px; color: #555; }
 
-        /* ===== 4. 報名表單樣式 ===== */
-        .form-group { margin-bottom: 25px; }
-        .form-group label { display: block; font-weight: 700; color: var(--ubot-blue); margin-bottom: 8px; font-size: 14px; }
+        /* ===== 3. 報名表單與查詢樣式 ===== */
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-bottom: 25px; }
+        .form-group { display: flex; flex-direction: column; }
+        .form-group label { font-weight: 700; color: var(--ubot-blue); font-size: 13px; margin-bottom: 8px; letter-spacing: 1px; }
         .form-group input, .form-group select, .form-group textarea {
-            width: 100%; padding: 12px; border: 1px solid #ddd; background: #f9f9f9; box-sizing: border-box; font-size: 16px;
+            padding: 15px; background: #F9F9F9; border: 1px solid #EDEDED; font-size: 1rem; transition: var(--transition);
         }
-        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        
-        .checkbox-group { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 15px; font-size: 14px; }
-        .checkbox-group input { width: auto; margin-top: 5px; }
+        .form-group input:focus { outline: none; border-color: var(--ubot-gold); background: #fff; }
+
+        .checkbox-container { background: #fdfdfd; padding: 25px; border: 1px solid #eee; margin: 30px 0; }
+        .check-item { display: flex; gap: 12px; margin-bottom: 12px; font-size: 14px; align-items: flex-start; }
+        .check-item input { margin-top: 5px; }
 
         .submit-btn {
-            width: 100%; padding: 20px; background: var(--ubot-blue); color: white; 
-            border: none; cursor: pointer; font-weight: bold; letter-spacing: 4px; font-size: 16px; transition: 0.3s;
+            width: 100%; padding: 20px; background: var(--ubot-blue); color: white; border: none;
+            cursor: pointer; font-weight: bold; letter-spacing: 6px; font-size: 16px; transition: var(--transition);
         }
-        .submit-btn:hover { background: var(--ubot-gold); }
+        .submit-btn:hover { background: var(--ubot-gold); letter-spacing: 10px; }
 
-        /* ===== 5. 報名查詢專用樣式 ===== */
-        .query-box { max-width: 500px; margin: 0 auto; }
+        footer { background: #222; color: #eee; padding: 60px 20px; text-align: center; }
 
-        footer { background: #222; color: #999; text-align: center; padding: 40px 20px; font-size: 14px; }
-
-        @media (max-width: 768px) {
+        @media (max-width: 900px) {
             .navbar { flex-direction: column; padding: 15px; }
             .menu { margin-top: 15px; flex-wrap: wrap; justify-content: center; }
-            .form-row { grid-template-columns: 1fr; }
-            section { padding: 30px 20px; }
+            .menu li { margin: 5px; }
+            .form-grid { grid-template-columns: 1fr; }
+            .section-card { padding: 40px 20px; }
         }
     </style>
 </head>
@@ -99,138 +93,153 @@
 
 <header>
     <nav class="navbar">
-        <div class="logo"><a href="#">聯邦藝術中心</a></div>
+        <div class="logo">
+            <a href="index.html">聯邦藝術中心</a>
+        </div>
         <ul class="menu">
-            <li><a href="#newbie-rules">新人獎簡章</a></li>
-            <li><a href="#impression-rules">印象大獎簡章</a></li>
-            <li><a href="#register-form" class="btn-apply">線上報名</a></li>
-            <li><a href="#query-section">報名查詢</a></li>
+            <li><a href="#rules-newbie">新人獎簡章</a></li>
+            <li><a href="#rules-impression">印象大獎簡章</a></li>
+            <li><a href="#apply-form" class="active-btn">線上報名</a></li>
+            <li><a href="#query-status">報名查詢</a></li>
+            <li><a href="contact.html">聯絡我們</a></li>
         </ul>
     </nav>
 </header>
 
-<div class="page-banner">
-    <h1>美術獎項與報名系統</h1>
-    <p>Union Art Awards & Registration System</p>
-</div>
-
 <div class="container">
 
-    <section id="newbie-rules">
-        <h2 class="section-title">第二十九屆「聯邦美術新人獎」簡章</h2>
-        <div class="rule-box">
-            <h4>壹、宗旨</h4>
+    <section id="rules-newbie" class="section-card">
+        <div class="title-group">
+            <h2>第二十九屆「聯邦美術新人獎」簡章</h2>
+            <div class="sub-line"></div>
+        </div>
+        <div class="content-body">
+            <h3>壹、宗旨</h3>
             <p>鼓勵青年從事藝術研究與創作，倡導藝術風氣、推展全民美育活動並提昇美術水準。</p>
-            <h4>貳、活動單位</h4>
+            <h3>貳、活動單位</h3>
             <p>主辦單位：聯邦文教基金會 / 協辦單位：聯邦商業銀行、自由時報</p>
-            <h4>參、參賽資格</h4>
+            <h3>參、參賽資格</h3>
             <p>一、具中華民國國籍且年滿40歲以下(民國75年10月01日之後出生者)。</p>
-            <p>二、已獲首獎者不得再參賽。</p>
-            <h4>肆、參賽規則</h4>
-            <p>一、需送審五幅不同之油畫作品，初審正面請勿落款。</p>
-            <h4>伍、作品規格</h4>
-            <p>限油畫、具象形式、規格30F、共5幅。</p>
-            <h4>捌、獎勵方式</h4>
-            <p>● 首獎 1 名：獎金新臺幣 60 萬元、證書及獎座。</p>
-            <p>● 優選 2 名：獎金新臺幣各 20 萬元及證書。</p>
-            <p>● 入選 2 名：獎金新臺幣各 10 萬元及證書。</p>
-            <p style="color:red; margin-top:10px;">(註：原簡章 32 萬已更新為最新 60 萬獎項規格)</p>
+            <p>二、已獲「聯邦美術新人獎」首獎者不得再提件參賽。</p>
+            <h3>伍、作品規格</h3>
+            <p>媒材限油畫，形式限具象，規格限30F，每人應提供5幅。</p>
+            <h3>捌、獎勵方式</h3>
+            <p>首獎 1 名：獎金新臺幣 60 萬元、證書乙紙及獎座乙座。<br>優選 2 名：獎金新臺幣各 20 萬元、入選 2 名：獎金新臺幣各 10 萬元。</p>
         </div>
     </section>
 
-    <section id="impression-rules">
-        <h2 class="section-title">第二十四屆「聯邦美術印象大獎」簡章</h2>
-        <div class="rule-box">
-            <h4>壹、宗旨</h4>
-            <p>鼓勵大眾從事專業藝術研究，倡導印象派自然光線之藝術創作。</p>
-            <h4>參、參賽資格</h4>
-            <p>具中華民國國籍，無年齡限制。已獲首獎者不得再參賽。</p>
-            <h4>伍、作品規格</h4>
-            <p>限油畫、印象派風格、規格30F、共5幅。</p>
-            <h4>捌、獎勵方式</h4>
-            <p>● 首獎 1 名：獎金新臺幣 60 萬元、證書及獎座。</p>
-            <p>● 優選 2 名：獎金新臺幣各 20 萬元、入選 2 名各 10 萬元。</p>
+    <section id="rules-impression" class="section-card">
+        <div class="title-group">
+            <h2>第二十四屆「聯邦美術印象大獎」簡章</h2>
+            <div class="sub-line"></div>
+        </div>
+        <div class="content-body">
+            <h3>壹、宗旨</h3>
+            <p>鼓勵社會大眾從事專業藝術研究，倡導印象派自然光線之藝術創作。</p>
+            <h3>參、參賽資格</h3>
+            <p>具中華民國國籍之藝術工作者，無參賽年齡限制。已獲首獎者不得再提件參賽。</p>
+            <h3>伍、作品規格</h3>
+            <p>媒材限油畫，形式限印象派風格，規格限30F，每人應提供5幅。</p>
+            <h3>捌、獎勵方式</h3>
+            <p>首獎 1 名：獎金新臺幣 60 萬元、證書乙紙及獎座乙座。<br>優選 2 名：獎金新臺幣各 20 萬元、入選 2 名：獎金新臺幣各 10 萬元。</p>
         </div>
     </section>
 
-    <section id="register-form">
-        <h2 class="section-title">聯邦美術比賽線上報名</h2>
-        <form>
-            <div class="form-group">
-                <label>比賽項目</label>
-                <select>
-                    <option>請選擇比賽項目</option>
+    <section id="apply-form" class="section-card">
+        <div class="title-group">
+            <h2>聯邦美術比賽報名</h2>
+            <div class="sub-line"></div>
+        </div>
+        
+        <form action="#">
+            <div class="form-group" style="margin-bottom: 30px;">
+                <label>比賽項目 / CATEGORY</label>
+                <select required>
+                    <option value="">請選擇參賽項目</option>
                     <option>第二十九屆聯邦美術新人獎</option>
                     <option>第二十四屆聯邦美術印象大獎</option>
                 </select>
             </div>
 
-            <div class="form-row">
+            <div class="form-grid">
                 <div class="form-group">
-                    <label>中文姓名</label>
-                    <input type="text" placeholder="請輸入姓名">
+                    <label>中文姓名 / NAME</label>
+                    <input type="text" placeholder="請輸入中文姓名" required>
                 </div>
                 <div class="form-group">
-                    <label>護照名字</label>
-                    <input type="text" placeholder="English Name">
+                    <label>護照名字 / ENGLISH NAME</label>
+                    <input type="text" placeholder="例：WANG, DA-MING">
+                </div>
+                <div class="form-group">
+                    <label>性別 / GENDER</label>
+                    <select>
+                        <option>男</option>
+                        <option>女</option>
+                        <option>其他</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>身分證字號 / ID NUMBER</label>
+                    <input type="text" placeholder="請輸入身分證字號" required>
                 </div>
             </div>
 
-            <div class="form-row">
+            <div class="form-group" style="margin-bottom: 25px;">
+                <label>出生年月日 / DATE OF BIRTH</label>
+                <div style="display: flex; gap: 10px;">
+                    <select id="birth-year" style="flex: 2;"></select>
+                    <select id="birth-month" style="flex: 1;"></select>
+                    <select id="birth-day" style="flex: 1;"></select>
+                </div>
+            </div>
+
+            <div class="form-grid">
                 <div class="form-group">
-                    <label>性別</label>
-                    <select><option>男</option><option>女</option><option>其他</option></select>
+                    <label>連絡電話 / PHONE</label>
+                    <input type="tel" placeholder="例：0912345678" required>
                 </div>
                 <div class="form-group">
-                    <label>身分證字號</label>
-                    <input type="text" placeholder="請輸入身分證字號">
+                    <label>電子信箱 / E-MAIL</label>
+                    <input type="email" placeholder="example@mail.com" required>
                 </div>
             </div>
 
             <div class="form-group">
-                <label>出生年月日</label>
-                <div style="display:flex; gap:10px;">
-                    <select style="width:100px;"><option>1986年</option><option>...</option></select>
-                    <select style="width:80px;"><option>1月</option></select>
-                    <select style="width:80px;"><option>1日</option></select>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label>電子信箱</label>
-                <input type="email" placeholder="example@mail.com">
-            </div>
-
-            <div class="form-group">
-                <label>戶籍地址</label>
-                <div style="display:flex; gap:10px; margin-bottom:10px;">
-                    <select><option>台北市</option></select>
-                    <select><option>請選擇區鎮</option></select>
+                <label>戶籍地址 / PERMANENT ADDRESS</label>
+                <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                    <select id="city-select" style="flex: 1;"></select>
+                    <select style="flex: 1;"><option>請選擇鄉鎮市區</option></select>
                 </div>
                 <input type="text" placeholder="詳細地址">
             </div>
 
-            <div style="background:#f4f4f4; padding:20px; border-radius:5px; margin-top:30px;">
-                <div class="checkbox-group">
-                    <input type="checkbox"> <span>同意 本人參加「聯邦美術獎」甄選，資料均屬實。</span>
+            <div class="checkbox-container">
+                <div class="check-item">
+                    <input type="checkbox" id="c1" required>
+                    <label for="c1">同意 本人參加「聯邦美術獎」甄選，參選資料均屬實，並遵守簡章規定。</label>
                 </div>
-                <div class="checkbox-group">
-                    <input type="checkbox"> <span>本人已充分了解並遵循簡章規定，同意蒐集個人資料。</span>
+                <div class="check-item">
+                    <input type="checkbox" id="c2" required>
+                    <label for="c2">本人已充分了解並同意 貴會基於執行與本展之推廣需要，對個人資料予以蒐集利用。</label>
                 </div>
-                <div class="checkbox-group">
-                    <input type="checkbox"> <span>我已詳閱並同意報名之個人資料及隱私權政策。</span>
+                <div class="check-item">
+                    <input type="checkbox" id="c3" required>
+                    <label for="c3">我已詳閱並同意本報名之個人資料及隱私權政策聲明。</label>
                 </div>
             </div>
 
-            <button type="button" class="submit-btn" style="margin-top:20px;">發送報名訊息 SEND MESSAGE</button>
+            <button type="submit" class="submit-btn">送出報名申請 SUBMIT</button>
         </form>
     </section>
 
-    <section id="query-section">
-        <h2 class="section-title">報名查詢</h2>
-        <div class="query-box">
-            <div class="form-group">
-                <label>比賽項目</label>
+    <section id="query-status" class="section-card">
+        <div class="title-group">
+            <h2>報名查詢 / QUERY</h2>
+            <div class="sub-line"></div>
+        </div>
+        <div style="max-width: 600px; margin: 0 auto;">
+            <div class="form-group" style="margin-bottom: 20px;">
+                <label>比賽項目 / COMPETITION</label>
                 <select>
                     <option>第二十九屆聯邦美術新人獎 (2026)</option>
                     <option>第二十四屆聯邦美術印象大獎 (2026)</option>
@@ -238,17 +247,20 @@
                     <option>第二十三屆聯邦美術印象大獎 (2025)</option>
                 </select>
             </div>
-            <div class="form-group">
-                <label>身分證字號</label>
-                <input type="text">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>身分證字號 / ID</label>
+                    <input type="text" placeholder="請輸入身分證字號">
+                </div>
+                <div class="form-group">
+                    <label>連絡電話 / TEL</label>
+                    <input type="tel" placeholder="請輸入連絡電話">
+                </div>
             </div>
-            <div class="form-group">
-                <label>連絡電話</label>
-                <input type="tel">
-            </div>
-            <button class="submit-btn" style="background:var(--ubot-gold);">開始查詢</button>
-            <p style="text-align:center; font-size:13px; color:#666; margin-top:20px;">
-                若有相關事宜與建議，歡迎來信 ubart@ubot.com.tw<br>或來電 02-25369999
+            <button class="submit-btn" style="background: var(--ubot-gold); margin-top: 20px;">開始查詢 CHECK STATUS</button>
+            <p style="text-align: center; color: #777; font-size: 14px; margin-top: 30px;">
+                若有相關事宜，請來信 <strong>ubart@ubot.com.tw</strong><br>
+                或致電 02-25369999，將竭誠為您服務。
             </p>
         </div>
     </section>
@@ -256,8 +268,40 @@
 </div>
 
 <footer>
-    <p>© 2026 聯邦藝術中心 Union Art Center | 地址：台北市中山北路二段83號7樓</p>
+    <p>© 2026 聯邦藝術中心 Union Art Center</p>
+    <p style="font-size: 13px; opacity: 0.7;">地址：台北市中山北路二段83號7樓 | 電話：(02)2536-9999</p>
 </footer>
+
+<script>
+    // 填充年份下拉選單 (1936-2011)
+    const yearSelect = document.getElementById('birth-year');
+    for(let i=2011; i>=1936; i--) {
+        let opt = document.createElement('option');
+        opt.value = i; opt.innerHTML = i + ' 年';
+        yearSelect.appendChild(opt);
+    }
+    // 填充月份與日期
+    const monthSelect = document.getElementById('birth-month');
+    for(let i=1; i<=12; i++) {
+        let opt = document.createElement('option');
+        opt.value = i; opt.innerHTML = i + ' 月';
+        monthSelect.appendChild(opt);
+    }
+    const daySelect = document.getElementById('birth-day');
+    for(let i=1; i<=31; i++) {
+        let opt = document.createElement('option');
+        opt.value = i; opt.innerHTML = i + ' 日';
+        daySelect.appendChild(opt);
+    }
+    // 填充城市
+    const cities = ["基隆市", "台北市", "新北市", "桃園市", "新竹市", "新竹縣", "苗栗縣", "台中市", "彰化縣", "南投縣", "雲林縣", "嘉義市", "嘉義縣", "台南市", "高雄市", "屏東縣", "宜蘭縣", "花蓮縣", "台東縣", "澎湖縣", "金門縣", "連江縣"];
+    const citySelect = document.getElementById('city-select');
+    cities.forEach(city => {
+        let opt = document.createElement('option');
+        opt.value = city; opt.innerHTML = city;
+        citySelect.appendChild(opt);
+    });
+</script>
 
 </body>
 </html>
