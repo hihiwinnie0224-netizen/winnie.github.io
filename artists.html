@@ -1,213 +1,297 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-<meta charset="UTF-8">
-<style>
-    :root {
-        --ubot-blue: #003366;     /* 聯邦深藍 */
-        --ubot-red: #E60012;      /* 聯邦紅 */
-        --ubot-gold: #B89130;     /* 典藏金 */
-        --bg-gray: #F8F9FA;
-        --border-color: #E0E0E0;
-        --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>藝術家典藏｜聯邦藝術中心 Union Art Center</title>
+    <link rel="stylesheet" href="css/style.css">
     
-    body { 
-        font-family: "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif; 
-        margin: 0; padding: 60px 20px; 
-        background-color: var(--bg-gray); 
-        color: #333;
-    }
+    <style>
+        :root {
+            --ubot-red: #E60012;       
+            --ubot-blue: #003366;      
+            --ubot-light-blue: #F0F7FA; 
+            --ubot-sky-blue: #00A1E9;   
+            --text-dark: #333333;
+        }
 
-    /* 1. 聯邦風格搜尋列：方正中帶圓潤，強調輸入的穩定感 */
-    .search-section {
-        max-width: 800px;
-        margin: 0 auto 80px;
-        text-align: center;
-    }
+        body {
+            margin: 0;
+            font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+            background-color: #fcfcfc;
+            color: var(--text-dark);
+        }
 
-    .search-label {
-        color: var(--ubot-blue);
-        font-weight: 700;
-        letter-spacing: 4px;
-        margin-bottom: 20px;
-        font-size: 1.1rem;
-    }
+        /* ===== 1. 導覽列 Navbar (同步 Logo 風格) ===== */
+        header {
+            background: #ffffff;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
 
-    #artistSearch {
-        width: 100%;
-        max-width: 500px;
-        padding: 18px 35px;
-        font-size: 16px;
-        border: 2px solid var(--ubot-blue); /* 使用深藍邊框增加重量感 */
-        background: #fff;
-        outline: none;
-        transition: var(--ease);
-        letter-spacing: 1px;
-        /* 銀行風格偏好穩定的方圓 */
-        border-radius: 4px; 
-    }
+        .navbar {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 25px;
+        }
 
-    #artistSearch:focus {
-        border-color: var(--ubot-red);
-        box-shadow: 0 5px 15px rgba(230, 0, 18, 0.1);
-    }
+        .logo a {
+            font-size: 26px;
+            font-weight: 800;
+            color: var(--ubot-blue);
+            text-decoration: none;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+        }
 
-    /* 2. 佈局結構 */
-    .artist-wrapper { max-width: 1200px; margin: 0 auto; }
+        .logo a::before {
+            content: "●";
+            color: var(--ubot-red);
+            margin-right: 8px;
+            font-size: 18px;
+        }
 
-    /* 召集人專區：增加尊榮感背景 */
-    .leader-row {
-        display: flex;
-        justify-content: center;
-        margin-bottom: 80px;
-        padding: 40px;
-        background: white;
-        border: 1px solid var(--border-color);
-        border-top: 4px solid var(--ubot-gold); /* 金色頂條標示權威 */
-    }
+        .menu {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
 
-    /* 藝術家網格：維持六個一排的秩序感 */
-    .artist-grid {
-        display: grid;
-        grid-template-columns: repeat(6, 1fr);
-        gap: 25px;
-    }
+        .menu li { margin-left: 25px; }
 
-    /* 藝術家卡片：優化為「收藏牌」樣式 */
-    .artist-card {
-        text-decoration: none;
-        color: inherit;
-        text-align: center;
-        transition: var(--ease);
-        display: block;
-        padding: 25px 15px;
-        background: white;
-        border: 1px solid transparent;
-    }
-    .artist-card:hover { 
-        background: white;
-        border-color: var(--ubot-blue);
-        transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(0, 51, 102, 0.08);
-    }
+        .menu a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 600;
+            font-size: 15px;
+            transition: 0.3s;
+        }
 
-    /* 頭像外框：由圓轉方，增加莊重感 */
-    .photo-frame {
-        width: 110px;
-        height: 110px;
-        margin: 0 auto 15px;
-        overflow: hidden;
-        border: 1px solid var(--border-color);
-        background-color: #eee;
-        border-radius: 4px; /* 銀行業更偏好穩重的方形/微圓角 */
-    }
-    .photo-frame img {
-        width: 100%; height: 100%;
-        object-fit: cover;
-        transition: 0.6s var(--ease);
-    }
-    .artist-card:hover .photo-frame img { transform: scale(1.08); }
+        .menu a:hover, .menu a.active { color: var(--ubot-red); }
 
-    /* 召集人樣式強化 */
-    .leader-card { width: 300px; padding: 20px; }
-    .leader-card .photo-frame { width: 150px; height: 150px; border-color: var(--ubot-gold); }
-    .leader-card .artist-name { font-size: 1.5rem; color: var(--ubot-blue); margin-top: 15px; }
-    .leader-card .artist-award { color: var(--ubot-gold); font-weight: 700; font-size: 13px; }
+        /* ===== 2. 頁面 Banner ===== */
+        .page-banner {
+            background: linear-gradient(rgba(0,51,102,0.8), rgba(0,51,102,0.8)), 
+                        url('https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?auto=format&fit=crop&w=1500&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+            border-bottom: 6px solid var(--ubot-red);
+        }
 
-    /* 文字樣式 */
-    .artist-name { font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; color: #1A1A1A; }
-    .artist-award { font-size: 12px; color: var(--ubot-red); font-weight: 500; }
+        .page-banner h1 { font-size: 36px; margin: 0; letter-spacing: 4px; }
+        .page-banner p { font-size: 18px; margin-top: 10px; opacity: 0.8; letter-spacing: 2px; }
 
-    #noResult { display: none; text-align: center; color: #999; padding: 100px 0; font-size: 1.2rem; }
+        /* ===== 3. 搜尋與篩選區 ===== */
+        .filter-section {
+            max-width: 1200px;
+            margin: -40px auto 40px;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            position: relative;
+            z-index: 10;
+        }
 
-    /* RWD */
-    @media (max-width: 1100px) { .artist-grid { grid-template-columns: repeat(4, 1fr); } }
-    @media (max-width: 768px) { .artist-grid { grid-template-columns: repeat(3, 1fr); } }
-    @media (max-width: 480px) { .artist-grid { grid-template-columns: repeat(2, 1fr); } }
-</style>
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+            padding: 12px 20px;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            font-size: 15px;
+        }
+
+        .filter-btn {
+            padding: 10px 25px;
+            border: none;
+            background: #eee;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: 500;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--ubot-blue);
+            color: white;
+        }
+
+        /* ===== 4. 藝術家網格 ===== */
+        .artist-grid {
+            max-width: 1200px;
+            margin: 0 auto 100px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            padding: 0 20px;
+        }
+
+        .artist-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: 0.4s;
+            text-decoration: none;
+            color: inherit;
+            border: 1px solid #f0f0f0;
+        }
+
+        .artist-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,51,102,0.15);
+        }
+
+        .artist-img {
+            width: 100%;
+            height: 250px;
+            background-color: #eee;
+            overflow: hidden;
+        }
+
+        .artist-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.5s;
+        }
+
+        .artist-card:hover .artist-img img { transform: scale(1.1); }
+
+        .artist-info { padding: 25px; text-align: center; }
+
+        .artist-name {
+            font-size: 22px;
+            color: var(--ubot-blue);
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+
+        .artist-title {
+            font-size: 14px;
+            color: var(--ubot-red);
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .artist-desc {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+            height: 45px;
+            overflow: hidden;
+        }
+
+        /* ===== 5. 頁尾 Footer ===== */
+        footer {
+            background: #222;
+            color: #eee;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .navbar { padding: 15px; flex-direction: column; }
+            .menu { margin-top: 15px; }
+            .filter-section { margin-top: 20px; }
+        }
+    </style>
 </head>
 <body>
 
-    <div class="search-section">
-        <div class="search-label">ARTIST REPOSITORY / 藝術家典藏檢索</div>
-        <input type="text" id="artistSearch" placeholder="輸入藝術家姓名..." onkeyup="filterArtists()">
-    </div>
-
-    <div class="artist-wrapper" id="artistList">
-        
-        <div class="leader-row">
-            <a href="#" class="artist-card leader-card" data-name="許坤成">
-                <div class="photo-frame">
-                    <img src="https://api.dicebear.com/8.x/notionists-neutral/svg?seed=hsu" alt="許坤成">
-                </div>
-                <div class="artist-name">許坤成</div>
-                <div class="artist-award">評審委員會召集人</div>
-            </a>
+<header>
+    <nav class="navbar">
+        <div class="logo">
+            <a href="index.html">聯邦藝術中心</a>
         </div>
+        <ul class="menu">
+            <li><a href="about.html">關於我們</a></li>
+            <li><a href="exhibitions.html">展覽動態</a></li>
+            <li><a href="awards.html">美術獎項</a></li>
+            <li><a href="artists.html" class="active">藝術家</a></li>
+            <li><a href="artworks.html">作品總覽</a></li>
+            <li><a href="visit.html">參觀資訊</a></li>
+            <li><a href="contact.html">聯絡我們</a></li>
+        </ul>
+    </nav>
+</header>
 
-        <div class="artist-grid">
-            <a href="#" class="artist-card" data-name="祁連">
-                <div class="photo-frame"><img src="https://api.dicebear.com/8.x/avataaars/svg?seed=1"></div>
-                <div class="artist-name">祁連</div>
-                <div class="artist-award">聯邦美術獎得主</div>
-            </a>
-            <a href="#" class="artist-card" data-name="蘇瑞明">
-                <div class="photo-frame"><img src="https://api.dicebear.com/8.x/avataaars/svg?seed=2"></div>
-                <div class="artist-name">蘇瑞明</div>
-                <div class="artist-award">聯邦美術獎得主</div>
-            </a>
-            <a href="#" class="artist-card" data-name="高慶元">
-                <div class="photo-frame"><img src="https://api.dicebear.com/8.x/avataaars/svg?seed=3"></div>
-                <div class="artist-name">高慶元</div>
-                <div class="artist-award">聯邦美術獎得主</div>
-            </a>
-            <a href="#" class="artist-card" data-name="林仁山">
-                <div class="photo-frame"><img src="https://api.dicebear.com/8.x/avataaars/svg?seed=4"></div>
-                <div class="artist-name">林仁山</div>
-                <div class="artist-award">聯邦美術獎得主</div>
-            </a>
-            <a href="#" class="artist-card" data-name="劉國正">
-                <div class="photo-frame"><img src="https://api.dicebear.com/8.x/avataaars/svg?seed=5"></div>
-                <div class="artist-name">劉國正</div>
-                <div class="artist-award">聯邦美術獎得主</div>
-            </a>
-            <a href="#" class="artist-card" data-name="翁明哲">
-                <div class="photo-frame"><img src="https://api.dicebear.com/8.x/avataaars/svg?seed=6"></div>
-                <div class="artist-name">翁明哲</div>
-                <div class="artist-award">聯邦美術獎得主</div>
-            </a>
-            </div>
+<section class="page-banner">
+    <h1>藝術家典藏</h1>
+    <p>Featured Artists</p>
+</section>
+
+<div class="filter-section">
+    <input type="text" class="search-box" placeholder="搜尋藝術家姓名...">
+    <button class="filter-btn active">全部</button>
+    <button class="filter-btn">聯邦新人獎</button>
+    <button class="filter-btn">聯邦印象大獎</button>
+    <button class="filter-btn">大師典藏</button>
+</div>
+
+<section class="artist-grid">
+    
+    <a href="#" class="artist-card">
+        <div class="artist-img">
+            <img src="https://images.unsplash.com/photo-1549490349-8643362247b5?auto=format&fit=crop&w=500&q=80" alt="藝術家">
+        </div>
+        <div class="artist-info">
+            <span class="artist-name">王小明</span>
+            <span class="artist-title">第22屆 聯邦印象大獎 首獎</span>
+            <p class="artist-desc">擅長捕捉台灣鄉間光影，以細膩的筆觸呈現田野間的寧靜氣息。</p>
+        </div>
+    </a>
+
+    <a href="#" class="artist-card">
+        <div class="artist-img">
+            <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?auto=format&fit=crop&w=500&q=80" alt="藝術家">
+        </div>
+        <div class="artist-info">
+            <span class="artist-name">李芳華</span>
+            <span class="artist-title">第21屆 聯邦新人獎 首獎</span>
+            <p class="artist-desc">作品融合寫實與現代視角，探索都會建築與光線之間的對話。</p>
+        </div>
+    </a>
+
+    <a href="#" class="artist-card">
+        <div class="artist-img">
+            <img src="https://images.unsplash.com/photo-1571115764595-644a1f56a55c?auto=format&fit=crop&w=500&q=80" alt="藝術家">
+        </div>
+        <div class="artist-info">
+            <span class="artist-name">張大維</span>
+            <span class="artist-title">經典大師典藏</span>
+            <p class="artist-desc">深耕本土風景創作四十年，其厚重的油彩堆疊出對這片土地的情感。</p>
+        </div>
+    </a>
+
+</section>
+
+<footer>
+    <div class="footer-content">
+        <p>© 2026 聯邦藝術中心 Union Art Center</p>
+        <p>地址：台北市中山北路二段83號7樓 | 電話：(02)2536-9999</p>
+        <div class="footer-links">
+            <a href="privacy.html">隱私權聲明</a> |
+            <a href="lost-found.html">失物招領</a>
+        </div>
     </div>
-
-    <div id="noResult">抱歉，找不到符合條件的藝術家資料。</div>
-
-    <script>
-        function filterArtists() {
-            var input = document.getElementById('artistSearch');
-            var filter = input.value.toLowerCase();
-            var cards = document.getElementsByClassName('artist-card');
-            var noResult = document.getElementById('noResult');
-            var count = 0;
-
-            for (var i = 0; i < cards.length; i++) {
-                var name = cards[i].getAttribute('data-name');
-                if (name.toLowerCase().indexOf(filter) > -1) {
-                    cards[i].style.display = "";
-                    count++;
-                } else {
-                    cards[i].style.display = "none";
-                }
-            }
-
-            // 處理標題線條與顯示
-            var leaderRow = document.querySelector('.leader-row');
-            var leaderVisible = (document.querySelector('.leader-card').style.display !== "none");
-            
-            leaderRow.style.display = (count > 0 && leaderVisible) ? "flex" : "none";
-            noResult.style.display = (count === 0) ? "block" : "none";
-        }
-    </script>
+</footer>
 
 </body>
 </html>
