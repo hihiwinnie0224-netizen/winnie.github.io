@@ -5,20 +5,82 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>聯邦藝術中心 Union Art Center｜深耕本土藝術</title>
     <link rel="stylesheet" href="css/style.css">
+    
     <style>
         :root {
-            --ubot-red: #E60012;       
-            --ubot-blue: #003366;      
-            --ubot-light-blue: #E6F4FA; 
-            --ubot-sky-blue: #00A1E9;   
+            --ubot-red: #E60012;       /* 聯邦紅 */
+            --ubot-blue: #003366;      /* 聯邦深藍 */
+            --ubot-light-blue: #E6F4FA; /* 聯邦淺藍背景 */
+            --ubot-sky-blue: #00A1E9;   /* 聯邦淺藍點綴 */
             --text-dark: #333333;
         }
 
-        /* 1. 主視覺 Banner - 強化品牌漸層 */
+        body {
+            margin: 0;
+            font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+            background-color: #fcfcfc;
+            color: var(--text-dark);
+        }
+
+        /* ===== 1. 導覽列 Navbar 優化 (解決 Logo 問題) ===== */
+        header {
+            background: #ffffff;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 25px;
+        }
+
+        .logo a {
+            font-size: 26px;
+            font-weight: 800;
+            color: var(--ubot-blue); /* 確保 Logo 顯現聯邦藍 */
+            text-decoration: none;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo a::before {
+            content: "●";
+            color: var(--ubot-red);
+            margin-right: 8px;
+            font-size: 18px;
+        }
+
+        .menu {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .menu li { margin-left: 25px; }
+
+        .menu a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 600;
+            font-size: 15px;
+            transition: 0.3s;
+        }
+
+        .menu a:hover { color: var(--ubot-red); }
+
+        /* ===== 2. 主視覺 Banner (包含你提到的 About/Union Art 文字) ===== */
         .hero-banner {
             width: 100%;
             height: 550px;
-            background: linear-gradient(135deg, rgba(0,51,102,0.9) 0%, rgba(0,161,233,0.5) 100%),
+            background: linear-gradient(135deg, rgba(0,51,102,0.85) 0%, rgba(0,161,233,0.4) 100%),
                         url('https://images.unsplash.com/photo-1594904351111-a072f80b1a71?auto=format&fit=crop&w=1500&q=80');
             background-size: cover;
             background-position: center;
@@ -33,17 +95,18 @@
 
         .hero-banner h1 { 
             font-size: 52px; 
-            letter-spacing: 12px; 
+            letter-spacing: 10px; 
             margin: 0; 
             font-weight: 700;
             text-shadow: 2px 2px 15px rgba(0,0,0,0.3);
         }
 
-        .hero-banner p.sub-title { 
+        .hero-banner .sub-title { 
             font-size: 22px; 
-            letter-spacing: 6px; 
-            margin-top: 10px; 
+            letter-spacing: 5px; 
+            margin-top: 5px; 
             font-weight: 300;
+            opacity: 0.9;
         }
 
         .hero-banner .slogan {
@@ -57,7 +120,7 @@
             letter-spacing: 2px;
         }
 
-        /* 2. 快捷入口區 - 懸浮式卡片設計 */
+        /* ===== 3. 快捷入口區 (懸浮卡片) ===== */
         .quick-access {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -76,7 +139,7 @@
             box-shadow: 0 15px 35px rgba(0,0,0,0.1);
             text-decoration: none;
             color: var(--ubot-blue);
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            transition: all 0.4s ease;
             border-radius: 12px;
             border-bottom: 4px solid var(--ubot-sky-blue);
         }
@@ -92,10 +155,8 @@
         }
 
         .access-card h3 { 
-            margin-top: 0;
-            margin-bottom: 15px; 
+            margin: 0 0 15px 0;
             font-size: 24px; 
-            color: var(--ubot-blue);
             letter-spacing: 2px;
         }
 
@@ -106,7 +167,7 @@
             margin: 0;
         }
 
-        /* 3. 最新消息區 */
+        /* ===== 4. 最新消息區 ===== */
         .section-news { 
             max-width: 1000px; 
             margin: 0 auto 100px; 
@@ -124,37 +185,23 @@
 
         .section-header h2 { 
             margin: 0; 
-            font-size: 30px; 
+            font-size: 28px; 
             color: var(--ubot-blue); 
-            padding-left: 18px;
+            padding-left: 15px;
             border-left: 6px solid var(--ubot-sky-blue);
-            letter-spacing: 2px;
         }
-
-        .view-all-btn { 
-            font-size: 15px; 
-            color: var(--ubot-sky-blue); 
-            text-decoration: none; 
-            font-weight: 600;
-            transition: 0.3s;
-        }
-
-        .view-all-btn:hover { color: var(--ubot-blue); }
 
         .news-row {
             display: flex; 
             align-items: center;
-            padding: 25px 15px; 
+            padding: 22px 15px; 
             border-bottom: 1px solid #f0f0f0;
             text-decoration: none; 
             color: inherit; 
-            transition: 0.3s ease;
+            transition: 0.3s;
         }
 
-        .news-row:hover { 
-            background: var(--ubot-light-blue); 
-            padding-left: 30px;
-        }
+        .news-row:hover { background: var(--ubot-light-blue); padding-left: 30px; }
 
         .tag-blue {
             background: var(--ubot-sky-blue);
@@ -163,24 +210,30 @@
             font-size: 12px;
             margin-right: 20px;
             border-radius: 4px;
-            font-weight: 600;
         }
 
-        .date-text { 
-            font-family: 'Arial', sans-serif; 
-            color: #999; 
-            width: 120px; 
-            font-size: 15px;
+        .date-text { color: #999; width: 110px; font-size: 14px; }
+        .title-text { flex: 1; font-weight: 500; font-size: 16px; }
+
+        /* ===== 5. 頁尾 Footer ===== */
+        footer {
+            background: #222;
+            color: #eee;
+            padding: 60px 20px;
+            text-align: center;
         }
 
-        .title-text { flex: 1; font-weight: 500; font-size: 17px; color: #333; }
+        .footer-content p { margin: 8px 0; font-size: 14px; opacity: 0.8; }
+        .footer-links { margin-top: 20px; }
+        .footer-links a { color: #aaa; text-decoration: none; margin: 0 10px; font-size: 14px; }
+        .footer-links a:hover { color: #fff; }
 
         @media (max-width: 768px) {
+            .navbar { padding: 15px; flex-direction: column; }
+            .menu { margin-top: 15px; }
+            .menu li { margin: 0 10px; }
+            .hero-banner h1 { font-size: 32px; }
             .quick-access { grid-template-columns: 1fr; margin-top: 20px; }
-            .hero-banner { height: 400px; }
-            .hero-banner h1 { font-size: 36px; }
-            .news-row { flex-direction: column; align-items: flex-start; }
-            .date-text { margin-bottom: 8px; }
         }
     </style>
 </head>
@@ -227,7 +280,7 @@
 <section class="section-news">
     <div class="section-header">
         <h2>最新消息</h2>
-        <a href="#" class="view-all-btn">更多公告 →</a>
+        <a href="#" class="view-all-btn" style="color:var(--ubot-sky-blue); text-decoration:none;">更多公告 →</a>
     </div>
 
     <a href="#" class="news-row">
@@ -239,11 +292,6 @@
         <span class="date-text">2026.02.15</span>
         <span class="tag-blue">展覽</span>
         <span class="title-text">「台灣鄉土之美」寫實油畫聯展：巡迴展資訊</span>
-    </a>
-    <a href="#" class="news-row">
-        <span class="date-text">2026.01.30</span>
-        <span class="tag-blue">公告</span>
-        <span class="title-text">聯邦藝術中心春節期間休館與開放時間說明</span>
     </a>
 </section>
 
@@ -257,8 +305,6 @@
         </div>
     </div>
 </footer>
-
-<script src="js/main.js"></script>
 
 </body>
 </html>
