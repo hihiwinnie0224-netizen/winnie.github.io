@@ -159,50 +159,90 @@
         }
         .space-item:hover { background: var(--ubot-blue); color: #fff; border-color: var(--ubot-blue); }
 
-        /* ===== 4. 頁尾 ===== */
+        /* ===== 頁尾 (同步為聯邦淺藍) ===== */
+
         footer {
-            background: #1a1a1a;
-            color: #888;
-            padding: 80px 20px 40px;
+
+            background: var(--ubot-light-blue);
+
+            color: var(--ubot-blue);
+
+            padding: 60px 20px 30px;
+
         }
+
+
 
         .footer-container {
+
             max-width: 1200px;
+
             margin: 0 auto;
+
             display: grid;
-            grid-template-columns: 1.5fr 1fr 1fr;
-            gap: 60px;
+
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+
+            gap: 40px;
+
         }
 
-        .footer-logo { color: #fff; font-size: 22px; font-weight: 800; margin-bottom: 20px; letter-spacing: 2px; }
-        .footer-info p { margin: 8px 0; font-size: 14px; }
-        .footer-info strong { color: #ccc; }
 
-        .footer-links h4 { color: #fff; margin: 0 0 20px; font-size: 16px; letter-spacing: 1px; }
+
+        .footer-logo { font-size: 22px; font-weight: 800; margin-bottom: 15px; }
+
+        .footer-info p { margin: 5px 0; font-size: 14px; }
+
+
+
+        .footer-links h4 { margin: 0 0 15px; border-left: 3px solid var(--ubot-red); padding-left: 10px; }
+
         .footer-links ul { list-style: none; padding: 0; margin: 0; }
-        .footer-links li { margin-bottom: 12px; }
-        .footer-links a { text-decoration: none; color: #888; font-size: 14px; transition: 0.3s; }
-        .footer-links a:hover { color: #fff; padding-left: 5px; }
+
+        .footer-links li { margin-bottom: 8px; }
+
+        .footer-links a { text-decoration: none; color: var(--ubot-blue); font-size: 14px; opacity: 0.8; }
+
+        .footer-links a:hover { opacity: 1; color: var(--ubot-red); }
+
+
 
         .footer-bottom {
+
             max-width: 1200px;
-            margin: 60px auto 0;
-            padding-top: 30px;
-            border-top: 1px solid #333;
+
+            margin: 40px auto 0;
+
+            padding-top: 20px;
+
+            border-top: 1px solid rgba(0,51,102,0.1);
+
             text-align: center;
+
             font-size: 13px;
+
+            opacity: 0.7;
+
         }
 
-        @media (max-width: 900px) {
-            .navbar { flex-direction: column; padding: 20px; }
-            .menu { margin-top: 20px; flex-wrap: wrap; justify-content: center; }
-            .menu li { margin: 5px; }
-            .footer-container { grid-template-columns: 1fr; gap: 40px; }
+
+
+        @media (max-width: 768px) {
+
+            .navbar { flex-direction: column; }
+
+            .menu { margin-top: 15px; }
+
             .milestone-grid, .space-grid { grid-template-columns: 1fr; }
-            .about-section { padding: 35px 25px; }
+
+            .about-section { padding: 30px 20px; }
+
         }
+
     </style>
+
 </head>
+
 <body>
 
 <header>
