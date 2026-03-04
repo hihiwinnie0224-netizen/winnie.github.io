@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>作品總覽｜聯邦藝術中心 Union Art Center</title>
+    <link rel="stylesheet" href="css/style.css">
+    
+    <style>
+        :root {
+            --ubot-red: #E60012;       
+            --ubot-blue: #003366;      
+            --ubot-light-blue: #F0F7FA; 
+            --ubot-sky-blue: #00A1E9;   
+            --text-dark: #333333;
+        }
+
+        body {
+            margin: 0;
+            font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+            background-color: #f4f4f4; /* 稍微深一點的灰色，模擬展間牆面 */
+            color: var(--text-dark);
+        }
+
+        /* ===== 1. 導覽列 Navbar (同步全站) ===== */
+        header {
+            background: #ffffff;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 25px;
+        }
+
+        .logo a {
+            font-size: 26px;
+            font-weight: 800;
+            color: var(--ubot-blue);
+            text-decoration: none;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo a::before { content: "●"; color: var(--ubot-red); margin-right: 8px; }
+
+        .menu { display: flex; list-style: none; margin: 0; padding: 0; }
+        .menu li { margin-left: 25px; }
+        .menu a { text-decoration: none; color: #555; font-weight: 600; font-size: 15px; transition: 0.3s; }
+        .menu a:hover, .menu a.active { color: var(--ubot-red); }
+
+        /* ===== 2. 頁面 Banner ===== */
+        .page-banner {
+            background: linear-gradient(rgba(0,51,102,0.85), rgba(0,51,102,0.85)), 
+                        url('https://images.unsplash.com/photo-1577083552431-6e5fd01988ec?auto=format&fit=crop&w=1500&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 70px 20px;
+            text-align: center;
+            border-bottom: 6px solid var(--ubot-red);
+        }
+
+        .page-banner h1 { font-size: 36px; margin: 0; letter-spacing: 5px; }
+        .page-banner p { font-size: 16px; margin-top: 10px; opacity: 0.8; letter-spacing: 3px; font-style: italic; }
+
+        /* ===== 3. 作品過濾與搜尋 ===== */
+        .gallery-controls {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .category-tabs { display: flex; gap: 10px; }
+        .tab {
+            padding: 8px 20px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+        .tab.active { background: var(--ubot-blue); color: white; border-color: var(--ubot-blue); }
+
+        /* ===== 4. 作品網格 (藝廊樣式) ===== */
+        .gallery-grid {
+            max-width: 1200px;
+            margin: 0 auto 100px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 40px;
+            padding: 0 20px;
+        }
+
+        .artwork-item {
+            background: white;
+            padding: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: 0.4s;
+            border: 1px solid #eee;
+        }
+
+        .artwork-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+        }
+
+        .artwork-frame {
+            width: 100%;
+            overflow: hidden;
+            background: #eee;
+            margin-bottom: 20px;
+            /* 模擬油畫框線 */
+            border: 10px solid #222; 
+            outline: 2px solid #B89130; /* 典藏金外邊 */
+        }
+
+        .artwork-frame img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: 0.6s;
+        }
+
+        .artwork-item:hover img { transform: scale(1.05); }
+
+        .artwork-caption { text-align: center; }
+        .artwork-title {
+            font-size: 18px;
+            color: var(--ubot-blue);
+            font-weight: 800;
+            margin-bottom: 5px;
+            letter-spacing: 1px;
+        }
+        .artwork-meta {
+            font-size: 14px;
+            color: #777;
+            margin-bottom: 10px;
+        }
+        .artwork-award-tag {
+            display: inline-block;
+            font-size: 12px;
+            color: var(--ubot-red);
+            border: 1px solid var(--ubot-red);
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        /* ===== 5. 頁尾 Footer ===== */
+        footer {
+            background: #222;
+            color: #eee;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .gallery-grid { grid-template-columns: 1fr; }
+            .gallery-controls { flex-direction: column; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <nav class="navbar">
+        <div class="logo">
+            <a href="index.html">聯邦藝術中心</a>
+        </div>
+        <ul class="menu">
+            <li><a href="about.html">關於我們</a></li>
+            <li><a href="exhibitions.html">展覽動態</a></li>
+            <li><a href="awards.html">美術獎項</a></li>
+            <li><a href="artists.html">藝術家</a></li>
+            <li><a href="artworks.html" class="active">作品總覽</a></li>
+            <li><a href="visit.html">參觀資訊</a></li>
+            <li><a href="contact.html">聯絡我們</a></li>
+        </ul>
+    </nav>
+</header>
+
+<section class="page-banner">
+    <h1>作品總覽</h1>
+    <p>Digital Collection & Gallery</p>
+</section>
+
+<div class="gallery-controls">
+    <div class="category-tabs">
+        <div class="tab active">全部作品</div>
+        <div class="tab">印象大獎</div>
+        <div class="tab">新人獎</div>
+    </div>
+    <div style="font-size: 14px; color: #666;">
+        顯示 1-12 件作品，共 150 件
+    </div>
+</div>
+
+<section class="gallery-grid">
+    
+    <div class="artwork-item">
+        <div class="artwork-frame">
+            <img src="https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?auto=format&fit=crop&w=600&q=80" alt="作品">
+        </div>
+        <div class="artwork-caption">
+            <div class="artwork-title">靜謐光影</div>
+            <div class="artwork-meta">許坤成 | 2023 | 油彩．畫布</div>
+            <div class="artwork-award-tag">典藏作品</div>
+        </div>
+    </div>
+
+    <div class="artwork-item">
+        <div class="artwork-frame">
+            <img src="https://images.unsplash.com/photo-1541963463532-d68292c34b19?auto=format&fit=crop&w=600&q=80" alt="作品">
+        </div>
+        <div class="artwork-caption">
+            <div class="artwork-title">溪畔秋色</div>
+            <div class="artwork-meta">王小明 | 2022 | 50F</div>
+            <div class="artwork-award-tag">第22屆印象大獎首獎</div>
+        </div>
+    </div>
+
+    <div class="artwork-item">
+        <div class="artwork-frame">
+            <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?auto=format&fit=crop&w=600&q=80" alt="作品">
+        </div>
+        <div class="artwork-caption">
+            <div class="artwork-title">都市脈絡</div>
+            <div class="artwork-meta">李芳華 | 2023 | 40F</div>
+            <div class="artwork-award-tag">第23屆新人獎首獎</div>
+        </div>
+    </div>
+
+</section>
+
+<footer>
+    <div class="footer-content">
+        <p>© 2026 聯邦藝術中心 Union Art Center</p>
+        <p>地址：台北市中山北路二段83號7樓 | 電話：(02)2536-9999</p>
+    </div>
+</footer>
+
+</body>
+</html>
