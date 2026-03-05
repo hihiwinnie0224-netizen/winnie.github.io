@@ -40,16 +40,17 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 20px;
+            padding: 15px 25px;
         }
 
         .logo a {
-            font-size: 20px;
+            font-size: 24px;
             font-weight: 800;
             color: var(--ubot-blue);
             text-decoration: none;
             display: flex;
             align-items: center;
+            letter-spacing: 1px;
         }
 
         .logo a::before { 
@@ -58,30 +59,26 @@
         }
 
         /* 漢堡按鈕 */
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-            padding: 10px;
-        }
-        .menu-toggle span {
-            display: block;
-            width: 25px;
-            height: 3px;
-            background: var(--ubot-blue);
-            transition: 0.3s;
+        .menu {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
         }
 
-        .menu { display: flex; list-style: none; margin: 0; padding: 0; }
-        .menu li { margin-left: 10px; }
+        .menu li { margin-left: 15px; }
+
         .menu a {
             text-decoration: none;
             color: #666;
             font-weight: 600;
             font-size: 14px;
-            padding: 8px 12px;
             transition: 0.3s;
+            padding: 8px 10px;
+        }
+
+        .menu a:hover, .menu a.active { 
+            color: var(--ubot-red); 
         }
 
         /* ===== 2. 頁面 Banner ===== */
@@ -278,29 +275,39 @@
     <div class="section-card">
         <h1 class="page-title">第二十九屆「聯邦美術新人獎」簡章</h1>
         <h2>壹、宗旨</h2>
-        <p>鼓勵青年從事藝術研究與創作，倡導藝術風氣並提升美術水準。</p>
-        
+        <p>鼓勵青年從事藝術研究與創作，倡導藝術風氣、推展全民美育活動並提昇美術水準。</p>
+        <h2>貳、活動單位</h2>
+        <p>主辦單位：聯邦文教基金會(以下簡稱「本會」)<br>協辦單位：聯邦商業銀行(股)公司、自由時報</p>
+        <h2>參、參賽資格</h2>
+        <p>一、凡具中華民國國籍且年滿40歲以下之藝術工作者(以當屆年度來計算，民國75年10月01日之後出生者)。<br>二、已獲「聯邦美術新人獎」首獎者不得再提件參賽。</p>
+        <h2>肆、參賽規則</h2>
+        <p>一、參賽者需同時送審五幅不同之油畫作品，送審作品於評審結果公布前不得參與其他公開競賽。<br>二、為維持比賽之公平性，初審送件時送審作品正面請勿落款。<br>三、如有下列情事之一者，取消參賽資格，並於三年內不得參加本會舉辦之任何比賽；已獲獎者，取消獲獎資格及獎項，並賠償相關費用：<br>(一)抄襲或臨摹他人作品。<br>(二)作品由他人代筆或著作權取得不明確者。<br>(三)作品曾參與任何公開競賽。<br>(四)得獎作品不願由本會典藏及展出者。</p>
+        <h2>伍、作品規格</h2>
+        <p>一、媒材：限油畫。<br>二、形式：限具象。<br>三、規格：限30F。<br>四、件數：每人應提供5幅。</p>
+        <h2>陸、參賽辦法</h2>
+        <h3>一、初審送件：請依下列規定提供參賽資料。</h3>
+        <p>(一)請進行線上報名並將作品拍攝成數位檔案(格式為jpg、2MB至5MB)上傳報名網站送審，每張作品需自行調整至正確方向 (若因檔案資料不清或模糊，將不予列入評審)。<br>(二)參賽作品之數位檔案不得以電腦修正，若自行修正而影響評審結果，主辦單位有權取消其參賽資格。<br>(三)報名日期：即日期至115年9月30日(星期三)止。<br>(四)送審資料不符簡章規定者，不予審查，且送審資料一律不予退還，請自行備份留存。<br>(五)初審結果將公布於本會官網。</p>
+        <h3>二、複審送件：通過初審者，請依下列規定配合辦理。</h3>
+        <p>(一)須配合本會指定之期間，至指定地點進行1張6號油畫創作。<br>(二)送審作品正面請落款，並於指定日期前將參賽之5幅原件(免錶框）運送至104台北市中山北路二段83號7樓「聯邦文教基金會」參加複審，逾時未送達者視為棄權。<br>(三)複審原件作品送至本會時，由本會發給收據存執，運費由參賽者自行負擔。<br>(四)得獎者須以數位圖檔提供個人生活照及自畫像(媒材不限)各一張。<br>(五)複審結果將公布於本會官網。</p>
+        <h2>柒、評審</h2>
+        <p>一、由本會聘請各校藝術相關科系教授、學者或專家成立評審委員會，負責評審工作。<br>二、初審以數位檔案審查為原則，選出6名入圍者，入圍者並應提送參選之5幅原件(免錶框）參與複審。<br>三、複審從6名入圍者中選出「聯邦美術新人獎」首獎1名、優選獎2名、入選獎2名，如無適當作品，得由評審委員會決議從缺。</p>
         <h2>捌、獎勵方式</h2>
         <div class="reward-grid">
-            <div class="reward-item">
-                <span class="reward-title">首獎 (1名)</span>
-                <span class="reward-money">NT$ 600,000</span>
-                <p style="font-size:13px; margin:0">及證書乙紙及獎座乙座</p>
-            </div>
-            <div class="reward-item">
-                <span class="reward-title">優選獎 (2名)</span>
-                <span class="reward-money">NT$ 200,000</span>
-                <p style="font-size:13px; margin:0">及證書乙紙</p>
-            </div>
-            <div class="reward-item">
-                <span class="reward-title">入選獎 (2名)</span>
-                <span class="reward-money">NT$ 100,000</span>
-                <p style="font-size:13px; margin:0">及證書乙紙</p>
-            </div>
+            <div class="reward-item"><span class="reward-title">首獎 (1名)</span><span class="reward-money">NT$ 600,000</span><p>及證書乙紙及獎座乙座</p></div>
+            <div class="reward-item"><span class="reward-title">優選獎 (2名)</span><span class="reward-money">NT$ 200,000</span><p>及證書乙紙</p></div>
+            <div class="reward-item"><span class="reward-title">入選獎 (2名)</span><span class="reward-money">NT$ 100,000</span><p>及證書乙紙</p></div>
         </div>
-        <p style="font-size: 13px; color: var(--text-sub); text-align: center;">(實領需扣10%之所得稅)</p>
-        
-        <p style="font-size:14px; color:#666">... 其餘內容同簡章規定 ...</p>
+        <p style="font-size: 14px; color: var(--text-sub); text-align: center;">(實領需扣10%之所得稅)</p>
+        <h2>玖、畫作典藏</h2>
+        <p>一、「首獎」1名：5幅得獎作品全數由本會典藏，典藏畫作之所有權全數歸屬本會所有。<br>二、「優選獎」2名：得獎作品分別由評審委員會評選2幅作品由本會典藏，典藏畫作之所有權歸屬本會所有。<br>三、「入選獎」2名：得獎作品分別由評審委員會評選2幅作品由本會典藏，典藏畫作之所有權歸屬本會所有。<br>四、其餘得獎作品本會將依情形收購典藏，如獲本會收購典藏，其典藏畫作之所有權歸屬本會所有。</p>
+        <h2>壹拾、頒獎、展出與退件</h2>
+        <p>一、得獎者將於民國116年1月擇期隆重表揚。<br>二、獲典藏之作品將由本會規劃於全臺巡迴展出，本會得就各展出需要挑選展出作品。<br>三、本會將補助入圍複審未獲獎者之作品退還運送費。</p>
+        <h2>壹拾壹、權責</h2>
+        <p>一、基於宣傳推廣之需，本會對得獎及典藏作品均有研究、展覽、攝影、報導、印製、出版及在相關文宣、雜誌及網路上刊登之權利。<br>二、送件作品應保證無違反第肆條參賽規則及侵害他人智慧財產權之情事，若衍生相關爭議及法律問題，參賽者應自負全責。<br>三、複審送件之作品經本會驗收無誤，並確認未遭損毀者，本會將於複審收件日起至本比賽結束止負保管之責，惟遇人力不可抗拒情事、作品材質脆弱、結構裝置不良、裝箱作品未標示開箱圖示導致作品裝卸受損者等所致毀損，本會不負賠償之責。</p>
+        <h2>壹拾貳、附則</h2>
+        <p>一、送件參賽者對評審結果及本會執行本簡章第壹拾壹條第一項之權利時不得有任何異議。<br>二、本會保留隨時修改、變更、暫停 or 終止本比賽內容之權利，並以本會網站(https://www.ubot.org.tw)公告為準。另本簡章如有其他未盡事宜，悉依本會相關規定或解釋。</p>
+        <h2>壹拾參、活動報名資訊</h2>
+        <p>請洽聯邦文教基金會網站(https://www.ubot.org.tw)、聯邦銀行網站( https://www.ubot.com.tw )或來電洽詢(02)2536-9999。</p>
     </div>
 </div>
 
@@ -308,65 +315,154 @@
     <div class="section-card">
         <h1 class="page-title">第二十四屆「聯邦美術印象大獎」</h1>
         <h2>壹、宗旨</h2>
-        <p>鼓勵社會大眾從事專業藝術研究，倡導印象派自然光線之藝術創作。</p>
+        <p>鼓勵社會大眾從事專業藝術研究，倡導印象派自然光線之藝術創作、推展全民美育活動並提昇美術水準。</p>
+        <h2>貳、活動單位</h2>
+        <p>主辦單位：聯邦文教基金會(以下簡稱「本會」)<br>協辦單位：聯邦商業銀行(股)公司、自由時報</p>
+        <h2>參、參賽資格</h2>
+        <p>一、具中華民國國籍之藝術工作者，無參賽年齡限制。<br>二、已獲「聯邦美術印象大獎」首獎者不得再提件參賽。</p>
+        <h2>肆、參賽規則</h2>
+        <p>一、參賽者需同時送審五幅不同之油畫作品，送審作品於評審結果公布前不得參與其他公開競賽。<br>二、為維持比賽之公平性，初審送件時送審作品正面請勿落款。<br>三、如有下列情事之一者，取消參賽資格，並於三年內不得參加本會舉辦之任何比賽；已獲獎者，取消獲獎資格及獎項，並賠償相關費用：<br>(一)抄襲或臨摹他人作品。<br>(二)作品由他人代筆或著作權取得不明確者。<br>(三)作品曾參與任何公開競賽。<br>(四)得獎作品不願由本會典藏及展出者。</p>
+        <h2>伍、作品規格</h2>
+        <p>一、媒材：限油畫。<br>二、形式：限印象派風格。<br>三、規格：限30F。<br>四、件數：每人應提供5幅。</p>
+        <h2>陸、參賽辦法</h2>
+        <h3>一、初審送件：請依下列規定提供參賽資料。</h3>
+        <p>(一)請進行線上報名並將作品拍攝成數位檔案(格式為jpg、2MB至5MB)上傳報名網站送審，每張作品需自行調整至正確方向 (若因檔案資料不清 or 模糊，將不予列入評審)。<br>(二)參賽作品之數位檔案不得以電腦修正，若自行修正而影響評審結果，主辦單位有權取消其參賽資格。<br>(三)報名日期：即日期至115年9月30日(星期三)止。<br>(四)送審資料不符簡章規定者，不予審查，且送審資料一律不予退還，請自行備份留存。<br>(五)初審結果將公布於本會官網。</p>
+        <h3>二、複審送件：通過初審者，請依下列規定配合辦理。</h3>
+        <p>(一)須配合本會指定之期間，至指定地點進行1張6號油畫創作。<br>(二)送審作品正面請落款，並於指定日期前將參賽之5幅原件(免錶框）運送至104台北市中山北路二段83號7樓「聯邦文教基金會」參加複審，逾時未送達者視為棄權。<br>(三)複審原件作品送至本會時，由本會發給收據存執，運費由參賽者自行負擔。<br>(四)得獎者須以數位圖檔提供個人生活照及自畫像(媒材不限)各一張。<br>(五)複審結果將公布於本會官網。</p>
+        <h2>柒、評審</h2>
+        <p>一、由本會聘請各校藝術相關科系教授、學者或專家成立評審委員會，負責評審工作。<br>二、初審以數位檔案審查為原則，選出6名入圍者，入圍者並應提送參選之5幅原件(免錶框）參與複審。<br>三、複審從6名入圍者中選出「聯邦美術印象大獎」首獎1名、優選獎2名、入選獎2名，如無適當作品，得由評審委員會決議從缺。</p>
+        <h2>捌、獎勵方式</h2>
         <div class="reward-grid">
-            <div class="reward-item"><span class="reward-title">首獎</span><span class="reward-money">NT$ 600,000</span></div>
-            <div class="reward-item"><span class="reward-title">優選</span><span class="reward-money">NT$ 200,000</span></div>
-            <div class="reward-item"><span class="reward-title">入選</span><span class="reward-money">NT$ 100,000</span></div>
+            <div class="reward-item"><span class="reward-title">首獎 (1名)</span><span class="reward-money">NT$ 600,000</span><p>及證書乙紙及獎座乙座</p></div>
+            <div class="reward-item"><span class="reward-title">優選獎 (2名)</span><span class="reward-money">NT$ 200,000</span><p>及證書乙紙</p></div>
+            <div class="reward-item"><span class="reward-title">入選獎 (2名)</span><span class="reward-money">NT$ 100,000</span><p>及證書乙紙</p></div>
         </div>
+        <p style="font-size: 14px; color: var(--text-sub); text-align: center;">(實領需扣10%之所得稅)</p>
+        <h2>玖、畫作典藏</h2>
+        <p>一、「首獎」1名：5幅得獎作品全數由本會典藏，典藏畫作之所有權全數歸屬本會所有。<br>二、「優選獎」2名：得獎作品分別由評審委員會評選2幅作品由本會典藏，典藏畫作之所有權歸屬本會所有。<br>三、「入選獎」2名：得獎作品分別由評審委員會評選2幅作品由本會典藏，典藏畫作之所有權歸屬本會所有。<br>四、其餘得獎作品本會將依情形收購典藏，如獲本會收購典藏，其典藏畫作之所有權歸屬本會所有。</p>
+        <h2>壹拾、頒獎、展出與退件</h2>
+        <p>一、得獎者將於民國116年1月擇期隆重表揚。<br>二、獲典藏之作品將由本會規劃於全臺巡迴展出，本會得就各展出需要挑選展出作品。<br>三、本會將補助入圍複審未獲獎者之作品退還運送費。</p>
+        <h2>壹拾壹、權責</h2>
+        <p>一、基於宣傳推廣之需，本會對得獎及典藏作品均有研究、展覽、攝影、報導、印製、出版及在相關文宣、雜誌及網路上刊登之權利。<br>二、送件作品應保證無違反第肆條參賽規則及侵害他人智慧財產權之情事，若衍生相關爭議及法律問題，參賽者應自負全責。<br>三、複審送件之作品經本會驗收無誤，並確認未遭損毀者，本會將於複審收件日起至本比賽結束止負保管之責，惟遇人力不可抗拒情事、作品材質脆弱、結構裝置不良、裝箱作品未標示開箱圖示導致作品裝卸受損者等所致毀損，本會不負賠償之責。</p>
+        <h2>壹拾貳、附則</h2>
+        <p>一、送件參賽者對評審結果及本會執行本簡章第壹拾壹條第一項之權利時不得有任何異議。<br>二、本會保留隨時修改、變更、暫停 or 終止本比賽內容之權利，並以本會網站(https://www.ubot.org.tw)公告為準。另本簡章如有其他未盡事宜，悉依本會相關規定或解釋。</p>
+        <h2>壹拾參、活動報名資訊</h2>
+        <p>請洽聯邦文教基金會網站(https://www.ubot.org.tw)、聯邦銀行網站( https://www.ubot.com.tw )或來電洽詢(02)2536-9999。</p>
     </div>
 </div>
 
 <div id="register" class="tab-content">
     <div class="form-section">
-        <h1 class="page-title">線上報名表單</h1>
+        <h1 class="page-title">聯邦美術比賽報名</h1>
         <form>
+            <h2>個人資料</h2>
             <div class="form-group">
-                <label>參賽項目</label>
+                <label>比賽項目</label>
                 <select required>
-                    <option value="">請選擇比賽類別</option>
+                    <option value="">請選擇</option>
                     <option>第二十九屆聯邦美術新人獎</option>
                     <option>第二十四屆聯邦美術印象大獎</option>
                 </select>
             </div>
-            
-            <div class="form-group">
-                <label>姓名</label>
-                <input type="text" placeholder="請輸入中文姓名" required>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>中文姓名</label>
+                    <input type="text" required>
+                </div>
+                <div class="form-group">
+                    <label>護照名字</label>
+                    <input type="text">
+                </div>
             </div>
-
             <div class="form-group">
-                <label>連絡電話</label>
-                <input type="tel" placeholder="09XX-XXX-XXX" required>
+                <label>性別</label>
+                <div style="display: flex; gap: 20px;">
+                    <label style="font-weight: normal;"><input type="radio" name="sex" value="男"> 男</label>
+                    <label style="font-weight: normal;"><input type="radio" name="sex" value="女"> 女</label>
+                    <label style="font-weight: normal;"><input type="radio" name="sex" value="其他"> 其他</label>
+                </div>
             </div>
-
+            <div class="form-group">
+                <label>身分證字號</label>
+                <input type="text" required>
+            </div>
+            <div class="form-group">
+                <label>出生年月日</label>
+                <div style="display: flex; gap: 10px;">
+                    <select style="width: 40%;"><option>年</option><script>for(let i=1936;i<=2011;i++) document.write(`<option>${i}年</option>`)</script></select>
+                    <select style="width: 30%;"><option>月</option><script>for(let i=1;i<=12;i++) document.write(`<option>${i}月</option>`)</script></select>
+                    <select style="width: 30%;"><option>日</option><script>for(let i=1;i<=31;i++) document.write(`<option>${i}日</option>`)</script></select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>LINE ID(非必填)</label>
+                    <input type="text">
+                </div>
+                <div class="form-group">
+                    <label>連絡電話</label>
+                    <input type="tel" required>
+                </div>
+            </div>
             <div class="form-group">
                 <label>電子信箱</label>
-                <input type="email" placeholder="example@mail.com" required>
+                <input type="email" required>
+            </div>
+            <div class="form-group">
+                <label>戶籍地址</label>
+                <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                    <select><option>請選擇</option><option>台北市</option><option>新北市</option><option>桃園市</option></select>
+                </div>
+                <input type="text" placeholder="詳細地址">
+            </div>
+            <div class="form-group">
+                <label>通訊地址</label>
+                <label style="font-weight: normal; font-size: 13px;"><input type="checkbox"> 同戶籍地址</label>
+                <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                    <select><option>請選擇</option><option>台北市</option><option>新北市</option><option>桃園市</option></select>
+                </div>
+                <input type="text" placeholder="詳細地址">
             </div>
 
             <div class="checkbox-group">
                 <label class="checkbox-item">
                     <input type="checkbox" required>
-                    <span>我已閱讀並同意參賽簡章之各項規定與個人資料蒐集聲明。</span>
+                    <span>同意 本人參加聯邦文教基金會「聯邦美術獎」甄選，參選資料均屬實，並遵守 簡章之規定，如有違反，主辦單位有取消參賽資格及獎項之權利。</span>
+                </label>
+                <label class="checkbox-item">
+                    <input type="checkbox" required>
+                    <span>本人已充分了解並遵循「聯邦美術獎」簡章之各項規定，並同意 貴會基於執行 與本展印刷、出版、學術研究、教育推廣、文宣及行銷之需要，得對本人之個人資料予以蒐集、處理及利用。</span>
+                </label>
+                <label class="checkbox-item">
+                    <input type="checkbox" required>
+                    <span>我已詳閱並同意本報名之個人資料及隱私權政策聲明用於活動通知及事務聯絡使用。</span>
                 </label>
             </div>
-
-            <button type="submit" class="btn-submit">確認送出報名</button>
+            <button type="submit" class="btn-submit">提交報名</button>
         </form>
     </div>
 </div>
 
 <div id="query" class="tab-content">
-    <div class="section-card" style="max-width: 500px; margin: 0 auto;">
-        <h1 class="page-title" style="font-size: 20px;">報名進度查詢</h1>
+    <div class="section-card" style="max-width: 600px; margin: 0 auto;">
+        <h1 class="page-title">報名查詢</h1>
         <div class="form-group">
-            <label>身分證字號</label>
-            <input type="text" placeholder="請輸入身分證字號">
+            <label>比賽項目</label>
+            <select>
+                <option>請選擇</option>
+                <option>第二十九屆聯邦美術新人獎 (2026)</option>
+                <option>第二十四屆聯邦美術印象大獎 (2026)</option>
+                <option>第二十八屆聯邦美術新人獎 (2025)</option>
+                <option>第二十三屆聯邦美術印象大獎 (2025)</option>
+            </select>
         </div>
         <div class="form-group">
-            <label>手機號碼</label>
-            <input type="tel" placeholder="請輸入報名時的手機號碼">
+            <label>身分證字號</label>
+            <input type="text">
+        </div>
+        <div class="form-group">
+            <label>連絡電話</label>
+            <input type="tel">
         </div>
         <button type="button" class="btn-submit">立即查詢</button>
     </div>
@@ -375,13 +471,31 @@
 <footer>
     <div class="footer-container">
         <div class="footer-info">
-            <div style="font-weight:800; font-size:18px; margin-bottom:10px;">UNION ART CENTER</div>
+            <div class="footer-logo">UNION ART CENTER</div>
+            <p><strong>地址：</strong>台北市大安區忠孝東路四段219號</p>
             <p><strong>電話：</strong>(02) 2536-9999</p>
-            <p><strong>地址：</strong>台北市中山北路二段83號7樓</p>
+            <p><strong>時間：</strong>週二至週日 09:00 - 17:00 (週一休館)</p>
         </div>
-        <div class="footer-bottom">
-            <p>© 2026 Union Art Center 聯邦藝術中心</p>
+        <div class="footer-links">
+            <h4>探索中心</h4>
+            <ul>
+                <li><a href="about.html">關於我們</a></li>
+                <li><a href="exhibitions.html">最新展覽</a></li>
+                <li><a href="artists.html">合作藝術家</a></li>
+                <li><a href="visit.html">參觀指引</a></li>
+            </ul>
         </div>
+        <div class="footer-links">
+            <h4>快速連結</h4>
+            <ul>
+                <li><a href="https://www.ubot.com.tw/">聯邦銀行官網</a></li>
+                <li><a href="contact.html">場地租借申請</a></li>
+                <li><a href="privacy.html">隱私權保護政策</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2026 Union Art Center 聯邦藝術中心 版權所有</p>
     </div>
 </footer>
 
