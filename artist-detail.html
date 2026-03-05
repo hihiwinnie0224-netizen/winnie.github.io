@@ -196,79 +196,91 @@
 </main>
 
 <footer>
-    <div class="footer-container">
-        <div class="footer-info">
-            <div class="footer-logo">UNION ART CENTER</div>
-            <p><strong>地址：</strong>台北市大安區忠孝東路四段219號</p>
-            <p><strong>電話：</strong>(02) 2536-9999</p>
-        </div>
-    </div>
-    <div class="footer-bottom"><p>© 2026 Union Art Center 聯邦藝術中心 版權所有</p></div>
-</footer>
+        <div class="footer-container">
+            </div>
+        <div class="footer-bottom"><p>© 2026 Union Art Center 聯邦藝術中心 版權所有</p></div>
+    </footer>
 
-<script src="data.js"></script>
-
-<script>
-    const menuToggle = document.getElementById('mobile-menu');
-    const navList = document.getElementById('nav-list');
-    menuToggle.onclick = () => navList.classList.toggle('active');
-
-    function init() {
-        // 從網址獲取名字，並去除前後空白
-        const params = new URLSearchParams(window.location.search);
-        let name = params.get('name');
-        if (name) name = name.trim(); 
-
-        // 偵錯輔助：檢查 ARTISTS_DATA 是否存在
-        if (typeof ARTISTS_DATA === 'undefined') {
-            console.error("錯誤：找不到 ARTISTS_DATA。請檢查 data.js 是否正確載入。");
-            document.body.innerHTML = "<h2 style='text-align:center;margin-top:50px;'>系統錯誤：無法讀取資料庫 (data.js)</h2>";
-            return;
+    <script src="data.js"></script>
+    <script>
+        // 1. 漢堡選單邏輯
+        const menuToggle = document.getElementById('mobile-menu');
+        const navList = document.getElementById('nav-list');
+        if (menuToggle) {
+            menuToggle.onclick = () => navList.classList.toggle('active');
         }
 
-        const data = ARTISTS_DATA[name];
+        // 2. 核心渲染邏輯 (修復版)
+        function init() {
+            const params = new URLSearchParams(window.location.search);
+            let name = params.get('name');
+            
+            if (typeof ARTISTS_DATA === 'undefined') {
+                console.error("找不到 ARTISTS_DATA 變數，請檢查 data.js 是否有被正確載入。");
+                return;
+            }
 
-        if (!name || !data) {
-            console.warn(`找不到名為 [${name}] 的資料。請檢查 data.js 中的 Key 是否與網址一致。`);
-            alert("找不到該藝術家資料，將為您導回列表頁。");
-            window.location.href = "artists.html";
-            return;
+            let data = null;
+            if (name) {
+                name = name.trim();
+                data = ARTISTS_DATA[name];
+                
+                if (!data) {
+                    const keys = Object.keys(ARTISTS_DATA);
+                    const matchKey = keys.find(k => k.trim() === name);
+                    if (matchKey) data = ARTISTS_DATA[matchKey];
+                }
+            }
+
+            if (!data) {
+                document.getElementById('artist-name').innerText = "找不到資料";
+                document.getElementById('artist-eng-name').innerText = "DATA NOT FOUND";
+                console.error(`無法在資料庫中找到: "${name}"`);
+                return;
+            }
+
+            // 渲染圖片
+            const photoPath = data.photo || 'https://via.placeholder.com/400x500?text=No+Photo';
+            document.getElementById('artist-photo').style.backgroundImage = `url('${photoPath}')`;
+            
+            // 渲染基本文字
+            document.title = `${name} - 藝術家典藏`;
+            document.getElementById('artist-name').innerText = name;
+            document.getElementById('artist-eng-name').innerText = data.engName || "";
+            document.getElementById('artist-role').innerText = data.role || "藝術家";
+            
+            document.getElementById('sidebar-info').innerHTML = `
+                <span style="font-size: 20px; letter-spacing: 2px; font-weight:800;">${name}</span><br>
+                <span style="color: var(--ubot-gold);">${data.engName || ""}</span><br>
+                <span style="font-size: 14px; color: #777; margin-top: 5px; display: block;">${data.title || ""}</span>
+            `;
+
+            // 經歷
+            const expList = document.getElementById('experience-list');
+            if (data.experience) {
+                expList.innerHTML = data.experience.map(li => `<li>${li}</li>`).join('');
+            }
+
+            // 風格
+            document.getElementById('artist-style').innerText = data.style || "內容整理中...";
+
+            // 作品集
+            const artworkGrid = document.getElementById('artwork-grid');
+            if (data.artworks && data.artworks.length > 0) {
+                artworkGrid.innerHTML = data.artworks.map(work => `
+                    <div class="artwork-card">
+                        <div class="work-img">
+                            <img src="${work.img}" alt="${work.title}" onerror="this.src='https://via.placeholder.com/300?text=NotFound'">
+                        </div>
+                        <div class="work-title">${work.title}</div>
+                        <div class="work-year">${work.year || ""}</div>
+                    </div>
+                `).join('');
+            }
         }
 
-        // 開始渲染內容
-        document.title = `${name} - 藝術家典藏`;
-        document.getElementById('artist-name').innerText = name;
-        document.getElementById('artist-eng-name').innerText = data.engName || "";
-        document.getElementById('artist-role').innerText = data.role || "藝術家";
-        document.getElementById('artist-photo').style.backgroundImage = `url('${data.photo}')`;
-        
-        document.getElementById('sidebar-info').innerHTML = `
-            <span style="font-size: 20px; letter-spacing: 2px; font-weight:800;">${name}</span><br>
-            <span style="color: var(--ubot-gold);">${data.engName || ""}</span><br>
-            <span style="font-size: 14px; color: #777; margin-top: 5px; display: block;">${data.title || ""}</span>
-        `;
-
-        const expList = document.getElementById('experience-list');
-        expList.innerHTML = data.experience ? data.experience.map(li => `<li>${li}</li>`).join('') : "<li>暫無資料</li>";
-
-        document.getElementById('artist-style').innerText = data.style || "內容整理中...";
-
-        const artworkGrid = document.getElementById('artwork-grid');
-        if (data.artworks && data.artworks.length > 0) {
-            artworkGrid.innerHTML = data.artworks.map(work => `
-                <div class="artwork-card">
-                    <div class="work-img"><img src="${work.img}" alt="${work.title}" onerror="this.src='https://via.placeholder.com/300?text=Image+NotFound'"></div>
-                    <div class="work-title">${work.title}</div>
-                    <div class="work-year">${work.year}</div>
-                </div>
-            `).join('');
-        } else {
-            artworkGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #999; padding: 40px;">目前尚無作品資料</p>';
-        }
-    }
-
-    window.onload = init;
-</script>
-
-</body>
+        window.onload = init;
+    </script>
+    
+    </body>
 </html>
