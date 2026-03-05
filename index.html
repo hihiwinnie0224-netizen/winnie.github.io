@@ -2,251 +2,194 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>聯邦藝術中心 Union Art Center｜深耕本土藝術</title>
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>參觀資訊｜聯邦藝術中心 Union Art Center</title>
     <style>
+        /* ===== 0. 全域設定與變數 (同步樣式) ===== */
         :root {
-            --ubot-red: #E60012;         /* 聯邦紅 */
-            --ubot-blue: #003366;        /* 聯邦深藍 */
-            --ubot-light-blue: #EAF6FC;  /* 聯邦淺藍背景 */
-            --ubot-sky-blue: #00A1E9;    /* 聯邦淺藍點綴 */
-            --text-dark: #333333;
-            --text-gray: #666666;
-            --border-color: #D1CDC4;
+            --ubot-red: #E60012;         
+            --ubot-blue: #003366;        
+            --ubot-light-blue: #EAF6FC;  
+            --ubot-sky-blue: #00A1E9;    
+            --ubot-gold: #B89130;
+            --soft-sage: #F4F7F2;
+            --paper-warm: #fdfdfb;       
+            --card-bg: #ffffff;
+            --text-main: #2A2A2A;
+            --text-sub: #666666;
+            --border-color: #EEEEEE;
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
 
-        body {
-            margin: 0;
-            font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
-            background-color: #ffffff;
-            color: var(--text-dark);
-            line-height: 1.6;
-            overflow-x: hidden; /* 防止手機左右晃動 */
+        body { 
+            font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif; 
+            margin: 0; padding: 0; 
+            background-color: var(--paper-warm); 
+            color: var(--text-main); 
+            line-height: 1.8;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* ===== 1. 導覽列 Navbar (優化手機版) ===== */
+        /* ===== 1. 統一頁首樣式 (Header) - 同步關於我們 ===== */
         header {
             background: #ffffff;
             box-shadow: 0 2px 20px rgba(0,0,0,0.05);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
+            position: sticky; top: 0; z-index: 1000;
         }
-
         .navbar {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            max-width: 1200px; margin: 0 auto;
+            display: flex; justify-content: space-between; align-items: center;
             padding: 12px 20px;
         }
-
         .logo a {
-            font-size: 20px;
-            font-weight: 800;
-            color: var(--ubot-blue);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            letter-spacing: 1px;
+            font-size: 20px; font-weight: 800; color: var(--ubot-blue);
+            text-decoration: none; display: flex; align-items: center; letter-spacing: 1px;
         }
-
         .logo a::before { 
             content: ""; width: 8px; height: 8px; background: var(--ubot-red); 
             border-radius: 50%; margin-right: 8px; 
         }
-
-        /* 漢堡選單按鈕 */
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-            gap: 5px;
-        }
-        .menu-toggle span {
-            width: 25px; height: 3px; background: var(--ubot-blue);
-            transition: 0.3s;
-        }
-
-        .menu {
-            display: flex;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-
+        
+        .menu { display: flex; list-style: none; margin: 0; padding: 0; }
         .menu li { margin-left: 10px; }
-
-        .menu a {
-            text-decoration: none;
-            color: #666;
-            font-weight: 600;
-            font-size: 15px;
-            transition: 0.3s;
-            padding: 8px 12px;
-            display: block;
+        .menu a { 
+            text-decoration: none; color: #666; 
+            font-weight: 600; font-size: 15px; transition: 0.3s; 
+            padding: 8px 12px; display: block;
         }
-
         .menu a:hover, .menu a.active { color: var(--ubot-red); }
 
-        /* ===== 2. 主視覺 Banner (響應式調整) ===== */
-        .hero-banner {
-            width: 100%;
-            height: 70vh; /* 使用螢幕高度百分比 */
-            min-height: 400px;
-            background: linear-gradient(rgba(0,51,102,0.6), rgba(0,51,102,0.4)),
-                        url('https://images.unsplash.com/photo-1577083552431-6e5fd01aa342?auto=format&fit=crop&w=1600&q=80');
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            text-align: center;
-            padding: 0 20px;
+        /* 手機漢堡選單按鈕 */
+        .menu-toggle {
+            display: none; flex-direction: column; gap: 5px; cursor: pointer;
         }
+        .menu-toggle span { width: 25px; height: 3px; background: var(--ubot-blue); transition: 0.3s; }
 
-        .hero-banner h1 { 
-            font-size: clamp(32px, 8vw, 58px); /* 字體隨螢幕縮放 */
-            letter-spacing: 4px; 
-            margin: 0; 
-            font-weight: 700;
+        /* ===== 2. Banner ===== */
+        .page-banner {
+            width: 100%; height: 280px;
+            background: linear-gradient(rgba(0,51,102,0.7), rgba(0,51,102,0.7)),
+                        url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80');
+            background-size: cover; background-position: center;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            color: white; text-align: center; padding: 0 20px;
         }
+        .page-banner h1 { font-size: 32px; letter-spacing: 4px; margin: 0; font-weight: 900; }
+        .page-banner p { font-size: 14px; letter-spacing: 1px; margin-top: 10px; opacity: 0.9; }
 
-        .hero-banner .sub-title { 
-            font-size: 18px; 
-            letter-spacing: 2px; 
-            margin-top: 10px; 
-            opacity: 0.9;
-        }
-
-        .hero-btn {
-            margin-top: 30px;
-            padding: 14px 40px;
-            background: var(--ubot-red);
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            transition: 0.3s;
-            box-shadow: 0 4px 15px rgba(230,0,18,0.3);
-        }
-
-        /* ===== 3. 快捷卡片 ===== */
-        .quick-access {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            max-width: 1100px;
-            margin: -40px auto 60px;
-            gap: 20px; 
-            padding: 0 20px;
-            position: relative;
-            z-index: 10;
-        }
-
-        .access-card {
-            background: white;
-            padding: 30px 20px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            text-decoration: none;
-            color: var(--ubot-blue);
-            transition: 0.4s;
-            border-radius: 12px;
-        }
-
-        .access-card h3 { margin: 0 0 10px 0; font-size: 18px; }
-        .access-card p { font-size: 14px; color: var(--text-gray); margin: 0; }
-
-        /* ===== 4. 精選作品區 ===== */
-        .featured-art {
-            max-width: 1200px;
-            margin: 0 auto 60px;
-            padding: 0 20px;
-        }
-
-        .section-title { text-align: center; margin-bottom: 40px; }
-        .section-title h2 { font-size: 28px; color: var(--ubot-blue); position: relative; padding-bottom: 10px; }
-        .section-title h2::after {
-            content: ""; width: 40px; height: 3px; background: var(--ubot-red);
-            position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
-        }
-
-        .art-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-        }
-
-        .art-item {
-            overflow: hidden;
-            border-radius: 12px;
-            position: relative;
-            aspect-ratio: 4/5;
-        }
-
-        .art-item img { width: 100%; height: 100%; object-fit: cover; }
-
-        .art-info {
-            position: absolute;
-            bottom: 0; left: 0; right: 0;
-            padding: 20px;
-            background: linear-gradient(transparent, rgba(0,0,0,0.8));
-            color: white;
-        }
-
-        /* ===== 5. 最新消息 ===== */
-        .section-news { max-width: 1000px; margin: 0 auto 60px; padding: 0 20px; }
+        /* ===== 3. 內容佈局 ===== */
+        .visit-container { max-width: 1100px; margin: -40px auto 80px; padding: 0 25px; position: relative; z-index: 10; }
         
-        .news-header { 
+        .visit-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 30px;
+        }
+
+        .info-card {
+            background: var(--card-bg); padding: 40px 30px;
+            border-radius: 12px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.06);
+            display: flex; flex-direction: column;
+            border: 1px solid #eee;
+            border-top: 6px solid var(--ubot-sky-blue);
+        }
+        .info-card.sage-theme {
+            background: var(--soft-sage); border-top: 6px solid var(--ubot-blue);
+        }
+
+        h3 { 
+            font-size: 1.3rem; letter-spacing: 2px; margin: 0 0 25px 0;
+            color: var(--ubot-blue); font-weight: 800; border-bottom: 1px solid rgba(0,0,0,0.06);
+            padding-bottom: 12px;
+        }
+
+        .time-item { 
+            display: flex; justify-content: space-between; 
+            padding: 15px 0; border-bottom: 1px solid rgba(0,0,0,0.03);
+            font-size: 16px;
+        }
+        
+        /* 開放狀態標籤 */
+        .status-open { 
+            align-self: flex-start; margin-top: 30px; padding: 10px 20px;
+            background: #fff; color: #2e7d32; font-size: 13px; font-weight: 800;
+            border: 1px solid #c8e6c9; border-radius: 50px;
+            display: inline-flex; align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+        }
+        .status-open::before {
+            content: ""; width: 10px; height: 10px; background: #27ae60; border-radius: 50%;
+            margin-right: 12px; animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse { 
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(39, 174, 96, 0.4); }
+            70% { transform: scale(1.2); box-shadow: 0 0 0 10px rgba(39, 174, 96, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(39, 174, 96, 0); }
+        }
+
+        /* 交通與地圖卡片 */
+        .location-card {
+            background: var(--card-bg); margin-bottom: 40px;
+            display: flex; flex-direction: column;
+            border-radius: 12px; overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.06);
+            border: 1px solid #eee;
+        }
+        .map-container { width: 100%; height: 350px; background: #f0f0f0; }
+        
+        .transport-info { padding: 40px 30px; }
+        .transport-info .item { margin-bottom: 30px; }
+        .transport-info strong { 
+            color: var(--ubot-blue); font-size: 1.1rem; display: flex; align-items: center; margin-bottom: 10px; font-weight: 800;
+        }
+        .transport-info strong::before { 
+            content: ""; width: 8px; height: 8px; background: var(--ubot-red); 
+            margin-right: 12px; border-radius: 50%;
+        }
+        .transport-info p { margin: 0; color: var(--text-sub); font-size: 15px; padding-left: 20px; }
+
+        /* FAQ 手風琴 */
+        .accordion { margin-top: 60px; }
+        .acc-item { margin-bottom: 15px; background: #fff; border: 1px solid #eee; border-radius: 8px; overflow: hidden; transition: var(--transition); }
+        .acc-btn {
+            width: 100%; padding: 25px; text-align: left; background: none; border: none;
+            cursor: pointer; font-size: 17px; font-weight: 800; color: var(--ubot-blue);
             display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 20px; border-bottom: 2px solid var(--ubot-light-blue); padding-bottom: 10px;
         }
-
-        .news-row {
-            display: flex; align-items: center;
-            padding: 15px 10px; border-bottom: 1px solid #f0f0f0;
-            text-decoration: none; color: inherit; 
+        .acc-btn:hover { background: #fafafa; }
+        .acc-btn .icon { 
+            font-size: 18px; color: var(--ubot-sky-blue); transition: 0.3s;
+            width: 30px; height: 30px; border: 1px solid #eee;
+            display: flex; align-items: center; justify-content: center; border-radius: 50%;
         }
+        .acc-content { padding: 0 25px; max-height: 0; overflow: hidden; transition: 0.4s ease-out; }
+        .acc-inner { padding-bottom: 25px; color: var(--text-sub); font-size: 15px; border-top: 1px solid #f5f5f5; padding-top: 20px; }
 
-        .tag {
-            background: var(--ubot-blue); color: white;
-            padding: 2px 8px; font-size: 12px; margin-right: 12px; border-radius: 3px;
-            flex-shrink: 0;
-        }
-
-        /* ===== 6. 頁尾 Footer ===== */
+        /* ===== 4. Footer (同步樣式) ===== */
         footer {
-            background: var(--ubot-light-blue);
-            color: var(--ubot-blue);
-            padding: 50px 20px 20px;
+            background: var(--ubot-light-blue); color: var(--ubot-blue);
+            padding: 70px 25px 30px; margin-top: 80px;
         }
-
         .footer-container {
             max-width: 1200px; margin: 0 auto;
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 30px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
         }
-
         .footer-logo { font-size: 20px; font-weight: 800; margin-bottom: 15px; }
-        .footer-info p { margin: 8px 0; font-size: 14px; }
-        .footer-links h4 { margin: 0 0 15px; border-left: 3px solid var(--ubot-red); padding-left: 10px; }
-        .footer-links ul { list-style: none; padding: 0; }
-        .footer-links li { margin-bottom: 8px; }
-        .footer-links a { text-decoration: none; color: var(--ubot-blue); font-size: 14px; opacity: 0.8; }
-
-        .footer-bottom {
-            max-width: 1200px; margin: 30px auto 0; padding-top: 20px;
-            border-top: 1px solid rgba(0,51,102,0.1); text-align: center; font-size: 12px;
+        .footer-info p { margin: 8px 0; font-size: 14px; opacity: 0.9; }
+        .footer-links h4 { margin: 0 0 20px; border-left: 3px solid var(--ubot-red); padding-left: 12px; font-weight: 800; }
+        .footer-links ul { list-style: none; padding: 0; margin: 0; }
+        .footer-links li { margin-bottom: 10px; }
+        .footer-links a { text-decoration: none; color: var(--ubot-blue); font-size: 14px; opacity: 0.8; transition: .3s; }
+        .footer-links a:hover { opacity: 1; color: var(--ubot-red); }
+        .footer-bottom { 
+            text-align: center; margin-top: 50px; font-size: 13px; opacity: 0.6; 
+            border-top: 1px solid rgba(0,51,102,0.1); padding-top: 30px; 
         }
 
-        /* ===== 7. 手機版媒體查詢 (RWD 重點) ===== */
+        /* ===== RWD 調整 (同步關於我們) ===== */
         @media (max-width: 768px) {
-            .menu-toggle { display: flex; } /* 顯示漢堡按鈕 */
-
+            .menu-toggle { display: flex; }
             .menu {
                 position: absolute;
                 top: 100%; left: 0; right: 0;
@@ -255,24 +198,23 @@
                 padding: 20px;
                 box-shadow: 0 10px 20px rgba(0,0,0,0.1);
                 display: none; /* 預設隱藏 */
+                z-index: 1000;
             }
-
-            .menu.active { display: flex; } /* 切換顯示 */
-
+            .menu.active { display: flex; }
             .menu li { margin: 0; border-bottom: 1px solid #f5f5f5; }
-            .menu a { padding: 15px 0; font-size: 16px; }
+            .menu a { padding: 15px 0; font-size: 16px; text-align: center; }
 
-            .hero-banner { height: 60vh; }
-            
-            .quick-access { 
-                grid-template-columns: 1fr; /* 卡片改為單欄 */
-                margin-top: -30px;
-                gap: 15px;
-            }
+            .visit-grid { grid-template-columns: 1fr; gap: 20px; }
+            .page-banner { height: 220px; }
+            .page-banner h1 { font-size: 28px; }
+            .visit-container { margin-top: -30px; }
+            .info-card, .transport-info { padding: 30px 20px; }
+        }
 
-            .news-row { flex-direction: column; align-items: flex-start; }
-            .news-row .tag { margin-bottom: 8px; }
-            .news-row span[style*="width: 100px"] { width: auto !important; margin-bottom: 5px; display: block; }
+        @media (min-width: 851px) {
+            .location-card { flex-direction: row; }
+            .map-container { width: 60%; height: 500px; }
+            .transport-info { width: 40%; padding: 50px 40px; }
         }
     </style>
 </head>
