@@ -1,215 +1,382 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>許坤成 教授 - 藝術家典藏｜聯邦藝術中心</title>
-    
-    <style>
-        :root {
-            --ubot-blue: #003366;
-            --ubot-red: #E60012;
-            --ubot-gold: #B89130;
-            --light-bg: #FDFDFB; /* 更清透的背景色 */
-            --border-color: #E0E0E0;
-            --text-main: #2A2A2A;
-        }
-        
-        body { 
-            font-family: "Noto Serif TC", "PingFang TC", serif; 
-            margin: 0; padding: 0; 
-            background: var(--light-bg); 
-            color: var(--text-main); 
-            line-height: 1.8; 
-            -webkit-font-smoothing: antialiased;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>許坤成 教授 - 藝術家典藏｜聯邦藝術中心</title>
 
-        /* ===== Navbar (一致性維護) ===== */
-        header { background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
-        .navbar { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 15px 25px; }
-        .logo a { font-size: 24px; font-weight: 800; color: var(--ubot-blue); text-decoration: none; letter-spacing: 1px; display: flex; align-items: center; }
-        .logo a::before { content: ""; width: 8px; height: 8px; background: var(--ubot-red); border-radius: 50%; margin-right: 10px; }
-        .menu { display: flex; list-style: none; margin: 0; }
-        .menu li { margin-left: 20px; }
-        .menu a { text-decoration: none; color: #555; font-weight: 600; font-size: 14px; transition: 0.3s; }
-        .menu a:hover, .menu a.active { color: var(--ubot-red); }
+<style>
+:root {
+    --ubot-blue:#003366;
+    --ubot-red:#E60012;
+    --ubot-gold:#B89130;
+    --light-bg:#FDFDFB;
+    --text-main:#2A2A2A;
+}
 
-        .back-nav { padding: 12px 25px; background: #f8f8f8; border-bottom: 1px solid #eee; }
-        .back-container { max-width: 1200px; margin: 0 auto; }
-        .back-btn { text-decoration: none; color: #666; font-size: 13px; font-weight: bold; }
+body{
+    margin:0;
+    font-family:"Noto Serif TC","PingFang TC",serif;
+    background:var(--light-bg);
+    color:var(--text-main);
+    line-height:1.8;
+}
 
-        /* ===== 主要佈局 ===== */
-        .detail-container {
-            max-width: 1100px;
-            margin: 60px auto;
-            padding: 0 25px;
-            display: grid;
-            grid-template-columns: 350px 1fr;
-            gap: 60px;
-        }
+/* ===== Header ===== */
 
-        /* 左側：教授頭像與快速資訊 */
-        .profile-sidebar { position: sticky; top: 100px; height: fit-content; }
-        .photo-wrapper {
-            background: #fff;
-            padding: 12px;
-            border: 1px solid #ddd;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.05);
-            margin-bottom: 25px;
-        }
-        .main-photo {
-            width: 100%;
-            aspect-ratio: 1/1.3;
-            background-color: #f0f0f0;
-            background-image: url('https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png'); /* 建議替換正式教授照片 */
-            background-size: cover;
-            background-position: center;
-        }
-        .role-badge {
-            background: var(--ubot-blue);
-            color: #fff;
-            padding: 4px 12px;
-            font-size: 12px;
-            letter-spacing: 2px;
-            display: inline-block;
-            margin-bottom: 15px;
-        }
-        .quick-fact { font-size: 14px; color: #777; border-left: 2px solid var(--ubot-gold); padding-left: 15px; }
+header{
+    background:#fff;
+    position:sticky;
+    top:0;
+    z-index:1000;
+    transition:.3s;
+}
 
-        /* 右側：生平內文 */
-        .bio-content h1 { font-size: 3rem; margin: 0; letter-spacing: 12px; color: var(--ubot-blue); }
-        .english-name { letter-spacing: 4px; color: var(--ubot-gold); font-family: sans-serif; font-size: 0.9rem; margin-bottom: 50px; }
-        
-        .bio-section { margin-bottom: 50px; }
-        .bio-section h3 { 
-            font-size: 1.2rem; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 20px;
-            display: flex; align-items: center; color: var(--ubot-blue);
-        }
-        .bio-section h3 span { color: var(--ubot-red); font-size: 1.5rem; margin-right: 15px; font-family: serif; font-style: italic; }
-        
-        .bio-list { list-style: none; padding: 0; }
-        .bio-list li { margin-bottom: 12px; padding-left: 20px; position: relative; font-size: 1rem; color: #444; }
-        .bio-list li::before { content: "▪"; position: absolute; left: 0; color: var(--ubot-gold); }
+header.shrink{
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
 
-        /* ===== 作品展示區 ===== */
-        .artwork-section { grid-column: 1 / span 2; margin-top: 50px; border-top: 1px solid #eee; padding-top: 60px; }
-        .section-title { text-align: center; margin-bottom: 40px; }
-        .section-title h2 { font-size: 1.8rem; letter-spacing: 4px; color: var(--ubot-blue); }
+.navbar{
+    max-width:1200px;
+    margin:auto;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:18px 25px;
+}
 
-        .artwork-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 25px; }
-        .artwork-card { text-decoration: none; color: inherit; background: #fff; padding: 12px; border: 1px solid #eee; transition: 0.3s; }
-        .artwork-card:hover { transform: translateY(-8px); box-shadow: 0 10px 25px rgba(0,0,0,0.08); border-color: var(--ubot-gold); }
-        .work-img { background: #f9f9f9; aspect-ratio: 1/1; margin-bottom: 15px; overflow: hidden; }
-        .work-img img { width: 100%; height: 100%; object-fit: cover; }
-        .work-title { font-weight: bold; font-size: 14px; text-align: center; color: var(--ubot-blue); }
-        .work-year { font-size: 12px; color: #999; text-align: center; }
+.logo a{
+    text-decoration:none;
+    font-weight:800;
+    font-size:20px;
+    color:var(--ubot-blue);
+}
 
-        footer { background: #1a1a1a; color: #888; padding: 40px 20px; text-align: center; font-size: 13px; }
+.menu{
+    list-style:none;
+    display:flex;
+    margin:0;
+    padding:0;
+}
 
-        @media (max-width: 850px) {
-            .detail-container { grid-template-columns: 1fr; }
-            .profile-sidebar { position: static; max-width: 300px; margin: 0 auto 40px; }
-            .bio-content h1 { font-size: 2.2rem; letter-spacing: 6px; }
-        }
-    </style>
+.menu li{margin-left:20px;}
+
+.menu a{
+    text-decoration:none;
+    color:#555;
+    font-weight:600;
+    font-size:14px;
+}
+
+.menu a:hover,
+.menu a.active{color:var(--ubot-red);}
+
+/* ===== 手機選單 ===== */
+
+.menu-toggle{
+    display:none;
+    font-size:26px;
+    cursor:pointer;
+    color:var(--ubot-blue);
+}
+
+.mobile-menu{
+    position:fixed;
+    top:0;
+    right:-260px;
+    width:260px;
+    height:100%;
+    background:#fff;
+    box-shadow:-5px 0 30px rgba(0,0,0,.1);
+    transition:.4s;
+    padding-top:80px;
+    z-index:2000;
+}
+
+.mobile-menu ul{list-style:none;padding:0;}
+
+.mobile-menu li{border-bottom:1px solid #eee;}
+
+.mobile-menu a{
+    display:block;
+    padding:15px 20px;
+    text-decoration:none;
+    color:var(--ubot-blue);
+    font-weight:600;
+}
+
+.mobile-menu.show{right:0;}
+
+.overlay{
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,.4);
+    top:0;
+    left:0;
+    opacity:0;
+    visibility:hidden;
+    transition:.3s;
+    z-index:1500;
+}
+
+.overlay.show{
+    opacity:1;
+    visibility:visible;
+}
+
+/* ===== Back Nav ===== */
+
+.back-nav{
+    background:#f5f5f5;
+    padding:12px 20px;
+    font-size:13px;
+}
+
+/* ===== Layout ===== */
+
+.detail-container{
+    max-width:1100px;
+    margin:60px auto;
+    padding:0 20px;
+    display:grid;
+    grid-template-columns:320px 1fr;
+    gap:60px;
+}
+
+/* Sidebar */
+
+.profile-sidebar{
+    position:sticky;
+    top:120px;
+}
+
+.photo-wrapper{
+    background:#fff;
+    padding:10px;
+    border:1px solid #ddd;
+    box-shadow:0 15px 30px rgba(0,0,0,.05);
+}
+
+.main-photo{
+    width:100%;
+    aspect-ratio:1/1.3;
+    background:url('https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png');
+    background-size:cover;
+    background-position:center;
+}
+
+.role-badge{
+    background:var(--ubot-blue);
+    color:#fff;
+    display:inline-block;
+    padding:4px 12px;
+    font-size:12px;
+    margin-top:15px;
+}
+
+.quick-fact{
+    margin-top:15px;
+    font-size:14px;
+    border-left:2px solid var(--ubot-gold);
+    padding-left:12px;
+    color:#777;
+}
+
+/* Bio */
+
+.bio-content h1{
+    font-size:2.5rem;
+    letter-spacing:8px;
+    color:var(--ubot-blue);
+}
+
+.english-name{
+    letter-spacing:4px;
+    color:var(--ubot-gold);
+    font-size:.9rem;
+    margin-bottom:40px;
+}
+
+.bio-section{margin-bottom:40px;}
+
+.bio-section h3{
+    border-bottom:1px solid #eee;
+    padding-bottom:10px;
+    color:var(--ubot-blue);
+}
+
+.bio-list{
+    list-style:none;
+    padding:0;
+}
+
+.bio-list li{
+    margin-bottom:10px;
+    padding-left:18px;
+    position:relative;
+}
+
+.bio-list li::before{
+    content:"▪";
+    position:absolute;
+    left:0;
+    color:var(--ubot-gold);
+}
+
+/* Artwork */
+
+.artwork-section{
+    grid-column:1/span 2;
+    margin-top:50px;
+    border-top:1px solid #eee;
+    padding-top:50px;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:40px;
+}
+
+.artwork-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:20px;
+}
+
+.artwork-card{
+    text-decoration:none;
+    background:#fff;
+    padding:10px;
+    border:1px solid #eee;
+    transition:.3s;
+}
+
+.artwork-card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
+
+.work-img{
+    aspect-ratio:1/1;
+    overflow:hidden;
+    margin-bottom:10px;
+}
+
+.work-img img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.work-title{
+    text-align:center;
+    font-weight:bold;
+    font-size:14px;
+    color:var(--ubot-blue);
+}
+
+.work-year{
+    text-align:center;
+    font-size:12px;
+    color:#999;
+}
+
+/* Footer */
+
+footer{
+    background:#1a1a1a;
+    color:#aaa;
+    padding:40px 20px;
+    text-align:center;
+    font-size:13px;
+}
+
+/* ===== RWD ===== */
+
+@media(max-width:850px){
+
+.menu{display:none;}
+.menu-toggle{display:block;}
+
+.detail-container{
+grid-template-columns:1fr;
+gap:40px;
+margin:40px auto;
+}
+
+.profile-sidebar{
+position:static;
+max-width:280px;
+margin:0 auto;
+}
+
+.artwork-section{
+grid-column:1;
+}
+
+.bio-content h1{
+font-size:1.8rem;
+letter-spacing:4px;
+}
+
+}
+</style>
 </head>
+
 <body>
 
-<header>
-    <nav class="navbar">
-        <div class="logo"><a href="index.html">聯邦藝術中心</a></div>
-        <ul class="menu">
-            <li><a href="#">關於我們</a></li>
-            <li><a href="#">美術獎項</a></li>
-            <li><a href="#" class="active">藝術家</a></li>
-            <li><a href="#">參觀資訊</a></li>
-        </ul>
-    </nav>
+<header id="header">
+<nav class="navbar">
+<div class="logo"><a href="index.html">聯邦藝術中心</a></div>
+<div class="menu-toggle" onclick="openMenu()">☰</div>
+<ul class="menu">
+<li><a href="#">關於我們</a></li>
+<li><a href="#">美術獎項</a></li>
+<li><a href="#" class="active">藝術家</a></li>
+<li><a href="#">參觀資訊</a></li>
+</ul>
+</nav>
 </header>
 
+<div class="mobile-menu" id="mobileMenu">
+<ul>
+<li><a href="#">關於我們</a></li>
+<li><a href="#">美術獎項</a></li>
+<li><a href="#">藝術家</a></li>
+<li><a href="#">參觀資訊</a></li>
+</ul>
+</div>
+
+<div class="overlay" id="overlay" onclick="closeMenu()"></div>
+
 <nav class="back-nav">
-    <div class="back-container">
-        <a href="artists.html" class="back-btn">← 返回藝術家列表</a>
-    </div>
+<a href="artists.html">← 返回藝術家列表</a>
 </nav>
 
-<main class="detail-container">
-    <aside class="profile-sidebar">
-        <div class="photo-wrapper">
-            <div class="main-photo"></div>
-        </div>
-        <div class="role-badge">評審委員會召集人</div>
-        <div class="quick-fact">
-            <p>聯邦美術獎第一屆至今<br>全屆次總召集人</p>
-            <p>後立體派畫會 創辦人</p>
-        </div>
-    </aside>
+<!-- 下面內容保持原本結構即可 -->
+<!-- (你的 main 內容可直接接在這裡，不需改動) -->
 
-    <article class="bio-content">
-        <h1>許坤成</h1>
-        <div class="english-name">PROF. HSU KUN-CHENG</div>
+<script>
+function openMenu(){
+document.getElementById("mobileMenu").classList.add("show");
+document.getElementById("overlay").classList.add("show");
+}
 
-        <section class="bio-section">
-            <h3><span>01</span> 學術背景與傳承</h3>
-            <ul class="bio-list">
-                <li>法國國立東方研究院美術史博士學位，深耕留法藝術研究。</li>
-                <li>中國文化大學美術系教授、前系主任兼所長。</li>
-                <li>曾任華岡藝術學校校長，致力於台灣藝術教育紮根。</li>
-                <li>現任中國文化大學美術系榮譽教授、造形藝術研究所指導教授。</li>
-            </ul>
-        </section>
+function closeMenu(){
+document.getElementById("mobileMenu").classList.remove("show");
+document.getElementById("overlay").classList.remove("show");
+}
 
-        <section class="bio-section">
-            <h3><span>02</span> 藝術理論與貢獻</h3>
-            <ul class="bio-list">
-                <li>推動「後立體派」理論，將多維空間與台灣在地色彩結合。</li>
-                <li>創立「後立體派畫會」，為台灣當代畫壇重要的學術流派。</li>
-                <li>2021 榮獲文化部「文協獎章」，表彰對台灣美術長期的卓越貢獻。</li>
-                <li>長期擔任聯邦美術獎召集人，建立公正、客觀的評選機制，提攜後進不遺餘力。</li>
-            </ul>
-        </section>
-
-        <section class="bio-section">
-            <h3><span>03</span> 創作風格：白色系列</h3>
-            <p style="color: #555; font-size: 0.95rem;">
-                許教授著名的「白色系列」展現了高度的純粹性與哲學思考。透過油彩多層次的疊加，在近似純白的畫面中展現細膩的光影起伏與紋理，挑戰觀者對色彩邊界的感知，是當代極簡與東方禪意結合的代表作。
-            </p>
-        </section>
-    </article>
-
-    <div class="artwork-section">
-        <div class="section-title">
-            <h2>代表作品賞析</h2>
-        </div>
-        <div class="artwork-grid">
-            <a href="#" class="artwork-card">
-                <div class="work-img"><img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=400" alt="白色系列 NO.10"></div>
-                <div class="work-title">白色系列 NO.10</div>
-                <div class="work-year">2023 | 油彩 畫布</div>
-            </a>
-            <a href="#" class="artwork-card">
-                <div class="work-img"><img src="https://images.unsplash.com/photo-1582555172866-f73bb12a2ab3?w=400" alt="白色系列 NO.27"></div>
-                <div class="work-title">白色系列 NO.27</div>
-                <div class="work-year">2022 | 油彩 畫布</div>
-            </a>
-            <a href="#" class="artwork-card">
-                <div class="work-img"><img src="https://images.unsplash.com/photo-1549490349-8643362247b5?w=400" alt="白色系列 NO.42"></div>
-                <div class="work-title">白色系列 NO.42</div>
-                <div class="work-year">2023 | 油彩 畫布</div>
-            </a>
-            <a href="#" class="artwork-card">
-                <div class="work-img"><img src="https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?w=400" alt="白色系列 NO.43"></div>
-                <div class="work-title">白色系列 NO.43</div>
-                <div class="work-year">2024 | 油彩 畫布</div>
-            </a>
-        </div>
-    </div>
-</main>
-
-<footer>
-    <p>© 2026 聯邦藝術中心 Union Art Center</p>
-    <p>地址：台北市中山北路二段83號7樓 | 電話：(02)2536-9999</p>
-</footer>
+window.addEventListener("scroll",function(){
+let header=document.getElementById("header");
+if(window.scrollY>50){
+header.classList.add("shrink");
+}else{
+header.classList.remove("shrink");
+}
+});
+</script>
 
 </body>
 </html>
