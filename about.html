@@ -39,11 +39,11 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 20px;
+            padding: 15px 25px;
         }
 
         .logo a {
-            font-size: 20px;
+            font-size: 24px;
             font-weight: 800;
             color: var(--ubot-blue);
             text-decoration: none;
@@ -52,9 +52,10 @@
             letter-spacing: 1px;
         }
 
+        /* 同步標準頁首的紅點樣式 */
         .logo a::before { 
-            content: ""; width: 6px; height: 6px; background: var(--ubot-red); 
-            border-radius: 50%; margin-right: 8px; 
+            content: ""; width: 8px; height: 8px; background: var(--ubot-red); 
+            border-radius: 50%; margin-right: 10px; 
         }
 
         /* 桌機選單 */
@@ -313,21 +314,31 @@
             <div class="footer-logo">UNION ART CENTER</div>
             <p><strong>地址：</strong>台北市大安區忠孝東路四段219號</p>
             <p><strong>電話：</strong>(02) 2536-9999</p>
-            <p><strong>時間：</strong>09:00 - 17:00 (週一休館)</p>
+            <p><strong>時間：</strong>週二至週日 09:00 - 17:00 (週一休館)</p>
         </div>
         <div class="footer-links">
             <h4>探索中心</h4>
             <ul>
                 <li><a href="about.html">關於我們</a></li>
                 <li><a href="exhibitions.html">最新展覽</a></li>
+                <li><a href="artists.html">合作藝術家</a></li>
                 <li><a href="visit.html">參觀指引</a></li>
+            </ul>
+        </div>
+        <div class="footer-links">
+            <h4>快速連結</h4>
+            <ul>
+                <li><a href="https://www.ubot.com.tw/">聯邦銀行官網</a></li>
+                <li><a href="contact.html">場地租借申請</a></li>
+                <li><a href="privacy.html">隱私權保護政策</a></li>
             </ul>
         </div>
     </div>
     <div class="footer-bottom">
-        <p>© 2026 Union Art Center 聯邦藝術中心</p>
+        <p>© 2026 Union Art Center 聯邦藝術中心 版權所有</p>
     </div>
 </footer>
+
 
 <script>
     function toggleMenu() {
