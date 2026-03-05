@@ -4,9 +4,265 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>展覽動態｜聯邦藝術中心 Union Art Center</title>
+    <style>
+        :root {
+            --ubot-red: #E60012;         /* 聯邦紅 */
+            --ubot-blue: #003366;        /* 聯邦深藍 */
+            --ubot-light-blue: #EAF6FC;  /* 聯邦淺藍背景 */
+            --ubot-sky-blue: #00A1E9;    /* 聯邦淺藍點綴 */
+            --text-dark: #333333;
+            --text-gray: #666666;
+            --border-color: #D1CDC4;
+        }
 
-    <!-- 外部 CSS -->
-    <link rel="stylesheet" href="css/exhibitions.css">
+        body {
+            margin: 0;
+            font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+            background-color: #f8fbfd;
+            color: var(--text-dark);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* ===== 1. 導覽列 Navbar (與首頁同步) ===== */
+        header {
+            background: #ffffff;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 20px;
+        }
+
+        .logo a {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--ubot-blue);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            letter-spacing: 1px;
+        }
+
+        .logo a::before { 
+            content: ""; width: 8px; height: 8px; background: var(--ubot-red); 
+            border-radius: 50%; margin-right: 8px; 
+        }
+
+        /* 漢堡選單按鈕 */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+        .menu-toggle span {
+            width: 25px; height: 3px; background: var(--ubot-blue);
+            transition: 0.3s;
+        }
+
+        .menu {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .menu li { margin-left: 10px; }
+
+        .menu a {
+            text-decoration: none;
+            color: #666;
+            font-weight: 600;
+            font-size: 15px;
+            transition: 0.3s;
+            padding: 8px 12px;
+            display: block;
+        }
+
+        .menu a:hover, .menu a.active { color: var(--ubot-red); }
+
+        /* ===== 2. 頁面 Banner ===== */
+        .page-banner {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(rgba(0,51,102,0.6), rgba(0,51,102,0.6)),
+                        url('https://images.unsplash.com/photo-1531050171669-70c47aca81b9?auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .page-banner h1 { 
+            font-size: clamp(28px, 6vw, 42px); 
+            letter-spacing: 6px; 
+            margin: 0; 
+            font-weight: 900;
+        }
+
+        .page-banner p { 
+            font-size: 14px; 
+            letter-spacing: 2px; 
+            margin-top: 10px; 
+            opacity: 0.9;
+        }
+
+        /* ===== 3. 主內容區 ===== */
+        .container {
+            max-width: 1200px;
+            margin: -40px auto 80px;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .search-section {
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .search-input {
+            width: 100%;
+            max-width: 600px;
+            padding: 15px 25px;
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            font-size: 16px;
+            transition: 0.3s;
+            outline: none;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            -webkit-appearance: none; /* 移除手機內建陰影 */
+        }
+
+        .search-input:focus {
+            border-color: var(--ubot-sky-blue);
+            box-shadow: 0 10px 30px rgba(0,161,233,0.15);
+        }
+
+        .ex-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .ex-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            border-top: 6px solid var(--ubot-sky-blue);
+        }
+
+        .ex-card:hover { transform: translateY(-8px); }
+
+        .status-tag {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 11px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            background: var(--ubot-blue);
+            color: white;
+            align-self: flex-start;
+        }
+
+        .ex-card.upcoming-soon { border-top-color: var(--ubot-red); }
+        .ex-card.upcoming-soon .status-tag { background: var(--ubot-red); }
+        .ex-card.past { opacity: 0.8; filter: grayscale(80%); border-top-color: #ccc; }
+        .ex-card.past .status-tag { background: #999; }
+
+        .ex-date {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--ubot-blue);
+            margin-bottom: 10px;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .ex-location {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #222;
+        }
+
+        .ex-address {
+            font-size: 14px;
+            color: var(--text-gray);
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .btn-map {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 12px 0;
+            background: var(--ubot-light-blue);
+            color: var(--ubot-blue);
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 700;
+            transition: 0.3s;
+            margin-top: auto;
+        }
+
+        .btn-map:active { background: var(--ubot-blue); color: white; }
+
+        /* ===== 4. 頁尾 Footer ===== */
+        footer {
+            background: var(--ubot-light-blue);
+            padding: 50px 20px 30px;
+            color: var(--ubot-blue);
+        }
+
+        .footer-container {
+            max-width: 1200px; margin: 0 auto;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+
+        .footer-links ul { list-style: none; padding: 0; }
+        .footer-links a { text-decoration: none; color: inherit; font-size: 14px; opacity: 0.8; }
+
+        /* ===== 5. 手機版 RWD ===== */
+        @media (max-width: 768px) {
+            .menu-toggle { display: flex; }
+            .menu {
+                position: absolute; top: 100%; left: 0; right: 0;
+                background: #fff; flex-direction: column;
+                padding: 10px 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+                display: none;
+            }
+            .menu.active { display: flex; }
+            .menu li { margin: 0; border-bottom: 1px solid #f5f5f5; }
+            .menu a { padding: 15px 0; }
+
+            .container { margin-top: -30px; }
+            .ex-grid { grid-template-columns: 1fr; }
+            .ex-card { padding: 25px 20px; }
+        }
+    </style>
 </head>
 <body>
 
@@ -15,7 +271,10 @@
         <div class="logo">
             <a href="index.html">聯邦藝術中心</a>
         </div>
-        <ul class="menu">
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span><span></span><span></span>
+        </div>
+        <ul class="menu" id="nav-list">
             <li><a href="about.html">關於我們</a></li>
             <li><a href="exhibitions.html" class="active">展覽動態</a></li>
             <li><a href="awards.html">美術獎項</a></li>
@@ -29,23 +288,21 @@
 
 <section class="page-banner">
     <h1>展覽動態</h1>
-    <p>2026 Union Art Exhibition Schedule</p>
+    <p>2026 UNION ART EXHIBITION SCHEDULE</p>
 </section>
 
 <div class="container">
     <div class="search-section">
-        <input type="text" id="searchInput" class="search-input"
-            placeholder="🔍 輸入城市或館名搜尋展覽 (如：台北、屏東)">
+        <input type="text" id="searchInput" class="search-input" placeholder="🔍 輸入城市或館名搜尋 (如：台北、屏東)" onkeyup="searchEx()">
     </div>
 
     <div class="ex-grid" id="exGrid">
-
         <div class="ex-card past" data-info="台北 聯邦銀行總行">
             <span class="status-tag">展覽已結束</span>
             <span class="ex-date">01.06 - 02.13</span>
             <div class="ex-location">聯邦銀行總行</div>
             <div class="ex-address">臺北市松山區民生東路三段109號</div>
-            <span class="btn-map">結束展出</span>
+            <span class="btn-map" style="background:#eee; color:#999; pointer-events:none;">結束展出</span>
         </div>
 
         <div class="ex-card upcoming-soon" data-info="高雄 高雄市文化中心">
@@ -53,7 +310,7 @@
             <span class="ex-date">03.06 - 03.17</span>
             <div class="ex-location">高雄市文化中心</div>
             <div class="ex-address">高雄市苓雅區五福一路67號</div>
-            <a href="https://maps.google.com" target="_blank" class="btn-map">📍 導航前往</a>
+            <a href="https://maps.google.com/?q=高雄市文化中心" target="_blank" class="btn-map">📍 導航前往</a>
         </div>
 
         <div class="ex-card" data-info="台中 大墩文化中心">
@@ -61,9 +318,8 @@
             <span class="ex-date">03.21 - 04.01</span>
             <div class="ex-location">大墩文化中心</div>
             <div class="ex-address">臺中市西區英才路600號</div>
-            <a href="https://maps.google.com" target="_blank" class="btn-map">📍 導航前往</a>
+            <a href="https://maps.google.com/?q=大墩文化中心" target="_blank" class="btn-map">📍 導航前往</a>
         </div>
-
     </div>
 </div>
 
@@ -71,34 +327,40 @@
     <div class="footer-container">
         <div class="footer-info">
             <div class="footer-logo">聯邦藝術中心</div>
-            <p>地址：台北市大安區忠孝東路四段219號</p>
             <p>電話：(02)2536-9999</p>
             <p>開放時間：依各展覽場館公告為準</p>
-        </div>
-        <div class="footer-links">
-            <h4>快速連結</h4>
-            <ul>
-                <li><a href="about.html">關於我們</a></li>
-                <li><a href="awards.html">美術獎徵件規範</a></li>
-                <li><a href="visit.html">交通資訊</a></li>
-            </ul>
         </div>
         <div class="footer-links">
             <h4>相關平台</h4>
             <ul>
                 <li><a href="https://www.ubot.com.tw/" target="_blank">聯邦銀行官網</a></li>
                 <li><a href="#">聯邦文教基金會</a></li>
-                <li><a href="#">官方粉絲專頁</a></li>
             </ul>
         </div>
     </div>
     <div class="footer-bottom">
-        © 2026 Union Art Center 聯邦藝術中心
+        <p>© 2026 Union Art Center</p>
     </div>
 </footer>
 
-<!-- 外部 JS -->
-<script src="js/exhibitions.js"></script>
+<script>
+    // 漢堡選單控制
+    const menuToggle = document.getElementById('mobile-menu');
+    const navList = document.getElementById('nav-list');
+    menuToggle.addEventListener('click', () => {
+        navList.classList.toggle('active');
+    });
+
+    // 搜尋功能
+    function searchEx() {
+        let input = document.getElementById('searchInput').value.toLowerCase();
+        let cards = document.getElementsByClassName('ex-card');
+        for (let i = 0; i < cards.length; i++) {
+            let info = cards[i].getAttribute('data-info').toLowerCase();
+            cards[i].style.display = info.includes(input) ? "" : "none";
+        }
+    }
+</script>
 
 </body>
 </html>
