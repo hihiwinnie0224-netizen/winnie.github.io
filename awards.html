@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>美術獎項｜聯邦藝術中心 Union Art Center</title>
     <style>
         :root {
@@ -22,9 +22,10 @@
             background-color: #f8fbfd;
             color: var(--text-main);
             line-height: 1.8;
+            overflow-x: hidden;
         }
 
-        /* ===== 1. 完整導覽列 (與關於我們同步) ===== */
+        /* ===== 1. 統一頁首樣式 (與關於我們同步) ===== */
         header {
             background: #ffffff;
             box-shadow: 0 2px 20px rgba(0,0,0,0.05);
@@ -39,11 +40,11 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 25px;
+            padding: 12px 20px;
         }
 
         .logo a {
-            font-size: 24px;
+            font-size: 20px;
             font-weight: 800;
             color: var(--ubot-blue);
             text-decoration: none;
@@ -54,22 +55,43 @@
 
         .logo a::before { 
             content: ""; width: 8px; height: 8px; background: var(--ubot-red); 
-            border-radius: 50%; margin-right: 10px; 
+            border-radius: 50%; margin-right: 8px; 
         }
 
-        .menu { display: flex; list-style: none; margin: 0; padding: 0; }
-        .menu li { margin-left: 15px; }
+        .menu {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .menu li { margin-left: 10px; }
+
         .menu a {
             text-decoration: none;
             color: #666;
             font-weight: 600;
-            font-size: 14px;
+            font-size: 15px; 
+            padding: 8px 12px;
             transition: 0.3s;
-            padding: 8px 10px;
+            display: block;
         }
+
         .menu a:hover, .menu a.active { color: var(--ubot-red); }
 
-        /* ===== 2. 頁面 Banner (與各分頁格式同步) ===== */
+        /* 手機漢堡選單按鈕 */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+        .menu-toggle span {
+            width: 25px; height: 3px; background: var(--ubot-blue);
+            transition: 0.3s;
+        }
+
+        /* ===== 2. 頁面 Banner ===== */
         .page-banner {
             width: 100%;
             height: 250px;
@@ -94,7 +116,7 @@
             padding: 15px 0;
             text-align: center;
             position: sticky;
-            top: 70px;
+            top: 70px; /* 如果選單高度有變，請微調此數值 */
             z-index: 999;
             box-shadow: 0 4px 10px rgba(0,0,0,0.02);
         }
@@ -117,21 +139,16 @@
             color: white;
         }
 
-        .tab-button:hover:not(.active) {
-            background: var(--ubot-light-blue);
-        }
-
         /* ===== 4. 內容區塊控制 ===== */
         .tab-content { display: none; max-width: 1000px; margin: 40px auto; padding: 0 20px; }
         .tab-content.active { display: block; animation: fadeIn 0.5s ease; }
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* ===== 5. 簡章與表單原始樣式 (保持不變) ===== */
         .section-card {
             background: white;
             padding: 50px;
-            border-radius: 4px; /* 與關於我們風格一致 */
+            border-radius: 8px;
             border: 1px solid var(--border-color);
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
             margin-bottom: 50px;
@@ -169,16 +186,14 @@
         .reward-title { font-weight: bold; color: var(--gold); font-size: 18px; display: block; }
         .reward-money { font-size: 24px; font-weight: 900; color: var(--ubot-blue); }
 
-        .form-section { background: #fff; padding: 40px; border-radius: 4px; border: 1px solid var(--border-color); border-top: 8px solid var(--ubot-red); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        /* 表單樣式 */
+        .form-section { background: #fff; padding: 40px; border-radius: 8px; border: 1px solid var(--border-color); border-top: 8px solid var(--ubot-red); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
         .form-group { margin-bottom: 25px; }
         .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         label { display: block; font-weight: bold; margin-bottom: 8px; color: var(--ubot-blue); }
         input[type="text"], input[type="tel"], input[type="email"], select, input[type="date"] {
             width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px; box-sizing: border-box;
         }
-        .checkbox-group { background: #f9f9f9; padding: 20px; border-radius: 10px; margin: 20px 0; }
-        .checkbox-item { display: flex; align-items: flex-start; margin-bottom: 10px; cursor: pointer; font-size: 14px; }
-        .checkbox-item input { margin-top: 5px; margin-right: 12px; }
 
         .btn-submit {
             background: var(--ubot-blue); color: white; border: none; padding: 15px 60px;
@@ -187,7 +202,7 @@
         }
         .btn-submit:hover { background: var(--ubot-red); transform: translateY(-3px); box-shadow: 0 10px 20px rgba(230,0,18,0.2); }
 
-        /* ===== 6. 頁尾 (同步為聯邦淺藍與網格結構) ===== */
+        /* ===== 6. 頁尾 ===== */
         footer {
             background: var(--ubot-light-blue);
             color: var(--ubot-blue);
@@ -202,14 +217,13 @@
             gap: 40px;
         }
 
-        .footer-logo { font-size: 22px; font-weight: 800; margin-bottom: 15px; }
-        .footer-info p { margin: 5px 0; font-size: 14px; }
+        .footer-logo { font-size: 20px; font-weight: 800; margin-bottom: 15px; }
+        .footer-info p { margin: 8px 0; font-size: 14px; }
 
         .footer-links h4 { margin: 0 0 15px; border-left: 3px solid var(--ubot-red); padding-left: 10px; }
         .footer-links ul { list-style: none; padding: 0; margin: 0; }
         .footer-links li { margin-bottom: 8px; }
         .footer-links a { text-decoration: none; color: var(--ubot-blue); font-size: 14px; opacity: 0.8; }
-        .footer-links a:hover { opacity: 1; color: var(--ubot-red); }
 
         .footer-bottom {
             max-width: 1200px;
@@ -217,13 +231,29 @@
             padding-top: 20px;
             border-top: 1px solid rgba(0,51,102,0.1);
             text-align: center;
-            font-size: 13px;
+            font-size: 12px;
             opacity: 0.7;
         }
 
+        /* ===== 統一手機版 RWD (與關於我們同步) ===== */
         @media (max-width: 768px) {
-            .navbar { flex-direction: column; }
-            .menu { margin-top: 15px; }
+            .menu-toggle { display: flex; }
+
+            .menu {
+                position: absolute;
+                top: 100%; left: 0; right: 0;
+                background: #fff;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+                display: none;
+            }
+
+            .menu.active { display: flex; }
+
+            .menu li { margin: 0; border-bottom: 1px solid #f5f5f5; }
+            .menu a { padding: 15px 0; font-size: 16px; text-align: center; }
+
             .reward-grid, .form-row { grid-template-columns: 1fr; }
             .section-card { padding: 30px 20px; }
             .tab-button { padding: 8px 15px; font-size: 14px; }
@@ -237,10 +267,17 @@
         <div class="logo">
             <a href="index.html">聯邦藝術中心</a>
         </div>
-        <ul class="menu">
-            <li><a href="about.html" class="active">關於我們</a></li>
+        
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <ul class="menu" id="nav-list">
+            <li><a href="about.html">關於我們</a></li>
             <li><a href="exhibitions.html">展覽動態</a></li>
-            <li><a href="awards.html">美術獎項</a></li>
+            <li><a href="awards.html" class="active">美術獎項</a></li>
             <li><a href="artists.html">藝術家</a></li>
             <li><a href="artworks.html">作品總覽</a></li>
             <li><a href="visit.html">參觀資訊</a></li>
@@ -248,7 +285,7 @@
         </ul>
     </nav>
 </header>
-
+    
 <section class="page-banner">
     <h1>美術獎項</h1>
     <p>Art Awards & Exhibition Rules</p>
@@ -490,6 +527,15 @@
 </footer>
 
 <script>
+    // 手機版選單切換
+    const mobileMenu = document.getElementById('mobile-menu');
+    const navList = document.getElementById('nav-list');
+
+    mobileMenu.addEventListener('click', () => {
+        navList.classList.toggle('active');
+    });
+
+    // 頁籤切換功能
     function openTab(tabName) {
         var contents = document.getElementsByClassName("tab-content");
         for (var i = 0; i < contents.length; i++) {
@@ -504,11 +550,15 @@
         document.getElementById(tabName).classList.add("active");
         event.currentTarget.classList.add("active");
         
-        // 捲動到導覽列下方，而非頁面最頂端，以維持視覺流暢
         const yOffset = -150; 
         const element = document.getElementById(tabName);
         const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
         window.scrollTo({top: y, behavior: 'smooth'});
+
+        // 如果是手機版，點選頁籤後自動收起選單
+        if(window.innerWidth <= 768) {
+            navList.classList.remove('active');
+        }
     }
 </script>
 
