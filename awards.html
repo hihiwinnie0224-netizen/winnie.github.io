@@ -269,7 +269,7 @@
         <ul class="menu" id="nav-list">
             <li><a href="about.html">關於我們</a></li>
             <li><a href="exhibitions.html">展覽動態</a></li>
-            <li><a href="awards.html">美術獎項</a></li>
+            <li><a href="awards.html" class="active">美術獎項</a></li>
             <li><a href="artists.html">藝術家</a></li>
             <li><a href="artworks.html">作品總覽</a></li>
             <li><a href="visit.html">參觀資訊</a></li>
@@ -284,10 +284,10 @@
 </section>
 
 <div class="tab-container">
-    <button class="tab-button active" onclick="openTab('rules-1')">新人獎簡章</button>
-    <button class="tab-button" onclick="openTab('rules-2')">印象大獎簡章</button>
-    <button class="tab-button" onclick="openTab('register')">線上報名</button>
-    <button class="tab-button" onclick="openTab('query')">報名查詢</button>
+    <button class="tab-button active" onclick="openTab(event, 'rules-1')">新人獎簡章</button>
+    <button class="tab-button" onclick="openTab(event, 'rules-2')">印象大獎簡章</button>
+    <button class="tab-button" onclick="openTab(event, 'register')">線上報名</button>
+    <button class="tab-button" onclick="openTab(event, 'query')">報名查詢</button>
 </div>
 
 <div id="rules-1" class="tab-content active">
