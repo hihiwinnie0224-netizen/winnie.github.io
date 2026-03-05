@@ -316,16 +316,13 @@
 </footer>
 
 <script>
-    // 統一手機選單邏輯
+    // 1. 漢堡選單邏輯 (保持不變)
     const menuToggle = document.getElementById('mobile-menu');
     const navList = document.getElementById('nav-list');
-    
     if (menuToggle && navList) {
         menuToggle.addEventListener('click', () => {
             navList.classList.toggle('active');
         });
-
-        // 點擊連結後自動關閉選單 (手機版)
         const navLinks = document.querySelectorAll('.menu a');
         navLinks.forEach(link => {
             link.addEventListener('click', () => {
@@ -334,7 +331,7 @@
         });
     }
 
-    // 資料庫內容
+    // 2. 資料庫內容 (保持不變)
     const database = {
         master: [
             { year: "召集人", label: "評審委員會召集人", winners: [{ role: "召集人", name: "許坤成" }] },
@@ -376,26 +373,34 @@
         return `linear-gradient(135deg, ${colors[idx][0]}, ${colors[idx][1]})`;
     }
 
+    // --- 修改重點：渲染函式 ---
     function renderData(data) {
         const list = document.getElementById('contentList');
         list.innerHTML = '';
+        
         if (data.length === 0) {
             list.innerHTML = '<div style="text-align:center; padding: 50px; color:#999;">查無相關藝術家</div>';
             return;
         }
+
         data.forEach(item => {
             const row = document.createElement('div');
             row.className = 'year-row';
             row.innerHTML = `<div class="year-label">${item.label}</div>`;
+            
             const grid = document.createElement('div');
             grid.className = 'winners-grid';
+            
             item.winners.forEach(w => {
+                // 使用 encodeURIComponent 確保中文名字在網址傳遞時不會亂碼
+                const detailUrl = `artist-detail.html?name=${encodeURIComponent(w.name)}`;
+                
                 grid.innerHTML += `
                     <div class="winner-card">
                         <span class="tag tag-${w.role}">${w.role}</span>
                         <div class="avatar" style="background: ${getGradient(w.name)}">${w.name[0]}</div>
                         <div class="name">${w.name}</div>
-                        <button class="btn-view">作品輯</button>
+                        <button class="btn-view" onclick="window.location.href='${detailUrl}'">作品輯</button>
                     </div>`;
             });
             row.appendChild(grid);
@@ -412,11 +417,23 @@
     }
 
     function handleSearch() {
-        const val = document.getElementById('artistSearch').value.toLowerCase();
+        const val = document.getElementById('artistSearch').value.trim().toLowerCase();
+        
+        // 如果搜尋框是空的，顯示當前分類的所有資料
+        if (!val) {
+            renderData(database[currentCat]);
+            return;
+        }
+
         const filtered = database[currentCat].map(group => {
-            const winners = group.winners.filter(w => w.name.includes(val) || w.role.includes(val) || group.label.includes(val));
+            const winners = group.winners.filter(w => 
+                w.name.toLowerCase().includes(val) || 
+                w.role.toLowerCase().includes(val) || 
+                group.label.toLowerCase().includes(val)
+            );
             return winners.length > 0 ? { ...group, winners } : null;
-        }).filter(i => i);
+        }).filter(i => i !== null);
+        
         renderData(filtered);
     }
 
