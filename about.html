@@ -25,7 +25,7 @@
             overflow-x: hidden;
         }
 
-        /* ===== 1. 統一頁首樣式 (Header) ===== */
+        /* ===== 1. 統一頁首樣式 (Header) - 已同步首頁數值 ===== */
         header {
             background: #ffffff;
             box-shadow: 0 2px 20px rgba(0,0,0,0.05);
@@ -40,11 +40,11 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 20px; /* 統一高度 */
+            padding: 12px 20px; /* 同步首頁的高度 */
         }
 
         .logo a {
-            font-size: 20px; /* 統一字體大小 */
+            font-size: 20px; /* 同步首頁字體大小 */
             font-weight: 800;
             color: var(--ubot-blue);
             text-decoration: none;
@@ -55,7 +55,7 @@
 
         .logo a::before { 
             content: ""; width: 8px; height: 8px; background: var(--ubot-red); 
-            border-radius: 50%; margin-right: 8px; 
+            border-radius: 50%; margin-right: 8px; /* 同步首頁間距 */
         }
 
         .menu {
@@ -65,15 +65,16 @@
             padding: 0;
         }
 
-        .menu li { margin-left: 10px; }
+        .menu li { margin-left: 10px; } /* 同步首頁間距 */
 
         .menu a {
             text-decoration: none;
             color: #666;
             font-weight: 600;
-            font-size: 15px; /* 統一字體大小 */
+            font-size: 15px; 
             padding: 8px 12px;
             transition: 0.3s;
+            display: block;
         }
 
         .menu a:hover, .menu a.active { color: var(--ubot-red); }
@@ -87,6 +88,7 @@
         }
         .menu-toggle span {
             width: 25px; height: 3px; background: var(--ubot-blue);
+            transition: 0.3s;
         }
 
         /* ===== 2. 關於我們專屬內容樣式 ===== */
@@ -179,7 +181,7 @@
         footer {
             background: var(--ubot-light-blue);
             color: var(--ubot-blue);
-            padding: 50px 20px 30px; /* 統一厚度 */
+            padding: 50px 20px 30px;
         }
 
         .footer-container {
@@ -225,8 +227,7 @@
             .menu.active { display: flex; }
 
             .menu li { margin: 0; border-bottom: 1px solid #f5f5f5; }
-            .menu a { padding: 15px 0; font-size: 16px; text-align: left; /* 首頁預設是左對齊或不特別設，你的關於我們原本設為 center */
-    }
+            .menu a { padding: 15px 0; font-size: 16px; text-align: center; }
 
             .page-banner { height: 220px; }
             .milestone-grid, .space-grid { grid-template-columns: 1fr; }
