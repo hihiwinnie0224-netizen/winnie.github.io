@@ -1,398 +1,311 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>作品總覽｜聯邦藝術中心 Union Art Center</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>作品總覽｜聯邦藝術中心 Union Art Center</title>
+    
+    <style>
+        :root {
+            --ubot-red: #E60012;
+            --ubot-blue: #003366;
+            --ubot-light-blue: #EAF6FC;
+            --ubot-sky-blue: #00A1E9;
+            --text-main: #222222;
+            --text-sub: #666666;
+            --border-color: #D1CDC4;
+            --transition: all 0.3s ease;
+        }
 
-<style>
-:root{
---ubot-red:#E60012;
---ubot-blue:#003366;
---ubot-light-blue:#EAF6FC;
---ubot-sky-blue:#00A1E9;
---text-main:#222;
---text-sub:#666;
---border-color:#D1CDC4;
---transition:all .4s cubic-bezier(.23,1,.32,1);
-}
+        body {
+            margin: 0;
+            font-family: -apple-system, "Noto Sans TC", sans-serif;
+            background-color: #f8fbfd;
+            color: var(--text-main);
+            line-height: 1.6;
+        }
 
-body{
-margin:0;
-font-family:"Noto Sans TC","Microsoft JhengHei",sans-serif;
-background:#f8fbfd;
-color:var(--text-main);
-line-height:1.8;
-overflow-x:hidden;
-}
+        /* ===== 1. Navbar 優化 ===== */
+        header {
+            background: #ffffff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
 
-/* ===== Header ===== */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 20px;
+        }
 
-header{
-background:#fff;
-position:sticky;
-top:0;
-z-index:1000;
-transition:.3s;
-}
+        .logo a {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--ubot-blue);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
 
-header.shrink{
-box-shadow:0 8px 25px rgba(0,0,0,.08);
-}
+        .logo a::before { 
+            content: ""; width: 6px; height: 6px; background: var(--ubot-red); 
+            border-radius: 50%; margin-right: 8px; 
+        }
 
-.navbar{
-max-width:1200px;
-margin:auto;
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:18px 25px;
-}
+        /* 手機版隱藏選單，改用簡單設計 */
+        .menu { display: none; } 
 
-.logo a{
-font-size:22px;
-font-weight:800;
-color:var(--ubot-blue);
-text-decoration:none;
-display:flex;
-align-items:center;
-}
+        /* ===== 2. Page Banner ===== */
+        .page-banner {
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(rgba(0,51,102,0.7), rgba(0,51,102,0.7)), 
+                        url('https://images.unsplash.com/photo-1518998053574-53f026344594?auto=format&fit=crop&w=800&q=60');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+        }
 
-.logo a::before{
-content:"";
-width:8px;
-height:8px;
-background:var(--ubot-red);
-border-radius:50%;
-margin-right:10px;
-}
+        .page-banner h1 { font-size: 24px; margin: 0; letter-spacing: 4px; }
+        .page-banner p { font-size: 12px; opacity: 0.8; margin-top: 5px; letter-spacing: 2px; }
 
-.menu{
-display:flex;
-list-style:none;
-margin:0;
-padding:0;
-}
+        /* ===== 3. 手機優化篩選器 (重點提升) ===== */
+        .sticky-filter {
+            background: #fff;
+            padding: 15px 0;
+            position: sticky;
+            top: 54px; /* navbar height */
+            z-index: 999;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
 
-.menu li{margin-left:15px;}
+        .search-container {
+            padding: 0 20px 15px;
+        }
 
-.menu a{
-text-decoration:none;
-color:#666;
-font-size:14px;
-font-weight:600;
-}
+        .search-bar {
+            width: 100%;
+            padding: 12px 15px 12px 40px;
+            border: 1px solid #eee;
+            border-radius: 10px;
+            font-size: 15px;
+            box-sizing: border-box;
+            background: #f5f7f9 url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="gray" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>') no-repeat 15px center;
+        }
 
-.menu a.active,
-.menu a:hover{color:var(--ubot-red);}
+        /* 橫向捲動分類按鈕 */
+        .btn-group-scroll {
+            display: flex;
+            overflow-x: auto;
+            padding: 0 20px;
+            gap: 10px;
+            scrollbar-width: none; /* Firefox */
+        }
+        .btn-group-scroll::-webkit-scrollbar { display: none; } /* Chrome/Safari */
 
-/* 手機選單 */
+        .filter-btn {
+            white-space: nowrap;
+            padding: 8px 18px;
+            background: #f0f2f5;
+            border: none;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #555;
+            flex: 0 0 auto;
+        }
 
-.menu-toggle{
-display:none;
-font-size:26px;
-cursor:pointer;
-color:var(--ubot-blue);
-}
+        .filter-btn.active {
+            background: var(--ubot-blue);
+            color: #fff;
+        }
 
-.mobile-menu{
-position:fixed;
-top:0;
-right:-260px;
-width:260px;
-height:100%;
-background:#fff;
-box-shadow:-5px 0 30px rgba(0,0,0,.15);
-transition:.4s;
-padding-top:80px;
-z-index:2000;
-}
+        /* ===== 4. Work Grid (手機單欄) ===== */
+        .work-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+            padding: 25px 20px;
+        }
 
-.mobile-menu ul{list-style:none;padding:0;}
+        .work-card {
+            background: #ffffff;
+            text-decoration: none;
+            color: inherit;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
 
-.mobile-menu li{border-bottom:1px solid #eee;}
+        .work-img-container {
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            overflow: hidden;
+        }
 
-.mobile-menu a{
-display:block;
-padding:15px 20px;
-text-decoration:none;
-color:var(--ubot-blue);
-font-weight:600;
-}
+        .work-img {
+            width: 100%; height: 100%;
+            background-size: cover;
+            background-position: center;
+        }
 
-.mobile-menu.show{right:0;}
+        .work-info { padding: 15px; }
+        .work-tag { font-size: 10px; color: var(--ubot-red); font-weight: 700; }
+        .work-title { font-size: 18px; font-weight: 700; margin: 4px 0; color: var(--ubot-blue); }
+        .work-artist { font-size: 14px; color: var(--text-sub); }
 
-.overlay-menu{
-position:fixed;
-width:100%;
-height:100%;
-background:rgba(0,0,0,.4);
-top:0;
-left:0;
-opacity:0;
-visibility:hidden;
-transition:.3s;
-z-index:1500;
-}
+        #noResult {
+            padding: 100px 20px;
+            text-align: center;
+            display: none;
+            color: #999;
+        }
 
-.overlay-menu.show{
-opacity:1;
-visibility:visible;
-}
-
-/* ===== Banner ===== */
-
-.page-banner{
-height:320px;
-background:linear-gradient(rgba(0,51,102,.65),rgba(0,51,102,.65)),
-url('https://images.unsplash.com/photo-1518998053574-53f026344594?auto=format&fit=crop&w=1600&q=80');
-background-size:cover;
-background-position:center;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-color:#fff;
-text-align:center;
-}
-
-.page-banner h1{
-font-size:36px;
-letter-spacing:6px;
-margin:0;
-}
-
-.page-banner p{
-margin-top:10px;
-letter-spacing:3px;
-font-size:14px;
-opacity:.9;
-}
-
-/* ===== Filter ===== */
-
-.sticky-filter{
-max-width:1100px;
-margin:-40px auto 60px;
-background:#fff;
-padding:25px 35px;
-box-shadow:0 15px 40px rgba(0,0,0,.06);
-position:sticky;
-top:85px;
-z-index:900;
-border-radius:6px;
-}
-
-.filter-container{
-display:flex;
-flex-wrap:wrap;
-justify-content:space-between;
-align-items:center;
-gap:20px;
-}
-
-.search-bar{
-width:100%;
-padding:12px 20px;
-border-radius:30px;
-border:1px solid #ddd;
-outline:none;
-}
-
-.btn-group{
-display:flex;
-gap:10px;
-overflow-x:auto;
-}
-
-.btn-group::-webkit-scrollbar{display:none;}
-
-.filter-btn{
-flex:0 0 auto;
-padding:8px 18px;
-border-radius:30px;
-border:1px solid #ddd;
-background:#fff;
-font-size:13px;
-font-weight:600;
-cursor:pointer;
-}
-
-.filter-btn.active{
-background:var(--ubot-blue);
-color:#fff;
-border-color:var(--ubot-blue);
-}
-
-/* ===== Grid ===== */
-
-.work-grid{
-display:grid;
-grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
-gap:35px;
-max-width:1200px;
-margin:auto;
-padding:0 25px 100px;
-}
-
-.work-card{
-background:#fff;
-text-decoration:none;
-color:inherit;
-display:flex;
-flex-direction:column;
-overflow:hidden;
-border-radius:10px;
-border:1px solid rgba(0,0,0,.05);
-transition:.4s;
-opacity:0;
-transform:translateY(40px);
-animation:fadeUp .8s forwards;
-}
-
-@keyframes fadeUp{
-to{opacity:1;transform:translateY(0);}
-}
-
-.work-card:hover{
-transform:translateY(-10px);
-box-shadow:0 20px 40px rgba(0,51,102,.12);
-}
-
-.work-img-container{
-aspect-ratio:1/1;
-overflow:hidden;
-position:relative;
-}
-
-.work-img{
-width:100%;
-height:100%;
-background-size:cover;
-background-position:center;
-transition:1.2s;
-}
-
-.work-card:hover .work-img{transform:scale(1.1);}
-
-.overlay{
-position:absolute;
-inset:0;
-background:rgba(0,51,102,.7);
-display:flex;
-align-items:center;
-justify-content:center;
-opacity:0;
-transition:.4s;
-}
-
-.overlay span{
-color:#fff;
-border:1px solid #fff;
-padding:10px 20px;
-font-size:12px;
-letter-spacing:2px;
-}
-
-.work-card:hover .overlay{opacity:1;}
-
-.work-info{
-padding:25px;
-text-align:center;
-}
-
-.work-tag{
-font-size:11px;
-color:var(--ubot-red);
-letter-spacing:2px;
-display:block;
-margin-bottom:10px;
-font-weight:700;
-}
-
-.work-title{
-font-size:1.1rem;
-font-weight:700;
-color:var(--ubot-blue);
-margin-bottom:6px;
-}
-
-.work-artist{
-font-size:13px;
-color:var(--text-sub);
-}
-
-/* ===== 手機優化 ===== */
-
-@media(max-width:768px){
-
-.menu{display:none;}
-.menu-toggle{display:block;}
-
-.page-banner{height:220px;}
-.page-banner h1{font-size:24px;}
-
-.sticky-filter{
-margin:0 15px 30px;
-top:70px;
-padding:20px;
-}
-
-.work-grid{
-grid-template-columns:repeat(2,1fr);
-gap:18px;
-padding:0 15px 80px;
-}
-
-}
-</style>
+        /* ===== 5. Footer ===== */
+        footer {
+            background: var(--ubot-light-blue);
+            padding: 40px 20px;
+            font-size: 14px;
+        }
+        .footer-info p { margin: 8px 0; }
+        .footer-bottom {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(0,0,0,0.05);
+            text-align: center;
+            font-size: 12px;
+            color: #888;
+        }
+    </style>
 </head>
-
 <body>
 
-<header id="header">
-<nav class="navbar">
-<div class="logo"><a href="index.html">聯邦藝術中心</a></div>
-<div class="menu-toggle" onclick="openMenu()">☰</div>
-<ul class="menu">
-<li><a href="about.html">關於我們</a></li>
-<li><a href="exhibitions.html">展覽動態</a></li>
-<li><a href="awards.html">美術獎項</a></li>
-<li><a href="artists.html">藝術家</a></li>
-<li><a href="artworks.html" class="active">作品總覽</a></li>
-<li><a href="visit.html">參觀資訊</a></li>
-</ul>
-</nav>
-</header>
+    <header>
+        <nav class="navbar">
+            <div class="logo"><a href="index.html">聯邦藝術中心</a></div>
+            <div style="font-size: 14px; color: var(--ubot-blue); border: 1px solid; padding: 4px 10px; border-radius: 4px;">MENU</div>
+        </nav>
+    </header>
 
-<div class="mobile-menu" id="mobileMenu">
-<ul>
-<li><a href="about.html">關於我們</a></li>
-<li><a href="exhibitions.html">展覽動態</a></li>
-<li><a href="artists.html">藝術家</a></li>
-<li><a href="artworks.html">作品總覽</a></li>
-</ul>
-</div>
+    <section class="page-banner">
+        <h1>典藏作品總覽</h1>
+        <p>Masterpiece Collection</p>
+    </section>
 
-<div class="overlay-menu" id="overlayMenu" onclick="closeMenu()"></div>
+    <div class="sticky-filter">
+        <div class="search-container">
+            <input type="text" id="workSearch" class="search-bar" placeholder="搜尋作品或藝術家..." onkeyup="filterWorks()">
+        </div>
+        <div class="btn-group-scroll">
+            <button class="filter-btn active" onclick="filterCategory(event, 'all')">全部 ALL</button>
+            <button class="filter-btn" onclick="filterCategory(event, 'white')">白色系列</button>
+            <button class="filter-btn" onclick="filterCategory(event, 'history')">歷史主題</button>
+            <button class="filter-btn" onclick="filterCategory(event, 'landscape')">地景生活</button>
+        </div>
+    </div>
 
-<!-- 其餘內容（你的作品卡片區塊）保持不變 -->
+    <main>
+        <div class="work-grid" id="workGrid">
+            <a href="artwork-detail.html" class="work-card" data-category="white" data-title="白色系列 NO.10" data-artist="許坤成">
+                <div class="work-img-container">
+                    <div class="work-img" style="background-image: url('https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=600');"></div>
+                </div>
+                <div class="work-info">
+                    <span class="work-tag">WHITE SERIES</span>
+                    <div class="work-title">白色系列 NO.10</div>
+                    <div class="work-artist">許坤成 HSU KUN-CHENG</div>
+                </div>
+            </a>
 
-<script>
-function openMenu(){
-document.getElementById("mobileMenu").classList.add("show");
-document.getElementById("overlayMenu").classList.add("show");
-}
-function closeMenu(){
-document.getElementById("mobileMenu").classList.remove("show");
-document.getElementById("overlayMenu").classList.remove("show");
-}
-window.addEventListener("scroll",function(){
-let header=document.getElementById("header");
-if(window.scrollY>50){header.classList.add("shrink");}
-else{header.classList.remove("shrink");}
-});
-</script>
+            <a href="artwork-detail.html" class="work-card" data-category="history" data-title="能久親王進台北城" data-artist="許坤成">
+                <div class="work-img-container">
+                    <div class="work-img" style="background-image: url('https://images.unsplash.com/photo-1549490349-8643362247b5?w=600');"></div>
+                </div>
+                <div class="work-info">
+                    <span class="work-tag">HISTORY SERIES</span>
+                    <div class="work-title">能久親王進台北城</div>
+                    <div class="work-artist">許坤成 HSU KUN-CHENG</div>
+                </div>
+            </a>
 
+            <a href="artwork-detail.html" class="work-card" data-category="landscape" data-title="雷亞托夜曲" data-artist="許坤成">
+                <div class="work-img-container">
+                    <div class="work-img" style="background-image: url('https://images.unsplash.com/photo-1527631746610-bca00a040d60?w=600');"></div>
+                </div>
+                <div class="work-info">
+                    <span class="work-tag">LANDSCAPE</span>
+                    <div class="work-title">雷亞托夜曲</div>
+                    <div class="work-artist">許坤成 HSU KUN-CHENG</div>
+                </div>
+            </a>
+        </div>
+
+        <div id="noResult">查無相關作品</div>
+    </main>
+
+    <footer>
+        <div class="footer-info">
+            <div style="font-weight: 800; color: var(--ubot-blue); margin-bottom: 10px;">UNION ART CENTER</div>
+            <p>台北市大安區忠孝東路四段219號</p>
+            <p>電話：(02) 2536-9999</p>
+            <p>時間：週二至週日 09:00 - 17:00</p>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Union Art Center 版權所有</p>
+        </div>
+    </footer>
+
+    <script>
+        let currentCategory = 'all';
+
+        function filterCategory(evt, category) {
+            currentCategory = category;
+            const btns = document.querySelectorAll(".filter-btn");
+            btns.forEach(btn => btn.classList.remove("active"));
+            evt.currentTarget.classList.add("active");
+            
+            // 自動捲動讓選中的按鈕置中（提升 UX）
+            evt.currentTarget.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+            
+            executeFilter();
+        }
+
+        function filterWorks() {
+            executeFilter();
+        }
+
+        function executeFilter() {
+            const searchInput = document.getElementById('workSearch').value.toLowerCase();
+            const cards = document.querySelectorAll('.work-card');
+            const noResult = document.getElementById('noResult');
+            let visibleCount = 0;
+
+            cards.forEach(card => {
+                const title = card.getAttribute('data-title').toLowerCase();
+                const artist = card.getAttribute('data-artist').toLowerCase();
+                const category = card.getAttribute('data-category');
+
+                const matchesSearch = title.includes(searchInput) || artist.includes(searchInput);
+                const matchesCategory = (currentCategory === 'all' || category === currentCategory);
+
+                if (matchesSearch && matchesCategory) {
+                    card.style.display = "block";
+                    visibleCount++;
+                } else {
+                    card.style.display = "none";
+                }
+            });
+
+            noResult.style.display = (visibleCount === 0) ? "block" : "none";
+        }
+    </script>
 </body>
 </html>
