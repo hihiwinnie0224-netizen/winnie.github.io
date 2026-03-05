@@ -316,129 +316,72 @@
 </footer>
 
 <script>
-    // 1. 直接把資料庫放進詳情頁，排除外部檔案讀取失敗的問題
-    const ARTISTS_DATA = {
-        "許坤成": {
-            role: "評審委員會召集人",
-            engName: "PROFESSOR HSU KUN-CHENG",
-            title: "中國文化大學藝術學院 前院長",
-            photo: "https://www.ubot.org.tw/blob/ArtCenter/%E8%A8%B1%E5%9D%A4%E6%88%90.jpg",
-            experience: [
-                "法國國立東方研究院美術史博士學位"
-                "1977年-2016年文化大學專任教授",
-                "1979年-1981年擔任文大美術系副主任代理主任",
-                "1994年華岡藝術學校校長",
-                "2002年國立台灣藝術大學造形藝術研究所兼任教授"
-                "2009年-2015年文大美術系主任"
-                "2014年文大美術系碩士在職班所長"
-                "後立體派畫會理事長"
-                "漆畫學會理事長"
-                "紗帽山畫會榮譽會長"
-                "後立體派畫會榮譽理事長"
-                "1997年李登輝總統參觀許坤成國父紀念館中山國家畫廊個展"
-                "聯邦美術獎第一屆至第二十八屈評審委員會召集人"
-                "國父紀念館審議委員會評議組委員"
-                "全國美術獎評審委員"
-                "文化部藝術家徵選會議評審委員"
-                "2021年榮獲文化部文協獎章"
-            ],
-            style: "許坤成教授早期以「白色系列」聞名畫壇，強調光影在純淨色調中的微妙變化。其作品融合了東方的意境與西方的構成，近年更致力於歷史題材的巨幅創作。",
-            artworks: [
-                { title: "白色系列 NO.10", year: "
-2024 油畫．麻布", img: "https://www.ubot.org.tw/blob/ArtCenter/%E8%A8%B1%E5%9D%A4%E6%88%90_%E7%99%BD%E8%89%B2%E7%B3%BB%E5%88%97NO.10.jpg" },
-                { title: "《白色系列 NO.27》", year: "2024 油畫．麻布", img: "hhttps://www.ubot.org.tw/blob/ArtCenter/%E8%A8%B1%E5%9D%A4%E6%88%90_%E7%99%BD%E8%89%B2%E7%B3%BB%E5%88%97NO.27.jpeg" }
-            ]
-        },
-        "李郁汝": {
-            role: "2024 新人獎首獎",
-            engName: "LI YU-JU",
-            title: "新生代油畫藝術家",
-            photo: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400",
-            experience: [
-                "2024 第二十七屆聯邦美術新人獎 首獎",
-                "國立臺灣藝術大學 美術學系",
-                "多場青年藝術聯展參展"
-            ],
-            style: "李郁汝的作品展現了極其細膩的觀察力，特別是在處理光影過渡與質感描寫上，具有鮮明的當代寫實語彙。",
-            artworks: [
-                { title: "晨光", year: "2024 / 油彩", img: "https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?w=400" }
-            ]
-        }
-        // 如果有其他藝術家，請依照格式繼續貼在下方...
-    };
-
-    // 2. 漢堡選單邏輯
+    // 1. 漢堡選單邏輯
     const menuToggle = document.getElementById('mobile-menu');
     const navList = document.getElementById('nav-list');
     if (menuToggle) {
         menuToggle.onclick = () => navList.classList.toggle('active');
     }
 
-    // 3. 核心渲染邏輯
-    function init() {
-        const params = new URLSearchParams(window.location.search);
-        let name = params.get('name');
-        
-        // 如果網址沒有名字，預設顯示第一個
-        if (name) {
-            name = decodeURIComponent(name).trim();
-        } else {
-            name = Object.keys(ARTISTS_DATA)[0];
-        }
+    // 2. 核心資料渲染 (修正版)
+    const ARTISTS_LIST = [
+        { name: "許坤成", category: "master", tag: "大師", year: "評審召集人", color: "#003366" },
+        { name: "李郁汝", category: "newbie", tag: "首獎", year: "2024", color: "#E60012" }
+    ];
 
-        const data = ARTISTS_DATA[name];
+    function renderList(filterCategory = 'master', searchTerm = '') {
+        const container = document.getElementById('contentList');
+        let html = '';
 
-        if (!data) {
-            document.body.innerHTML = `<div style="text-align:center; padding:100px;"><h2>找不到藝術家資料</h2><a href="artists.html">返回列表</a></div>`;
+        // 篩選資料
+        const filtered = ARTISTS_LIST.filter(a => {
+            const matchCat = a.category === filterCategory;
+            const matchSearch = a.name.includes(searchTerm) || a.year.toString().includes(searchTerm);
+            return matchCat && matchSearch;
+        });
+
+        if (filtered.length === 0) {
+            container.innerHTML = '<p style="text-align:center; padding:50px; color:#999;">暫無符合條件的藝術家</p>';
             return;
         }
 
-        // 開始塞入內容
-        document.title = `${name} - 藝術家典藏`;
-        document.getElementById('artist-name').innerText = name;
-        document.getElementById('artist-eng-name').innerText = data.engName || "";
-        document.getElementById('artist-role').innerText = data.role || "藝術家";
+        // 這裡示範以「年度」或「類別」分組，現在簡單直接出網格
+        html += `<div class="year-row">
+                    <div class="year-label">${filterCategory === 'master' ? '歷屆大師 / 評審' : '獲獎藝術家'}</div>
+                    <div class="winners-grid">`;
         
-        // 圖片處理
-        const photoDiv = document.getElementById('artist-photo');
-        if(photoDiv) photoDiv.style.backgroundImage = `url('${data.photo}')`;
-        
-        // 側邊小標
-        const sidebarInfo = document.getElementById('sidebar-info');
-        if(sidebarInfo) {
-            sidebarInfo.innerHTML = `
-                <span style="font-size: 20px; font-weight:800;">${name}</span><br>
-                <span style="color: #B89130;">${data.engName || ""}</span><br>
-                <span style="font-size: 14px; color: #777;">${data.title || ""}</span>
-            `;
-        }
-
-        // 經歷列表
-        const expList = document.getElementById('experience-list');
-        if (expList && data.experience) {
-            expList.innerHTML = data.experience.map(li => `<li>${li}</li>`).join('');
-        }
-
-        // 藝術風格
-        const styleP = document.getElementById('artist-style');
-        if(styleP) styleP.innerText = data.style || "內容整理中...";
-
-        // 作品集
-        const artworkGrid = document.getElementById('artwork-grid');
-        if (artworkGrid && data.artworks) {
-            artworkGrid.innerHTML = data.artworks.map(work => `
-                <div class="artwork-card">
-                    <div class="work-img">
-                        <img src="${work.img}" alt="${work.title}" onerror="this.src='https://via.placeholder.com/300'">
-                    </div>
-                    <div class="work-title" style="font-weight:bold; margin-top:10px;">${work.title}</div>
-                    <div class="work-year" style="font-size:12px; color:#999;">${work.year || ""}</div>
+        filtered.forEach(artist => {
+            html += `
+                <div class="winner-card" onclick="location.href='artist_detail.html?name=${encodeURIComponent(artist.name)}'">
+                    <div class="avatar" style="background:${artist.color}">${artist.name[0]}</div>
+                    <div class="tag tag-${artist.tag}">${artist.tag}</div>
+                    <div class="name">${artist.name}</div>
+                    <div style="font-size:12px; color:#999; margin-bottom:10px;">${artist.year}</div>
+                    <button class="btn-view">查看作品</button>
                 </div>
-            `).join('');
-        }
+            `;
+        });
+
+        html += `</div></div>`;
+        container.innerHTML = html;
     }
 
-    window.onload = init;
+    // 標籤切換
+    function switchCategory(cat) {
+        document.querySelectorAll('.btn-tab').forEach(btn => btn.classList.remove('active'));
+        event.currentTarget.classList.add('active');
+        renderList(cat, document.getElementById('artistSearch').value);
+    }
+
+    // 搜尋功能
+    function handleSearch() {
+        const term = document.getElementById('artistSearch').value;
+        const activeCat = document.querySelector('.btn-tab.active').id.replace('tab-', '');
+        renderList(activeCat, term);
+    }
+
+    // 初始化顯示「藝之初章」
+    window.onload = () => renderList('master');
 </script>
 
 </body>
