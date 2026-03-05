@@ -124,55 +124,87 @@
 </footer>
 
 <script src="data.js"></script>
+
 <script>
     window.onload = function() {
-        const params = new URLSearchParams(window.location.search);
-        let name = params.get('name');
+        console.log("頁面已加載，開始執行 init...");
 
-        if (!name || typeof ARTISTS_DATA === 'undefined') {
-            console.error("資料未定義或網址無參數");
+        // 檢查資料庫是否成功載入
+        if (typeof ARTISTS_DATA === 'undefined') {
+            document.body.innerHTML = `
+                <div style="text-align:center; padding:50px; font-family:sans-serif;">
+                    <h2 style="color:red;">❌ 檔案讀取失敗</h2>
+                    <p>找不到 <b>data.js</b>。請確認 artist-detail.html 和 data.js 放在同一個資料夾內。</p>
+                </div>`;
             return;
         }
 
-        name = name.trim();
+        // 取得網址參數並處理中文亂碼
+        const params = new URLSearchParams(window.location.search);
+        let name = params.get('name');
+        
+        // 如果網址有參數，解碼它；如果沒有，預設顯示第一個人
+        if (name) {
+            name = decodeURIComponent(name).trim();
+        } else {
+            // 自動抓取資料庫裡的第一個名字 (例如 "許坤成")
+            name = Object.keys(ARTISTS_DATA)[0]; 
+            console.log("網址無參數，自動顯示第一位藝術家：" + name);
+        }
+
         const data = ARTISTS_DATA[name];
 
         if (!data) {
-            document.getElementById('artist-name').innerText = "找不到藝術家";
-            console.error("在 ARTISTS_DATA 中找不到:", name);
+            document.getElementById('artist-name').innerText = "找不到藝術家：" + name;
+            document.getElementById('artist-eng-name').innerText = "ERROR: NAME NOT FOUND";
+            console.error("目前資料庫有的名字是：", Object.keys(ARTISTS_DATA));
             return;
         }
 
-        // 填入資料
-        document.title = `${name} - 藝術家典藏`;
+        // --- 開始渲染畫面 ---
+        document.title = `${name} - 藝術家典藏 | 聯邦藝術中心`;
         document.getElementById('artist-name').innerText = name;
         document.getElementById('artist-eng-name').innerText = data.engName || "";
         document.getElementById('artist-role').innerText = data.role || "藝術家";
-        document.getElementById('artist-photo').style.backgroundImage = `url('${data.photo}')`;
-        document.getElementById('artist-style').innerText = data.style || "";
         
+        // 渲染照片
+        const photoPath = data.photo || 'https://via.placeholder.com/400x500?text=No+Photo';
+        document.getElementById('artist-photo').style.backgroundImage = `url('${photoPath}')`;
+        
+        // 渲染側邊資訊欄
         document.getElementById('sidebar-info').innerHTML = `
-            <b style="font-size:1.2rem;">${name}</b><br>
-            <span style="color:#777;">${data.title || ""}</span>
+            <b style="font-size:1.4rem; color:#003366;">${name}</b><br>
+            <span style="color:#B89130; font-weight:600;">${data.title || ""}</span>
         `;
 
-        // 經歷清單
+        // 渲染經歷
         const expList = document.getElementById('experience-list');
-        if (data.experience) {
+        if (data.experience && data.experience.length > 0) {
             expList.innerHTML = data.experience.map(item => `<li>${item}</li>`).join('');
+        } else {
+            expList.innerHTML = "<li>暫無資料</li>";
         }
 
-        // 作品集
+        // 渲染藝術風格
+        document.getElementById('artist-style').innerText = data.style || "內容整理中...";
+
+        // 渲染代表作品集
         const grid = document.getElementById('artwork-grid');
-        if (data.artworks) {
+        if (data.artworks && data.artworks.length > 0) {
             grid.innerHTML = data.artworks.map(work => `
                 <div class="artwork-card">
-                    <div class="work-img"><img src="${work.img}" onerror="this.src='https://via.placeholder.com/300'"></div>
-                    <div class="work-title">${work.title}</div>
+                    <div class="work-img">
+                        <img src="${work.img}" alt="${work.title}" onerror="this.src='https://via.placeholder.com/300?text=Image+NotFound'">
+                    </div>
+                    <div class="work-title" style="margin-top:10px; font-weight:bold; color:#003366;">${work.title}</div>
                     <div style="font-size:12px; color:#999;">${work.year || ""}</div>
                 </div>
             `).join('');
+        } else {
+            grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #ccc;">暫無作品資料</p>';
         }
+
+        console.log("渲染完成！顯示對象：" + name);
     };
 </script>
 
