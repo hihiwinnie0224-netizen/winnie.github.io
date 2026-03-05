@@ -6,29 +6,31 @@
     <title>作品總覽｜聯邦藝術中心 Union Art Center</title>
     
     <style>
+        /* ===== 0. 全域設定與變數 (與關於我們同步) ===== */
         :root {
             --ubot-red: #E60012;
             --ubot-blue: #003366;
             --ubot-light-blue: #EAF6FC;
             --ubot-sky-blue: #00A1E9;
-            --text-main: #222222;
-            --text-sub: #666666;
+            --text-dark: #333333;
+            --text-gray: #666666;
             --border-color: #D1CDC4;
             --transition: all 0.3s ease;
         }
 
         body {
             margin: 0;
-            font-family: -apple-system, "Noto Sans TC", sans-serif;
+            font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
             background-color: #f8fbfd;
-            color: var(--text-main);
-            line-height: 1.6;
+            color: var(--text-dark);
+            line-height: 1.8;
+            overflow-x: hidden;
         }
 
-        /* ===== 1. Navbar 優化 ===== */
+        /* ===== 1. 統一頁首樣式 (與關於我們完全同步) ===== */
         header {
             background: #ffffff;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -40,11 +42,11 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 25px;
+            padding: 12px 20px;
         }
 
         .logo a {
-            font-size: 24px;
+            font-size: 20px;
             font-weight: 800;
             color: var(--ubot-blue);
             text-decoration: none;
@@ -53,13 +55,11 @@
             letter-spacing: 1px;
         }
 
-        /* 同步標準頁首的紅點樣式 */
         .logo a::before { 
             content: ""; width: 8px; height: 8px; background: var(--ubot-red); 
-            border-radius: 50%; margin-right: 10px; 
+            border-radius: 50%; margin-right: 8px; 
         }
 
-        /* 手機版隱藏選單，改用簡單設計 */
         .menu {
             display: flex;
             list-style: none;
@@ -67,27 +67,38 @@
             padding: 0;
         }
 
-        .menu li { margin-left: 15px; }
+        .menu li { margin-left: 10px; }
 
         .menu a {
             text-decoration: none;
             color: #666;
             font-weight: 600;
-            font-size: 14px;
+            font-size: 15px; 
+            padding: 8px 12px;
             transition: 0.3s;
-            padding: 8px 10px;
+            display: block;
         }
 
-        .menu a:hover, .menu a.active { 
-            color: var(--ubot-red); 
+        .menu a:hover, .menu a.active { color: var(--ubot-red); }
+
+        /* 手機漢堡選單按鈕 */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+        .menu-toggle span {
+            width: 25px; height: 3px; background: var(--ubot-blue);
+            transition: 0.3s;
         }
 
-        /* ===== 2. Page Banner ===== */
+        /* ===== 2. Page Banner (高度調回 280px 同步) ===== */
         .page-banner {
             width: 100%;
-            height: 180px;
-            background: linear-gradient(rgba(0,51,102,0.7), rgba(0,51,102,0.7)), 
-                        url('https://images.unsplash.com/photo-1518998053574-53f026344594?auto=format&fit=crop&w=800&q=60');
+            height: 280px;
+            background: linear-gradient(rgba(0,51,102,0.65), rgba(0,51,102,0.65)), 
+                        url('https://images.unsplash.com/photo-1518998053574-53f026344594?auto=format&fit=crop&w=1200&q=80');
             background-size: cover;
             background-position: center;
             display: flex;
@@ -96,22 +107,26 @@
             align-items: center;
             color: white;
             text-align: center;
+            padding: 0 20px;
+            box-sizing: border-box;
         }
 
-        .page-banner h1 { font-size: 24px; margin: 0; letter-spacing: 4px; }
-        .page-banner p { font-size: 12px; opacity: 0.8; margin-top: 5px; letter-spacing: 2px; }
+        .page-banner h1 { font-size: 32px; margin: 0; letter-spacing: 4px; font-weight: 900; }
+        .page-banner p { font-size: 14px; opacity: 0.9; margin-top: 10px; letter-spacing: 1px; }
 
-        /* ===== 3. 手機優化篩選器 (重點提升) ===== */
+        /* ===== 3. 作品篩選器 (保持原本功能，微調樣式) ===== */
         .sticky-filter {
             background: #fff;
-            padding: 15px 0;
+            padding: 20px 0;
             position: sticky;
-            top: 54px; /* navbar height */
+            top: 64px; /* 對應同步後的 navbar 高度 */
             z-index: 999;
             box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }
 
         .search-container {
+            max-width: 1200px;
+            margin: 0 auto;
             padding: 0 20px 15px;
         }
 
@@ -125,19 +140,20 @@
             background: #f5f7f9 url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="gray" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>') no-repeat 15px center;
         }
 
-        /* 橫向捲動分類按鈕 */
         .btn-group-scroll {
             display: flex;
             overflow-x: auto;
             padding: 0 20px;
             gap: 10px;
-            scrollbar-width: none; /* Firefox */
+            max-width: 1200px;
+            margin: 0 auto;
+            scrollbar-width: none; 
         }
-        .btn-group-scroll::-webkit-scrollbar { display: none; } /* Chrome/Safari */
+        .btn-group-scroll::-webkit-scrollbar { display: none; }
 
         .filter-btn {
             white-space: nowrap;
-            padding: 8px 18px;
+            padding: 8px 20px;
             background: #f0f2f5;
             border: none;
             border-radius: 20px;
@@ -145,6 +161,8 @@
             font-weight: 500;
             color: #555;
             flex: 0 0 auto;
+            cursor: pointer;
+            transition: 0.3s;
         }
 
         .filter-btn.active {
@@ -152,12 +170,14 @@
             color: #fff;
         }
 
-        /* ===== 4. Work Grid (手機單欄) ===== */
+        /* ===== 4. Work Grid ===== */
         .work-grid {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 25px;
-            padding: 25px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 40px 20px;
         }
 
         .work-card {
@@ -167,46 +187,82 @@
             border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
         }
+        .work-card:hover { transform: translateY(-5px); }
 
-        .work-img-container {
-            width: 100%;
-            aspect-ratio: 4 / 3;
-            overflow: hidden;
-        }
+        .work-img-container { width: 100%; aspect-ratio: 4 / 3; overflow: hidden; }
+        .work-img { width: 100%; height: 100%; background-size: cover; background-position: center; }
 
-        .work-img {
-            width: 100%; height: 100%;
-            background-size: cover;
-            background-position: center;
-        }
+        .work-info { padding: 20px; }
+        .work-tag { font-size: 11px; color: var(--ubot-red); font-weight: 700; letter-spacing: 1px; }
+        .work-title { font-size: 19px; font-weight: 700; margin: 5px 0; color: var(--ubot-blue); }
+        .work-artist { font-size: 14px; color: var(--text-gray); }
 
-        .work-info { padding: 15px; }
-        .work-tag { font-size: 10px; color: var(--ubot-red); font-weight: 700; }
-        .work-title { font-size: 18px; font-weight: 700; margin: 4px 0; color: var(--ubot-blue); }
-        .work-artist { font-size: 14px; color: var(--text-sub); }
+        #noResult { padding: 100px 20px; text-align: center; display: none; color: #999; }
 
-        #noResult {
-            padding: 100px 20px;
-            text-align: center;
-            display: none;
-            color: #999;
-        }
-
-        /* ===== 5. Footer ===== */
+        /* ===== 5. 統一頁尾樣式 ===== */
         footer {
             background: var(--ubot-light-blue);
-            padding: 40px 20px;
-            font-size: 14px;
+            color: var(--ubot-blue);
+            padding: 50px 20px 30px;
+            margin-top: 60px;
         }
-        .footer-info p { margin: 8px 0; }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+
+        .footer-logo { font-size: 20px; font-weight: 800; margin-bottom: 15px; }
+        .footer-info p { margin: 8px 0; font-size: 14px; }
+        .footer-links h4 { margin: 0 0 15px; border-left: 3px solid var(--ubot-red); padding-left: 10px; }
+        .footer-links ul { list-style: none; padding: 0; margin: 0; }
+        .footer-links li { margin-bottom: 8px; }
+        .footer-links a { text-decoration: none; color: var(--ubot-blue); font-size: 14px; opacity: 0.8; transition: 0.3s; }
+        .footer-links a:hover { opacity: 1; color: var(--ubot-red); }
+
         .footer-bottom {
-            margin-top: 30px;
+            max-width: 1200px;
+            margin: 30px auto 0;
             padding-top: 20px;
-            border-top: 1px solid rgba(0,0,0,0.05);
+            border-top: 1px solid rgba(0,51,102,0.1);
             text-align: center;
             font-size: 12px;
-            color: #888;
+            opacity: 0.7;
+        }
+
+        /* ===== 6. 統一手機版 RWD (關鍵修改) ===== */
+        @media (max-width: 768px) {
+            .menu-toggle { display: flex; }
+
+            .menu {
+                position: absolute;
+                top: 100%; left: 0; right: 0;
+                background: #fff;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+                display: none; /* 預設隱藏 */
+            }
+
+            .menu.active { display: flex; }
+
+            .menu li { margin: 0; border-bottom: 1px solid #f5f5f5; }
+            .menu a { padding: 15px 0; font-size: 16px; text-align: center; }
+
+            .page-banner { height: 220px; }
+            .page-banner h1 { font-size: 26px; }
+
+            .work-grid { 
+                grid-template-columns: 1fr; 
+                padding: 25px 20px; 
+            }
+
+            .sticky-filter { top: 54px; } /* 手機版 Navbar 較矮 */
         }
     </style>
 </head>
@@ -324,63 +380,68 @@
 </footer>
 
 
-    <script>
+<script>
+    // 1. 手機選單控制 (同步關於我們)
     const menuToggle = document.getElementById('mobile-menu');
     const navList = document.getElementById('nav-list');
 
-    menuToggle.addEventListener('click', () => {
-        navList.classList.toggle('active');
-    });
-
-    const navLinks = document.querySelectorAll('.menu a');
-    navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            navList.classList.remove('active');
+    if (menuToggle && navList) {
+        menuToggle.addEventListener('click', () => {
+            navList.classList.toggle('active');
         });
-    });
 
-        let currentCategory = 'all';
-
-        function filterCategory(evt, category) {
-            currentCategory = category;
-            const btns = document.querySelectorAll(".filter-btn");
-            btns.forEach(btn => btn.classList.remove("active"));
-            evt.currentTarget.classList.add("active");
-            
-            // 自動捲動讓選中的按鈕置中（提升 UX）
-            evt.currentTarget.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-            
-            executeFilter();
-        }
-
-        function filterWorks() {
-            executeFilter();
-        }
-
-        function executeFilter() {
-            const searchInput = document.getElementById('workSearch').value.toLowerCase();
-            const cards = document.querySelectorAll('.work-card');
-            const noResult = document.getElementById('noResult');
-            let visibleCount = 0;
-
-            cards.forEach(card => {
-                const title = card.getAttribute('data-title').toLowerCase();
-                const artist = card.getAttribute('data-artist').toLowerCase();
-                const category = card.getAttribute('data-category');
-
-                const matchesSearch = title.includes(searchInput) || artist.includes(searchInput);
-                const matchesCategory = (currentCategory === 'all' || category === currentCategory);
-
-                if (matchesSearch && matchesCategory) {
-                    card.style.display = "block";
-                    visibleCount++;
-                } else {
-                    card.style.display = "none";
-                }
+        const navLinks = document.querySelectorAll('.menu a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navList.classList.remove('active');
             });
+        });
+    }
 
-            noResult.style.display = (visibleCount === 0) ? "block" : "none";
-        }
-    </script>
+    // 2. 作品篩選邏輯
+    let currentCategory = 'all';
+
+    function filterCategory(evt, category) {
+        currentCategory = category;
+        const btns = document.querySelectorAll(".filter-btn");
+        btns.forEach(btn => btn.classList.remove("active"));
+        evt.currentTarget.classList.add("active");
+        
+        // 選中的分類按鈕自動捲動到可視範圍中心
+        evt.currentTarget.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+        
+        executeFilter();
+    }
+
+    function filterWorks() {
+        executeFilter();
+    }
+
+    function executeFilter() {
+        const searchInput = document.getElementById('workSearch').value.toLowerCase();
+        const cards = document.querySelectorAll('.work-card');
+        const noResult = document.getElementById('noResult');
+        let visibleCount = 0;
+
+        cards.forEach(card => {
+            const title = card.getAttribute('data-title').toLowerCase();
+            const artist = card.getAttribute('data-artist').toLowerCase();
+            const category = card.getAttribute('data-category');
+
+            const matchesSearch = title.includes(searchInput) || artist.includes(searchInput);
+            const matchesCategory = (currentCategory === 'all' || category === currentCategory);
+
+            if (matchesSearch && matchesCategory) {
+                card.style.display = "block";
+                visibleCount++;
+            } else {
+                card.style.display = "none";
+            }
+        });
+
+        noResult.style.display = (visibleCount === 0) ? "block" : "none";
+    }
+</script>
+
 </body>
 </html>
