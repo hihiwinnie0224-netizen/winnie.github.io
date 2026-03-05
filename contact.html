@@ -4,271 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>聯絡我們｜聯邦藝術中心 Union Art Center</title>
-    <style>
-        :root {
-            --ubot-red: #E60012;          /* 聯邦紅 */
-            --ubot-blue: #003366;         /* 聯邦深藍 */
-            --ubot-light-blue: #EAF6FC;   /* 聯邦淺藍背景 */
-            --ubot-sky-blue: #00A1E9;     /* 聯邦淺藍點綴 */
-            --ubot-gold: #B89130;         /* 典藏金 */
-            --text-dark: #222222;
-            --text-gray: #666666;
-            --border-color: #D1CDC4;
-            --transition: all 0.4s cubic-bezier(0.2, 1, 0.3, 1);
-        }
 
-        body {
-            margin: 0;
-            font-family: "Noto Sans TC", "PingFang TC", "STHeitiTC-Light", "Microsoft JhengHei", sans-serif;
-            background-color: #f8fbfd;
-            color: var(--text-dark);
-            line-height: 1.8;
-        }
-
-        /* ===== 1. 導覽列 Navbar (同步關於頁面) ===== */
-        header {
-            background: #ffffff;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .navbar {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 25px;
-        }
-
-        .logo a {
-            font-size: 24px;
-            font-weight: 800;
-            color: var(--ubot-blue);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            letter-spacing: 1px;
-        }
-
-        .logo a::before { 
-            content: ""; 
-            width: 8px; 
-            height: 8px; 
-            background: var(--ubot-red); 
-            border-radius: 50%; 
-            margin-right: 10px; 
-        }
-
-        .menu {
-            display: flex;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-
-        .menu li { margin-left: 15px; }
-
-        .menu a {
-            text-decoration: none;
-            color: #666;
-            font-weight: 600;
-            font-size: 14px;
-            transition: 0.3s;
-            padding: 8px 10px;
-        }
-
-        .menu a:hover, .menu a.active { 
-            color: var(--ubot-red); 
-        }
-
-        /* ===== 2. 頁面 Banner (同步關於頁面) ===== */
-        .page-banner {
-            width: 100%;
-            height: 350px;
-            background: linear-gradient(rgba(0,51,102,0.6), rgba(0,51,102,0.6)), 
-                        url('https://images.unsplash.com/photo-1523966211575-eb4a01e7dd51?auto=format&fit=crop&w=1600&q=80');
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            text-align: center;
-        }
-
-        .page-banner h1 { font-size: 42px; margin: 0; letter-spacing: 6px; font-weight: 900; }
-        .page-banner p { font-size: 16px; opacity: 0.9; margin-top: 10px; letter-spacing: 3px; text-transform: uppercase; }
-
-        /* ===== 3. 聯絡區塊佈局 ===== */
-        .contact-container {
-            display: flex;
-            max-width: 1200px;
-            margin: -60px auto 60px; /* 向上偏移與 Banner 接合 */
-            gap: 40px;
-            padding: 0 25px;
-            box-sizing: border-box;
-            position: relative;
-            z-index: 10;
-        }
-
-        /* 左側：品牌資訊欄 */
-        .contact-info-panel {
-            flex: 0.8;
-            background-color: #ffffff;
-            padding: 50px;
-            border-radius: 4px; /* 對齊關於頁面的直角微圓風格 */
-            border: 1px solid var(--border-color);
-            box-shadow: 0 10px 40px rgba(0,0,0,0.04);
-        }
-
-        .contact-info-panel h2 { 
-            font-size: 2.4rem; 
-            color: var(--ubot-blue); 
-            letter-spacing: 4px; 
-            margin: 0 0 15px 0; 
-            font-weight: 900;
-        }
-
-        .contact-desc {
-            color: var(--text-gray);
-            font-size: 0.95rem;
-            margin-bottom: 40px;
-        }
-
-        .dept-item {
-            margin-bottom: 35px;
-            padding-left: 20px;
-            border-left: 3px solid var(--ubot-red);
-        }
-
-        .dept-name { 
-            font-weight: 700; color: var(--ubot-blue); font-size: 1rem;
-            margin-bottom: 8px; display: block;
-        }
-
-        .dept-contact { 
-            font-size: 14px; color: var(--text-gray); display: block;
-            line-height: 1.8;
-        }
-
-        /* 右側：留言表單 */
-        .contact-form-panel { flex: 1.2; }
-        .contact-form-box {
-            background: #fff;
-            padding: 50px;
-            border-radius: 4px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 10px 40px rgba(0,0,0,0.04);
-        }
-
-        .form-title {
-            font-size: 1.4rem;
-            letter-spacing: 2px;
-            margin-bottom: 40px;
-            color: var(--ubot-blue);
-            font-weight: 700;
-            text-align: center;
-        }
-
-        .form-group { margin-bottom: 25px; }
-        .form-group label { 
-            display: block; font-size: 12px; margin-bottom: 8px; 
-            font-weight: 700; color: #888;
-        }
-
-        .form-group input, .form-group textarea, .form-group select {
-            width: 100%; padding: 14px 15px; background: #f9fbfd; border: 1px solid #e1e8ed;
-            border-radius: 4px; font-size: 15px; transition: var(--transition); box-sizing: border-box;
-        }
-
-        .form-group input:focus, .form-group textarea:focus {
-            outline: none; background: #fff; border-color: var(--ubot-sky-blue);
-            box-shadow: 0 0 0 4px rgba(0, 161, 233, 0.1);
-        }
-
-        .submit-btn {
-            width: 100%; padding: 18px; background: var(--ubot-blue); color: white;
-            border: none; border-radius: 4px; cursor: pointer; font-weight: bold; letter-spacing: 2px;
-            transition: var(--transition); font-size: 16px; margin-top: 10px;
-        }
-
-        .submit-btn:hover { background: var(--ubot-red); transform: translateY(-2px); }
-
-        /* ===== 4. 地點資訊區塊 ===== */
-        .location-section {
-            max-width: 1200px;
-            margin: 40px auto 100px;
-            padding: 0 25px;
-        }
-
-        .location-header {
-            margin-bottom: 25px;
-            padding-left: 15px;
-            border-left: 5px solid var(--ubot-gold);
-        }
-
-        .map-container {
-            width: 100%; 
-            height: 450px; 
-            background: #eee;
-            border-radius: 4px; 
-            overflow: hidden;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 10px 40px rgba(0,0,0,0.04);
-        }
-
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
-
-        /* ===== 5. 頁尾 Footer (同步) ===== */
-        footer {
-            background: var(--ubot-light-blue);
-            color: var(--ubot-blue);
-            padding: 600px 20px 30px; /* 修正原本結構：這應為 60px */
-            padding: 60px 20px 30px;
-        }
-
-        .footer-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-        }
-
-        .footer-logo { font-size: 22px; font-weight: 800; margin-bottom: 15px; }
-        .footer-info p { margin: 5px 0; font-size: 14px; }
-
-        .footer-links h4 { margin: 0 0 15px; border-left: 3px solid var(--ubot-red); padding-left: 10px; }
-        .footer-links ul { list-style: none; padding: 0; margin: 0; }
-        .footer-links li { margin-bottom: 8px; }
-        .footer-links a { text-decoration: none; color: var(--ubot-blue); font-size: 14px; opacity: 0.8; }
-        .footer-links a:hover { opacity: 1; color: var(--ubot-red); }
-
-        .footer-bottom {
-            max-width: 1200px;
-            margin: 40px auto 0;
-            padding-top: 20px;
-            border-top: 1px solid rgba(0,51,102,0.1);
-            text-align: center;
-            font-size: 13px;
-            opacity: 0.7;
-        }
-
-        @media (max-width: 950px) { 
-            .contact-container { flex-direction: column; margin-top: -40px; } 
-            .contact-info-panel, .contact-form-box { padding: 40px 25px; }
-            .navbar { flex-direction: column; }
-            .menu { margin-top: 15px; }
-        }
-    </style>
+    <!-- 外部 CSS -->
+    <link rel="stylesheet" href="css/contact.css">
 </head>
 <body>
 
@@ -298,63 +36,68 @@
     <div class="contact-container">
         <div class="contact-info-panel">
             <h2>CONTACT</h2>
-            <p class="contact-desc">與聯邦藝術中心聯繫，共同推廣台灣本土藝術之美。我們將於 2-3 個工作日內回覆您的訊息。</p>
-            
-            <div class="dept-list">
-                <div class="dept-item">
-                    <span class="dept-name">一般諮詢 / ADMIN</span>
-                    <span class="dept-contact">
-                        T. (02) 2718-0001<br>
-                        E. service@ubot-art.org.tw
-                    </span>
-                </div>
-                <div class="dept-item">
-                    <span class="dept-name">展覽與典藏 / CURATORIAL</span>
-                    <span class="dept-contact">
-                        E. archive@ubot-art.org.tw
-                    </span>
-                </div>
-                <div class="dept-item" style="border:none">
-                    <span class="dept-name">地址 / ADDRESS</span>
-                    <span class="dept-contact">
-                        台北市大安區忠孝東路四段219號
-                    </span>
-                </div>
+            <p class="contact-desc">
+                與聯邦藝術中心聯繫，共同推廣台灣本土藝術之美。
+                我們將於 2-3 個工作日內回覆您的訊息。
+            </p>
+
+            <div class="dept-item">
+                <span class="dept-name">一般諮詢 / ADMIN</span>
+                <span class="dept-contact">
+                    T. (02) 2718-0001<br>
+                    E. service@ubot-art.org.tw
+                </span>
+            </div>
+
+            <div class="dept-item">
+                <span class="dept-name">展覽與典藏 / CURATORIAL</span>
+                <span class="dept-contact">
+                    E. archive@ubot-art.org.tw
+                </span>
+            </div>
+
+            <div class="dept-item no-border">
+                <span class="dept-name">地址 / ADDRESS</span>
+                <span class="dept-contact">
+                    台北市大安區忠孝東路四段219號
+                </span>
             </div>
         </div>
 
         <div class="contact-form-panel">
             <div class="contact-form-box">
                 <h3 class="form-title">MESSAGE / 留言諮詢</h3>
-                
-                <form id="contactForm" onsubmit="handleFormSubmit(event)">
+
+                <form id="contactForm">
                     <div class="form-group">
-                        <label>Name / 姓名</label>
-                        <input type="text" placeholder="請輸入姓名" required>
+                        <label>姓名</label>
+                        <input type="text" required>
                     </div>
-                    
+
                     <div class="form-group">
-                        <label>Email / 電子郵件</label>
-                        <input type="email" placeholder="example@mail.com" required>
+                        <label>Email</label>
+                        <input type="email" required>
                     </div>
-                    
+
                     <div class="form-group">
-                        <label>Category / 諮詢類別</label>
+                        <label>諮詢類別</label>
                         <select>
-                            <option>典藏作品詢問 Archive Inquiry</option>
-                            <option>場地租借申請 Venue Rental</option>
-                            <option>美術獎報名諮詢 Award Inquiry</option>
-                            <option>藝術贊助合作 Partnership</option>
-                            <option>其他 General Inquiry</option>
+                            <option>典藏作品詢問</option>
+                            <option>場地租借申請</option>
+                            <option>美術獎報名諮詢</option>
+                            <option>藝術贊助合作</option>
+                            <option>其他</option>
                         </select>
                     </div>
-                    
+
                     <div class="form-group">
-                        <label>Message / 訊息內容</label>
-                        <textarea rows="4" placeholder="請輸入訊息內容..." required></textarea>
+                        <label>訊息內容</label>
+                        <textarea rows="4" required></textarea>
                     </div>
-                    
-                    <button type="submit" class="submit-btn" id="submitBtn">發送訊息 SEND MESSAGE</button>
+
+                    <button type="submit" class="submit-btn" id="submitBtn">
+                        發送訊息
+                    </button>
                 </form>
             </div>
         </div>
@@ -362,74 +105,27 @@
 
     <section class="location-section">
         <div class="location-header">
-            <span style="font-size: 12px; color: var(--ubot-red); font-weight: bold; letter-spacing: 2px;">LOCATION</span>
-            <div style="font-size: 18px; color: var(--ubot-blue); font-weight: bold;">台北市大安區忠孝東路四段219號</div>
+            <span class="location-label">LOCATION</span>
+            <div class="location-title">台北市大安區忠孝東路四段219號</div>
         </div>
-    <div class="map-container">
-        <iframe 
-        src="https://maps.google.com/maps?q=台北市大安區忠孝東路四段219號&hl=zh-TW&z=16&output=embed" 
-        allowfullscreen="" 
-        loading="lazy" 
-        referrerpolicy="no-referrer-when-downgrade">
-        </iframe>
-    </div>
+
+        <div class="map-container">
+            <iframe 
+                src="https://maps.google.com/maps?q=台北市大安區忠孝東路四段219號&hl=zh-TW&z=16&output=embed"
+                loading="lazy">
+            </iframe>
+        </div>
     </section>
 </main>
 
 <footer>
-    <div class="footer-container">
-        <div class="footer-info">
-            <div class="footer-logo">UNION ART CENTER</div>
-            <p><strong>地址：</strong>台北市大安區忠孝東路四段219號</p>
-            <p><strong>電話：</strong>(02) 2536-9999</p>
-            <p><strong>時間：</strong>週二至週日 09:00 - 17:00 (週一休館)</p>
-        </div>
-        <div class="footer-links">
-            <h4>探索中心</h4>
-            <ul>
-                <li><a href="about.html">關於我們</a></li>
-                <li><a href="exhibitions.html">最新展覽</a></li>
-                <li><a href="artists.html">合作藝術家</a></li>
-                <li><a href="visit.html">參觀指引</a></li>
-            </ul>
-        </div>
-        <div class="footer-links">
-            <h4>快速連結</h4>
-            <ul>
-                <li><a href="https://www.ubot.com.tw/" target="_blank">聯邦銀行官網</a></li>
-                <li><a href="contact.html">場地租借申請</a></li>
-                <li><a href="privacy.html">隱私權保護政策</a></li>
-            </ul>
-        </div>
-    </div>
     <div class="footer-bottom">
-        <p>© 2026 Union Art Center 聯邦藝術中心 版權所有</p>
+        © 2026 Union Art Center 聯邦藝術中心 版權所有
     </div>
 </footer>
 
-<script>
-    function handleFormSubmit(e) {
-        e.preventDefault();
-        const btn = document.getElementById('submitBtn');
-        const originalText = btn.innerText;
-        
-        btn.innerText = "傳送中 SENDING...";
-        btn.disabled = true;
-
-        setTimeout(() => {
-            alert("感謝您的留言！我們已收到您的訊息，將儘速回覆。");
-            btn.innerText = "訊息已送出 SENT SUCCESS";
-            btn.style.background = "#28a745";
-            document.getElementById('contactForm').reset();
-            
-            setTimeout(() => {
-                btn.innerText = originalText;
-                btn.style.background = "#003366";
-                btn.disabled = false;
-            }, 3000);
-        }, 1500);
-    }
-</script>
+<!-- 外部 JS -->
+<script src="js/contact.js"></script>
 
 </body>
 </html>
