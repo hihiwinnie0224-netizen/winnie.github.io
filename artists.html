@@ -1,445 +1,315 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>藝術家典藏｜聯邦藝術中心</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>藝術家典藏｜聯邦藝術中心 Union Art Center</title>
+    
+    <style>
+        :root {
+            --ubot-red: #E60012;
+            --ubot-blue: #003366;
+            --ubot-light-blue: #EAF6FC;
+            --ubot-sky-blue: #00A1E9;
+            --text-main: #222222;
+            --text-sub: #666666;
+            --border-color: #D1CDC4;
+            --bg-warm: #f8fbfd;
+        }
 
-<style>
-:root{
---ubot-red:#E60012;
---ubot-blue:#003366;
---ubot-light-blue:#EAF6FC;
---ubot-sky-blue:#00A1E9;
---primary-gold:#a68d5e;
---border-color:#D1CDC4;
---bg-warm:#f8fbfd;
-}
+        body {
+            margin: 0;
+            font-family: -apple-system, "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+            background-color: var(--bg-warm);
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-tap-highlight-color: transparent;
+        }
 
-body{
-margin:0;
-font-family:"Noto Sans TC","Microsoft JhengHei",sans-serif;
-background:var(--bg-warm);
-color:#222;
-line-height:1.7;
-}
+        /* ===== 1. Navbar 優化 (手機版) ===== */
+        header {
+            background: #ffffff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
 
-/* ===== Header ===== */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 20px;
+        }
 
-header{
-background:#fff;
-position:sticky;
-top:0;
-z-index:1000;
-transition:.3s;
-}
+        .logo a {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--ubot-blue);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
 
-header.shrink{
-box-shadow:0 5px 20px rgba(0,0,0,.08);
-}
+        .logo a::before { 
+            content: ""; width: 6px; height: 6px; background: var(--ubot-red); 
+            border-radius: 50%; margin-right: 8px; 
+        }
 
-.navbar{
-max-width:1200px;
-margin:auto;
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:18px 20px;
-}
+        /* 漢堡選單按鈕 */
+        .menu-toggle {
+            display: block;
+            background: none;
+            border: 1px solid var(--ubot-blue);
+            color: var(--ubot-blue);
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+        }
 
-.logo a{
-font-size:20px;
-font-weight:800;
-color:var(--ubot-blue);
-text-decoration:none;
-}
+        /* ===== 2. Banner ===== */
+        .page-banner {
+            width: 100%;
+            height: 160px;
+            background: linear-gradient(rgba(0,51,102,0.7), rgba(0,51,102,0.7)), 
+                        url('https://images.unsplash.com/photo-1460666819451-7410f5238d41?auto=format&fit=crop&w=800&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+        }
+        .page-banner h1 { font-size: 24px; margin: 0; letter-spacing: 4px; }
+        .page-banner p { font-size: 12px; opacity: 0.8; margin-top: 5px; }
 
-.menu{
-display:flex;
-list-style:none;
-margin:0;
-padding:0;
-}
+        /* ===== 3. 搜尋與分頁 (手機滑動優化) ===== */
+        .sticky-tools { 
+            position: sticky; 
+            top: 53px; /* Navbar height */
+            background: #fff; 
+            z-index: 900; 
+            padding: 15px 0; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        
+        .search-row { padding: 0 20px 15px; }
+        .search-box { 
+            width: 100%; 
+            padding: 10px 15px; 
+            border: 1px solid #eee; 
+            border-radius: 10px; 
+            font-size: 15px; 
+            box-sizing: border-box;
+            background: #f5f7f9;
+        }
 
-.menu li{margin-left:15px;}
+        .tab-wrapper {
+            overflow-x: auto;
+            display: flex;
+            padding: 0 20px;
+            gap: 10px;
+            scrollbar-width: none;
+        }
+        .tab-wrapper::-webkit-scrollbar { display: none; }
 
-.menu a{
-text-decoration:none;
-font-size:14px;
-font-weight:600;
-color:#555;
-}
+        .btn-tab { 
+            white-space: nowrap;
+            padding: 8px 18px; 
+            border: 1px solid var(--ubot-blue); 
+            background: white; 
+            color: var(--ubot-blue); 
+            border-radius: 20px; 
+            font-size: 13px;
+            font-weight: 600;
+            flex: 0 0 auto;
+        }
+        .btn-tab.active { background: var(--ubot-blue); color: white; }
 
-.menu a.active,
-.menu a:hover{color:var(--ubot-red);}
+        /* ===== 4. 內容卡片 (兩欄排列) ===== */
+        .main-content { padding: 20px; }
+        .year-row { margin-bottom: 30px; }
+        .year-label { 
+            font-size: 18px; 
+            color: var(--ubot-blue); 
+            margin-bottom: 15px; 
+            font-weight: 800; 
+            border-left: 4px solid var(--ubot-red); 
+            padding-left: 12px; 
+        }
 
-/* 手機選單 */
+        .winners-grid { 
+            display: grid; 
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 12px; 
+        }
+        
+        .winner-card { 
+            text-align: center; 
+            padding: 15px 10px; 
+            border-radius: 12px; 
+            border: 1px solid #eee; 
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
 
-.menu-toggle{
-display:none;
-font-size:26px;
-cursor:pointer;
-color:var(--ubot-blue);
-}
+        .avatar { 
+            width: 60px; 
+            height: 60px; 
+            border-radius: 50%; 
+            margin: 0 auto 10px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            color: white; 
+            font-weight: bold; 
+            font-size: 20px; 
+        }
+        
+        .tag { font-size: 10px; padding: 2px 8px; border-radius: 4px; display: inline-block; margin-bottom: 8px; }
+        .tag-首獎 { background: #fff3cd; color: #856404; }
+        .tag-優選 { background: #d1ecf1; color: #0c5460; }
+        .tag-大師 { background: var(--ubot-blue); color: #fff; }
 
-.mobile-menu{
-position:fixed;
-top:0;
-right:-260px;
-width:260px;
-height:100%;
-background:#fff;
-box-shadow:-5px 0 30px rgba(0,0,0,.15);
-transition:.4s;
-padding-top:80px;
-z-index:2000;
-}
+        .name { font-size: 15px; font-weight: 700; margin-bottom: 10px; color: var(--text-main); }
+        .btn-view { 
+            width: 100%; 
+            padding: 6px; 
+            background: transparent; 
+            border: 1px solid #ddd; 
+            color: var(--ubot-blue); 
+            border-radius: 6px; 
+            font-size: 12px; 
+        }
 
-.mobile-menu ul{list-style:none;padding:0;}
-
-.mobile-menu li{border-bottom:1px solid #eee;}
-
-.mobile-menu a{
-display:block;
-padding:15px 20px;
-text-decoration:none;
-color:var(--ubot-blue);
-font-weight:600;
-}
-
-.mobile-menu.show{right:0;}
-
-.overlay{
-position:fixed;
-width:100%;
-height:100%;
-background:rgba(0,0,0,.4);
-top:0;
-left:0;
-opacity:0;
-visibility:hidden;
-transition:.3s;
-z-index:1500;
-}
-
-.overlay.show{
-opacity:1;
-visibility:visible;
-}
-
-/* ===== Banner ===== */
-
-.page-banner{
-height:260px;
-background:linear-gradient(rgba(0,51,102,.6),rgba(0,51,102,.6)),
-url('https://images.unsplash.com/photo-1460666819451-7410f5238d41?auto=format&fit=crop&w=1600&q=80');
-background-size:cover;
-background-position:center;
-display:flex;
-align-items:center;
-justify-content:center;
-flex-direction:column;
-color:#fff;
-text-align:center;
-}
-
-.page-banner h1{
-margin:0;
-font-size:32px;
-letter-spacing:4px;
-}
-
-.page-banner p{
-margin-top:8px;
-font-size:14px;
-opacity:.9;
-}
-
-/* ===== 搜尋區 ===== */
-
-.sticky-tools{
-position:sticky;
-top:70px;
-background:rgba(248,251,253,.95);
-backdrop-filter:blur(8px);
-padding:20px 0;
-border-bottom:1px solid #eee;
-z-index:900;
-}
-
-.filter-container{
-max-width:1200px;
-margin:auto;
-padding:0 20px;
-}
-
-.search-box{
-width:100%;
-padding:12px 20px;
-border-radius:40px;
-border:1px solid var(--border-color);
-font-size:15px;
-outline:none;
-}
-
-/* 分類按鈕可橫向滑動 */
-
-.tab-switcher{
-display:flex;
-gap:10px;
-overflow-x:auto;
-padding-bottom:5px;
-}
-
-.tab-switcher::-webkit-scrollbar{display:none;}
-
-.btn-tab{
-flex:0 0 auto;
-padding:8px 18px;
-border-radius:40px;
-border:1.5px solid var(--ubot-blue);
-background:#fff;
-font-weight:600;
-cursor:pointer;
-}
-
-.btn-tab.active{
-background:var(--ubot-blue);
-color:#fff;
-}
-
-/* ===== 內容 ===== */
-
-.main-content{
-max-width:1200px;
-margin:40px auto 100px;
-padding:0 20px;
-}
-
-.year-row{
-background:#fff;
-border-radius:10px;
-padding:25px;
-margin-bottom:30px;
-box-shadow:0 8px 25px rgba(0,0,0,.05);
-}
-
-.year-label{
-font-weight:800;
-color:var(--ubot-blue);
-margin-bottom:20px;
-border-left:5px solid var(--ubot-red);
-padding-left:12px;
-}
-
-.winners-grid{
-display:grid;
-grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
-gap:20px;
-}
-
-.winner-card{
-text-align:center;
-padding:18px;
-border-radius:12px;
-border:1px solid #eee;
-background:#fff;
-transition:.3s;
-cursor:pointer;
-}
-
-.winner-card:hover{
-transform:translateY(-6px);
-box-shadow:0 10px 25px rgba(0,0,0,.1);
-}
-
-.avatar{
-width:70px;
-height:70px;
-border-radius:50%;
-margin:0 auto 10px;
-display:flex;
-align-items:center;
-justify-content:center;
-color:#fff;
-font-weight:bold;
-font-size:22px;
-}
-
-.name{
-font-weight:700;
-margin-bottom:6px;
-}
-
-.tag{
-font-size:11px;
-padding:2px 10px;
-border-radius:20px;
-margin-bottom:8px;
-display:inline-block;
-}
-
-.tag-首獎{background:#fff3cd;color:#856404;}
-.tag-優選{background:#d1ecf1;color:#0c5460;}
-.tag-入選{background:#e2e3e5;color:#383d41;}
-.tag-大師{background:var(--ubot-blue);color:#fff;}
-
-/* ===== Footer ===== */
-
-footer{
-background:var(--ubot-light-blue);
-padding:50px 20px;
-text-align:center;
-font-size:14px;
-}
-
-/* ===== 手機優化 ===== */
-
-@media(max-width:768px){
-
-.menu{display:none;}
-.menu-toggle{display:block;}
-
-.winners-grid{
-grid-template-columns:repeat(2,1fr);
-}
-
-.page-banner{
-height:200px;
-}
-
-.page-banner h1{
-font-size:24px;
-}
-
-}
-</style>
+        /* ===== Footer ===== */
+        footer {
+            background: var(--ubot-light-blue);
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .footer-info p { font-size: 13px; margin: 5px 0; }
+    </style>
 </head>
-
 <body>
 
-<header id="header">
-<nav class="navbar">
-<div class="logo"><a href="index.html">聯邦藝術中心</a></div>
-<div class="menu-toggle" onclick="openMenu()">☰</div>
-<ul class="menu">
-<li><a href="about.html">關於我們</a></li>
-<li><a href="artists.html" class="active">藝術家</a></li>
-<li><a href="visit.html">參觀資訊</a></li>
-</ul>
-</nav>
+<header>
+    <nav class="navbar">
+        <div class="logo"><a href="index.html">聯邦藝術中心</a></div>
+        <button class="menu-toggle">MENU</button>
+    </nav>
 </header>
 
-<div class="mobile-menu" id="mobileMenu">
-<ul>
-<li><a href="about.html">關於我們</a></li>
-<li><a href="artists.html">藝術家</a></li>
-<li><a href="visit.html">參觀資訊</a></li>
-</ul>
-</div>
-
-<div class="overlay" id="overlay" onclick="closeMenu()"></div>
-
 <section class="page-banner">
-<h1>藝術家典藏</h1>
-<p>Collection of Distinguished Artists</p>
+    <h1>藝術家典藏</h1>
+    <p>Distinguished Artists</p>
 </section>
 
 <div class="sticky-tools">
-<div class="filter-container">
-<input type="text" id="artistSearch" class="search-box" placeholder="搜尋姓名或獎項..." onkeyup="handleSearch()">
-<br><br>
-<div class="tab-switcher">
-<button class="btn-tab active" onclick="switchCategory('master')">歷屆大師</button>
-<button class="btn-tab" onclick="switchCategory('newbie')">新人獎</button>
-<button class="btn-tab" onclick="switchCategory('impression')">印象大獎</button>
-</div>
-</div>
+    <div class="search-row">
+        <input type="text" id="artistSearch" class="search-box" placeholder="搜尋姓名或年度..." onkeyup="handleSearch()">
+    </div>
+    <div class="tab-wrapper">
+        <button class="btn-tab active" id="tab-master" onclick="switchCategory('master')">藝之初章</button>
+        <button class="btn-tab" id="tab-newbie" onclick="switchCategory('newbie')">新人獎</button>
+        <button class="btn-tab" id="tab-impression" onclick="switchCategory('impression')">印象大獎</button>
+    </div>
 </div>
 
 <main class="main-content">
-<div id="contentList"></div>
+    <div id="contentList"></div>
 </main>
 
 <footer>
-© 2026 Union Art Center 聯邦藝術中心
+    <div class="footer-info">
+        <div style="font-weight: 800; color: var(--ubot-blue); margin-bottom: 10px;">UNION ART CENTER</div>
+        <p>台北市大安區忠孝東路四段219號</p>
+        <p>電話：(02) 2536-9999</p>
+    </div>
+    <div style="font-size: 11px; opacity: 0.6; margin-top: 20px;">
+        © 2026 Union Art Center 版權所有
+    </div>
 </footer>
 
 <script>
-function openMenu(){
-document.getElementById("mobileMenu").classList.add("show");
-document.getElementById("overlay").classList.add("show");
-}
-function closeMenu(){
-document.getElementById("mobileMenu").classList.remove("show");
-document.getElementById("overlay").classList.remove("show");
-}
-window.addEventListener("scroll",function(){
-let header=document.getElementById("header");
-if(window.scrollY>50){header.classList.add("shrink");}
-else{header.classList.remove("shrink");}
-});
+    const database = {
+        master: [
+            { year: "召集人", label: "委員會", winners: [{ role: "召集人", name: "許坤成" }] },
+            { year: "大師", label: "歷屆藝術大師", winners: [
+                { role: "大師", name: "祁連" }, { role: "大師", name: "蘇瑞明" }, { role: "大師", name: "林仁山" },
+                { role: "大師", name: "劉國正" }, { role: "大師", name: "翁明哲" }, { role: "大師", name: "高慶元" }
+            ]}
+        ],
+        newbie: [
+            { year: "2024", label: "2024 第27屆", winners: [
+                { role: "首獎", name: "李郁汝" }, { role: "優選", name: "許品婕" }, { role: "優選", name: "白穆君" }
+            ]}
+        ],
+        impression: [
+            { year: "2024", label: "2024 第22屆", winners: [
+                { role: "首獎", name: "吳羽宸" }, { role: "優選", name: "宋適生" }
+            ]}
+        ]
+    };
 
-/* ===== 原本資料邏輯保持 ===== */
+    let currentCat = 'master';
 
-const database={
-master:[{year:"大師",label:"歷屆藝術大師",winners:[
-{role:"大師",name:"許坤成"},
-{role:"大師",name:"古東玄"},
-{role:"大師",name:"張家豪"},
-]}],
-newbie:[],
-impression:[]
-};
+    function getGradient(name) {
+        const colors = [['#a68d5e', '#d4af37'], ['#003366', '#0056b3'], ['#E60012', '#ff4d4d']];
+        let idx = name.length % colors.length;
+        return `linear-gradient(135deg, ${colors[idx][0]}, ${colors[idx][1]})`;
+    }
 
-let currentCat="master";
+    function renderData(data) {
+        const list = document.getElementById('contentList');
+        list.innerHTML = '';
+        if (data.length === 0) {
+            list.innerHTML = '<div style="text-align:center; color:#999; padding:50px;">查無資料</div>';
+            return;
+        }
+        data.forEach(item => {
+            const row = document.createElement('div');
+            row.className = 'year-row';
+            row.innerHTML = `<div class="year-label">${item.label}</div>`;
+            const grid = document.createElement('div');
+            grid.className = 'winners-grid';
+            item.winners.forEach(w => {
+                grid.innerHTML += `
+                    <div class="winner-card">
+                        <span class="tag tag-${w.role}">${w.role}</span>
+                        <div class="avatar" style="background: ${getGradient(w.name)}">${w.name[0]}</div>
+                        <div class="name">${w.name}</div>
+                        <button class="btn-view" onclick="location.href='artist-detail.html'">作品輯</button>
+                    </div>`;
+            });
+            row.appendChild(grid);
+            list.appendChild(row);
+        });
+    }
 
-function getGradient(name){
-const colors=[["#a68d5e","#d4af37"],["#003366","#0056b3"],["#E60012","#ff4d4d"]];
-let idx=name.length%colors.length;
-return `linear-gradient(135deg,${colors[idx][0]},${colors[idx][1]})`;
-}
+    function switchCategory(cat) {
+        currentCat = cat;
+        document.querySelectorAll('.btn-tab').forEach(btn => btn.classList.remove('active'));
+        document.getElementById(`tab-${cat}`).classList.add('active');
+        document.getElementById('artistSearch').value = '';
+        renderData(database[cat]);
+        // 自動捲動讓選中的 Tab 置中
+        document.getElementById(`tab-${cat}`).scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    }
 
-function renderData(data){
-const list=document.getElementById("contentList");
-list.innerHTML="";
-data.forEach(item=>{
-const row=document.createElement("div");
-row.className="year-row";
-row.innerHTML=`<div class="year-label">${item.label}</div>`;
-const grid=document.createElement("div");
-grid.className="winners-grid";
-item.winners.forEach(w=>{
-grid.innerHTML+=`
-<div class="winner-card">
-<span class="tag tag-${w.role}">${w.role}</span>
-<div class="avatar" style="background:${getGradient(w.name)}">${w.name[0]}</div>
-<div class="name">${w.name}</div>
-</div>`;
-});
-row.appendChild(grid);
-list.appendChild(row);
-});
-}
+    function handleSearch() {
+        const val = document.getElementById('artistSearch').value.toLowerCase();
+        const filtered = database[currentCat].map(group => {
+            const winners = group.winners.filter(w => w.name.includes(val) || group.label.includes(val));
+            return winners.length > 0 ? { ...group, winners } : null;
+        }).filter(i => i);
+        renderData(filtered);
+    }
 
-function switchCategory(cat){
-currentCat=cat;
-document.querySelectorAll(".btn-tab").forEach(b=>b.classList.remove("active"));
-event.target.classList.add("active");
-renderData(database[cat]);
-}
-
-function handleSearch(){
-let val=document.getElementById("artistSearch").value;
-const filtered=database[currentCat].map(group=>{
-const winners=group.winners.filter(w=>w.name.includes(val));
-return winners.length?{...group,winners}:null;
-}).filter(i=>i);
-renderData(filtered);
-}
-
-window.onload=()=>renderData(database.master);
+    window.onload = () => renderData(database.master);
 </script>
-
 </body>
 </html>
