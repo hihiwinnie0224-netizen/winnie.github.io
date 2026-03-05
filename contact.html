@@ -26,10 +26,10 @@
             overflow-x: hidden;
         }
 
-        /* ===== 1. 導覽列 Navbar (同步樣式) ===== */
+        /* ===== 1. 統一導覽列 Navbar (與關於頁面同步) ===== */
         header {
             background: #ffffff;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -41,11 +41,11 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 25px;
+            padding: 12px 20px; /* 同步數值 */
         }
 
         .logo a {
-            font-size: 24px;
+            font-size: 20px; /* 同步數值 */
             font-weight: 800;
             color: var(--ubot-blue);
             text-decoration: none;
@@ -56,9 +56,29 @@
 
         .logo a::before { 
             content: ""; width: 8px; height: 8px; background: var(--ubot-red); 
-            border-radius: 50%; margin-right: 10px; 
+            border-radius: 50%; margin-right: 8px; 
         }
 
+        .menu {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .menu li { margin-left: 10px; }
+        .menu a {
+            text-decoration: none;
+            color: var(--text-gray);
+            font-weight: 600;
+            font-size: 15px;
+            padding: 8px 12px;
+            transition: var(--transition);
+            display: block;
+        }
+        .menu a:hover, .menu a.active { color: var(--ubot-red); }
+
+        /* 手機漢堡選單按鈕 */
         .menu-toggle {
             display: none;
             flex-direction: column;
@@ -69,24 +89,6 @@
             width: 25px; height: 3px; background: var(--ubot-blue);
             transition: 0.3s;
         }
-
-        .menu {
-            display: flex;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-
-        .menu li { margin-left: 15px; }
-        .menu a {
-            text-decoration: none;
-            color: var(--text-gray);
-            font-weight: 600;
-            font-size: 15px;
-            padding: 8px 12px;
-            transition: var(--transition);
-        }
-        .menu a:hover, .menu a.active { color: var(--ubot-red); }
 
         /* ===== 2. 頁面 Banner ===== */
         .page-banner {
@@ -119,7 +121,6 @@
             z-index: 10;
         }
 
-        /* 左側：品牌資訊欄 */
         .contact-info-panel {
             flex: 1;
             background-color: #ffffff;
@@ -256,23 +257,30 @@
             border-top: 1px solid rgba(0,51,102,0.1); padding-top: 30px; 
         }
 
-        /* ===== 手機版 RWD ===== */
-        @media (max-width: 850px) {
-            .navbar { padding: 15px 20px; }
-            .contact-container { flex-direction: column; margin-top: -30px; }
+        /* ===== 統一手機版 RWD (同步關於頁面邏輯) ===== */
+        @media (max-width: 768px) {
+            .navbar { padding: 12px 20px; }
             .menu-toggle { display: flex; }
+
             .menu {
-                position: absolute; top: 100%; left: 0; right: 0;
-                background: #fff; flex-direction: column;
-                padding: 10px 0; box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+                position: absolute;
+                top: 100%; left: 0; right: 0;
+                background: #fff;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
                 display: none;
             }
+
             .menu.active { display: flex; }
-            .menu li { margin: 0; border-bottom: 1px solid #f9f9f9; }
-            .menu a { padding: 15px 25px; }
+
+            .menu li { margin: 0; border-bottom: 1px solid #f5f5f5; }
+            .menu a { padding: 15px 0; font-size: 16px; text-align: center; }
             
+            /* 聯絡頁面 RWD 調整 */
+            .contact-container { flex-direction: column; margin-top: -30px; }
             .contact-info-panel, .contact-form-box { padding: 40px 25px; }
-            .page-banner { height: 200px; }
+            .page-banner { height: 220px; }
             .page-banner h1 { font-size: 30px; }
             .map-container { height: 300px; }
         }
@@ -287,7 +295,9 @@
         </div>
         
         <div class="menu-toggle" id="mobile-menu">
-            <span></span><span></span><span></span>
+            <span></span>
+            <span></span>
+            <span></span>
         </div>
 
         <ul class="menu" id="nav-list">
@@ -418,12 +428,24 @@
 </footer>
 
 <script>
-    // 漢堡選單邏輯
+    // 統一手機選單控制腳本 (同步邏輯)
     const menuToggle = document.getElementById('mobile-menu');
     const navList = document.getElementById('nav-list');
-    menuToggle.addEventListener('click', () => {
-        navList.classList.toggle('active');
-    });
+
+    if (menuToggle && navList) {
+        // 切換選單
+        menuToggle.addEventListener('click', () => {
+            navList.classList.toggle('active');
+        });
+
+        // 點擊連結後收回選單
+        const navLinks = document.querySelectorAll('.menu a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navList.classList.remove('active');
+            });
+        });
+    }
 
     // 表單提交模擬處理
     function handleFormSubmit(e) {
