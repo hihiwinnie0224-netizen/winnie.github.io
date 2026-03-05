@@ -1,323 +1,445 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>藝術家典藏｜聯邦藝術中心 Union Art Center</title>
-    
-    <style>
-        :root {
-            --ubot-red: #E60012;         /* 聯邦紅 */
-            --ubot-blue: #003366;        /* 聯邦深藍 */
-            --ubot-light-blue: #EAF6FC;  /* 聯邦淺藍底色 */
-            --ubot-sky-blue: #00A1E9;    /* 聯邦淺藍 */
-            --primary-gold: #a68d5e;     /* 保留原本藝術家頁面的金色 */
-            --text-main: #222222;
-            --text-sub: #666666;
-            --border-color: #D1CDC4;
-            --bg-warm: #f8fbfd;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>藝術家典藏｜聯邦藝術中心</title>
 
-        body {
-            margin: 0;
-            font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
-            background-color: var(--bg-warm);
-            color: var(--text-main);
-            line-height: 1.8;
-        }
+<style>
+:root{
+--ubot-red:#E60012;
+--ubot-blue:#003366;
+--ubot-light-blue:#EAF6FC;
+--ubot-sky-blue:#00A1E9;
+--primary-gold:#a68d5e;
+--border-color:#D1CDC4;
+--bg-warm:#f8fbfd;
+}
 
-        /* ===== 統一 Header 樣式 (同步自關於頁面) ===== */
-        header {
-            background: #ffffff;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
+body{
+margin:0;
+font-family:"Noto Sans TC","Microsoft JhengHei",sans-serif;
+background:var(--bg-warm);
+color:#222;
+line-height:1.7;
+}
 
-        .navbar {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 25px;
-        }
+/* ===== Header ===== */
 
-        .logo a {
-            font-size: 24px;
-            font-weight: 800;
-            color: var(--ubot-blue);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            letter-spacing: 1px;
-        }
+header{
+background:#fff;
+position:sticky;
+top:0;
+z-index:1000;
+transition:.3s;
+}
 
-        .logo a::before { 
-            content: ""; width: 8px; height: 8px; background: var(--ubot-red); 
-            border-radius: 50%; margin-right: 10px; 
-        }
+header.shrink{
+box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
 
-        .menu { display: flex; list-style: none; margin: 0; padding: 0; }
-        .menu li { margin-left: 15px; }
-        .menu a {
-            text-decoration: none;
-            color: #666;
-            font-weight: 600;
-            font-size: 14px;
-            transition: 0.3s;
-            padding: 8px 10px;
-        }
-        .menu a:hover, .menu a.active { color: var(--ubot-red); }
+.navbar{
+max-width:1200px;
+margin:auto;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:18px 20px;
+}
 
-        /* ===== Banner (同步關於頁面風格) ===== */
-        .page-banner {
-            width: 100%;
-            height: 350px;
-            background: linear-gradient(rgba(0,51,102,0.6), rgba(0,51,102,0.6)), 
-                        url('https://images.unsplash.com/photo-1460666819451-7410f5238d41?auto=format&fit=crop&w=1600&q=80');
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            text-align: center;
-        }
-        .page-banner h1 { font-size: 42px; margin: 0; letter-spacing: 6px; font-weight: 900; }
-        .page-banner p { font-size: 16px; opacity: 0.9; margin-top: 10px; letter-spacing: 3px; text-transform: uppercase; }
+.logo a{
+font-size:20px;
+font-weight:800;
+color:var(--ubot-blue);
+text-decoration:none;
+}
 
-        /* ===== 搜尋與篩選區 (微調以適應新風格) ===== */
-        .sticky-tools { position: sticky; top: 70px; background: rgba(248, 251, 253, 0.95); backdrop-filter: blur(10px); z-index: 900; padding: 30px 0; border-bottom: 1px solid #e0e0e0; }
-        .filter-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        .search-row { max-width: 600px; margin: 0 auto 25px; }
-        .search-box { width: 100%; padding: 12px 25px; border: 1px solid var(--border-color); border-radius: 50px; font-size: 16px; outline: none; transition: 0.3s; box-shadow: inset 0 2px 4px rgba(0,0,0,0.03); }
-        .search-box:focus { border-color: var(--ubot-sky-blue); box-shadow: 0 0 10px rgba(0,161,233,0.1); }
+.menu{
+display:flex;
+list-style:none;
+margin:0;
+padding:0;
+}
 
-        .tab-switcher { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
-        .btn-tab { padding: 10px 24px; border: 1.5px solid var(--ubot-blue); background: white; color: var(--ubot-blue); border-radius: 50px; cursor: pointer; font-weight: bold; transition: 0.3s; }
-        .btn-tab.active { background: var(--ubot-blue); color: white; box-shadow: 0 4px 12px rgba(0,51,102,0.2); }
-        .btn-tab:hover:not(.active) { background: var(--ubot-light-blue); }
+.menu li{margin-left:15px;}
 
-        /* ===== 內容卡片排版 ===== */
-        .main-content { max-width: 1200px; margin: 40px auto 100px; padding: 0 20px; }
-        .year-row { background: white; border-radius: 8px; padding: 35px; margin-bottom: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.04); border: 1px solid var(--border-color); }
-        .year-label { font-size: 22px; color: var(--ubot-blue); margin-bottom: 30px; font-weight: 800; border-left: 6px solid var(--ubot-red); padding-left: 18px; }
+.menu a{
+text-decoration:none;
+font-size:14px;
+font-weight:600;
+color:#555;
+}
 
-        .winners-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 25px; }
-        .winner-card { text-align: center; padding: 20px 15px; border-radius: 12px; transition: 0.4s; border: 1px solid #f2f2f2; background: #fff; }
-        .winner-card:hover { transform: translateY(-8px); border-color: var(--ubot-sky-blue); box-shadow: 0 15px 35px rgba(0,51,102,0.1); }
+.menu a.active,
+.menu a:hover{color:var(--ubot-red);}
 
-        .avatar { width: 90px; height: 90px; border-radius: 50%; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 28px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        .tag { font-size: 12px; padding: 3px 12px; border-radius: 50px; display: inline-block; margin-bottom: 12px; font-weight: 600; }
-        .tag-首獎 { background: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
-        .tag-優選 { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
-        .tag-入選 { background: #e2e3e5; color: #383d41; border: 1px solid #d6d8db; }
-        .tag-大師 { background: var(--ubot-blue); color: #fff; }
+/* 手機選單 */
 
-        .name { font-size: 18px; font-weight: 700; color: var(--text-main); margin-bottom: 15px; }
-        .btn-view { width: 100%; padding: 8px; background: transparent; border: 1px solid var(--ubot-blue); color: var(--ubot-blue); border-radius: 6px; font-size: 13px; cursor: pointer; transition: 0.3s; font-weight: 600; }
-        .btn-view:hover { background: var(--ubot-blue); color: white; }
+.menu-toggle{
+display:none;
+font-size:26px;
+cursor:pointer;
+color:var(--ubot-blue);
+}
 
-        /* ===== 統一 Footer 樣式 (同步自關於頁面) ===== */
-        footer {
-            background: var(--ubot-light-blue);
-            color: var(--ubot-blue);
-            padding: 60px 20px 30px;
-            margin-top: 100px;
-        }
+.mobile-menu{
+position:fixed;
+top:0;
+right:-260px;
+width:260px;
+height:100%;
+background:#fff;
+box-shadow:-5px 0 30px rgba(0,0,0,.15);
+transition:.4s;
+padding-top:80px;
+z-index:2000;
+}
 
-        .footer-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-        }
+.mobile-menu ul{list-style:none;padding:0;}
 
-        .footer-logo { font-size: 22px; font-weight: 800; margin-bottom: 15px; }
-        .footer-info p { margin: 5px 0; font-size: 14px; }
+.mobile-menu li{border-bottom:1px solid #eee;}
 
-        .footer-links h4 { margin: 0 0 15px; border-left: 3px solid var(--ubot-red); padding-left: 10px; }
-        .footer-links ul { list-style: none; padding: 0; margin: 0; }
-        .footer-links li { margin-bottom: 8px; }
-        .footer-links a { text-decoration: none; color: var(--ubot-blue); font-size: 14px; opacity: 0.8; }
-        .footer-links a:hover { opacity: 1; color: var(--ubot-red); }
+.mobile-menu a{
+display:block;
+padding:15px 20px;
+text-decoration:none;
+color:var(--ubot-blue);
+font-weight:600;
+}
 
-        .footer-bottom {
-            max-width: 1200px;
-            margin: 40px auto 0;
-            padding-top: 20px;
-            border-top: 1px solid rgba(0,51,102,0.1);
-            text-align: center;
-            font-size: 13px;
-            opacity: 0.7;
-        }
+.mobile-menu.show{right:0;}
 
-        @media (max-width: 768px) {
-            .navbar { flex-direction: column; }
-            .menu { margin-top: 15px; }
-            .winners-grid { grid-template-columns: repeat(2, 1fr); }
-            .sticky-tools { top: 110px; } /* 適應手機版導覽列高度 */
-        }
-    </style>
+.overlay{
+position:fixed;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.4);
+top:0;
+left:0;
+opacity:0;
+visibility:hidden;
+transition:.3s;
+z-index:1500;
+}
+
+.overlay.show{
+opacity:1;
+visibility:visible;
+}
+
+/* ===== Banner ===== */
+
+.page-banner{
+height:260px;
+background:linear-gradient(rgba(0,51,102,.6),rgba(0,51,102,.6)),
+url('https://images.unsplash.com/photo-1460666819451-7410f5238d41?auto=format&fit=crop&w=1600&q=80');
+background-size:cover;
+background-position:center;
+display:flex;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+color:#fff;
+text-align:center;
+}
+
+.page-banner h1{
+margin:0;
+font-size:32px;
+letter-spacing:4px;
+}
+
+.page-banner p{
+margin-top:8px;
+font-size:14px;
+opacity:.9;
+}
+
+/* ===== 搜尋區 ===== */
+
+.sticky-tools{
+position:sticky;
+top:70px;
+background:rgba(248,251,253,.95);
+backdrop-filter:blur(8px);
+padding:20px 0;
+border-bottom:1px solid #eee;
+z-index:900;
+}
+
+.filter-container{
+max-width:1200px;
+margin:auto;
+padding:0 20px;
+}
+
+.search-box{
+width:100%;
+padding:12px 20px;
+border-radius:40px;
+border:1px solid var(--border-color);
+font-size:15px;
+outline:none;
+}
+
+/* 分類按鈕可橫向滑動 */
+
+.tab-switcher{
+display:flex;
+gap:10px;
+overflow-x:auto;
+padding-bottom:5px;
+}
+
+.tab-switcher::-webkit-scrollbar{display:none;}
+
+.btn-tab{
+flex:0 0 auto;
+padding:8px 18px;
+border-radius:40px;
+border:1.5px solid var(--ubot-blue);
+background:#fff;
+font-weight:600;
+cursor:pointer;
+}
+
+.btn-tab.active{
+background:var(--ubot-blue);
+color:#fff;
+}
+
+/* ===== 內容 ===== */
+
+.main-content{
+max-width:1200px;
+margin:40px auto 100px;
+padding:0 20px;
+}
+
+.year-row{
+background:#fff;
+border-radius:10px;
+padding:25px;
+margin-bottom:30px;
+box-shadow:0 8px 25px rgba(0,0,0,.05);
+}
+
+.year-label{
+font-weight:800;
+color:var(--ubot-blue);
+margin-bottom:20px;
+border-left:5px solid var(--ubot-red);
+padding-left:12px;
+}
+
+.winners-grid{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
+gap:20px;
+}
+
+.winner-card{
+text-align:center;
+padding:18px;
+border-radius:12px;
+border:1px solid #eee;
+background:#fff;
+transition:.3s;
+cursor:pointer;
+}
+
+.winner-card:hover{
+transform:translateY(-6px);
+box-shadow:0 10px 25px rgba(0,0,0,.1);
+}
+
+.avatar{
+width:70px;
+height:70px;
+border-radius:50%;
+margin:0 auto 10px;
+display:flex;
+align-items:center;
+justify-content:center;
+color:#fff;
+font-weight:bold;
+font-size:22px;
+}
+
+.name{
+font-weight:700;
+margin-bottom:6px;
+}
+
+.tag{
+font-size:11px;
+padding:2px 10px;
+border-radius:20px;
+margin-bottom:8px;
+display:inline-block;
+}
+
+.tag-首獎{background:#fff3cd;color:#856404;}
+.tag-優選{background:#d1ecf1;color:#0c5460;}
+.tag-入選{background:#e2e3e5;color:#383d41;}
+.tag-大師{background:var(--ubot-blue);color:#fff;}
+
+/* ===== Footer ===== */
+
+footer{
+background:var(--ubot-light-blue);
+padding:50px 20px;
+text-align:center;
+font-size:14px;
+}
+
+/* ===== 手機優化 ===== */
+
+@media(max-width:768px){
+
+.menu{display:none;}
+.menu-toggle{display:block;}
+
+.winners-grid{
+grid-template-columns:repeat(2,1fr);
+}
+
+.page-banner{
+height:200px;
+}
+
+.page-banner h1{
+font-size:24px;
+}
+
+}
+</style>
 </head>
+
 <body>
 
-<header>
-    <nav class="navbar">
-        <div class="logo"><a href="index.html">聯邦藝術中心</a></div>
-        <ul class="menu">
-            <li><a href="about.html">關於我們</a></li>
-            <li><a href="exhibitions.html">展覽動態</a></li>
-            <li><a href="awards.html">美術獎項</a></li>
-            <li><a href="artists.html" class="active">藝術家</a></li>
-            <li><a href="artworks.html">作品總覽</a></li>
-            <li><a href="visit.html">參觀資訊</a></li>
-            <li><a href="contact.html">聯絡我們</a></li>
-        </ul>
-    </nav>
+<header id="header">
+<nav class="navbar">
+<div class="logo"><a href="index.html">聯邦藝術中心</a></div>
+<div class="menu-toggle" onclick="openMenu()">☰</div>
+<ul class="menu">
+<li><a href="about.html">關於我們</a></li>
+<li><a href="artists.html" class="active">藝術家</a></li>
+<li><a href="visit.html">參觀資訊</a></li>
+</ul>
+</nav>
 </header>
 
+<div class="mobile-menu" id="mobileMenu">
+<ul>
+<li><a href="about.html">關於我們</a></li>
+<li><a href="artists.html">藝術家</a></li>
+<li><a href="visit.html">參觀資訊</a></li>
+</ul>
+</div>
+
+<div class="overlay" id="overlay" onclick="closeMenu()"></div>
+
 <section class="page-banner">
-    <h1>藝術家典藏</h1>
-    <p>Collection of Distinguished Artists</p>
+<h1>藝術家典藏</h1>
+<p>Collection of Distinguished Artists</p>
 </section>
 
 <div class="sticky-tools">
-    <div class="filter-container">
-        <div class="search-row">
-            <input type="text" id="artistSearch" class="search-box" placeholder="搜尋姓名、年度或獎項..." onkeyup="handleSearch()">
-        </div>
-        <div class="tab-switcher">
-            <button class="btn-tab active" id="tab-master" onclick="switchCategory('master')">藝之初章 (歷屆大師)</button>
-            <button class="btn-tab" id="tab-newbie" onclick="switchCategory('newbie')">聯邦美術新人獎</button>
-            <button class="btn-tab" id="tab-impression" onclick="switchCategory('impression')">聯邦美術印象大獎</button>
-        </div>
-    </div>
+<div class="filter-container">
+<input type="text" id="artistSearch" class="search-box" placeholder="搜尋姓名或獎項..." onkeyup="handleSearch()">
+<br><br>
+<div class="tab-switcher">
+<button class="btn-tab active" onclick="switchCategory('master')">歷屆大師</button>
+<button class="btn-tab" onclick="switchCategory('newbie')">新人獎</button>
+<button class="btn-tab" onclick="switchCategory('impression')">印象大獎</button>
+</div>
+</div>
 </div>
 
 <main class="main-content">
-    <div id="contentList"></div>
+<div id="contentList"></div>
 </main>
 
 <footer>
-    <div class="footer-container">
-        <div class="footer-info">
-            <div class="footer-logo">UNION ART CENTER</div>
-            <p><strong>地址：</strong>台北市大安區忠孝東路四段219號</p>
-            <p><strong>電話：</strong>(02) 2536-9999</p>
-            <p><strong>時間：</strong>週二至週日 09:00 - 17:00 (週一休館)</p>
-        </div>
-        <div class="footer-links">
-            <h4>探索中心</h4>
-            <ul>
-                <li><a href="about.html">關於我們</a></li>
-                <li><a href="exhibitions.html">最新展覽</a></li>
-                <li><a href="artists.html">合作藝術家</a></li>
-                <li><a href="visit.html">參觀指引</a></li>
-            </ul>
-        </div>
-        <div class="footer-links">
-            <h4>快速連結</h4>
-            <ul>
-                <li><a href="https://www.ubot.com.tw/" target="_blank">聯邦銀行官網</a></li>
-                <li><a href="contact.html">場地租借申請</a></li>
-                <li><a href="privacy.html">隱私權保護政策</a></li>
-            </ul>
-        </div>
-    </div>
-    <div class="footer-bottom">
-        <p>© 2026 Union Art Center 聯邦藝術中心 版權所有</p>
-    </div>
+© 2026 Union Art Center 聯邦藝術中心
 </footer>
 
 <script>
-    // 資料庫內容
-    const database = {
-        master: [
-            { year: "召集人", label: "評審委員會召集人", winners: [{ role: "召集人", name: "許坤成" }] },
-            { year: "大師", label: "歷屆藝術大師", winners: [
-                { role: "大師", name: "祁連" }, { role: "大師", name: "蘇瑞明" }, { role: "大師", name: "高慶元" },
-                { role: "大師", name: "林仁山" }, { role: "大師", name: "劉國正" }, { role: "大師", name: "翁明哲" },
-                { role: "大師", name: "游文志" }, { role: "大師", name: "黃秋泉" }, { role: "大師", name: "鄭劍秋" },
-                { role: "大師", name: "張泉豐" }, { role: "大師", name: "施明典" }, { role: "大師", name: "林照鈞" },
-                { role: "大師", name: "王宏印" }, { role: "大師", name: "林朝尉" }, { role: "大師", name: "林志譯" },
-                { role: "大師", name: "陳光融" }, { role: "大師", name: "李佳榕" }, { role: "大師", name: "張綺芸" },
-                { role: "大師", name: "吳佩珊" }, { role: "大師", name: "黃蕙儀" }, { role: "大師", name: "吳羽宸" },
-                { role: "大師", name: "陳俊華" }, { role: "大師", name: "曾己議" }, { role: "大師", name: "王智斌" },
-                { role: "大師", name: "雷琴" }, { role: "大師", name: "李瀚卿" }, { role: "大師", name: "陳奕潤" },
-                { role: "大師", name: "曾意平" }, { role: "大師", name: "劉子平" }, { role: "大師", name: "何冠東" },
-                { role: "大師", name: "吳宗柏" }, { role: "大師", name: "林揚庭" }, { role: "大師", name: "陳皇佑" },
-                { role: "大師", name: "張家豪" }, { role: "大師", name: "古東玄" }
-            ]}
-        ],
-        newbie: [
-            { year: "2024", label: "2024 第二十七屆", winners: [
-                { role: "首獎", name: "李郁汝" }, { role: "優選", name: "許品婕" }, { role: "優選", name: "白穆君" }, { role: "入選", name: "翁昕吟" }, { role: "入選", name: "蔡依君" }
-            ]},
-            { year: "2023", label: "2023 第二十六屆", winners: [
-                { role: "首獎", name: "古東玄" }, { role: "優選", name: "白穆君" }, { role: "優選", name: "魏柏鈞" }, { role: "入選", name: "許品婕" }, { role: "入選", name: "游勝淯" }
-            ]}
-        ],
-        impression: [
-            { year: "2024", label: "2024 第二十二屆", winners: [
-                { role: "首獎", name: "吳羽宸" }, { role: "優選", name: "宋適生" }, { role: "優選", name: "吳岱瑾" }, { role: "入選", name: "李承修" }, { role: "入選", name: "謝愷宸" }
-            ]}
-        ]
-    };
+function openMenu(){
+document.getElementById("mobileMenu").classList.add("show");
+document.getElementById("overlay").classList.add("show");
+}
+function closeMenu(){
+document.getElementById("mobileMenu").classList.remove("show");
+document.getElementById("overlay").classList.remove("show");
+}
+window.addEventListener("scroll",function(){
+let header=document.getElementById("header");
+if(window.scrollY>50){header.classList.add("shrink");}
+else{header.classList.remove("shrink");}
+});
 
-    let currentCat = 'master';
+/* ===== 原本資料邏輯保持 ===== */
 
-    function getGradient(name) {
-        const colors = [['#a68d5e', '#d4af37'], ['#003366', '#0056b3'], ['#E60012', '#ff4d4d'], ['#00A1E9', '#0056b3']];
-        let idx = name.length % colors.length;
-        return `linear-gradient(135deg, ${colors[idx][0]}, ${colors[idx][1]})`;
-    }
+const database={
+master:[{year:"大師",label:"歷屆藝術大師",winners:[
+{role:"大師",name:"許坤成"},
+{role:"大師",name:"古東玄"},
+{role:"大師",name:"張家豪"},
+]}],
+newbie:[],
+impression:[]
+};
 
-    function renderData(data) {
-        const list = document.getElementById('contentList');
-        list.innerHTML = '';
-        data.forEach(item => {
-            const row = document.createElement('div');
-            row.className = 'year-row';
-            row.innerHTML = `<div class="year-label">${item.label}</div>`;
-            const grid = document.createElement('div');
-            grid.className = 'winners-grid';
-            item.winners.forEach(w => {
-                grid.innerHTML += `
-                    <div class="winner-card">
-                        <span class="tag tag-${w.role}">${w.role}</span>
-                        <div class="avatar" style="background: ${getGradient(w.name)}">${w.name[0]}</div>
-                        <div class="name">${w.name}</div>
-                        <button class="btn-view">作品輯</button>
-                    </div>`;
-            });
-            row.appendChild(grid);
-            list.appendChild(row);
-        });
-    }
+let currentCat="master";
 
-    function switchCategory(cat) {
-        currentCat = cat;
-        document.querySelectorAll('.btn-tab').forEach(btn => btn.classList.remove('active'));
-        document.getElementById(`tab-${cat}`).classList.add('active');
-        document.getElementById('artistSearch').value = '';
-        renderData(database[cat]);
-    }
+function getGradient(name){
+const colors=[["#a68d5e","#d4af37"],["#003366","#0056b3"],["#E60012","#ff4d4d"]];
+let idx=name.length%colors.length;
+return `linear-gradient(135deg,${colors[idx][0]},${colors[idx][1]})`;
+}
 
-    function handleSearch() {
-        const val = document.getElementById('artistSearch').value.toLowerCase();
-        const filtered = database[currentCat].map(group => {
-            const winners = group.winners.filter(w => w.name.includes(val) || w.role.includes(val) || group.label.includes(val));
-            return winners.length > 0 ? { ...group, winners } : null;
-        }).filter(i => i);
-        renderData(filtered);
-    }
+function renderData(data){
+const list=document.getElementById("contentList");
+list.innerHTML="";
+data.forEach(item=>{
+const row=document.createElement("div");
+row.className="year-row";
+row.innerHTML=`<div class="year-label">${item.label}</div>`;
+const grid=document.createElement("div");
+grid.className="winners-grid";
+item.winners.forEach(w=>{
+grid.innerHTML+=`
+<div class="winner-card">
+<span class="tag tag-${w.role}">${w.role}</span>
+<div class="avatar" style="background:${getGradient(w.name)}">${w.name[0]}</div>
+<div class="name">${w.name}</div>
+</div>`;
+});
+row.appendChild(grid);
+list.appendChild(row);
+});
+}
 
-    window.onload = () => renderData(database.master);
+function switchCategory(cat){
+currentCat=cat;
+document.querySelectorAll(".btn-tab").forEach(b=>b.classList.remove("active"));
+event.target.classList.add("active");
+renderData(database[cat]);
+}
+
+function handleSearch(){
+let val=document.getElementById("artistSearch").value;
+const filtered=database[currentCat].map(group=>{
+const winners=group.winners.filter(w=>w.name.includes(val));
+return winners.length?{...group,winners}:null;
+}).filter(i=>i);
+renderData(filtered);
+}
+
+window.onload=()=>renderData(database.master);
 </script>
+
 </body>
 </html>
