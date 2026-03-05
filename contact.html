@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>聯絡我們｜聯邦藝術中心 Union Art Center</title>
     <style>
         :root {
@@ -11,7 +11,7 @@
             --ubot-light-blue: #EAF6FC;   /* 聯邦淺藍背景 */
             --ubot-sky-blue: #00A1E9;     /* 聯邦淺藍點綴 */
             --ubot-gold: #B89130;          /* 典藏金 */
-            --text-dark: #222222;
+            --text-dark: #2A2A2A;
             --text-gray: #666666;
             --border-color: #D1CDC4;
             --transition: all 0.3s ease;
@@ -20,7 +20,7 @@
         body {
             margin: 0;
             font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
-            background-color: #f8fbfd;
+            background-color: #fdfdfb;
             color: var(--text-dark);
             line-height: 1.8;
             overflow-x: hidden;
@@ -29,7 +29,7 @@
         /* ===== 1. 導覽列 Navbar (同步樣式) ===== */
         header {
             background: #ffffff;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -41,24 +41,24 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 20px;
+            padding: 15px 25px;
         }
 
         .logo a {
-            font-size: 20px;
+            font-size: 24px;
             font-weight: 800;
             color: var(--ubot-blue);
             text-decoration: none;
             display: flex;
             align-items: center;
+            letter-spacing: 1px;
         }
 
         .logo a::before { 
             content: ""; width: 8px; height: 8px; background: var(--ubot-red); 
-            border-radius: 50%; margin-right: 8px; 
+            border-radius: 50%; margin-right: 10px; 
         }
 
-        /* 漢堡選單 */
         .menu-toggle {
             display: none;
             flex-direction: column;
@@ -77,22 +77,22 @@
             padding: 0;
         }
 
-        .menu li { margin-left: 10px; }
+        .menu li { margin-left: 15px; }
         .menu a {
             text-decoration: none;
-            color: #666;
+            color: var(--text-gray);
             font-weight: 600;
             font-size: 15px;
             padding: 8px 12px;
-            display: block;
+            transition: var(--transition);
         }
         .menu a:hover, .menu a.active { color: var(--ubot-red); }
 
         /* ===== 2. 頁面 Banner ===== */
         .page-banner {
             width: 100%;
-            height: 220px;
-            background: linear-gradient(rgba(0,51,102,0.6), rgba(0,51,102,0.6)), 
+            height: 250px;
+            background: linear-gradient(rgba(0,51,102,0.7), rgba(0,51,102,0.7)), 
                         url('https://images.unsplash.com/photo-1523966211575-eb4a01e7dd51?auto=format&fit=crop&w=1600&q=80');
             background-size: cover;
             background-position: center;
@@ -105,17 +105,16 @@
             padding: 0 20px;
         }
 
-        .page-banner h1 { font-size: clamp(28px, 5vw, 42px); margin: 0; letter-spacing: 4px; font-weight: 900; }
+        .page-banner h1 { font-size: 38px; margin: 0; letter-spacing: 6px; font-weight: 900; }
         .page-banner p { font-size: 14px; opacity: 0.9; margin-top: 10px; letter-spacing: 2px; }
 
         /* ===== 3. 聯絡區塊佈局 ===== */
         .contact-container {
             display: flex;
             max-width: 1100px;
-            margin: -30px auto 60px;
-            gap: 30px;
-            padding: 0 20px;
-            box-sizing: border-box;
+            margin: -40px auto 80px;
+            gap: 40px;
+            padding: 0 25px;
             position: relative;
             z-index: 10;
         }
@@ -124,97 +123,108 @@
         .contact-info-panel {
             flex: 1;
             background-color: #ffffff;
-            padding: 40px;
+            padding: 50px 40px;
             border-radius: 12px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid #eee;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.06);
         }
 
         .contact-info-panel h2 { 
-            font-size: 2rem; 
+            font-size: 2.2rem; 
             color: var(--ubot-blue); 
             letter-spacing: 2px; 
-            margin: 0 0 15px 0; 
+            margin: 0 0 20px 0; 
             font-weight: 900;
         }
 
         .contact-desc {
             color: var(--text-gray);
-            font-size: 0.95rem;
-            margin-bottom: 30px;
+            font-size: 1rem;
+            margin-bottom: 40px;
+            border-bottom: 1px solid #f0f0f0;
+            padding-bottom: 20px;
         }
 
         .dept-item {
-            margin-bottom: 25px;
-            padding-left: 15px;
-            border-left: 3px solid var(--ubot-red);
+            margin-bottom: 30px;
+            padding-left: 20px;
+            position: relative;
+        }
+        .dept-item::before {
+            content: "";
+            position: absolute;
+            left: 0; top: 5px; bottom: 5px;
+            width: 4px; background: var(--ubot-red);
         }
 
-        .dept-name { font-weight: 700; color: var(--ubot-blue); font-size: 1rem; margin-bottom: 5px; display: block; }
-        .dept-contact { font-size: 14px; color: var(--text-gray); display: block; }
+        .dept-name { font-weight: 800; color: var(--ubot-blue); font-size: 1.1rem; margin-bottom: 8px; display: block; }
+        .dept-contact { font-size: 15px; color: var(--text-gray); display: block; margin-bottom: 4px; }
 
         /* 右側：留言表單 */
-        .contact-form-panel { flex: 1.4; }
+        .contact-form-panel { flex: 1.5; }
         .contact-form-box {
             background: #fff;
-            padding: 40px;
+            padding: 50px 40px;
             border-radius: 12px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid #eee;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.06);
         }
 
         .form-title {
-            font-size: 1.25rem;
-            margin-bottom: 30px;
+            font-size: 1.4rem;
+            margin-bottom: 35px;
             color: var(--ubot-blue);
-            font-weight: 700;
+            font-weight: 800;
             text-align: center;
+            letter-spacing: 2px;
         }
 
-        .form-group { margin-bottom: 20px; }
+        .form-group { margin-bottom: 25px; }
         .form-group label { 
-            display: block; font-size: 13px; margin-bottom: 6px; 
-            font-weight: 700; color: #555;
+            display: block; font-size: 14px; margin-bottom: 8px; 
+            font-weight: 700; color: var(--ubot-blue);
         }
 
         .form-group input, .form-group textarea, .form-group select {
-            width: 100%; padding: 12px 15px; background: #f9fbfd; border: 1px solid #e1e8ed;
+            width: 100%; padding: 14px 18px; background: #f9fbfd; border: 1px solid #e1e8ed;
             border-radius: 8px; font-size: 16px; transition: var(--transition); box-sizing: border-box;
-            -webkit-appearance: none; /* 移除手機預設樣式 */
+            outline: none;
+            -webkit-appearance: none;
         }
 
         .form-group input:focus, .form-group textarea:focus {
-            outline: none; background: #fff; border-color: var(--ubot-sky-blue);
+            background: #fff; border-color: var(--ubot-sky-blue);
             box-shadow: 0 0 0 4px rgba(0, 161, 233, 0.1);
         }
 
         .submit-btn {
-            width: 100%; padding: 16px; background: var(--ubot-blue); color: white;
-            border: none; border-radius: 8px; cursor: pointer; font-weight: bold;
-            transition: var(--transition); font-size: 16px;
+            width: 100%; padding: 18px; background: var(--ubot-blue); color: white;
+            border: none; border-radius: 8px; cursor: pointer; font-weight: 800;
+            transition: var(--transition); font-size: 16px; letter-spacing: 2px;
         }
 
-        .submit-btn:hover { background: var(--ubot-red); }
+        .submit-btn:hover { background: var(--ubot-red); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(230,0,18,0.2); }
 
         /* ===== 4. 地點資訊區塊 ===== */
         .location-section {
             max-width: 1100px;
-            margin: 0 auto 80px;
-            padding: 0 20px;
+            margin: 0 auto 100px;
+            padding: 0 25px;
         }
 
         .location-header {
-            margin-bottom: 20px;
-            padding-left: 15px;
-            border-left: 5px solid var(--ubot-gold);
+            margin-bottom: 25px;
+            padding-left: 20px;
+            border-left: 6px solid var(--ubot-gold);
         }
 
         .map-container {
             width: 100%; 
-            height: 350px; 
+            height: 450px; 
             border-radius: 12px; 
             overflow: hidden;
-            border: 1px solid var(--border-color);
+            border: 1px solid #eee;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
         }
 
         iframe { width: 100%; height: 100%; border: 0; }
@@ -222,37 +232,49 @@
         /* ===== 5. 頁尾 Footer ===== */
         footer {
             background: var(--ubot-light-blue);
-            padding: 50px 20px 30px;
             color: var(--ubot-blue);
+            padding: 70px 25px 30px;
         }
 
         .footer-container {
             max-width: 1200px; margin: 0 auto;
             display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
+            gap: 40px;
         }
 
-        .footer-logo { font-size: 20px; font-weight: 800; margin-bottom: 10px; }
-        .footer-info p { margin: 5px 0; font-size: 14px; }
-        .footer-bottom { text-align: center; margin-top: 30px; font-size: 12px; opacity: 0.7; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 20px; }
+        .footer-logo { font-size: 22px; font-weight: 800; margin-bottom: 15px; }
+        .footer-info p { margin: 8px 0; font-size: 14px; opacity: 0.9; }
+
+        .footer-links h4 { margin: 0 0 20px; border-left: 3px solid var(--ubot-red); padding-left: 12px; font-weight: 800; }
+        .footer-links ul { list-style: none; padding: 0; margin: 0; }
+        .footer-links li { margin-bottom: 10px; }
+        .footer-links a { text-decoration: none; color: var(--ubot-blue); font-size: 14px; opacity: 0.8; transition: .3s; }
+        .footer-links a:hover { opacity: 1; color: var(--ubot-red); }
+
+        .footer-bottom { 
+            text-align: center; margin-top: 50px; font-size: 13px; opacity: 0.6; 
+            border-top: 1px solid rgba(0,51,102,0.1); padding-top: 30px; 
+        }
 
         /* ===== 手機版 RWD ===== */
         @media (max-width: 850px) {
-            .contact-container { flex-direction: column; margin-top: -20px; }
+            .navbar { padding: 15px 20px; }
+            .contact-container { flex-direction: column; margin-top: -30px; }
             .menu-toggle { display: flex; }
             .menu {
                 position: absolute; top: 100%; left: 0; right: 0;
                 background: #fff; flex-direction: column;
-                padding: 10px 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+                padding: 10px 0; box-shadow: 0 10px 20px rgba(0,0,0,0.1);
                 display: none;
             }
             .menu.active { display: flex; }
-            .menu li { margin: 0; border-bottom: 1px solid #f5f5f5; }
-            .menu a { padding: 15px 0; }
+            .menu li { margin: 0; border-bottom: 1px solid #f9f9f9; }
+            .menu a { padding: 15px 25px; }
             
-            .contact-info-panel, .contact-form-box { padding: 30px 20px; }
-            .page-banner { height: 180px; }
-            .map-container { height: 280px; }
+            .contact-info-panel, .contact-form-box { padding: 40px 25px; }
+            .page-banner { height: 200px; }
+            .page-banner h1 { font-size: 30px; }
+            .map-container { height: 300px; }
         }
     </style>
 </head>
@@ -265,9 +287,7 @@
         </div>
         
         <div class="menu-toggle" id="mobile-menu">
-            <span></span>
-            <span></span>
-            <span></span>
+            <span></span><span></span><span></span>
         </div>
 
         <ul class="menu" id="nav-list">
@@ -277,7 +297,7 @@
             <li><a href="artists.html">藝術家</a></li>
             <li><a href="artworks.html">作品總覽</a></li>
             <li><a href="visit.html">參觀資訊</a></li>
-            <li><a href="contact.html">聯絡我們</a></li>
+            <li><a href="contact.html" class="active">聯絡我們</a></li>
         </ul>
     </nav>
 </header>
@@ -354,7 +374,7 @@
         </div>
         <div class="map-container">
             <iframe 
-                src="https://maps.app.goo.gl/hdExBsWrJnUjgtaNA" 
+                src="https://www.google.com/maps/place/%E8%81%AF%E9%82%A6%E8%97%9D%E8%A1%93%E4%B8%AD%E5%BF%83/@25.0416803,121.5499131,17z/data=!3m1!4b1!4m6!3m5!1s0x3442ab007a9cd55d:0x14653cfa2f21e899!8m2!3d25.0416803!4d121.552488!16s%2Fg%2F11yy0r67kg?authuser=0&entry=ttu&g_ep=EgoyMDI2MDMwMi4wIKXMDSoASAFQAw%3D%3D" 
                 allowfullscreen="" loading="lazy">
             </iframe>
         </div>
@@ -381,7 +401,7 @@
         <div class="footer-links">
             <h4>快速連結</h4>
             <ul>
-                <li><a href="https://www.ubot.com.tw/">聯邦銀行官網</a></li>
+                <li><a href="https://www.ubot.com.tw/" target="_blank">聯邦銀行官網</a></li>
                 <li><a href="contact.html">場地租借申請</a></li>
                 <li><a href="privacy.html">隱私權保護政策</a></li>
             </ul>
@@ -392,38 +412,33 @@
     </div>
 </footer>
 
-
 <script>
+    // 漢堡選單邏輯
     const menuToggle = document.getElementById('mobile-menu');
     const navList = document.getElementById('nav-list');
-
     menuToggle.addEventListener('click', () => {
         navList.classList.toggle('active');
     });
 
-    const navLinks = document.querySelectorAll('.menu a');
-    navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            navList.classList.remove('active');
-        });
-    });
-
-    // 表單提交處理
+    // 表單提交模擬處理
     function handleFormSubmit(e) {
         e.preventDefault();
         const btn = document.getElementById('submitBtn');
+        const originalText = btn.innerText;
+        
         btn.innerText = "傳送中...";
         btn.disabled = true;
 
+        // 模擬 AJAX 傳送
         setTimeout(() => {
-            alert("感謝您的留言！我們已收到您的訊息。");
-            btn.innerText = "發送成功";
+            alert("感謝您的留言！我們已收到您的訊息，將儘快回覆您。");
+            btn.innerText = "發送成功 SUCCESS";
             btn.style.background = "#28a745";
             document.getElementById('contactForm').reset();
             
             setTimeout(() => {
-                btn.innerText = "發送訊息 SEND MESSAGE";
-                btn.style.background = "#003366";
+                btn.innerText = originalText;
+                btn.style.background = "";
                 btn.disabled = false;
             }, 3000);
         }, 1500);
