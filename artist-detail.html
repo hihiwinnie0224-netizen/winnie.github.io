@@ -2,211 +2,121 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>藝術家典藏｜聯邦藝術中心 Union Art Center</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>藝術家典藏｜聯邦藝術中心</title>
     <style>
-        :root {
-            --ubot-blue: #003366;
-            --ubot-red: #E60012;
-            --ubot-gold: #B89130;
-            --ubot-light-blue: #EAF6FC;
-            --light-bg: #FDFDFB;
-            --text-main: #2A2A2A;
-            --text-sub: #666666;
-        }
-
-        body {
-            margin: 0;
-            font-family: "Noto Sans TC", -apple-system, "Microsoft JhengHei", sans-serif;
-            background: var(--light-bg);
-            color: var(--text-main);
-            line-height: 1.7;
-        }
-
-        /* 導覽列 */
-        header { background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
-        .navbar { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 15px 25px; }
-        .logo a { font-size: 24px; font-weight: 800; color: var(--ubot-blue); text-decoration: none; display: flex; align-items: center; }
-        .logo a::before { content: ""; width: 8px; height: 8px; background: var(--ubot-red); border-radius: 50%; margin-right: 10px; }
-        
-        .menu { display: flex; list-style: none; margin: 0; padding: 0; }
-        .menu li { margin-left: 15px; }
-        .menu a { text-decoration: none; color: var(--text-sub); font-weight: 600; font-size: 15px; padding: 8px 12px; transition: 0.3s; }
-        .menu a:hover, .menu a.active { color: var(--ubot-red); }
-
+        :root { --ubot-blue: #003366; --ubot-red: #E60012; --ubot-gold: #B89130; --light-bg: #FDFDFB; }
+        body { margin: 0; font-family: "Noto Sans TC", sans-serif; background: var(--light-bg); color: #2A2A2A; line-height: 1.7; }
+        header { background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.05); padding: 15px 25px; position: sticky; top: 0; z-index: 100; }
+        .navbar { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .logo a { font-size: 24px; font-weight: 800; color: var(--ubot-blue); text-decoration: none; }
         .back-nav { background: #f8f9fa; padding: 12px 25px; border-bottom: 1px solid #eee; }
-        .back-nav a { text-decoration: none; color: var(--text-sub); font-size: 14px; }
-
-        /* 內容區 */
-        .detail-container { max-width: 1100px; margin: 40px auto 80px; padding: 0 25px; display: grid; grid-template-columns: 1fr; gap: 40px; }
-        
-        .profile-sidebar { width: 100%; max-width: 340px; margin: 0 auto; text-align: center; }
-        .photo-wrapper { background: #fff; padding: 12px; border: 1px solid #e5e5e5; box-shadow: 0 20px 40px rgba(0,0,0,0.08); margin-bottom: 25px; }
-        .main-photo { width: 100%; aspect-ratio: 3/4; background-size: cover; background-position: center; background-color: #f7f7f7; }
-        
-        .role-badge { background: var(--ubot-blue); color: #fff; padding: 6px 16px; font-size: 13px; font-weight: 600; display: inline-block; margin-bottom: 15px; }
-
-        .bio-content h1 { font-size: 38px; letter-spacing: 6px; color: var(--ubot-blue); margin: 0; font-weight: 900; }
-        .english-name { letter-spacing: 3px; color: var(--ubot-gold); font-size: 16px; margin-bottom: 40px; text-transform: uppercase; }
-
-        .bio-section { margin-bottom: 50px; }
-        .bio-section h3 { font-size: 19px; border-left: 4px solid var(--ubot-gold); padding-left: 15px; margin-bottom: 25px; color: var(--ubot-blue); }
+        .back-nav a { text-decoration: none; color: #666; font-size: 14px; }
+        .detail-container { max-width: 1100px; margin: 40px auto; padding: 0 25px; display: grid; grid-template-columns: 1fr; gap: 40px; }
+        .photo-wrapper { background: #fff; padding: 12px; border: 1px solid #e5e5e5; box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
+        .main-photo { width: 100%; aspect-ratio: 3/4; background-size: cover; background-position: center; background-color: #eee; }
+        .role-badge { background: var(--ubot-blue); color: #fff; padding: 6px 16px; font-size: 13px; display: inline-block; margin: 15px 0; }
+        .bio-content h1 { font-size: 38px; color: var(--ubot-blue); margin: 0; }
+        .english-name { color: var(--ubot-gold); letter-spacing: 2px; margin-bottom: 30px; }
+        .bio-section h3 { border-left: 4px solid var(--ubot-gold); padding-left: 15px; color: var(--ubot-blue); }
         .bio-list { list-style: none; padding: 0; }
-        .bio-list li { font-size: 15.5px; margin-bottom: 15px; padding-left: 25px; position: relative; }
-        .bio-list li::before { content: ""; position: absolute; left: 0; top: 10px; width: 6px; height: 6px; background: var(--ubot-gold); transform: rotate(45deg); }
-
-        #artist-style { font-size: 16px; color: #555; background: #fdfaf5; padding: 25px; border-radius: 8px; white-space: pre-line; }
-
-        /* 作品集 */
-        .artwork-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 30px; }
-        .artwork-card { background: #fff; padding: 12px; border: 1px solid #f2f2f2; transition: 0.4s; text-decoration: none; color: inherit; }
-        .artwork-card:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
-        .work-img { aspect-ratio: 1/1; overflow: hidden; margin-bottom: 12px; }
-        .work-img img { width: 100%; height: 100%; object-fit: contain; }
-        .work-title { font-weight: 700; color: var(--ubot-blue); }
-
-        footer { background: var(--ubot-light-blue); color: var(--ubot-blue); padding: 60px 20px 30px; margin-top: 80px; text-align: center; }
-
-        @media(min-width: 992px) {
-            .detail-container { grid-template-columns: 340px 1fr; gap: 80px; }
-            .profile-sidebar { position: sticky; top: 120px; }
-            .artwork-grid { grid-template-columns: repeat(3, 1fr); }
-        }
+        .bio-list li { margin-bottom: 10px; padding-left: 20px; position: relative; }
+        .bio-list li::before { content: "◆"; position: absolute; left: 0; color: var(--ubot-gold); font-size: 12px; }
+        #artist-style { background: #fdfaf5; padding: 20px; border-radius: 8px; white-space: pre-line; }
+        .artwork-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px; }
+        .artwork-card { background: #fff; padding: 10px; border: 1px solid #eee; text-align: center; }
+        .artwork-card img { width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; }
+        footer { text-align: center; padding: 40px; color: #999; font-size: 13px; }
+        @media(min-width: 992px) { .detail-container { grid-template-columns: 340px 1fr; } .profile-sidebar { position: sticky; top: 120px; } }
     </style>
 </head>
 <body>
 
-<header>
-    <nav class="navbar">
-        <div class="logo"><a href="index.html">聯邦藝術中心</a></div>
-        <ul class="menu">
-            <li><a href="artists.html" class="active">藝術家</a></li>
-            <li><a href="artworks.html">作品總覽</a></li>
-        </ul>
-    </nav>
-</header>
-
-<nav class="back-nav">
-    <div class="container" style="max-width:1100px; margin:0 auto;"><a href="artists.html">← 返回藝術家列表</a></div>
-</nav>
+<header><div class="navbar"><div class="logo"><a href="index.html">聯邦藝術中心</a></div></div></header>
+<nav class="back-nav"><div style="max-width:1100px; margin:0 auto;"><a href="artists.html">← 返回藝術家列表</a></div></nav>
 
 <main class="detail-container">
     <aside class="profile-sidebar">
         <div class="photo-wrapper"><div class="main-photo" id="artist-photo"></div></div>
-        <span class="role-badge" id="artist-role">藝術家</span>
-        <div id="sidebar-info"></div>
+        <div style="text-align: center;">
+            <span class="role-badge" id="artist-role">載入中...</span>
+            <div id="sidebar-info"></div>
+        </div>
     </aside>
 
     <article class="bio-content">
-        <h1 id="artist-name">載入中...</h1>
-        <div class="english-name" id="artist-eng-name">Loading...</div>
-
-        <section class="bio-section">
-            <h3>現職與經歷 EXPERIENCE</h3>
-            <ul class="bio-list" id="experience-list"></ul>
-        </section>
-
-        <section class="bio-section">
-            <h3>藝術風格 STYLE</h3>
-            <p id="artist-style"></p>
-        </section>
-
-        <section class="artwork-section">
-            <h3 style="font-size: 19px; color: var(--ubot-blue); border-left: 4px solid var(--ubot-red); padding-left: 15px;">代表作品 COLLECTION</h3>
-            <div class="artwork-grid" id="artwork-grid"></div>
-        </section>
+        <h1 id="artist-name">讀取中...</h1>
+        <div class="english-name" id="artist-eng-name">Please Wait</div>
+        <section class="bio-section"><h3>現職與經歷 EXPERIENCE</h3><ul class="bio-list" id="experience-list"></ul></section>
+        <section class="bio-section"><h3>藝術風格 STYLE</h3><p id="artist-style"></p></section>
+        <section class="bio-section"><h3>代表作品 COLLECTION</h3><div class="artwork-grid" id="artwork-grid"></div></section>
     </article>
 </main>
 
-<footer>
-    <p>© 2026 Union Art Center 聯邦藝術中心 版權所有</p>
-</footer>
-
-<script src="data.js"></script>
+<footer>© 2026 Union Art Center 聯邦藝術中心 版權所有</footer>
 
 <script>
-    window.onload = function() {
-        console.log("頁面已加載，開始執行 init...");
-
-        // 檢查資料庫是否成功載入
-        if (typeof ARTISTS_DATA === 'undefined') {
-            document.body.innerHTML = `
-                <div style="text-align:center; padding:50px; font-family:sans-serif;">
-                    <h2 style="color:red;">❌ 檔案讀取失敗</h2>
-                    <p>找不到 <b>data.js</b>。請確認 artist-detail.html 和 data.js 放在同一個資料夾內。</p>
-                </div>`;
-            return;
+    // 直接將資料放在這裡，避免讀取不到外部檔案
+    const MY_DATA = {
+        "許坤成": {
+            role: "評審委員會召集人",
+            engName: "PROFESSOR HSU KUN-CHENG",
+            title: "中國文化大學藝術學院 前院長",
+            photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400",
+            experience: ["聯邦美術獎評審委員會召集人", "中國文化大學美術系教授", "曾任中國文化大學藝術學院院長", "法國藝術家沙龍、秋季沙龍參展藝術家"],
+            style: "許坤成教授早期以「白色系列」聞名畫壇，強調光影在純淨色調中的微妙變化。其作品融合了東方的意境與西方的構成。",
+            artworks: [
+                { title: "白色系列 NO.10", year: "1998 / 油彩", img: "https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=400" },
+                { title: "能久親王進台北城", year: "2015 / 油彩", img: "https://images.unsplash.com/photo-1549490349-8643362247b5?w=400" }
+            ]
+        },
+        "李郁汝": {
+            role: "2024 新人獎首獎",
+            engName: "LI YU-JU",
+            title: "新生代油畫藝術家",
+            photo: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400",
+            experience: ["2024 第二十七屆聯邦美術新人獎 首獎", "國立臺灣藝術大學 美術學系", "多場青年藝術聯展參展"],
+            style: "李郁汝的作品展現了極其細膩的觀察力，特別是在處理光影過渡與質感描寫上。",
+            artworks: [
+                { title: "晨光", year: "2024 / 油彩", img: "https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?w=400" }
+            ]
         }
+    };
 
-        // 取得網址參數並處理中文亂碼
+    function renderPage() {
         const params = new URLSearchParams(window.location.search);
         let name = params.get('name');
         
-        // 如果網址有參數，解碼它；如果沒有，預設顯示第一個人
-        if (name) {
-            name = decodeURIComponent(name).trim();
-        } else {
-            // 自動抓取資料庫裡的第一個名字 (例如 "許坤成")
-            name = Object.keys(ARTISTS_DATA)[0]; 
-            console.log("網址無參數，自動顯示第一位藝術家：" + name);
-        }
+        // 如果網址沒名字，預設顯示許坤成
+        if (name) name = decodeURIComponent(name).trim();
+        else name = "許坤成";
 
-        const data = ARTISTS_DATA[name];
+        const data = MY_DATA[name];
 
         if (!data) {
-            document.getElementById('artist-name').innerText = "找不到藝術家：" + name;
-            document.getElementById('artist-eng-name').innerText = "ERROR: NAME NOT FOUND";
-            console.error("目前資料庫有的名字是：", Object.keys(ARTISTS_DATA));
+            document.getElementById('artist-name').innerText = "找不到資料";
             return;
         }
 
-        // --- 開始渲染畫面 ---
-        document.title = `${name} - 藝術家典藏 | 聯邦藝術中心`;
+        // 填入資料
         document.getElementById('artist-name').innerText = name;
-        document.getElementById('artist-eng-name').innerText = data.engName || "";
-        document.getElementById('artist-role').innerText = data.role || "藝術家";
+        document.getElementById('artist-eng-name').innerText = data.engName;
+        document.getElementById('artist-role').innerText = data.role;
+        document.getElementById('artist-photo').style.backgroundImage = `url('${data.photo}')`;
+        document.getElementById('sidebar-info').innerHTML = `<b>${name}</b><br>${data.title}`;
+        document.getElementById('artist-style').innerText = data.style;
         
-        // 渲染照片
-        const photoPath = data.photo || 'https://via.placeholder.com/400x500?text=No+Photo';
-        document.getElementById('artist-photo').style.backgroundImage = `url('${photoPath}')`;
-        
-        // 渲染側邊資訊欄
-        document.getElementById('sidebar-info').innerHTML = `
-            <b style="font-size:1.4rem; color:#003366;">${name}</b><br>
-            <span style="color:#B89130; font-weight:600;">${data.title || ""}</span>
-        `;
+        document.getElementById('experience-list').innerHTML = data.experience.map(i => `<li>${i}</li>`).join('');
+        document.getElementById('artwork-grid').innerHTML = data.artworks.map(w => `
+            <div class="artwork-card">
+                <img src="${w.img}">
+                <div style="font-weight:bold; margin-top:10px;">${w.title}</div>
+                <div style="font-size:12px; color:#999;">${w.year}</div>
+            </div>
+        `).join('');
+    }
 
-        // 渲染經歷
-        const expList = document.getElementById('experience-list');
-        if (data.experience && data.experience.length > 0) {
-            expList.innerHTML = data.experience.map(item => `<li>${item}</li>`).join('');
-        } else {
-            expList.innerHTML = "<li>暫無資料</li>";
-        }
-
-        // 渲染藝術風格
-        document.getElementById('artist-style').innerText = data.style || "內容整理中...";
-
-        // 渲染代表作品集
-        const grid = document.getElementById('artwork-grid');
-        if (data.artworks && data.artworks.length > 0) {
-            grid.innerHTML = data.artworks.map(work => `
-                <div class="artwork-card">
-                    <div class="work-img">
-                        <img src="${work.img}" alt="${work.title}" onerror="this.src='https://via.placeholder.com/300?text=Image+NotFound'">
-                    </div>
-                    <div class="work-title" style="margin-top:10px; font-weight:bold; color:#003366;">${work.title}</div>
-                    <div style="font-size:12px; color:#999;">${work.year || ""}</div>
-                </div>
-            `).join('');
-        } else {
-            grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #ccc;">暫無作品資料</p>';
-        }
-
-        console.log("渲染完成！顯示對象：" + name);
-    };
+    window.onload = renderPage;
 </script>
-
 </body>
 </html>
