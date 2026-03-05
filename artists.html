@@ -316,128 +316,115 @@
 </footer>
 
 <script>
-    // 1. 漢堡選單邏輯 (保持不變)
-    const menuToggle = document.getElementById('mobile-menu');
-    const navList = document.getElementById('nav-list');
-    if (menuToggle && navList) {
-        menuToggle.addEventListener('click', () => {
-            navList.classList.toggle('active');
-        });
-        const navLinks = document.querySelectorAll('.menu a');
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                navList.classList.remove('active');
-            });
-        });
-    }
-
-    // 2. 資料庫內容 (保持不變)
-    const database = {
-        master: [
-            { year: "召集人", label: "評審委員會召集人", winners: [{ role: "召集人", name: "許坤成" }] },
-            { year: "大師", label: "歷屆藝術大師", winners: [
-                { role: "大師", name: "祁連" }, { role: "大師", name: "蘇瑞明" }, { role: "大師", name: "高慶元" },
-                { role: "大師", name: "林仁山" }, { role: "大師", name: "劉國正" }, { role: "大師", name: "翁明哲" },
-                { role: "大師", name: "游文志" }, { role: "大師", name: "黃秋泉" }, { role: "大師", name: "鄭劍秋" },
-                { role: "大師", name: "張泉豐" }, { role: "大師", name: "施明典" }, { role: "大師", name: "林照鈞" },
-                { role: "大師", name: "王宏印" }, { role: "大師", name: "林朝尉" }, { role: "大師", name: "林志譯" },
-                { role: "大師", name: "陳光融" }, { role: "大師", name: "李佳榕" }, { role: "大師", name: "張綺芸" },
-                { role: "大師", name: "吳佩珊" }, { role: "大師", name: "黃蕙儀" }, { role: "大師", name: "吳羽宸" },
-                { role: "大師", name: "陳俊華" }, { role: "大師", name: "曾己議" }, { role: "大師", name: "王智斌" },
-                { role: "大師", name: "雷琴" }, { role: "大師", name: "李瀚卿" }, { role: "大師", name: "陳奕潤" },
-                { role: "大師", name: "曾意平" }, { role: "大師", name: "劉子平" }, { role: "大師", name: "何冠東" },
-                { role: "大師", name: "吳宗柏" }, { role: "大師", name: "林揚庭" }, { role: "大師", name: "陳皇佑" },
-                { role: "大師", name: "張家豪" }, { role: "大師", name: "古東玄" }
-            ]}
-        ],
-        newbie: [
-            { year: "2024", label: "2024 第二十七屆", winners: [
-                { role: "首獎", name: "李郁汝" }, { role: "優選", name: "許品婕" }, { role: "優選", name: "白穆君" }, { role: "入選", name: "翁昕吟" }, { role: "入選", name: "蔡依君" }
-            ]},
-            { year: "2023", label: "2023 第二十六屆", winners: [
-                { role: "首獎", name: "古東玄" }, { role: "優選", name: "白穆君" }, { role: "優選", name: "魏柏鈞" }, { role: "入選", name: "許品婕" }, { role: "入選", name: "游勝淯" }
-            ]}
-        ],
-        impression: [
-            { year: "2024", label: "2024 第二十二屆", winners: [
-                { role: "首獎", name: "吳羽宸" }, { role: "優選", name: "宋適生" }, { role: "優選", name: "吳岱瑾" }, { role: "入選", name: "李承修" }, { role: "入選", name: "謝愷宸" }
-            ]}
-        ]
+    // 1. 直接把資料庫放進詳情頁，排除外部檔案讀取失敗的問題
+    const ARTISTS_DATA = {
+        "許坤成": {
+            role: "評審委員會召集人",
+            engName: "PROFESSOR HSU KUN-CHENG",
+            title: "中國文化大學藝術學院 前院長",
+            photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400",
+            experience: [
+                "聯邦美術獎評審委員會召集人",
+                "中國文化大學美術系教授",
+                "曾任中國文化大學藝術學院院長",
+                "法國藝術家沙龍、秋季沙龍參展藝術家"
+            ],
+            style: "許坤成教授早期以「白色系列」聞名畫壇，強調光影在純淨色調中的微妙變化。其作品融合了東方的意境與西方的構成，近年更致力於歷史題材的巨幅創作。",
+            artworks: [
+                { title: "白色系列 NO.10", year: "1998 / 油彩", img: "https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=400" },
+                { title: "能久親王進台北城", year: "2015 / 油彩", img: "https://images.unsplash.com/photo-1549490349-8643362247b5?w=400" }
+            ]
+        },
+        "李郁汝": {
+            role: "2024 新人獎首獎",
+            engName: "LI YU-JU",
+            title: "新生代油畫藝術家",
+            photo: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400",
+            experience: [
+                "2024 第二十七屆聯邦美術新人獎 首獎",
+                "國立臺灣藝術大學 美術學系",
+                "多場青年藝術聯展參展"
+            ],
+            style: "李郁汝的作品展現了極其細膩的觀察力，特別是在處理光影過渡與質感描寫上，具有鮮明的當代寫實語彙。",
+            artworks: [
+                { title: "晨光", year: "2024 / 油彩", img: "https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?w=400" }
+            ]
+        }
+        // 如果有其他藝術家，請依照格式繼續貼在下方...
     };
 
-    let currentCat = 'master';
-
-    function getGradient(name) {
-        const colors = [['#a68d5e', '#d4af37'], ['#003366', '#0056b3'], ['#E60012', '#ff4d4d'], ['#00A1E9', '#0056b3']];
-        let idx = name.length % colors.length;
-        return `linear-gradient(135deg, ${colors[idx][0]}, ${colors[idx][1]})`;
+    // 2. 漢堡選單邏輯
+    const menuToggle = document.getElementById('mobile-menu');
+    const navList = document.getElementById('nav-list');
+    if (menuToggle) {
+        menuToggle.onclick = () => navList.classList.toggle('active');
     }
 
-    // --- 修改重點：渲染函式 ---
-    function renderData(data) {
-        const list = document.getElementById('contentList');
-        list.innerHTML = '';
+    // 3. 核心渲染邏輯
+    function init() {
+        const params = new URLSearchParams(window.location.search);
+        let name = params.get('name');
         
-        if (data.length === 0) {
-            list.innerHTML = '<div style="text-align:center; padding: 50px; color:#999;">查無相關藝術家</div>';
+        // 如果網址沒有名字，預設顯示第一個
+        if (name) {
+            name = decodeURIComponent(name).trim();
+        } else {
+            name = Object.keys(ARTISTS_DATA)[0];
+        }
+
+        const data = ARTISTS_DATA[name];
+
+        if (!data) {
+            document.body.innerHTML = `<div style="text-align:center; padding:100px;"><h2>找不到藝術家資料</h2><a href="artists.html">返回列表</a></div>`;
             return;
         }
 
-        data.forEach(item => {
-            const row = document.createElement('div');
-            row.className = 'year-row';
-            row.innerHTML = `<div class="year-label">${item.label}</div>`;
-            
-            const grid = document.createElement('div');
-            grid.className = 'winners-grid';
-            
-            item.winners.forEach(w => {
-                // 使用 encodeURIComponent 確保中文名字在網址傳遞時不會亂碼
-                const detailUrl = `artist-detail.html?name=${encodeURIComponent(w.name)}`;
-                
-                grid.innerHTML += `
-                    <div class="winner-card">
-                        <span class="tag tag-${w.role}">${w.role}</span>
-                        <div class="avatar" style="background: ${getGradient(w.name)}">${w.name[0]}</div>
-                        <div class="name">${w.name}</div>
-                        <button class="btn-view" onclick="window.location.href='${detailUrl}'">作品輯</button>
-                    </div>`;
-            });
-            row.appendChild(grid);
-            list.appendChild(row);
-        });
-    }
-
-    function switchCategory(cat) {
-        currentCat = cat;
-        document.querySelectorAll('.btn-tab').forEach(btn => btn.classList.remove('active'));
-        document.getElementById(`tab-${cat}`).classList.add('active');
-        document.getElementById('artistSearch').value = '';
-        renderData(database[cat]);
-    }
-
-    function handleSearch() {
-        const val = document.getElementById('artistSearch').value.trim().toLowerCase();
+        // 開始塞入內容
+        document.title = `${name} - 藝術家典藏`;
+        document.getElementById('artist-name').innerText = name;
+        document.getElementById('artist-eng-name').innerText = data.engName || "";
+        document.getElementById('artist-role').innerText = data.role || "藝術家";
         
-        // 如果搜尋框是空的，顯示當前分類的所有資料
-        if (!val) {
-            renderData(database[currentCat]);
-            return;
+        // 圖片處理
+        const photoDiv = document.getElementById('artist-photo');
+        if(photoDiv) photoDiv.style.backgroundImage = `url('${data.photo}')`;
+        
+        // 側邊小標
+        const sidebarInfo = document.getElementById('sidebar-info');
+        if(sidebarInfo) {
+            sidebarInfo.innerHTML = `
+                <span style="font-size: 20px; font-weight:800;">${name}</span><br>
+                <span style="color: #B89130;">${data.engName || ""}</span><br>
+                <span style="font-size: 14px; color: #777;">${data.title || ""}</span>
+            `;
         }
 
-        const filtered = database[currentCat].map(group => {
-            const winners = group.winners.filter(w => 
-                w.name.toLowerCase().includes(val) || 
-                w.role.toLowerCase().includes(val) || 
-                group.label.toLowerCase().includes(val)
-            );
-            return winners.length > 0 ? { ...group, winners } : null;
-        }).filter(i => i !== null);
-        
-        renderData(filtered);
+        // 經歷列表
+        const expList = document.getElementById('experience-list');
+        if (expList && data.experience) {
+            expList.innerHTML = data.experience.map(li => `<li>${li}</li>`).join('');
+        }
+
+        // 藝術風格
+        const styleP = document.getElementById('artist-style');
+        if(styleP) styleP.innerText = data.style || "內容整理中...";
+
+        // 作品集
+        const artworkGrid = document.getElementById('artwork-grid');
+        if (artworkGrid && data.artworks) {
+            artworkGrid.innerHTML = data.artworks.map(work => `
+                <div class="artwork-card">
+                    <div class="work-img">
+                        <img src="${work.img}" alt="${work.title}" onerror="this.src='https://via.placeholder.com/300'">
+                    </div>
+                    <div class="work-title" style="font-weight:bold; margin-top:10px;">${work.title}</div>
+                    <div class="work-year" style="font-size:12px; color:#999;">${work.year || ""}</div>
+                </div>
+            `).join('');
+        }
     }
 
-    window.onload = () => renderData(database.master);
+    window.onload = init;
 </script>
 
 </body>
