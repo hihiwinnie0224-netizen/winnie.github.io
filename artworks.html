@@ -441,6 +441,26 @@
 
         noResult.style.display = (visibleCount === 0) ? "block" : "none";
     }
+    window.onload = function() {
+    // 1. 取得網址列中的參數
+    const urlParams = new URLSearchParams(window.location.search);
+    const artistFilter = urlParams.get('artist');
+
+    if (artistFilter) {
+        // 2. 將藝術家姓名填入搜尋框
+        const searchInput = document.getElementById('workSearch');
+        if (searchInput) {
+            searchInput.value = artistFilter;
+            
+            // 3. 執行篩選邏輯
+            executeFilter();
+            
+            // 4. (選配) 自動捲動到作品區，避免被 Banner 擋住
+            document.getElementById('workGrid').scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+};
+
 </script>
 
 </body>
