@@ -25,200 +25,117 @@
         }
 
         /* ===== 導覽列優化 ===== */
-        header {
-            background: #ffffff;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
+/* ===== 1. 統一頁首樣式 (與首頁同步) ===== */
+header {
+    background: #ffffff;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
 
-        .navbar {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 25px;
-        }
+.navbar {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px; /* 統一間距 */
+}
 
-        .logo a {
-            font-size: 24px;
-            font-weight: 800;
-            color: var(--ubot-blue);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            letter-spacing: 1px;
-        }
+.logo a {
+    font-size: 22px; /* 統一 Logo 大小 */
+    font-weight: 800;
+    color: var(--ubot-blue);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    letter-spacing: 1px;
+}
 
-        /* 同步標準頁首的紅點樣式 */
-        .logo a::before { 
-            content: ""; width: 8px; height: 8px; background: var(--ubot-red); 
-            border-radius: 50%; margin-right: 10px; 
-        }
+.logo a::before { 
+    content: ""; width: 8px; height: 8px; background: var(--ubot-red); 
+    border-radius: 50%; margin-right: 10px; 
+}
 
-        /* 桌機選單 */
-        .menu { display: flex; list-style: none; margin: 0; padding: 0; }
-        .menu li { margin-left: 10px; }
-        .menu a {
-            text-decoration: none;
-            color: #666;
-            font-weight: 600;
-            font-size: 14px;
-            padding: 8px 12px;
-            transition: 0.3s;
-        }
-        .menu a:hover, .menu a.active { color: var(--ubot-red); }
+/* 桌機選單 */
+.menu { display: flex; list-style: none; margin: 0; padding: 0; }
+.menu li { margin-left: 15px; }
+.menu a {
+    text-decoration: none;
+    color: #666;
+    font-weight: 600;
+    font-size: 15px; /* 統一選單字體 */
+    padding: 8px 12px;
+    transition: 0.3s;
+}
+.menu a:hover, .menu a.active { color: var(--ubot-red); }
 
-        /* 手機漢堡選單按鈕 */
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-            padding: 10px;
-        }
-        .menu-toggle span {
-            width: 25px; height: 3px; background: var(--ubot-blue); border-radius: 2px;
-        }
+/* 手機漢堡選單按鈕 */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+}
+.menu-toggle span {
+    width: 25px; height: 3px; background: var(--ubot-blue);
+}
 
-        /* ===== Banner ===== */
-        .page-banner {
-            width: 100%;
-            height: 280px;
-            background: linear-gradient(rgba(0,51,102,0.65), rgba(0,51,102,0.65)), 
-                        url('https://images.unsplash.com/photo-1499781350541-7783f6c6a0c8?auto=format&fit=crop&w=1200&q=80');
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            text-align: center;
-            padding: 0 20px;
-        }
+/* ===== 2. 統一頁尾樣式 (與首頁同步) ===== */
+footer {
+    background: var(--ubot-light-blue);
+    color: var(--ubot-blue);
+    padding: 50px 20px 30px; /* 統一厚度 */
+}
 
-        .page-banner h1 { font-size: 32px; margin: 0; letter-spacing: 4px; font-weight: 900; }
-        .page-banner p { font-size: 14px; opacity: 0.9; margin-top: 10px; letter-spacing: 1px; }
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+}
 
-        /* ===== 內容區 ===== */
-        .about-container {
-            max-width: 1000px;
-            margin: -40px auto 60px;
-            display: grid;
-            gap: 25px;
-            padding: 0 20px;
-            position: relative;
-            z-index: 10;
-        }
+.footer-logo { font-size: 20px; font-weight: 800; margin-bottom: 15px; }
+.footer-info p { margin: 8px 0; font-size: 14px; }
+.footer-links h4 { margin: 0 0 15px; border-left: 3px solid var(--ubot-red); padding-left: 10px; }
+.footer-links ul { list-style: none; padding: 0; margin: 0; }
+.footer-links li { margin-bottom: 8px; }
+.footer-links a { text-decoration: none; color: var(--ubot-blue); font-size: 14px; opacity: 0.8; }
 
-        .about-section {
-            padding: 35px 25px;
-            background: #ffffff;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.04);
-            border-radius: 8px;
-        }
-
-        .about-section h2 {
-            color: var(--ubot-blue);
-            font-size: 1.35rem;
-            margin: 0 0 20px 0;
-            display: flex;
-            align-items: center;
-        }
-
-        .about-section h2::before {
-            content: ""; width: 4px; height: 20px;
-            background: var(--ubot-red);
-            margin-right: 12px;
-        }
-
-        .about-content { font-size: 1rem; color: #444; text-align: justify; }
-        .about-content b { color: var(--ubot-blue); background: linear-gradient(transparent 70%, var(--ubot-light-blue) 0%); }
-
-        /* 里程碑 */
-        .milestone-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin-top: 25px;
-        }
-        .milestone-item {
-            background: #fcfcfc;
-            padding: 20px;
-            border: 1px solid #f0f0f0;
-            border-radius: 6px;
-        }
-        .milestone-year { font-weight: 900; color: var(--ubot-red); font-size: 1.2rem; display: block; margin-bottom: 5px; }
-
-        /* 空間介紹 */
-        .space-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            margin-top: 25px;
-        }
-        .space-item {
-            background: #fff;
-            padding: 20px 10px;
-            text-align: center;
-            border: 1px solid #eee;
-            border-radius: 6px;
-            color: var(--ubot-blue);
-            font-weight: 700;
-            font-size: 14px;
-        }
-
-        /* ===== Footer ===== */
-        footer {
-            background: var(--ubot-light-blue);
-            color: var(--ubot-blue);
-            padding: 50px 25px 30px;
-        }
-
-        .footer-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 40px;
-        }
-
-        .footer-logo { font-size: 20px; font-weight: 800; margin-bottom: 15px; }
-        .footer-info p { margin: 8px 0; font-size: 14px; }
-        .footer-links h4 { margin: 0 0 15px; border-left: 3px solid var(--ubot-red); padding-left: 10px; }
-        .footer-links ul { list-style: none; padding: 0; margin: 0; }
-        .footer-links li { margin-bottom: 10px; }
-        .footer-links a { text-decoration: none; color: var(--ubot-blue); font-size: 14px; opacity: 0.8; }
-
-        .footer-bottom {
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(0,51,102,0.1);
-            text-align: center;
-            font-size: 12px;
-            opacity: 0.7;
-        }
+.footer-bottom {
+    max-width: 1200px;
+    margin: 30px auto 0;
+    padding-top: 20px;
+    border-top: 1px solid rgba(0,51,102,0.1);
+    text-align: center;
+    font-size: 12px;
+}
 
         /* ===== 手機版限定樣式 (RWD) ===== */
-        @media (max-width: 850px) {
-            .menu { display: none; } /* 隱藏傳統選單 */
-            .menu-toggle { display: flex; } /* 顯示漢堡鈕 */
+        @media (max-width: 768px) {
+    .menu-toggle { display: flex; } /* 顯示漢堡鈕 */
 
-            .page-banner { height: 220px; }
-            .page-banner h1 { font-size: 28px; }
+    .menu {
+        position: absolute;
+        top: 100%; left: 0; right: 0;
+        background: #fff;
+        flex-direction: column;
+        padding: 20px;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        display: none; /* 預設隱藏 */
+    }
 
-            .about-container { margin-top: 20px; gap: 20px; }
-            .about-section { padding: 25px 20px; }
+    .menu.active { display: flex; } /* 切換顯示 */
 
-            .milestone-grid, .space-grid {
-                grid-template-columns: 1fr; /* 全部改為單欄排列 */
-            }
+    .menu li { margin: 0; border-bottom: 1px solid #f5f5f5; }
+    .menu a { padding: 15px 0; font-size: 16px; text-align: center; }
 
-            .space-item { padding: 15px; }
+    /* 以下保留關於我們原有的內容調整 */
+    .page-banner { height: 220px; }
+    .milestone-grid, .space-grid { grid-template-columns: 1fr; }
+}
             
             /* 手機選單滑出樣式 */
             .navbar.open .menu {
