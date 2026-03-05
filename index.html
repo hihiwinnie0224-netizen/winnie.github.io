@@ -336,21 +336,43 @@
 </footer>
 
 <script>
-    // 手機版選單切換腳本
+    // 統一手機選單控制 (同步關於我們頁面邏輯)
     const menuToggle = document.getElementById('mobile-menu');
     const navList = document.getElementById('nav-list');
 
-    menuToggle.addEventListener('click', () => {
-        navList.classList.toggle('active');
-    });
-
-    // 點擊選單項目後自動收起 (針對單頁應用或導覽)
-    const navLinks = document.querySelectorAll('.menu a');
-    navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            navList.classList.remove('active');
+    if (menuToggle && navList) {
+        menuToggle.addEventListener('click', () => {
+            navList.classList.toggle('active');
         });
-    });
+
+        const navLinks = document.querySelectorAll('.menu a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navList.classList.remove('active');
+            });
+        });
+    }
+
+    // 手風琴控制
+    function toggleAcc(btn) {
+        const content = btn.nextElementSibling;
+        const icon = btn.querySelector('.icon');
+        
+        document.querySelectorAll('.acc-content').forEach(el => {
+            if (el !== content) {
+                el.style.maxHeight = null;
+                el.previousElementSibling.querySelector('.icon').innerText = '+';
+            }
+        });
+
+        if (content.style.maxHeight) {
+            content.style.maxHeight = null;
+            icon.innerText = '+';
+        } else {
+            content.style.maxHeight = content.scrollHeight + "px";
+            icon.innerText = '−';
+        }
+    }
 </script>
 
 </body>
