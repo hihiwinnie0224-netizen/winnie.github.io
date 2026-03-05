@@ -1,4 +1,3 @@
-// data.js - 藝術家資料庫
 const ARTISTS_DATA = {
     "許坤成": {
         role: "評審委員會召集人",
