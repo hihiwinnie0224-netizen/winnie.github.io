@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>參觀資訊｜聯邦藝術中心 Union Art Center</title>
     <style>
+        /* ===== 0. 全域設定與變數 ===== */
         :root {
             --ubot-red: #E60012;
             --ubot-blue: #003366;
@@ -29,39 +30,39 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* ===== 1. 導覽列 Navbar (同步樣式) ===== */
+        /* ===== 1. 導覽列 Navbar (完全同步關於我們樣式) ===== */
         header {
             background: #ffffff;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
             position: sticky; top: 0; z-index: 1000;
         }
         .navbar {
             max-width: 1200px; margin: 0 auto;
             display: flex; justify-content: space-between; align-items: center;
-            padding: 15px 25px;
+            padding: 12px 20px;
         }
         .logo a {
-            font-size: 24px; font-weight: 800; color: var(--ubot-blue);
+            font-size: 20px; font-weight: 800; color: var(--ubot-blue);
             text-decoration: none; display: flex; align-items: center; letter-spacing: 1px;
         }
         .logo a::before { 
             content: ""; width: 8px; height: 8px; background: var(--ubot-red); 
-            border-radius: 50%; margin-right: 10px; 
+            border-radius: 50%; margin-right: 8px; 
         }
         
         .menu { display: flex; list-style: none; margin: 0; padding: 0; }
-        .menu li { margin-left: 15px; }
+        .menu li { margin-left: 10px; }
         .menu a { 
-            text-decoration: none; color: var(--text-sub); 
-            font-weight: 600; font-size: 15px; transition: var(--transition); 
-            padding: 8px 12px;
+            text-decoration: none; color: #666; 
+            font-weight: 600; font-size: 15px; transition: 0.3s; 
+            padding: 8px 12px; display: block;
         }
         .menu a:hover, .menu a.active { color: var(--ubot-red); }
 
         .menu-toggle {
             display: none; flex-direction: column; gap: 5px; cursor: pointer;
         }
-        .menu-toggle span { width: 25px; height: 3px; background: var(--ubot-blue); border-radius: 2px; }
+        .menu-toggle span { width: 25px; height: 3px; background: var(--ubot-blue); transition: 0.3s; }
 
         /* ===== 2. Banner ===== */
         .page-banner {
@@ -72,8 +73,8 @@
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             color: white; text-align: center; padding: 0 20px;
         }
-        .page-banner h1 { font-size: 38px; letter-spacing: 6px; margin: 0; font-weight: 900; }
-        .page-banner p { font-size: 14px; letter-spacing: 2px; margin-top: 10px; opacity: 0.9; }
+        .page-banner h1 { font-size: 32px; letter-spacing: 4px; margin: 0; font-weight: 900; }
+        .page-banner p { font-size: 14px; letter-spacing: 1px; margin-top: 10px; opacity: 0.9; }
 
         /* ===== 3. 內容佈局 ===== */
         .visit-container { max-width: 1100px; margin: -40px auto 80px; padding: 0 25px; position: relative; z-index: 10; }
@@ -106,7 +107,6 @@
             font-size: 16px;
         }
         
-        /* 開放狀態標籤 */
         .status-open { 
             align-self: flex-start; margin-top: 30px; padding: 10px 20px;
             background: #fff; color: #2e7d32; font-size: 13px; font-weight: 800;
@@ -125,7 +125,6 @@
             100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(39, 174, 96, 0); }
         }
 
-        /* 交通與地圖卡片 */
         .location-card {
             background: var(--card-bg); margin-bottom: 40px;
             display: flex; flex-direction: column;
@@ -146,7 +145,6 @@
         }
         .transport-info p { margin: 0; color: var(--text-sub); font-size: 15px; padding-left: 20px; }
 
-        /* FAQ 手風琴 */
         .accordion { margin-top: 60px; }
         .acc-item { margin-bottom: 15px; background: #fff; border: 1px solid #eee; border-radius: 8px; overflow: hidden; transition: var(--transition); }
         .acc-btn {
@@ -166,43 +164,44 @@
         /* ===== 4. Footer (同步樣式) ===== */
         footer {
             background: var(--ubot-light-blue); color: var(--ubot-blue);
-            padding: 70px 25px 30px; margin-top: 80px;
+            padding: 50px 20px 30px; margin-top: 80px;
         }
         .footer-container {
             max-width: 1200px; margin: 0 auto;
             display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 40px;
         }
-        .footer-logo { font-size: 22px; font-weight: 800; margin-bottom: 15px; }
+        .footer-logo { font-size: 20px; font-weight: 800; margin-bottom: 15px; }
         .footer-info p { margin: 8px 0; font-size: 14px; opacity: 0.9; }
-        .footer-links h4 { margin: 0 0 20px; border-left: 3px solid var(--ubot-red); padding-left: 12px; font-weight: 800; }
+        .footer-links h4 { margin: 0 0 15px; border-left: 3px solid var(--ubot-red); padding-left: 10px; font-weight: 800; }
         .footer-links ul { list-style: none; padding: 0; margin: 0; }
-        .footer-links li { margin-bottom: 10px; }
+        .footer-links li { margin-bottom: 8px; }
         .footer-links a { text-decoration: none; color: var(--ubot-blue); font-size: 14px; opacity: 0.8; transition: .3s; }
         .footer-links a:hover { opacity: 1; color: var(--ubot-red); }
         .footer-bottom { 
-            text-align: center; margin-top: 50px; font-size: 13px; opacity: 0.6; 
-            border-top: 1px solid rgba(0,51,102,0.1); padding-top: 30px; 
+            text-align: center; margin-top: 30px; font-size: 12px; opacity: 0.6; 
+            border-top: 1px solid rgba(0,51,102,0.1); padding-top: 20px; 
         }
 
-        /* ===== RWD 調整 ===== */
-        @media (max-width: 850px) {
-            .menu { display: none; }
+        /* ===== 5. RWD 調整 (同步關於我們) ===== */
+        @media (max-width: 768px) {
             .menu-toggle { display: flex; }
-            .visit-grid { grid-template-columns: 1fr; gap: 20px; }
-            
-            .navbar.open .menu {
-                display: flex; flex-direction: column; position: absolute;
-                top: 100%; left: 0; width: 100%; background: white;
-                box-shadow: 0 15px 30px rgba(0,0,0,0.1); padding: 10px 0;
+            .menu {
+                position: absolute;
+                top: 100%; left: 0; right: 0;
+                background: #fff;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+                display: none;
             }
-            .navbar.open .menu li { margin: 0; }
-            .navbar.open .menu a { padding: 15px 25px; border-bottom: 1px solid #f9f9f9; }
+            .menu.active { display: flex; }
+            .menu li { margin: 0; border-bottom: 1px solid #f5f5f5; }
+            .menu a { padding: 15px 0; font-size: 16px; text-align: center; }
 
-            .page-banner { height: 200px; }
-            .page-banner h1 { font-size: 30px; }
+            .visit-grid { grid-template-columns: 1fr; gap: 20px; }
+            .page-banner { height: 220px; }
             .visit-container { margin-top: -30px; }
-            .info-card, .transport-info { padding: 30px 20px; }
         }
 
         @media (min-width: 851px) {
@@ -215,12 +214,14 @@
 <body>
 
 <header>
-    <nav class="navbar" id="navbar">
+    <nav class="navbar">
         <div class="logo"><a href="index.html">聯邦藝術中心</a></div>
-        <div class="menu-toggle" onclick="toggleMenu()">
+        
+        <div class="menu-toggle" id="mobile-menu">
             <span></span><span></span><span></span>
         </div>
-        <ul class="menu">
+
+        <ul class="menu" id="nav-list">
             <li><a href="about.html">關於我們</a></li>
             <li><a href="exhibitions.html">展覽動態</a></li>
             <li><a href="awards.html">美術獎項</a></li>
@@ -345,15 +346,28 @@
 </footer>
 
 <script>
-    function toggleMenu() {
-        document.getElementById('navbar').classList.toggle('open');
+    // 統一手機選單控制腳本
+    const menuToggle = document.getElementById('mobile-menu');
+    const navList = document.getElementById('nav-list');
+
+    if (menuToggle && navList) {
+        menuToggle.addEventListener('click', () => {
+            navList.classList.toggle('active');
+        });
+
+        const navLinks = document.querySelectorAll('.menu a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navList.classList.remove('active');
+            });
+        });
     }
 
+    // 手風琴功能
     function toggleAcc(btn) {
         const content = btn.nextElementSibling;
         const icon = btn.querySelector('.icon');
         
-        // 關閉其他已開啟的項目
         document.querySelectorAll('.acc-content').forEach(el => {
             if (el !== content) {
                 el.style.maxHeight = null;
