@@ -11,11 +11,9 @@
             --ubot-red: #E60012;
             --ubot-gold: #B89130;
             --ubot-light-blue: #EAF6FC;
-            --ubot-sky-blue: #00A1E9;
             --light-bg: #FDFDFB;
             --text-main: #2A2A2A;
             --text-sub: #666666;
-            --border-color: #D1CDC4;
         }
 
         body {
@@ -24,159 +22,85 @@
             background: var(--light-bg);
             color: var(--text-main);
             line-height: 1.7;
-            -webkit-tap-highlight-color: transparent;
         }
 
-        /* ===== 1. 頁首導覽列 ===== */
-        header {
-            background: #ffffff;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-        .navbar {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 25px;
-        }
-        .logo a {
-            font-size: 24px;
-            font-weight: 800;
-            color: var(--ubot-blue);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            letter-spacing: 1px;
-        }
-        .logo a::before { 
-            content: ""; width: 8px; height: 8px; background: var(--ubot-red); 
-            border-radius: 50%; margin-right: 10px; 
-        }
+        /* 導覽列 */
+        header { background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
+        .navbar { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 15px 25px; }
+        .logo a { font-size: 24px; font-weight: 800; color: var(--ubot-blue); text-decoration: none; display: flex; align-items: center; }
+        .logo a::before { content: ""; width: 8px; height: 8px; background: var(--ubot-red); border-radius: 50%; margin-right: 10px; }
+        
         .menu { display: flex; list-style: none; margin: 0; padding: 0; }
         .menu li { margin-left: 15px; }
-        .menu a {
-            text-decoration: none;
-            color: var(--text-sub);
-            font-weight: 600;
-            font-size: 15px;
-            transition: 0.3s;
-            padding: 8px 12px;
-        }
+        .menu a { text-decoration: none; color: var(--text-sub); font-weight: 600; font-size: 15px; padding: 8px 12px; transition: 0.3s; }
         .menu a:hover, .menu a.active { color: var(--ubot-red); }
 
-        .menu-toggle { display: none; flex-direction: column; cursor: pointer; gap: 5px; }
-        .menu-toggle span { width: 25px; height: 3px; background: var(--ubot-blue); border-radius: 2px; }
-
         .back-nav { background: #f8f9fa; padding: 12px 25px; border-bottom: 1px solid #eee; }
-        .back-nav .container { max-width: 1100px; margin: 0 auto; }
-        .back-nav a { text-decoration: none; color: var(--text-sub); font-size: 14px; display: inline-flex; align-items: center; transition: 0.3s; }
-        .back-nav a:hover { color: var(--ubot-red); }
+        .back-nav a { text-decoration: none; color: var(--text-sub); font-size: 14px; }
 
-        /* ===== 2. 內容佈局優化 ===== */
-        .detail-container {
-            max-width: 1100px;
-            margin: 40px auto 80px;
-            padding: 0 25px;
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 40px;
-        }
+        /* 內容區 */
+        .detail-container { max-width: 1100px; margin: 40px auto 80px; padding: 0 25px; display: grid; grid-template-columns: 1fr; gap: 40px; }
+        
+        .profile-sidebar { width: 100%; max-width: 340px; margin: 0 auto; text-align: center; }
+        .photo-wrapper { background: #fff; padding: 12px; border: 1px solid #e5e5e5; box-shadow: 0 20px 40px rgba(0,0,0,0.08); margin-bottom: 25px; }
+        .main-photo { width: 100%; aspect-ratio: 3/4; background-size: cover; background-position: center; background-color: #f7f7f7; }
+        
+        .role-badge { background: var(--ubot-blue); color: #fff; padding: 6px 16px; font-size: 13px; font-weight: 600; display: inline-block; margin-bottom: 15px; }
 
-        .profile-sidebar { width: 100%; max-width: 340px; margin: 0 auto; }
-        .photo-wrapper { 
-            background: #fff; padding: 12px; border: 1px solid #e5e5e5; 
-            box-shadow: 0 20px 40px rgba(0,0,0,0.08); margin-bottom: 25px;
-        }
-        .main-photo { 
-            width: 100%; aspect-ratio: 3/4; background-size: cover; 
-            background-position: center; background-color: #f7f7f7; 
-        }
-        .role-badge { 
-            background: var(--ubot-blue); color: #fff; padding: 6px 16px; 
-            font-size: 13px; font-weight: 600; display: inline-block; margin-bottom: 15px;
-        }
-
-        .bio-content h1 { font-size: 38px; letter-spacing: 6px; color: var(--ubot-blue); margin: 0 0 8px; font-weight: 900; }
+        .bio-content h1 { font-size: 38px; letter-spacing: 6px; color: var(--ubot-blue); margin: 0; font-weight: 900; }
         .english-name { letter-spacing: 3px; color: var(--ubot-gold); font-size: 16px; margin-bottom: 40px; text-transform: uppercase; }
 
         .bio-section { margin-bottom: 50px; }
-        .bio-section h3 { font-size: 19px; border-left: 4px solid var(--ubot-gold); padding-left: 15px; margin-bottom: 25px; color: var(--ubot-blue); font-weight: 700; }
+        .bio-section h3 { font-size: 19px; border-left: 4px solid var(--ubot-gold); padding-left: 15px; margin-bottom: 25px; color: var(--ubot-blue); }
         .bio-list { list-style: none; padding: 0; }
-        .bio-list li { font-size: 15.5px; color: #4a4a4a; margin-bottom: 15px; padding-left: 25px; position: relative; }
+        .bio-list li { font-size: 15.5px; margin-bottom: 15px; padding-left: 25px; position: relative; }
         .bio-list li::before { content: ""; position: absolute; left: 0; top: 10px; width: 6px; height: 6px; background: var(--ubot-gold); transform: rotate(45deg); }
 
-        #artist-style { font-size: 16px; color: #555; line-height: 1.9; background: #fdfaf5; padding: 25px; border-radius: 8px; }
+        #artist-style { font-size: 16px; color: #555; background: #fdfaf5; padding: 25px; border-radius: 8px; white-space: pre-line; }
 
-        .artwork-section { margin-top: 60px; padding-top: 50px; border-top: 1px solid #eee; }
-        .section-title { text-align: center; font-size: 24px; margin-bottom: 40px; color: var(--ubot-blue); font-weight: 800; }
-        .section-title::after { content: ""; display: block; width: 40px; height: 2px; background: var(--ubot-red); margin: 15px auto; }
-        
-        .artwork-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
-        .artwork-card { background: #fff; padding: 12px; border: 1px solid #f2f2f2; transition: 0.4s; text-decoration: none; color: inherit; display: block; }
-        .artwork-card:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); border-color: var(--ubot-gold); }
-        .work-img { aspect-ratio: 1/1; overflow: hidden; margin-bottom: 12px; background: #fdfdfd; }
+        /* 作品集 */
+        .artwork-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 30px; }
+        .artwork-card { background: #fff; padding: 12px; border: 1px solid #f2f2f2; transition: 0.4s; text-decoration: none; color: inherit; }
+        .artwork-card:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
+        .work-img { aspect-ratio: 1/1; overflow: hidden; margin-bottom: 12px; }
         .work-img img { width: 100%; height: 100%; object-fit: contain; }
-        .work-title { font-weight: 700; font-size: 15px; color: var(--ubot-blue); margin-bottom: 5px; }
-        .work-year { font-size: 13px; color: #aaa; }
+        .work-title { font-weight: 700; color: var(--ubot-blue); }
 
-        /* ===== 3. 頁尾 ===== */
-        footer { background: var(--ubot-light-blue); color: var(--ubot-blue); padding: 60px 20px 30px; margin-top: 80px; }
-        .footer-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; }
-        .footer-logo { font-size: 22px; font-weight: 800; margin-bottom: 15px; }
-        .footer-bottom { max-width: 1200px; margin: 40px auto 0; padding-top: 20px; border-top: 1px solid rgba(0,51,102,0.1); text-align: center; font-size: 13px; opacity: 0.7; }
+        footer { background: var(--ubot-light-blue); color: var(--ubot-blue); padding: 60px 20px 30px; margin-top: 80px; text-align: center; }
 
         @media(min-width: 992px) {
             .detail-container { grid-template-columns: 340px 1fr; gap: 80px; }
             .profile-sidebar { position: sticky; top: 120px; }
             .artwork-grid { grid-template-columns: repeat(3, 1fr); }
         }
-        @media (max-width: 768px) {
-            .menu-toggle { display: flex; }
-            .menu { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background: white; padding: 20px 0; }
-            .menu.active { display: flex; }
-            .menu li { margin: 10px 25px; }
-        }
     </style>
 </head>
-
 <body>
 
 <header>
     <nav class="navbar">
         <div class="logo"><a href="index.html">聯邦藝術中心</a></div>
-        <div class="menu-toggle" id="mobile-menu"><span></span><span></span><span></span></div>
-        <ul class="menu" id="nav-list">
-            <li><a href="about.html">關於我們</a></li>
-            <li><a href="exhibitions.html">展覽動態</a></li>
-            <li><a href="awards.html">美術獎項</a></li>
+        <ul class="menu">
             <li><a href="artists.html" class="active">藝術家</a></li>
             <li><a href="artworks.html">作品總覽</a></li>
-            <li><a href="visit.html">參觀資訊</a></li>
-            <li><a href="contact.html">聯絡我們</a></li>
         </ul>
     </nav>
 </header>
 
 <nav class="back-nav">
-    <div class="container"><a href="artists.html">← 返回藝術家列表</a></div>
+    <div class="container" style="max-width:1100px; margin:0 auto;"><a href="artists.html">← 返回藝術家列表</a></div>
 </nav>
 
 <main class="detail-container">
     <aside class="profile-sidebar">
         <div class="photo-wrapper"><div class="main-photo" id="artist-photo"></div></div>
-        <div style="text-align: center;">
-            <span class="role-badge" id="artist-role">載入中...</span>
-            <div id="sidebar-info" style="font-size:16px; color:var(--ubot-blue); line-height:1.8;"></div>
-        </div>
+        <span class="role-badge" id="artist-role">藝術家</span>
+        <div id="sidebar-info"></div>
     </aside>
 
     <article class="bio-content">
         <h1 id="artist-name">載入中...</h1>
-        <div class="english-name" id="artist-eng-name">LOADING</div>
+        <div class="english-name" id="artist-eng-name">Loading...</div>
 
         <section class="bio-section">
             <h3>現職與經歷 EXPERIENCE</h3>
@@ -189,98 +113,68 @@
         </section>
 
         <section class="artwork-section">
-            <h2 class="section-title">代表作品 COLLECTION</h2>
+            <h3 style="font-size: 19px; color: var(--ubot-blue); border-left: 4px solid var(--ubot-red); padding-left: 15px;">代表作品 COLLECTION</h3>
             <div class="artwork-grid" id="artwork-grid"></div>
         </section>
     </article>
 </main>
 
 <footer>
-        <div class="footer-container">
-            </div>
-        <div class="footer-bottom"><p>© 2026 Union Art Center 聯邦藝術中心 版權所有</p></div>
-    </footer>
+    <p>© 2026 Union Art Center 聯邦藝術中心 版權所有</p>
+</footer>
 
-    <script src="data.js"></script>
-    <script>
-        // 1. 漢堡選單邏輯
-        const menuToggle = document.getElementById('mobile-menu');
-        const navList = document.getElementById('nav-list');
-        if (menuToggle) {
-            menuToggle.onclick = () => navList.classList.toggle('active');
+<script src="data.js"></script>
+<script>
+    window.onload = function() {
+        const params = new URLSearchParams(window.location.search);
+        let name = params.get('name');
+
+        if (!name || typeof ARTISTS_DATA === 'undefined') {
+            console.error("資料未定義或網址無參數");
+            return;
         }
 
-        // 2. 核心渲染邏輯 (修復版)
-        function init() {
-            const params = new URLSearchParams(window.location.search);
-            let name = params.get('name');
-            
-            if (typeof ARTISTS_DATA === 'undefined') {
-                console.error("找不到 ARTISTS_DATA 變數，請檢查 data.js 是否有被正確載入。");
-                return;
-            }
+        name = name.trim();
+        const data = ARTISTS_DATA[name];
 
-            let data = null;
-            if (name) {
-                name = name.trim();
-                data = ARTISTS_DATA[name];
-                
-                if (!data) {
-                    const keys = Object.keys(ARTISTS_DATA);
-                    const matchKey = keys.find(k => k.trim() === name);
-                    if (matchKey) data = ARTISTS_DATA[matchKey];
-                }
-            }
-
-            if (!data) {
-                document.getElementById('artist-name').innerText = "找不到資料";
-                document.getElementById('artist-eng-name').innerText = "DATA NOT FOUND";
-                console.error(`無法在資料庫中找到: "${name}"`);
-                return;
-            }
-
-            // 渲染圖片
-            const photoPath = data.photo || 'https://via.placeholder.com/400x500?text=No+Photo';
-            document.getElementById('artist-photo').style.backgroundImage = `url('${photoPath}')`;
-            
-            // 渲染基本文字
-            document.title = `${name} - 藝術家典藏`;
-            document.getElementById('artist-name').innerText = name;
-            document.getElementById('artist-eng-name').innerText = data.engName || "";
-            document.getElementById('artist-role').innerText = data.role || "藝術家";
-            
-            document.getElementById('sidebar-info').innerHTML = `
-                <span style="font-size: 20px; letter-spacing: 2px; font-weight:800;">${name}</span><br>
-                <span style="color: var(--ubot-gold);">${data.engName || ""}</span><br>
-                <span style="font-size: 14px; color: #777; margin-top: 5px; display: block;">${data.title || ""}</span>
-            `;
-
-            // 經歷
-            const expList = document.getElementById('experience-list');
-            if (data.experience) {
-                expList.innerHTML = data.experience.map(li => `<li>${li}</li>`).join('');
-            }
-
-            // 風格
-            document.getElementById('artist-style').innerText = data.style || "內容整理中...";
-
-            // 作品集
-            const artworkGrid = document.getElementById('artwork-grid');
-            if (data.artworks && data.artworks.length > 0) {
-                artworkGrid.innerHTML = data.artworks.map(work => `
-                    <div class="artwork-card">
-                        <div class="work-img">
-                            <img src="${work.img}" alt="${work.title}" onerror="this.src='https://via.placeholder.com/300?text=NotFound'">
-                        </div>
-                        <div class="work-title">${work.title}</div>
-                        <div class="work-year">${work.year || ""}</div>
-                    </div>
-                `).join('');
-            }
+        if (!data) {
+            document.getElementById('artist-name').innerText = "找不到藝術家";
+            console.error("在 ARTISTS_DATA 中找不到:", name);
+            return;
         }
 
-        window.onload = init;
-    </script>
-    
-    </body>
+        // 填入資料
+        document.title = `${name} - 藝術家典藏`;
+        document.getElementById('artist-name').innerText = name;
+        document.getElementById('artist-eng-name').innerText = data.engName || "";
+        document.getElementById('artist-role').innerText = data.role || "藝術家";
+        document.getElementById('artist-photo').style.backgroundImage = `url('${data.photo}')`;
+        document.getElementById('artist-style').innerText = data.style || "";
+        
+        document.getElementById('sidebar-info').innerHTML = `
+            <b style="font-size:1.2rem;">${name}</b><br>
+            <span style="color:#777;">${data.title || ""}</span>
+        `;
+
+        // 經歷清單
+        const expList = document.getElementById('experience-list');
+        if (data.experience) {
+            expList.innerHTML = data.experience.map(item => `<li>${item}</li>`).join('');
+        }
+
+        // 作品集
+        const grid = document.getElementById('artwork-grid');
+        if (data.artworks) {
+            grid.innerHTML = data.artworks.map(work => `
+                <div class="artwork-card">
+                    <div class="work-img"><img src="${work.img}" onerror="this.src='https://via.placeholder.com/300'"></div>
+                    <div class="work-title">${work.title}</div>
+                    <div style="font-size:12px; color:#999;">${work.year || ""}</div>
+                </div>
+            `).join('');
+        }
+    };
+</script>
+
+</body>
 </html>
