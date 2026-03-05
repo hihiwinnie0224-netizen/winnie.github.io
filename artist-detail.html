@@ -27,7 +27,7 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        /* ===== 1. 頁首導覽列 (保持不變) ===== */
+        /* ===== 1. 頁首導覽列 ===== */
         header {
             background: #ffffff;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
@@ -76,166 +76,69 @@
         .back-nav a { text-decoration: none; color: var(--text-sub); font-size: 14px; display: inline-flex; align-items: center; transition: 0.3s; }
         .back-nav a:hover { color: var(--ubot-red); }
 
-        /* ===== 2. 內容佈局優化 (重點調整區) ===== */
+        /* ===== 2. 內容佈局優化 ===== */
         .detail-container {
             max-width: 1100px;
             margin: 40px auto 80px;
             padding: 0 25px;
             display: grid;
-            grid-template-columns: 1fr; /* 手機版單欄 */
+            grid-template-columns: 1fr;
             gap: 40px;
         }
 
-        /* 側邊欄照片牆風格 */
-        .profile-sidebar { 
-            width: 100%; 
-            max-width: 340px; 
-            margin: 0 auto; 
-        }
+        .profile-sidebar { width: 100%; max-width: 340px; margin: 0 auto; }
         .photo-wrapper { 
-            background: #fff; 
-            padding: 12px; 
-            border: 1px solid #e5e5e5; 
-            box-shadow: 0 20px 40px rgba(0,0,0,0.08); 
-            margin-bottom: 25px;
-            position: relative;
+            background: #fff; padding: 12px; border: 1px solid #e5e5e5; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08); margin-bottom: 25px;
         }
         .main-photo { 
-            width: 100%; 
-            aspect-ratio: 3/4; 
-            background-size: cover; 
-            background-position: center; 
-            background-color: #f7f7f7; 
-            transition: 0.5s;
+            width: 100%; aspect-ratio: 3/4; background-size: cover; 
+            background-position: center; background-color: #f7f7f7; 
         }
         .role-badge { 
-            background: var(--ubot-blue); 
-            color: #fff; 
-            padding: 6px 16px; 
-            font-size: 13px; 
-            font-weight: 600; 
-            letter-spacing: 1px;
-            display: inline-block; 
-            margin-bottom: 15px;
+            background: var(--ubot-blue); color: #fff; padding: 6px 16px; 
+            font-size: 13px; font-weight: 600; display: inline-block; margin-bottom: 15px;
         }
 
-        /* 內容區精緻化 */
-        .bio-content h1 { 
-            font-size: 38px; 
-            letter-spacing: 6px; 
-            color: var(--ubot-blue); 
-            margin: 0 0 8px; 
-            font-weight: 900;
-        }
-        .english-name { 
-            letter-spacing: 3px; 
-            color: var(--ubot-gold); 
-            font-size: 16px; 
-            margin-bottom: 40px; 
-            font-weight: 500; 
-            text-transform: uppercase;
-        }
+        .bio-content h1 { font-size: 38px; letter-spacing: 6px; color: var(--ubot-blue); margin: 0 0 8px; font-weight: 900; }
+        .english-name { letter-spacing: 3px; color: var(--ubot-gold); font-size: 16px; margin-bottom: 40px; text-transform: uppercase; }
 
         .bio-section { margin-bottom: 50px; }
-        .bio-section h3 { 
-            font-size: 19px; 
-            border-left: 4px solid var(--ubot-gold); 
-            padding-left: 15px; 
-            margin-bottom: 25px; 
-            color: var(--ubot-blue); 
-            font-weight: 700;
-        }
+        .bio-section h3 { font-size: 19px; border-left: 4px solid var(--ubot-gold); padding-left: 15px; margin-bottom: 25px; color: var(--ubot-blue); font-weight: 700; }
         .bio-list { list-style: none; padding: 0; }
-        .bio-list li { 
-            font-size: 15.5px;
-            color: #4a4a4a;
-            margin-bottom: 15px; 
-            padding-left: 25px; 
-            position: relative; 
-            line-height: 1.8;
-        }
-        .bio-list li::before { 
-            content: ""; 
-            position: absolute; 
-            left: 0; 
-            top: 10px;
-            width: 6px;
-            height: 6px;
-            background: var(--ubot-gold); 
-            transform: rotate(45deg);
-        }
+        .bio-list li { font-size: 15.5px; color: #4a4a4a; margin-bottom: 15px; padding-left: 25px; position: relative; }
+        .bio-list li::before { content: ""; position: absolute; left: 0; top: 10px; width: 6px; height: 6px; background: var(--ubot-gold); transform: rotate(45deg); }
 
-        /* 藝術風格段落 */
-        #artist-style {
-            font-size: 16px;
-            color: #555;
-            line-height: 1.9;
-            text-align: justify;
-            background: #fdfaf5;
-            padding: 25px;
-            border-radius: 8px;
-            border-left: 1px solid #eee;
-        }
+        #artist-style { font-size: 16px; color: #555; line-height: 1.9; background: #fdfaf5; padding: 25px; border-radius: 8px; }
 
-        /* 作品集網格 */
         .artwork-section { margin-top: 60px; padding-top: 50px; border-top: 1px solid #eee; }
-        .section-title { 
-            text-align: center; 
-            font-size: 24px; 
-            margin-bottom: 40px; 
-            color: var(--ubot-blue); 
-            letter-spacing: 3px; 
-            font-weight: 800;
-            position: relative;
-        }
-        .section-title::after {
-            content: ""; display: block; width: 40px; height: 2px; background: var(--ubot-red); margin: 15px auto;
-        }
+        .section-title { text-align: center; font-size: 24px; margin-bottom: 40px; color: var(--ubot-blue); font-weight: 800; }
+        .section-title::after { content: ""; display: block; width: 40px; height: 2px; background: var(--ubot-red); margin: 15px auto; }
         
         .artwork-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
-        .artwork-card { 
-            text-decoration: none; 
-            background: #fff; 
-            padding: 12px; 
-            border: 1px solid #f2f2f2; 
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); 
-        }
-        .artwork-card:hover { 
-            transform: translateY(-8px); 
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1); 
-            border-color: var(--ubot-gold);
-        }
+        .artwork-card { background: #fff; padding: 12px; border: 1px solid #f2f2f2; transition: 0.4s; text-decoration: none; color: inherit; display: block; }
+        .artwork-card:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); border-color: var(--ubot-gold); }
         .work-img { aspect-ratio: 1/1; overflow: hidden; margin-bottom: 12px; background: #fdfdfd; }
-        .work-img img { width: 100%; height: 100%; object-fit: contain; transition: 0.6s; }
-        .artwork-card:hover .work-img img { transform: scale(1.05); }
-        
+        .work-img img { width: 100%; height: 100%; object-fit: contain; }
         .work-title { font-weight: 700; font-size: 15px; color: var(--ubot-blue); margin-bottom: 5px; }
         .work-year { font-size: 13px; color: #aaa; }
 
-        /* ===== 3. 頁尾 (保持不變) ===== */
+        /* ===== 3. 頁尾 ===== */
         footer { background: var(--ubot-light-blue); color: var(--ubot-blue); padding: 60px 20px 30px; margin-top: 80px; }
         .footer-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; }
         .footer-logo { font-size: 22px; font-weight: 800; margin-bottom: 15px; }
         .footer-bottom { max-width: 1200px; margin: 40px auto 0; padding-top: 20px; border-top: 1px solid rgba(0,51,102,0.1); text-align: center; font-size: 13px; opacity: 0.7; }
 
-        /* RWD 響應式調整 */
         @media(min-width: 992px) {
-            .detail-container { 
-                grid-template-columns: 340px 1fr; 
-                gap: 80px; 
-                margin: 60px auto 100px; 
-            }
-            .profile-sidebar { position: sticky; top: 120px; text-align: left; }
-            .artwork-grid { grid-template-columns: repeat(3, 1fr); gap: 30px; }
+            .detail-container { grid-template-columns: 340px 1fr; gap: 80px; }
+            .profile-sidebar { position: sticky; top: 120px; }
+            .artwork-grid { grid-template-columns: repeat(3, 1fr); }
         }
-
         @media (max-width: 768px) {
             .menu-toggle { display: flex; }
-            .menu { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background: white; padding: 20px 0; box-shadow: 0 10px 15px rgba(0,0,0,0.1); }
+            .menu { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background: white; padding: 20px 0; }
             .menu.active { display: flex; }
             .menu li { margin: 10px 25px; }
-            .bio-content h1 { font-size: 30px; text-align: center; }
-            .english-name { text-align: center; }
         }
     </style>
 </head>
@@ -264,37 +167,30 @@
 
 <main class="detail-container">
     <aside class="profile-sidebar">
-        <div class="photo-wrapper">
-            <div class="main-photo" id="artist-photo"></div>
-        </div>
+        <div class="photo-wrapper"><div class="main-photo" id="artist-photo"></div></div>
         <div style="text-align: center;">
             <span class="role-badge" id="artist-role">載入中...</span>
-            <div id="sidebar-info" style="font-size:16px; color:var(--ubot-blue); line-height:1.8; font-weight: 500;"></div>
+            <div id="sidebar-info" style="font-size:16px; color:var(--ubot-blue); line-height:1.8;"></div>
         </div>
     </aside>
 
     <article class="bio-content">
-        <header class="bio-header">
-            <h1 id="artist-name">藝術家姓名</h1>
-            <div class="english-name" id="artist-eng-name">ENGLISH NAME</div>
-        </header>
+        <h1 id="artist-name">載入中...</h1>
+        <div class="english-name" id="artist-eng-name">LOADING</div>
 
         <section class="bio-section">
             <h3>現職與經歷 EXPERIENCE</h3>
-            <ul class="bio-list" id="experience-list">
-                </ul>
+            <ul class="bio-list" id="experience-list"></ul>
         </section>
 
         <section class="bio-section">
             <h3>藝術風格 STYLE</h3>
-            <p id="artist-style">
-                </p>
+            <p id="artist-style"></p>
         </section>
 
         <section class="artwork-section">
             <h2 class="section-title">代表作品 COLLECTION</h2>
-            <div class="artwork-grid" id="artwork-grid">
-                </div>
+            <div class="artwork-grid" id="artwork-grid"></div>
         </section>
     </article>
 </main>
@@ -311,55 +207,57 @@
 </footer>
 
 <script src="data.js"></script>
+
 <script>
-    // 1. 漢堡選單邏輯
     const menuToggle = document.getElementById('mobile-menu');
     const navList = document.getElementById('nav-list');
     menuToggle.onclick = () => navList.classList.toggle('active');
 
-    // 2. 核心渲染邏輯
     function init() {
+        // 從網址獲取名字，並去除前後空白
         const params = new URLSearchParams(window.location.search);
-        const name = params.get('name');
+        let name = params.get('name');
+        if (name) name = name.trim(); 
 
-        // 如果找不到對應資料的導向處理
-        if (!name || !ARTISTS_DATA[name]) {
-            alert("找不到該藝術家資料，將為您導回列表頁。");
-            window.location.href = "artists.html";
+        // 偵錯輔助：檢查 ARTISTS_DATA 是否存在
+        if (typeof ARTISTS_DATA === 'undefined') {
+            console.error("錯誤：找不到 ARTISTS_DATA。請檢查 data.js 是否正確載入。");
+            document.body.innerHTML = "<h2 style='text-align:center;margin-top:50px;'>系統錯誤：無法讀取資料庫 (data.js)</h2>";
             return;
         }
 
         const data = ARTISTS_DATA[name];
 
-        // 設定網頁標題
-        document.title = `${name} - 藝術家典藏 | 聯邦藝術中心`;
+        if (!name || !data) {
+            console.warn(`找不到名為 [${name}] 的資料。請檢查 data.js 中的 Key 是否與網址一致。`);
+            alert("找不到該藝術家資料，將為您導回列表頁。");
+            window.location.href = "artists.html";
+            return;
+        }
 
-        // 渲染側邊欄與標頭資訊
+        // 開始渲染內容
+        document.title = `${name} - 藝術家典藏`;
         document.getElementById('artist-name').innerText = name;
-        document.getElementById('artist-eng-name').innerText = data.engName;
-        document.getElementById('artist-role').innerText = data.role;
+        document.getElementById('artist-eng-name').innerText = data.engName || "";
+        document.getElementById('artist-role').innerText = data.role || "藝術家";
         document.getElementById('artist-photo').style.backgroundImage = `url('${data.photo}')`;
         
-        // 優化後的側邊欄資訊呈現
         document.getElementById('sidebar-info').innerHTML = `
-            <span style="font-size: 20px; letter-spacing: 2px;">${name}</span><br>
-            <span style="color: var(--ubot-gold);">${data.engName}</span><br>
-            <span style="font-size: 14px; color: #777; font-weight: 400; margin-top: 5px; display: block;">${data.title}</span>
+            <span style="font-size: 20px; letter-spacing: 2px; font-weight:800;">${name}</span><br>
+            <span style="color: var(--ubot-gold);">${data.engName || ""}</span><br>
+            <span style="font-size: 14px; color: #777; margin-top: 5px; display: block;">${data.title || ""}</span>
         `;
 
-        // 渲染經歷列表
         const expList = document.getElementById('experience-list');
-        expList.innerHTML = data.experience.map(li => `<li>${li}</li>`).join('');
+        expList.innerHTML = data.experience ? data.experience.map(li => `<li>${li}</li>`).join('') : "<li>暫無資料</li>";
 
-        // 渲染藝術風格
-        document.getElementById('artist-style').innerText = data.style;
+        document.getElementById('artist-style').innerText = data.style || "內容整理中...";
 
-        // 渲染代表作品集
         const artworkGrid = document.getElementById('artwork-grid');
         if (data.artworks && data.artworks.length > 0) {
             artworkGrid.innerHTML = data.artworks.map(work => `
                 <div class="artwork-card">
-                    <div class="work-img"><img src="${work.img}" alt="${work.title}" loading="lazy"></div>
+                    <div class="work-img"><img src="${work.img}" alt="${work.title}" onerror="this.src='https://via.placeholder.com/300?text=Image+NotFound'"></div>
                     <div class="work-title">${work.title}</div>
                     <div class="work-year">${work.year}</div>
                 </div>
@@ -369,7 +267,6 @@
         }
     }
 
-    // 確保頁面加載完成後執行
     window.onload = init;
 </script>
 
