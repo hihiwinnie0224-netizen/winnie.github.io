@@ -26,7 +26,7 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        /* ===== 1. 統一頁首樣式 (與關於我們同步) ===== */
+        /* ===== 導覽列 ===== */
         header {
             background: #ffffff;
             box-shadow: 0 2px 20px rgba(0,0,0,0.05);
@@ -41,11 +41,11 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 20px; /* 同步高度 */
+            padding: 12px 20px;
         }
 
         .logo a {
-            font-size: 20px; /* 同步字體大小 */
+            font-size: 20px;
             font-weight: 800;
             color: var(--ubot-blue);
             text-decoration: none;
@@ -66,7 +66,7 @@
             padding: 0;
         }
 
-        .menu li { margin-left: 10px; } /* 同步間距 */
+        .menu li { margin-left: 10px; }
 
         .menu a {
             text-decoration: none;
@@ -80,22 +80,7 @@
 
         .menu a:hover, .menu a.active { color: var(--ubot-red); }
 
-        /* 漢堡選單按鈕樣式同步 */
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-            gap: 5px;
-        }
-
-        .menu-toggle span {
-            width: 25px;
-            height: 3px;
-            background: var(--ubot-blue);
-            transition: 0.3s;
-        }
-
-        /* ===== 2. 頁面 Banner ===== */
+        /* ===== Banner ===== */
         .page-banner {
             width: 100%;
             height: 200px;
@@ -113,10 +98,10 @@
         .page-banner h1 { font-size: 32px; margin: 0; letter-spacing: 4px; }
         .page-banner p { font-size: 14px; opacity: 0.8; margin-top: 5px; }
 
-        /* ===== 3. 搜尋與篩選區 (Sticky 修正) ===== */
+        /* ===== 搜尋與篩選 (Sticky) ===== */
         .sticky-tools { 
             position: sticky; 
-            top: 65px; /* 配合縮小後的 Navbar 高度 */
+            top: 65px;
             background: rgba(248, 251, 253, 0.95); 
             backdrop-filter: blur(10px); 
             z-index: 900; 
@@ -126,7 +111,7 @@
         
         .search-row { max-width: 600px; margin: 0 auto 15px; padding: 0 20px; }
         .search-box { 
-            width: 100%; padding: 10px 20px; border: 1px solid var(--border-color); 
+            width: 100%; padding: 12px 20px; border: 1px solid var(--border-color); 
             border-radius: 50px; font-size: 15px; box-sizing: border-box;
             outline: none; transition: 0.3s;
         }
@@ -139,24 +124,24 @@
         .tab-wrapper::-webkit-scrollbar { display: none; }
 
         .btn-tab { 
-            white-space: nowrap; padding: 8px 20px; border: 1.5px solid var(--ubot-blue); 
+            white-space: nowrap; padding: 8px 24px; border: 1.5px solid var(--ubot-blue); 
             background: white; color: var(--ubot-blue); border-radius: 50px; 
             font-size: 14px; font-weight: bold; cursor: pointer; transition: 0.3s;
         }
         .btn-tab.active { background: var(--ubot-blue); color: white; box-shadow: 0 4px 12px rgba(0,51,102,0.2); }
 
-        /* ===== 4. 內容卡片佈局 ===== */
-        .main-content { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+        /* ===== 藝術家網格 ===== */
+        .main-content { max-width: 1200px; margin: 40px auto; padding: 0 20px; min-height: 400px; }
         .year-row { background: white; border-radius: 12px; padding: 30px; margin-bottom: 30px; border: 1px solid #eee; }
         .year-label { 
             font-size: 20px; color: var(--ubot-blue); margin-bottom: 25px; font-weight: 800; 
             border-left: 5px solid var(--ubot-red); padding-left: 15px; 
         }
 
-        .winners-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 20px; }
+        .winners-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; }
         .winner-card { 
-            text-align: center; padding: 20px 10px; border-radius: 12px; 
-            border: 1px solid #f2f2f2; background: #fff; transition: 0.3s;
+            text-align: center; padding: 25px 15px; border-radius: 12px; 
+            border: 1px solid #f2f2f2; background: #fff; transition: 0.3s; cursor: pointer;
         }
         .winner-card:hover { transform: translateY(-5px); border-color: var(--ubot-sky-blue); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
 
@@ -168,74 +153,75 @@
         
         .tag { font-size: 11px; padding: 2px 10px; border-radius: 50px; display: inline-block; margin-bottom: 10px; font-weight: 600; }
         .tag-首獎 { background: #fff3cd; color: #856404; }
-        .tag-優選 { background: #d1ecf1; color: #0c5460; }
-        .tag-入選 { background: #e2e3e5; color: #383d41; }
         .tag-大師 { background: var(--ubot-blue); color: #fff; }
 
-        .name { font-size: 17px; font-weight: 700; margin-bottom: 15px; color: var(--text-main); }
+        .name { font-size: 18px; font-weight: 700; margin-bottom: 5px; color: var(--text-main); }
+        .year-text { font-size: 13px; color: #999; margin-bottom: 15px; }
+
         .btn-view { 
-            width: 100%; padding: 7px; background: transparent; 
+            width: 100%; padding: 8px; background: transparent; 
             border: 1px solid var(--ubot-blue); color: var(--ubot-blue); 
             border-radius: 6px; font-size: 13px; cursor: pointer; transition: 0.3s;
         }
-        .btn-view:hover { background: var(--ubot-blue); color: white; }
+        .winner-card:hover .btn-view { background: var(--ubot-blue); color: white; }
 
-        /* ===== 5. 統一頁尾樣式 ===== */
-        footer {
-            background: var(--ubot-light-blue);
-            color: var(--ubot-blue);
-            padding: 50px 20px 30px;
-            margin-top: 60px;
+        /* ===== 介紹彈窗 (Modal) ===== */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            padding: 20px;
         }
-
-        .footer-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-        }
-
-        .footer-logo { font-size: 20px; font-weight: 800; margin-bottom: 15px; }
-        .footer-info p { margin: 8px 0; font-size: 14px; }
-
-        .footer-links h4 { margin: 0 0 15px; border-left: 3px solid var(--ubot-red); padding-left: 10px; }
-        .footer-links ul { list-style: none; padding: 0; margin: 0; }
-        .footer-links li { margin-bottom: 8px; }
-        .footer-links a { text-decoration: none; color: var(--ubot-blue); font-size: 14px; opacity: 0.8; }
-        .footer-links a:hover { opacity: 1; color: var(--ubot-red); }
-
-        .footer-bottom {
-            max-width: 1200px;
-            margin: 30px auto 0;
-            padding-top: 20px;
-            border-top: 1px solid rgba(0,51,102,0.1);
+        .modal-content {
+            background: white;
+            width: 100%;
+            max-width: 500px;
+            border-radius: 20px;
+            position: relative;
+            padding: 40px 30px;
             text-align: center;
-            font-size: 12px;
-            opacity: 0.7;
+            animation: modalFadeIn 0.3s ease;
         }
+        @keyframes modalFadeIn {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .close-modal {
+            position: absolute;
+            top: 20px; right: 20px;
+            font-size: 28px; cursor: pointer; color: #ccc;
+        }
+        .modal-avatar {
+            width: 100px; height: 100px; border-radius: 50%;
+            margin: 0 auto 20px; display: flex; align-items: center; justify-content: center;
+            color: white; font-size: 36px; font-weight: bold;
+        }
+        .modal-description { 
+            text-align: left; color: #555; font-size: 15px; line-height: 1.8; 
+            margin: 20px 0 30px; padding-top: 20px; border-top: 1px solid #eee;
+        }
+        .btn-go-artworks {
+            display: block; width: 100%; padding: 15px;
+            background: var(--ubot-blue); color: white; text-decoration: none;
+            border-radius: 10px; font-weight: 600; transition: 0.3s;
+        }
+        .btn-go-artworks:hover { background: var(--ubot-sky-blue); }
 
-        /* ===== 6. 手機版 RWD 同步修正 ===== */
+        /* ===== 頁尾 ===== */
+        footer { background: var(--ubot-light-blue); padding: 50px 20px 30px; margin-top: 60px; }
+        .footer-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; }
+        .footer-logo { font-size: 20px; font-weight: 800; margin-bottom: 15px; color: var(--ubot-blue); }
+        .footer-bottom { text-align: center; font-size: 12px; margin-top: 40px; opacity: 0.6; }
+
+        /* ===== RWD ===== */
         @media (max-width: 768px) {
-            .menu-toggle { display: flex; }
-            .menu {
-                display: none;
-                flex-direction: column;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                background: white;
-                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-                padding: 20px;
-            }
-            .menu.active { display: flex; }
-            .menu li { margin: 0; border-bottom: 1px solid #f5f5f5; }
-            .menu a { padding: 15px 0; font-size: 16px; text-align: center; }
-
             .winners-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-            .year-row { padding: 20px 15px; }
             .sticky-tools { top: 60px; }
+            .navbar { padding: 10px 20px; }
         }
     </style>
 </head>
@@ -243,35 +229,25 @@
 
 <header>
     <nav class="navbar">
-        <div class="logo">
-            <a href="index.html">聯邦藝術中心</a>
-        </div>
-        
-        <div class="menu-toggle" id="mobile-menu">
-            <span></span><span></span><span></span>
-        </div>
-
-        <ul class="menu" id="nav-list">
+        <div class="logo"><a href="index.html">聯邦藝術中心</a></div>
+        <ul class="menu">
             <li><a href="about.html">關於我們</a></li>
-            <li><a href="exhibitions.html">展覽動態</a></li>
             <li><a href="awards.html">美術獎項</a></li>
             <li><a href="artists.html" class="active">藝術家</a></li>
             <li><a href="artworks.html">作品總覽</a></li>
             <li><a href="visit.html">參觀資訊</a></li>
-            <li><a href="contact.html">聯絡我們</a></li>
         </ul>
     </nav>
 </header>
 
-
 <section class="page-banner">
     <h1>藝術家典藏</h1>
-    <p>Distinguished Artists</p>
+    <p>Distinguished Artists Portfolio</p>
 </section>
 
 <div class="sticky-tools">
     <div class="search-row">
-        <input type="text" id="artistSearch" class="search-box" placeholder="搜尋姓名或年度..." onkeyup="handleSearch()">
+        <input type="text" id="artistSearch" class="search-box" placeholder="搜尋藝術家姓名..." onkeyup="handleSearch()">
     </div>
     <div class="tab-wrapper">
         <button class="btn-tab active" id="tab-master" onclick="switchCategory('master')">藝之初章</button>
@@ -284,107 +260,127 @@
     <div id="contentList"></div>
 </main>
 
+<div class="modal-overlay" id="artistModal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        <div id="modalBody"></div>
+    </div>
+</div>
+
 <footer>
     <div class="footer-container">
         <div class="footer-info">
             <div class="footer-logo">UNION ART CENTER</div>
-            <p><strong>地址：</strong>台北市大安區忠孝東路四段219號</p>
-            <p><strong>電話：</strong>(02) 2536-9999</p>
-            <p><strong>時間：</strong>週二至週日 09:00 - 17:00 (週一休館)</p>
-        </div>
-        <div class="footer-links">
-            <h4>探索中心</h4>
-            <ul>
-                <li><a href="about.html">關於我們</a></li>
-                <li><a href="exhibitions.html">最新展覽</a></li>
-                <li><a href="artists.html">合作藝術家</a></li>
-                <li><a href="visit.html">參觀指引</a></li>
-            </ul>
-        </div>
-        <div class="footer-links">
-            <h4>快速連結</h4>
-            <ul>
-                <li><a href="https://www.ubot.com.tw/" target="_blank">聯邦銀行官網</a></li>
-                <li><a href="contact.html">場地租借申請</a></li>
-                <li><a href="privacy.html">隱私權保護政策</a></li>
-            </ul>
+            <p>台北市大安區忠孝東路四段219號</p>
+            <p>(02) 2536-9999</p>
         </div>
     </div>
-    <div class="footer-bottom">
-        <p>© 2026 Union Art Center 聯邦藝術中心 版權所有</p>
-    </div>
+    <div class="footer-bottom">© 2026 Union Art Center 版權所有</div>
 </footer>
 
-    <div class="modal-overlay" id="artistModal">
-    <div class="modal-content">
-        <span class="close-modal" onclick="closeModal()">&times;</span>
-        <div id="modalBody">
-            </div>
-    </div>
-</div>
-
 <script>
-    // 1. 漢堡選單邏輯
-    const menuToggle = document.getElementById('mobile-menu');
-    const navList = document.getElementById('nav-list');
-    if (menuToggle) {
-        menuToggle.onclick = () => navList.classList.toggle('active');
-    }
-
-    // 2. 核心資料渲染 (修正版)
+    // 1. 資料庫 (Bio 建議 100-150 字最合適)
     const ARTISTS_LIST = [
-        { name: "許坤成", category: "master", tag: "大師", year: "評審召集人", color: "#003366" },
-        { name: "李郁汝", category: "newbie", tag: "首獎", year: "2024", color: "#E60012" }
+        { 
+            name: "許坤成", 
+            category: "master", 
+            tag: "大師", 
+            year: "評審召集人", 
+            color: "#003366",
+            bio: "許坤成教授為台灣當代藝術界的泰斗，曾任中國文化大學藝術學院院長。他以其開創性的繪畫風格與深厚的學術背景，帶領聯邦美術獎邁向專業與高度。其創作融合了東西方美學，並在推廣台灣寫實繪畫發展上不遺餘力。"
+        },
+        { 
+            name: "李郁汝", 
+            category: "newbie", 
+            tag: "首獎", 
+            year: "2024", 
+            color: "#E60012",
+            bio: "李郁汝以極具渲染力的筆觸與獨特的觀察視角，榮獲2024年聯邦美術新人獎首獎。她的作品擅長描繪光影在日常空間中的微妙變化，展現出靜謐且富有情感深度的藝術張力，是近年備受期待的青年藝術家。"
+        }
     ];
 
+    // 2. 渲染清單
     function renderList(filterCategory = 'master', searchTerm = '') {
         const container = document.getElementById('contentList');
         let html = '';
 
-        // 篩選資料
         const filtered = ARTISTS_LIST.filter(a => {
             const matchCat = a.category === filterCategory;
-            const matchSearch = a.name.includes(searchTerm) || a.year.toString().includes(searchTerm);
+            const matchSearch = a.name.includes(searchTerm);
             return matchCat && matchSearch;
         });
 
         if (filtered.length === 0) {
-            container.innerHTML = '<p style="text-align:center; padding:50px; color:#999;">暫無符合條件的藝術家</p>';
+            container.innerHTML = '<p style="text-align:center; padding:50px; color:#999;">目前無相符的藝術家資料</p>';
             return;
         }
 
-        // 這裡示範以「年度」或「類別」分組，現在簡單直接出網格
-        html += `<div class="year-row">
-                    <div class="year-label">${filterCategory === 'master' ? '歷屆大師 / 評審' : '獲獎藝術家'}</div>
-                    <div class="winners-grid">`;
-        
-filtered.forEach(artist => {
-    html += `
-        <div class="winner-card" onclick="location.href='artworks.html?artist=${encodeURIComponent(artist.name)}'">
-            <div class="avatar" style="background:${artist.color}">${artist.name[0]}</div>
-            <div class="tag tag-${artist.tag}">${artist.tag}</div>
-            <div class="name">${artist.name}</div>
-            <div style="font-size:12px; color:#999; margin-bottom:10px;">${artist.year}</div>
-            <button class="btn-view">查看作品</button>
-        </div>
-    `;
-});
+        const label = filterCategory === 'master' ? '歷屆大師 / 評審' : '獲獎藝術家';
 
-    // 標籤切換
+        html += `<div class="year-row">
+                    <div class="year-label">${label}</div>
+                    <div class="winners-grid">`;
+
+        filtered.forEach(artist => {
+            html += `
+                <div class="winner-card" onclick="openModal('${artist.name}')">
+                    <div class="avatar" style="background:${artist.color}">${artist.name[0]}</div>
+                    <div class="tag tag-${artist.tag}">${artist.tag}</div>
+                    <div class="name">${artist.name}</div>
+                    <div class="year-text">${artist.year}</div>
+                    <button class="btn-view">查看簡介</button>
+                </div>
+            `;
+        });
+
+        html += `</div></div>`;
+        container.innerHTML = html;
+    }
+
+    // 3. 彈窗邏輯
+    function openModal(name) {
+        const artist = ARTISTS_LIST.find(a => a.name === name);
+        if (!artist) return;
+
+        const modalBody = document.getElementById('modalBody');
+        modalBody.innerHTML = `
+            <div class="modal-avatar" style="background:${artist.color}">${artist.name[0]}</div>
+            <h2 style="margin:0">${artist.name}</h2>
+            <div style="color:var(--ubot-red); font-weight:bold; margin-top:5px;">${artist.year} · ${artist.tag}</div>
+            <div class="modal-description">${artist.bio}</div>
+            <a href="artworks.html?artist=${encodeURIComponent(artist.name)}" class="btn-go-artworks">
+                瀏覽 ${artist.name} 的典藏作品
+            </a>
+        `;
+
+        document.getElementById('artistModal').style.display = 'flex';
+        document.body.style.overflow = 'hidden'; // 禁止底層捲動
+    }
+
+    function closeModal() {
+        document.getElementById('artistModal').style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+
+    // 4. 事件處理
     function switchCategory(cat) {
         document.querySelectorAll('.btn-tab').forEach(btn => btn.classList.remove('active'));
-        event.currentTarget.classList.add('active');
+        document.getElementById(`tab-${cat}`).classList.add('active');
         renderList(cat, document.getElementById('artistSearch').value);
     }
 
-    // 搜尋功能
     function handleSearch() {
         const term = document.getElementById('artistSearch').value;
         const activeCat = document.querySelector('.btn-tab.active').id.replace('tab-', '');
         renderList(activeCat, term);
     }
 
-    // 初始化顯示「藝之初章」
+    // 背景點擊關閉
+    window.onclick = (e) => {
+        if (e.target.id === 'artistModal') closeModal();
+    }
+
+    // 初始化
     window.onload = () => renderList('master');
 </script>
 
