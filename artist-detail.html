@@ -36,66 +36,50 @@
 
         .navbar {
             max-width: 1200px;
-            margin: auto;
+            margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 20px;
+            padding: 15px 25px;
         }
 
         .logo a {
-            text-decoration: none;
-            font-weight: 800;
-            font-size: 18px;
-            color: var(--ubot-blue);
-        }
-
-        .menu { display: none; list-style: none; } /* 電腦版選單隱藏 */
-
-        .menu-toggle {
             font-size: 24px;
-            cursor: pointer;
+            font-weight: 800;
             color: var(--ubot-blue);
-            padding: 5px;
-        }
-
-        /* 手機側邊選單 */
-        .mobile-menu {
-            position: fixed;
-            top: 0;
-            right: -280px;
-            width: 280px;
-            height: 100%;
-            background: #fff;
-            box-shadow: -5px 0 30px rgba(0,0,0,.1);
-            transition: .4s cubic-bezier(0.4, 0, 0.2, 1);
-            padding-top: 60px;
-            z-index: 2000;
-        }
-
-        .mobile-menu ul { list-style: none; padding: 0; }
-        .mobile-menu a {
-            display: block;
-            padding: 15px 25px;
             text-decoration: none;
-            color: var(--ubot-blue);
+            display: flex;
+            align-items: center;
+            letter-spacing: 1px;
+        }
+
+            /* 同步標準頁首的紅點樣式 */
+        .logo a::before { 
+            content: ""; width: 8px; height: 8px; background: var(--ubot-red); 
+            border-radius: 50%; margin-right: 10px; 
+        }
+        
+        .menu {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .menu li { margin-left: 15px; }
+
+        .menu a {
+            text-decoration: none;
+            color: #666;
             font-weight: 600;
-            border-bottom: 1px solid #f5f5f5;
+            font-size: 14px;
+            transition: 0.3s;
+            padding: 8px 10px;
         }
 
-        .mobile-menu.show { right: 0; }
-
-        .overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,.5);
-            opacity: 0;
-            visibility: hidden;
-            transition: .3s;
-            z-index: 1500;
+        .menu a:hover, .menu a.active { 
+            color: var(--ubot-red); 
         }
-
-        .overlay.show { opacity: 1; visibility: visible; }
 
         /* 返回列表 */
         .back-nav {
@@ -273,13 +257,16 @@
 
 <header id="header">
     <nav class="navbar">
-        <div class="logo"><a href="index.html">聯邦藝術中心</a></div>
-        <div class="menu-toggle" onclick="openMenu()">☰</div>
+        <div class="logo">
+            <a href="index.html">聯邦藝術中心</a>
+        </div>
         <ul class="menu">
             <li><a href="about.html">關於我們</a></li>
+            <li><a href="exhibitions.html">展覽動態</a></li>
             <li><a href="awards.html">美術獎項</a></li>
-            <li><a href="artists.html" class="active">藝術家</a></li>
+            <li><a href="artists.html">藝術家</a></li> <li><a href="artworks.html">作品總覽</a></li>
             <li><a href="visit.html">參觀資訊</a></li>
+            <li><a href="contact.html">聯絡我們</a></li>
         </ul>
     </nav>
 </header>
@@ -287,6 +274,7 @@
 <div class="mobile-menu" id="mobileMenu">
     <ul>
         <li><a href="about.html">關於我們</a></li>
+        <li><a href="exhibitions.html">展覽動態</a></li>
         <li><a href="awards.html">美術獎項</a></li>
         <li><a href="artists.html">藝術家</a></li>
         <li><a href="visit.html">參觀資訊</a></li>
