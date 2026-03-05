@@ -6,7 +6,7 @@
     <title>作品總覽｜聯邦藝術中心 Union Art Center</title>
     
     <style>
-        /* ===== 0. 全域設定與變數 (與關於我們同步) ===== */
+        /* ===== 0. 全域設定與變數 (與關於我們完全同步) ===== */
         :root {
             --ubot-red: #E60012;
             --ubot-blue: #003366;
@@ -27,7 +27,7 @@
             overflow-x: hidden;
         }
 
-        /* ===== 1. 統一頁首樣式 (與關於我們完全同步) ===== */
+        /* ===== 1. 統一頁首樣式 (Header) - 與關於我們同步 ===== */
         header {
             background: #ffffff;
             box-shadow: 0 2px 20px rgba(0,0,0,0.05);
@@ -93,7 +93,7 @@
             transition: 0.3s;
         }
 
-        /* ===== 2. Page Banner (高度調回 280px 同步) ===== */
+        /* ===== 2. Page Banner (同步高度 280px) ===== */
         .page-banner {
             width: 100%;
             height: 280px;
@@ -114,7 +114,7 @@
         .page-banner h1 { font-size: 32px; margin: 0; letter-spacing: 4px; font-weight: 900; }
         .page-banner p { font-size: 14px; opacity: 0.9; margin-top: 10px; letter-spacing: 1px; }
 
-        /* ===== 3. 作品篩選器 (保持原本功能，微調樣式) ===== */
+        /* ===== 3. 作品篩選器 (Sticky 位置同步修正) ===== */
         .sticky-filter {
             background: #fff;
             padding: 20px 0;
@@ -235,7 +235,7 @@
             opacity: 0.7;
         }
 
-        /* ===== 6. 統一手機版 RWD (關鍵修改) ===== */
+        /* ===== 6. 統一手機版 RWD (與關於我們同步) ===== */
         @media (max-width: 768px) {
             .menu-toggle { display: flex; }
 
@@ -262,7 +262,7 @@
                 padding: 25px 20px; 
             }
 
-            .sticky-filter { top: 54px; } /* 手機版 Navbar 較矮 */
+            .sticky-filter { top: 54px; } /* 手機版 Navbar 高度較矮，此數值依實際情況微調 */
         }
     </style>
 </head>
@@ -285,7 +285,7 @@
             <li><a href="exhibitions.html">展覽動態</a></li>
             <li><a href="awards.html">美術獎項</a></li>
             <li><a href="artists.html">藝術家</a></li>
-            <li><a href="artworks.html">作品總覽</a></li>
+            <li><a href="artworks.html" class="active">作品總覽</a></li>
             <li><a href="visit.html">參觀資訊</a></li>
             <li><a href="contact.html">聯絡我們</a></li>
         </ul>
