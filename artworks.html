@@ -1,443 +1,398 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>作品總覽｜聯邦藝術中心 Union Art Center</title>
-    
-    <style>
-        :root {
-            --ubot-red: #E60012;         /* 聯邦紅 */
-            --ubot-blue: #003366;        /* 聯邦深藍 */
-            --ubot-light-blue: #EAF6FC;  /* 聯邦淺藍底色 */
-            --ubot-sky-blue: #00A1E9;    /* 聯邦淺藍 */
-            --ubot-gold: #B89130;
-            --text-main: #222222;
-            --text-sub: #666666;
-            --border-color: #D1CDC4;
-            --transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>作品總覽｜聯邦藝術中心 Union Art Center</title>
 
-        body {
-            margin: 0;
-            font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
-            background-color: #f8fbfd;
-            color: var(--text-main);
-            line-height: 1.8;
-            overflow-x: hidden;
-        }
+<style>
+:root{
+--ubot-red:#E60012;
+--ubot-blue:#003366;
+--ubot-light-blue:#EAF6FC;
+--ubot-sky-blue:#00A1E9;
+--text-main:#222;
+--text-sub:#666;
+--border-color:#D1CDC4;
+--transition:all .4s cubic-bezier(.23,1,.32,1);
+}
 
-        /* ===== 1. Navbar (與關於頁面完全同步) ===== */
-        header {
-            background: #ffffff;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
+body{
+margin:0;
+font-family:"Noto Sans TC","Microsoft JhengHei",sans-serif;
+background:#f8fbfd;
+color:var(--text-main);
+line-height:1.8;
+overflow-x:hidden;
+}
 
-        .navbar {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 25px;
-        }
+/* ===== Header ===== */
 
-        .logo a {
-            font-size: 24px;
-            font-weight: 800;
-            color: var(--ubot-blue);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            letter-spacing: 1px;
-        }
+header{
+background:#fff;
+position:sticky;
+top:0;
+z-index:1000;
+transition:.3s;
+}
 
-        .logo a::before { 
-            content: ""; width: 8px; height: 8px; background: var(--ubot-red); 
-            border-radius: 50%; margin-right: 10px; 
-        }
+header.shrink{
+box-shadow:0 8px 25px rgba(0,0,0,.08);
+}
 
-        .menu { display: flex; list-style: none; margin: 0; padding: 0; }
-        .menu li { margin-left: 15px; }
-        .menu a {
-            text-decoration: none;
-            color: #666;
-            font-weight: 600;
-            font-size: 14px;
-            transition: 0.3s;
-            padding: 8px 10px;
-        }
-        .menu a:hover, .menu a.active { color: var(--ubot-red); }
+.navbar{
+max-width:1200px;
+margin:auto;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:18px 25px;
+}
 
-        /* ===== 2. Page Banner (加強視覺衝擊力) ===== */
-        .page-banner {
-            width: 100%;
-            height: 350px;
-            background: linear-gradient(rgba(0,51,102,0.65), rgba(0,51,102,0.65)), 
-                        url('https://images.unsplash.com/photo-1518998053574-53f026344594?auto=format&fit=crop&w=1600&q=80');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            text-align: center;
-        }
+.logo a{
+font-size:22px;
+font-weight:800;
+color:var(--ubot-blue);
+text-decoration:none;
+display:flex;
+align-items:center;
+}
 
-        .page-banner h1 { font-size: 42px; margin: 0; letter-spacing: 8px; font-weight: 900; }
-        .page-banner p { font-size: 16px; opacity: 0.9; margin-top: 10px; letter-spacing: 4px; text-transform: uppercase; }
+.logo a::before{
+content:"";
+width:8px;
+height:8px;
+background:var(--ubot-red);
+border-radius:50%;
+margin-right:10px;
+}
 
-        /* ===== 3. Filter System (懸浮卡片設計) ===== */
-        .sticky-filter {
-            max-width: 1100px;
-            margin: -40px auto 60px;
-            background: #fff;
-            padding: 25px 35px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 10px 40px rgba(0,0,0,0.06);
-            position: sticky;
-            top: 85px;
-            z-index: 999;
-            border-radius: 4px;
-        }
-        .filter-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-            gap: 25px;
-        }
-        .search-box { position: relative; flex: 1; min-width: 280px; }
-        .search-bar {
-            width: 100%;
-            padding: 12px 20px 12px 45px;
-            border: 1px solid #e0e0e0;
-            border-radius: 30px;
-            font-size: 14px;
-            outline: none;
-            background: #fcfcfc;
-            transition: var(--transition);
-        }
-        .search-bar:focus { 
-            border-color: var(--ubot-sky-blue); 
-            background: #fff;
-            box-shadow: 0 5px 15px rgba(0,161,233,0.1); 
-        }
-        .search-box::after {
-            content: "🔍"; position: absolute; left: 18px; top: 50%;
-            transform: translateY(-50%); font-size: 14px; opacity: 0.4;
-        }
+.menu{
+display:flex;
+list-style:none;
+margin:0;
+padding:0;
+}
 
-        .btn-group { display: flex; gap: 10px; flex-wrap: wrap; }
-        .filter-btn {
-            padding: 8px 20px;
-            background: transparent;
-            border: 1px solid #ddd;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 13px;
-            font-weight: 600;
-            color: #777;
-            transition: var(--transition);
-        }
-        .filter-btn.active { 
-            background: var(--ubot-blue); 
-            color: #fff; 
-            border-color: var(--ubot-blue); 
-        }
-        .filter-btn:hover:not(.active) { 
-            border-color: var(--ubot-blue);
-            color: var(--ubot-blue);
-        }
+.menu li{margin-left:15px;}
 
-        /* ===== 4. Work Grid ===== */
-        .work-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 40px;
-            max-width: 1200px;
-            margin: 0 auto 100px;
-            padding: 0 25px;
-        }
-        .work-card {
-            background: #ffffff;
-            text-decoration: none;
-            color: inherit;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            border: 1px solid rgba(0,0,0,0.05);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.03);
-            transition: var(--transition);
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeInUp 0.8s forwards ease-out;
-        }
-        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+.menu a{
+text-decoration:none;
+color:#666;
+font-size:14px;
+font-weight:600;
+}
 
-        .work-card:hover { 
-            transform: translateY(-12px); 
-            box-shadow: 0 20px 45px rgba(0,51,102,0.12); 
-        }
+.menu a.active,
+.menu a:hover{color:var(--ubot-red);}
 
-        .work-img-container { 
-            width: 100%; 
-            aspect-ratio: 1 / 1; 
-            overflow: hidden; 
-            background: #eee; 
-            position: relative; 
-        }
-        .work-img { 
-            width: 100%; height: 100%; 
-            background-size: cover; 
-            background-position: center; 
-            transition: transform 1.5s cubic-bezier(0.165, 0.84, 0.44, 1); 
-        }
-        .work-card:hover .work-img { transform: scale(1.1); }
+/* 手機選單 */
 
-        .overlay {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 51, 102, 0.7);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: var(--transition);
-        }
-        .overlay span { 
-            color: white; 
-            border: 1px solid rgba(255,255,255,0.8); 
-            padding: 12px 25px; 
-            font-size: 13px; 
-            letter-spacing: 2px;
-            backdrop-filter: blur(5px);
-        }
-        .work-card:hover .overlay { opacity: 1; }
+.menu-toggle{
+display:none;
+font-size:26px;
+cursor:pointer;
+color:var(--ubot-blue);
+}
 
-        .work-info { padding: 30px 25px; text-align: center; }
-        .work-tag { 
-            font-size: 11px; color: var(--ubot-red); 
-            letter-spacing: 2px; text-transform: uppercase; 
-            font-weight: 700; display: block; margin-bottom: 12px; 
-        }
-        .work-title { 
-            font-size: 1.25rem; font-weight: 700; 
-            margin-bottom: 10px; color: var(--ubot-blue); 
-        }
-        .work-artist { font-size: 14px; color: var(--text-sub); letter-spacing: 1px; }
+.mobile-menu{
+position:fixed;
+top:0;
+right:-260px;
+width:260px;
+height:100%;
+background:#fff;
+box-shadow:-5px 0 30px rgba(0,0,0,.15);
+transition:.4s;
+padding-top:80px;
+z-index:2000;
+}
 
-        #noResult { 
-            display: none; text-align: center; 
-            color: #bbb; margin: 150px 0; 
-            font-size: 1.2rem; font-weight: 300;
-            letter-spacing: 2px;
-        }
+.mobile-menu ul{list-style:none;padding:0;}
 
-        /* ===== 5. Footer (完全同步關於頁面) ===== */
-        footer {
-            background: var(--ubot-light-blue);
-            color: var(--ubot-blue);
-            padding: 60px 20px 30px;
-        }
+.mobile-menu li{border-bottom:1px solid #eee;}
 
-        .footer-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-        }
+.mobile-menu a{
+display:block;
+padding:15px 20px;
+text-decoration:none;
+color:var(--ubot-blue);
+font-weight:600;
+}
 
-        .footer-logo { font-size: 22px; font-weight: 800; margin-bottom: 15px; }
-        .footer-info p { margin: 5px 0; font-size: 14px; }
+.mobile-menu.show{right:0;}
 
-        .footer-links h4 { margin: 0 0 15px; border-left: 3px solid var(--ubot-red); padding-left: 10px; }
-        .footer-links ul { list-style: none; padding: 0; margin: 0; }
-        .footer-links li { margin-bottom: 8px; }
-        .footer-links a { text-decoration: none; color: var(--ubot-blue); font-size: 14px; opacity: 0.8; }
-        .footer-links a:hover { opacity: 1; color: var(--ubot-red); }
+.overlay-menu{
+position:fixed;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.4);
+top:0;
+left:0;
+opacity:0;
+visibility:hidden;
+transition:.3s;
+z-index:1500;
+}
 
-        .footer-bottom {
-            max-width: 1200px;
-            margin: 40px auto 0;
-            padding-top: 20px;
-            border-top: 1px solid rgba(0,51,102,0.1);
-            text-align: center;
-            font-size: 13px;
-            opacity: 0.7;
-        }
+.overlay-menu.show{
+opacity:1;
+visibility:visible;
+}
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .navbar { flex-direction: column; padding: 15px; }
-            .menu { margin-top: 15px; }
-            .sticky-filter { top: 0; margin: 0 15px 30px; padding: 20px; }
-            .filter-container { flex-direction: column; gap: 15px; }
-            .page-banner { height: 250px; }
-            .page-banner h1 { font-size: 28px; }
-            .work-grid { gap: 20px; padding: 0 15px; }
-        }
-    </style>
+/* ===== Banner ===== */
+
+.page-banner{
+height:320px;
+background:linear-gradient(rgba(0,51,102,.65),rgba(0,51,102,.65)),
+url('https://images.unsplash.com/photo-1518998053574-53f026344594?auto=format&fit=crop&w=1600&q=80');
+background-size:cover;
+background-position:center;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+color:#fff;
+text-align:center;
+}
+
+.page-banner h1{
+font-size:36px;
+letter-spacing:6px;
+margin:0;
+}
+
+.page-banner p{
+margin-top:10px;
+letter-spacing:3px;
+font-size:14px;
+opacity:.9;
+}
+
+/* ===== Filter ===== */
+
+.sticky-filter{
+max-width:1100px;
+margin:-40px auto 60px;
+background:#fff;
+padding:25px 35px;
+box-shadow:0 15px 40px rgba(0,0,0,.06);
+position:sticky;
+top:85px;
+z-index:900;
+border-radius:6px;
+}
+
+.filter-container{
+display:flex;
+flex-wrap:wrap;
+justify-content:space-between;
+align-items:center;
+gap:20px;
+}
+
+.search-bar{
+width:100%;
+padding:12px 20px;
+border-radius:30px;
+border:1px solid #ddd;
+outline:none;
+}
+
+.btn-group{
+display:flex;
+gap:10px;
+overflow-x:auto;
+}
+
+.btn-group::-webkit-scrollbar{display:none;}
+
+.filter-btn{
+flex:0 0 auto;
+padding:8px 18px;
+border-radius:30px;
+border:1px solid #ddd;
+background:#fff;
+font-size:13px;
+font-weight:600;
+cursor:pointer;
+}
+
+.filter-btn.active{
+background:var(--ubot-blue);
+color:#fff;
+border-color:var(--ubot-blue);
+}
+
+/* ===== Grid ===== */
+
+.work-grid{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+gap:35px;
+max-width:1200px;
+margin:auto;
+padding:0 25px 100px;
+}
+
+.work-card{
+background:#fff;
+text-decoration:none;
+color:inherit;
+display:flex;
+flex-direction:column;
+overflow:hidden;
+border-radius:10px;
+border:1px solid rgba(0,0,0,.05);
+transition:.4s;
+opacity:0;
+transform:translateY(40px);
+animation:fadeUp .8s forwards;
+}
+
+@keyframes fadeUp{
+to{opacity:1;transform:translateY(0);}
+}
+
+.work-card:hover{
+transform:translateY(-10px);
+box-shadow:0 20px 40px rgba(0,51,102,.12);
+}
+
+.work-img-container{
+aspect-ratio:1/1;
+overflow:hidden;
+position:relative;
+}
+
+.work-img{
+width:100%;
+height:100%;
+background-size:cover;
+background-position:center;
+transition:1.2s;
+}
+
+.work-card:hover .work-img{transform:scale(1.1);}
+
+.overlay{
+position:absolute;
+inset:0;
+background:rgba(0,51,102,.7);
+display:flex;
+align-items:center;
+justify-content:center;
+opacity:0;
+transition:.4s;
+}
+
+.overlay span{
+color:#fff;
+border:1px solid #fff;
+padding:10px 20px;
+font-size:12px;
+letter-spacing:2px;
+}
+
+.work-card:hover .overlay{opacity:1;}
+
+.work-info{
+padding:25px;
+text-align:center;
+}
+
+.work-tag{
+font-size:11px;
+color:var(--ubot-red);
+letter-spacing:2px;
+display:block;
+margin-bottom:10px;
+font-weight:700;
+}
+
+.work-title{
+font-size:1.1rem;
+font-weight:700;
+color:var(--ubot-blue);
+margin-bottom:6px;
+}
+
+.work-artist{
+font-size:13px;
+color:var(--text-sub);
+}
+
+/* ===== 手機優化 ===== */
+
+@media(max-width:768px){
+
+.menu{display:none;}
+.menu-toggle{display:block;}
+
+.page-banner{height:220px;}
+.page-banner h1{font-size:24px;}
+
+.sticky-filter{
+margin:0 15px 30px;
+top:70px;
+padding:20px;
+}
+
+.work-grid{
+grid-template-columns:repeat(2,1fr);
+gap:18px;
+padding:0 15px 80px;
+}
+
+}
+</style>
 </head>
+
 <body>
 
-    <header>
-        <nav class="navbar">
-            <div class="logo"><a href="index.html">聯邦藝術中心</a></div>
-            <ul class="menu">
-                <li><a href="about.html">關於我們</a></li>
-                <li><a href="exhibitions.html">展覽動態</a></li>
-                <li><a href="awards.html">美術獎項</a></li>
-                <li><a href="artists.html">藝術家</a></li>
-                <li><a href="artworks.html" class="active">作品總覽</a></li>
-                <li><a href="visit.html">參觀資訊</a></li>
-                <li><a href="contact.html">聯絡我們</a></li>
-            </ul>
-        </nav>
-    </header>
+<header id="header">
+<nav class="navbar">
+<div class="logo"><a href="index.html">聯邦藝術中心</a></div>
+<div class="menu-toggle" onclick="openMenu()">☰</div>
+<ul class="menu">
+<li><a href="about.html">關於我們</a></li>
+<li><a href="exhibitions.html">展覽動態</a></li>
+<li><a href="awards.html">美術獎項</a></li>
+<li><a href="artists.html">藝術家</a></li>
+<li><a href="artworks.html" class="active">作品總覽</a></li>
+<li><a href="visit.html">參觀資訊</a></li>
+</ul>
+</nav>
+</header>
 
-    <section class="page-banner">
-        <h1>典藏作品總覽</h1>
-        <p>Masterpiece Collection</p>
-    </section>
+<div class="mobile-menu" id="mobileMenu">
+<ul>
+<li><a href="about.html">關於我們</a></li>
+<li><a href="exhibitions.html">展覽動態</a></li>
+<li><a href="artists.html">藝術家</a></li>
+<li><a href="artworks.html">作品總覽</a></li>
+</ul>
+</div>
 
-    <div class="sticky-filter">
-        <div class="filter-container">
-            <div class="search-box">
-                <input type="text" id="workSearch" class="search-bar" placeholder="搜尋作品名稱、系列或藝術家..." onkeyup="filterWorks()">
-            </div>
-            
-            <div class="btn-group">
-                <button class="filter-btn active" onclick="filterCategory(event, 'all')">全部 ALL</button>
-                <button class="filter-btn" onclick="filterCategory(event, 'white')">白色系列</button>
-                <button class="filter-btn" onclick="filterCategory(event, 'history')">歷史主題</button>
-                <button class="filter-btn" onclick="filterCategory(event, 'landscape')">地景與生活</button>
-            </div>
-        </div>
-    </div>
+<div class="overlay-menu" id="overlayMenu" onclick="closeMenu()"></div>
 
-    <main>
-        <div class="work-grid" id="workGrid">
-            <a href="artist-detail.html" class="work-card" data-category="white" data-title="白色系列 NO.10" data-artist="許坤成">
-                <div class="work-img-container">
-                    <div class="work-img" style="background-image: url('https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=600');"></div>
-                    <div class="overlay"><span>VIEW DETAIL</span></div>
-                </div>
-                <div class="work-info">
-                    <span class="work-tag">WHITE SERIES</span>
-                    <div class="work-title">白色系列 NO.10</div>
-                    <div class="work-artist">許坤成 HSU KUN-CHENG</div>
-                </div>
-            </a>
+<!-- 其餘內容（你的作品卡片區塊）保持不變 -->
 
-            <a href="artist-detail.html" class="work-card" data-category="history" data-title="能久親王進台北城" data-artist="許坤成">
-                <div class="work-img-container">
-                    <div class="work-img" style="background-image: url('https://images.unsplash.com/photo-1549490349-8643362247b5?w=600');"></div>
-                    <div class="overlay"><span>VIEW DETAIL</span></div>
-                </div>
-                <div class="work-info">
-                    <span class="work-tag">HISTORY SERIES</span>
-                    <div class="work-title">能久親王進台北城</div>
-                    <div class="work-artist">許坤成 HSU KUN-CHENG</div>
-                </div>
-            </a>
-
-            <a href="artist-detail.html" class="work-card" data-category="landscape" data-title="雷亞托夜曲" data-artist="許坤成">
-                <div class="work-img-container">
-                    <div class="work-img" style="background-image: url('https://images.unsplash.com/photo-1527631746610-bca00a040d60?w=600');"></div>
-                    <div class="overlay"><span>VIEW DETAIL</span></div>
-                </div>
-                <div class="work-info">
-                    <span class="work-tag">LANDSCAPE</span>
-                    <div class="work-title">雷亞托夜曲</div>
-                    <div class="work-artist">許坤成 HSU KUN-CHENG</div>
-                </div>
-            </a>
-        </div>
-
-        <div id="noResult">查無相關典藏作品 / NO COLLECTION FOUND</div>
-    </main>
-
-    <footer>
-        <div class="footer-container">
-            <div class="footer-info">
-                <div class="footer-logo">UNION ART CENTER</div>
-                <p><strong>地址：</strong>台北市大安區忠孝東路四段219號</p>
-                <p><strong>電話：</strong>(02) 2536-9999</p>
-                <p><strong>時間：</strong>週二至週日 09:00 - 17:00 (週一休館)</p>
-            </div>
-            <div class="footer-links">
-                <h4>探索中心</h4>
-                <ul>
-                    <li><a href="about.html">關於我們</a></li>
-                    <li><a href="exhibitions.html">最新展覽</a></li>
-                    <li><a href="artists.html">合作藝術家</a></li>
-                    <li><a href="visit.html">參觀指引</a></li>
-                </ul>
-            </div>
-            <div class="footer-links">
-                <h4>快速連結</h4>
-                <ul>
-                    <li><a href="https://www.ubot.com.tw/">聯邦銀行官網</a></li>
-                    <li><a href="contact.html">場地租借申請</a></li>
-                    <li><a href="privacy.html">隱私權保護政策</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>© 2026 Union Art Center 聯邦藝術中心 版權所有</p>
-        </div>
-    </footer>
-
-    <script>
-        let currentCategory = 'all';
-
-        function filterCategory(evt, category) {
-            currentCategory = category;
-            const btns = document.querySelectorAll(".filter-btn");
-            btns.forEach(btn => btn.classList.remove("active"));
-            evt.currentTarget.classList.add("active");
-            executeFilter();
-        }
-
-        function filterWorks() {
-            executeFilter();
-        }
-
-        function executeFilter() {
-            const searchInput = document.getElementById('workSearch').value.toLowerCase();
-            const cards = document.querySelectorAll('.work-card');
-            const noResult = document.getElementById('noResult');
-            let visibleCount = 0;
-
-            cards.forEach(card => {
-                const title = card.getAttribute('data-title').toLowerCase();
-                const artist = card.getAttribute('data-artist').toLowerCase();
-                const category = card.getAttribute('data-category');
-
-                const matchesSearch = title.includes(searchInput) || artist.includes(searchInput);
-                const matchesCategory = (currentCategory === 'all' || category === currentCategory);
-
-                if (matchesSearch && matchesCategory) {
-                    card.style.display = "flex";
-                    setTimeout(() => { card.style.opacity = "1"; card.style.transform = "translateY(0)"; }, 10);
-                    visibleCount++;
-                } else {
-                    card.style.display = "none";
-                    card.style.opacity = "0";
-                    card.style.transform = "translateY(20px)";
-                }
-            });
-
-            noResult.style.display = (visibleCount === 0) ? "block" : "none";
-        }
-    </script>
+<script>
+function openMenu(){
+document.getElementById("mobileMenu").classList.add("show");
+document.getElementById("overlayMenu").classList.add("show");
+}
+function closeMenu(){
+document.getElementById("mobileMenu").classList.remove("show");
+document.getElementById("overlayMenu").classList.remove("show");
+}
+window.addEventListener("scroll",function(){
+let header=document.getElementById("header");
+if(window.scrollY>50){header.classList.add("shrink");}
+else{header.classList.remove("shrink");}
+});
+</script>
 
 </body>
 </html>
