@@ -4,9 +4,277 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>聯邦藝術中心 Union Art Center｜深耕本土藝術</title>
+    
+    <style>
+        :root {
+            --ubot-red: #E60012;         /* 聯邦紅 */
+            --ubot-blue: #003366;        /* 聯邦深藍 */
+            --ubot-light-blue: #EAF6FC;  /* 聯邦淺藍背景 */
+            --ubot-sky-blue: #00A1E9;    /* 聯邦淺藍點綴 */
+            --text-dark: #333333;
+            --text-gray: #666666;
+            --border-color: #D1CDC4;
+        }
 
-    <!-- 外部CSS -->
-    <link rel="stylesheet" href="css/index.css">
+        body {
+            margin: 0;
+            font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+            background-color: #ffffff;
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden; /* 防止手機左右晃動 */
+        }
+
+        /* ===== 1. 導覽列 Navbar (優化手機版) ===== */
+        header {
+            background: #ffffff;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 20px;
+        }
+
+        .logo a {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--ubot-blue);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            letter-spacing: 1px;
+        }
+
+        .logo a::before { 
+            content: ""; width: 8px; height: 8px; background: var(--ubot-red); 
+            border-radius: 50%; margin-right: 8px; 
+        }
+
+        /* 漢堡選單按鈕 */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+        .menu-toggle span {
+            width: 25px; height: 3px; background: var(--ubot-blue);
+            transition: 0.3s;
+        }
+
+        .menu {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .menu li { margin-left: 10px; }
+
+        .menu a {
+            text-decoration: none;
+            color: #666;
+            font-weight: 600;
+            font-size: 15px;
+            transition: 0.3s;
+            padding: 8px 12px;
+            display: block;
+        }
+
+        .menu a:hover, .menu a.active { color: var(--ubot-red); }
+
+        /* ===== 2. 主視覺 Banner (響應式調整) ===== */
+        .hero-banner {
+            width: 100%;
+            height: 70vh; /* 使用螢幕高度百分比 */
+            min-height: 400px;
+            background: linear-gradient(rgba(0,51,102,0.6), rgba(0,51,102,0.4)),
+                        url('https://images.unsplash.com/photo-1577083552431-6e5fd01aa342?auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .hero-banner h1 { 
+            font-size: clamp(32px, 8vw, 58px); /* 字體隨螢幕縮放 */
+            letter-spacing: 4px; 
+            margin: 0; 
+            font-weight: 700;
+        }
+
+        .hero-banner .sub-title { 
+            font-size: 18px; 
+            letter-spacing: 2px; 
+            margin-top: 10px; 
+            opacity: 0.9;
+        }
+
+        .hero-btn {
+            margin-top: 30px;
+            padding: 14px 40px;
+            background: var(--ubot-red);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(230,0,18,0.3);
+        }
+
+        /* ===== 3. 快捷卡片 ===== */
+        .quick-access {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            max-width: 1100px;
+            margin: -40px auto 60px;
+            gap: 20px; 
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .access-card {
+            background: white;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-decoration: none;
+            color: var(--ubot-blue);
+            transition: 0.4s;
+            border-radius: 12px;
+        }
+
+        .access-card h3 { margin: 0 0 10px 0; font-size: 18px; }
+        .access-card p { font-size: 14px; color: var(--text-gray); margin: 0; }
+
+        /* ===== 4. 精選作品區 ===== */
+        .featured-art {
+            max-width: 1200px;
+            margin: 0 auto 60px;
+            padding: 0 20px;
+        }
+
+        .section-title { text-align: center; margin-bottom: 40px; }
+        .section-title h2 { font-size: 28px; color: var(--ubot-blue); position: relative; padding-bottom: 10px; }
+        .section-title h2::after {
+            content: ""; width: 40px; height: 3px; background: var(--ubot-red);
+            position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+        }
+
+        .art-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .art-item {
+            overflow: hidden;
+            border-radius: 12px;
+            position: relative;
+            aspect-ratio: 4/5;
+        }
+
+        .art-item img { width: 100%; height: 100%; object-fit: cover; }
+
+        .art-info {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            padding: 20px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: white;
+        }
+
+        /* ===== 5. 最新消息 ===== */
+        .section-news { max-width: 1000px; margin: 0 auto 60px; padding: 0 20px; }
+        
+        .news-header { 
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 20px; border-bottom: 2px solid var(--ubot-light-blue); padding-bottom: 10px;
+        }
+
+        .news-row {
+            display: flex; align-items: center;
+            padding: 15px 10px; border-bottom: 1px solid #f0f0f0;
+            text-decoration: none; color: inherit; 
+        }
+
+        .tag {
+            background: var(--ubot-blue); color: white;
+            padding: 2px 8px; font-size: 12px; margin-right: 12px; border-radius: 3px;
+            flex-shrink: 0;
+        }
+
+        /* ===== 6. 頁尾 Footer ===== */
+        footer {
+            background: var(--ubot-light-blue);
+            color: var(--ubot-blue);
+            padding: 50px 20px 20px;
+        }
+
+        .footer-container {
+            max-width: 1200px; margin: 0 auto;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+
+        .footer-logo { font-size: 20px; font-weight: 800; margin-bottom: 15px; }
+        .footer-info p { margin: 8px 0; font-size: 14px; }
+        .footer-links h4 { margin: 0 0 15px; border-left: 3px solid var(--ubot-red); padding-left: 10px; }
+        .footer-links ul { list-style: none; padding: 0; }
+        .footer-links li { margin-bottom: 8px; }
+        .footer-links a { text-decoration: none; color: var(--ubot-blue); font-size: 14px; opacity: 0.8; }
+
+        .footer-bottom {
+            max-width: 1200px; margin: 30px auto 0; padding-top: 20px;
+            border-top: 1px solid rgba(0,51,102,0.1); text-align: center; font-size: 12px;
+        }
+
+        /* ===== 7. 手機版媒體查詢 (RWD 重點) ===== */
+        @media (max-width: 768px) {
+            .menu-toggle { display: flex; } /* 顯示漢堡按鈕 */
+
+            .menu {
+                position: absolute;
+                top: 100%; left: 0; right: 0;
+                background: #fff;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+                display: none; /* 預設隱藏 */
+            }
+
+            .menu.active { display: flex; } /* 切換顯示 */
+
+            .menu li { margin: 0; border-bottom: 1px solid #f5f5f5; }
+            .menu a { padding: 15px 0; font-size: 16px; }
+
+            .hero-banner { height: 60vh; }
+            
+            .quick-access { 
+                grid-template-columns: 1fr; /* 卡片改為單欄 */
+                margin-top: -30px;
+                gap: 15px;
+            }
+
+            .news-row { flex-direction: column; align-items: flex-start; }
+            .news-row .tag { margin-bottom: 8px; }
+            .news-row span[style*="width: 100px"] { width: auto !important; margin-bottom: 5px; display: block; }
+        }
+    </style>
 </head>
 <body>
 
@@ -15,7 +283,14 @@
         <div class="logo">
             <a href="index.html">聯邦藝術中心</a>
         </div>
-        <ul class="menu">
+        
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <ul class="menu" id="nav-list">
             <li><a href="about.html">關於我們</a></li>
             <li><a href="exhibitions.html">展覽動態</a></li>
             <li><a href="awards.html">美術獎項</a></li>
@@ -30,23 +305,21 @@
 <section class="hero-banner">
     <h1>聯邦藝術中心</h1>
     <p class="sub-title">Union Art Center</p>
-    <p class="hero-desc">深耕本土藝術 ‧ 傳承台灣美學薪火</p>
+    <p style="margin-top: 20px; font-size: clamp(14px, 4vw, 18px); letter-spacing: 2px;">深耕本土藝術 ‧ 傳承台灣美學薪火</p>
     <a href="exhibitions.html" class="hero-btn">立即探索展覽</a>
 </section>
 
 <section class="quick-access">
     <a href="exhibitions.html" class="access-card">
-        <h3 class="sky">當期特展</h3>
+        <h3 style="color: var(--ubot-sky-blue);">當期特展</h3>
         <p>【光影交織】<br>第23屆聯邦美術獎獲獎作品展</p>
     </a>
-
-    <a href="awards.html" class="access-card highlight">
-        <h3 class="red">聯邦美術獎</h3>
+    <a href="awards.html" class="access-card" style="border-top: 4px solid var(--ubot-red);">
+        <h3 style="color: var(--ubot-red);">聯邦美術獎</h3>
         <p>鼓勵本土藝術創作<br>新人獎 / 印象大獎 徵件開始</p>
     </a>
-
     <a href="artworks.html" class="access-card">
-        <h3 class="sky">數位典藏</h3>
+        <h3 style="color: var(--ubot-sky-blue);">數位典藏</h3>
         <p>匯聚歷屆大師名作<br>線上探索寫實油畫之美</p>
     </a>
 </section>
@@ -55,50 +328,37 @@
     <div class="section-title">
         <h2>精選典藏</h2>
     </div>
-
     <div class="art-grid">
         <div class="art-item">
-            <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?auto=format&fit=crop&w=600&q=80">
-            <div class="art-info">
-                <h4>林風采 - 鄉土情懷</h4>
-                <p>第21屆印象大獎 首獎</p>
-            </div>
+            <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?auto=format&fit=crop&w=600&q=80" alt="作品1">
+            <div class="art-info"><h4>林風采 - 鄉土情懷</h4><p>第21屆印象大獎 首獎</p></div>
         </div>
-
         <div class="art-item">
-            <img src="https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?auto=format&fit=crop&w=600&q=80">
-            <div class="art-info">
-                <h4>陳曉東 - 靜物之詩</h4>
-                <p>第22屆新人獎 優選</p>
-            </div>
+            <img src="https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?auto=format&fit=crop&w=600&q=80" alt="作品2">
+            <div class="art-info"><h4>陳曉東 - 靜物之詩</h4><p>第22屆新人獎 優選</p></div>
         </div>
-
         <div class="art-item">
-            <img src="https://images.unsplash.com/photo-1549490349-8643362247b5?auto=format&fit=crop&w=600&q=80">
-            <div class="art-info">
-                <h4>王大明 - 台北街頭</h4>
-                <p>2024 年度典藏作品</p>
-            </div>
+            <img src="https://images.unsplash.com/photo-1549490349-8643362247b5?auto=format&fit=crop&w=600&q=80" alt="作品3">
+            <div class="art-info"><h4>王大明 - 台北街頭</h4><p>2024 年度典藏作品</p></div>
         </div>
     </div>
 </section>
 
 <section class="section-news">
     <div class="news-header">
-        <h2>最新消息</h2>
-        <a href="#" class="news-more">查看全部公告 →</a>
+        <h2 style="color: var(--ubot-blue); margin: 0; font-size: 22px;">最新消息</h2>
+        <a href="#" style="color:var(--ubot-sky-blue); text-decoration:none; font-size: 14px;">查看全部 →</a>
     </div>
 
     <a href="#" class="news-row">
         <span class="tag">評選</span>
-        <span class="date">2026.02.26</span>
-        <span class="title">第 23 屆聯邦美術獎複審結果公佈</span>
+        <span style="color: #999; font-size: 14px; width: 100px;">2026.02.26</span>
+        <span style="flex:1; font-weight: 500;">第 23 屆聯邦美術獎複審結果公佈</span>
     </a>
-
     <a href="#" class="news-row">
-        <span class="tag sky">展覽</span>
-        <span class="date">2026.02.15</span>
-        <span class="title">「台灣鄉土之美」寫實油畫聯展：巡迴展資訊</span>
+        <span class="tag" style="background: var(--ubot-sky-blue);">展覽</span>
+        <span style="color: #999; font-size: 14px; width: 100px;">2026.02.15</span>
+        <span style="flex:1; font-weight: 500;">「台灣鄉土之美」寫實油畫聯展：巡迴展資訊</span>
     </a>
 </section>
 
@@ -106,36 +366,41 @@
     <div class="footer-container">
         <div class="footer-info">
             <div class="footer-logo">UNION ART CENTER</div>
-            <p>地址：台北市大安區忠孝東路四段219號</p>
-            <p>電話：(02) 2536-9999</p>
-            <p>週二至週日 09:00 - 17:00 (週一休館)</p>
+            <p><strong>地址：</strong>台北市大安區忠孝東路四段219號</p>
+            <p><strong>電話：</strong>(02) 2536-9999</p>
+            <p><strong>時間：</strong>週二至週日 09:00 - 17:00</p>
         </div>
-
         <div class="footer-links">
             <h4>探索中心</h4>
             <ul>
                 <li><a href="about.html">關於我們</a></li>
                 <li><a href="exhibitions.html">最新展覽</a></li>
                 <li><a href="artists.html">合作藝術家</a></li>
-                <li><a href="visit.html">參觀指引</a></li>
-            </ul>
-        </div>
-
-        <div class="footer-links">
-            <h4>快速連結</h4>
-            <ul>
-                <li><a href="https://www.ubot.com.tw/">聯邦銀行官網</a></li>
-                <li><a href="contact.html">場地租借申請</a></li>
-                <li><a href="privacy.html">隱私權保護政策</a></li>
             </ul>
         </div>
     </div>
-
     <div class="footer-bottom">
-        © 2026 Union Art Center 聯邦藝術中心
+        <p>© 2026 Union Art Center 聯邦藝術中心</p>
     </div>
 </footer>
 
-<script src="js/index.js"></script>
+<script>
+    // 手機版選單切換腳本
+    const menuToggle = document.getElementById('mobile-menu');
+    const navList = document.getElementById('nav-list');
+
+    menuToggle.addEventListener('click', () => {
+        navList.classList.toggle('active');
+    });
+
+    // 點擊選單項目後自動收起 (針對單頁應用或導覽)
+    const navLinks = document.querySelectorAll('.menu a');
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            navList.classList.remove('active');
+        });
+    });
+</script>
+
 </body>
 </html>
