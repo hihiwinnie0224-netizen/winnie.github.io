@@ -263,9 +263,13 @@
         <div class="logo">
             <a href="index.html">聯邦藝術中心</a>
         </div>
+        
         <div class="menu-toggle" id="mobile-menu">
-            <span></span><span></span><span></span>
+            <span></span>
+            <span></span>
+            <span></span>
         </div>
+
         <ul class="menu" id="nav-list">
             <li><a href="about.html">關於我們</a></li>
             <li><a href="exhibitions.html">展覽動態</a></li>
@@ -273,7 +277,7 @@
             <li><a href="artists.html">藝術家</a></li>
             <li><a href="artworks.html">作品總覽</a></li>
             <li><a href="visit.html">參觀資訊</a></li>
-            <li><a href="contact.html" class="active">聯絡我們</a></li>
+            <li><a href="contact.html">聯絡我們</a></li>
         </ul>
     </nav>
 </header>
@@ -388,12 +392,20 @@
     </div>
 </footer>
 
+
 <script>
-    // 漢堡選單控制
     const menuToggle = document.getElementById('mobile-menu');
     const navList = document.getElementById('nav-list');
+
     menuToggle.addEventListener('click', () => {
         navList.classList.toggle('active');
+    });
+
+    const navLinks = document.querySelectorAll('.menu a');
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            navList.classList.remove('active');
+        });
     });
 
     // 表單提交處理
