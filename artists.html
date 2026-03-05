@@ -350,21 +350,17 @@
                     <div class="year-label">${filterCategory === 'master' ? '歷屆大師 / 評審' : '獲獎藝術家'}</div>
                     <div class="winners-grid">`;
         
-        filtered.forEach(artist => {
-            html += `
-                <div class="winner-card" onclick="location.href='artist_detail.html?name=${encodeURIComponent(artist.name)}'">
-                    <div class="avatar" style="background:${artist.color}">${artist.name[0]}</div>
-                    <div class="tag tag-${artist.tag}">${artist.tag}</div>
-                    <div class="name">${artist.name}</div>
-                    <div style="font-size:12px; color:#999; margin-bottom:10px;">${artist.year}</div>
-                    <button class="btn-view">查看作品</button>
-                </div>
-            `;
-        });
-
-        html += `</div></div>`;
-        container.innerHTML = html;
-    }
+filtered.forEach(artist => {
+    html += `
+        <div class="winner-card" onclick="location.href='artworks.html?artist=${encodeURIComponent(artist.name)}'">
+            <div class="avatar" style="background:${artist.color}">${artist.name[0]}</div>
+            <div class="tag tag-${artist.tag}">${artist.tag}</div>
+            <div class="name">${artist.name}</div>
+            <div style="font-size:12px; color:#999; margin-bottom:10px;">${artist.year}</div>
+            <button class="btn-view">查看作品</button>
+        </div>
+    `;
+});
 
     // 標籤切換
     function switchCategory(cat) {
