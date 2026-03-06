@@ -231,12 +231,34 @@
         /* ===== 7. RWD 手機版調整 ===== */
         @media (max-width: 768px) {
             .menu-toggle { display: flex; }
-            .menu {
-                position: absolute; top: 100%; left: 0; right: 0;
-                background: #fff; flex-direction: column; padding: 20px;
-                box-shadow: 0 10px 20px rgba(0,0,0,0.1); display: none;
-            }
+.menu {
+        position: absolute;
+        top: 100%; left: 0; right: 0;
+        background: #fff;
+        flex-direction: column;
+        padding: 10px 0;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        display: none;
+        border-top: 1px solid #eee;
+        
+        /* --- 新增與修改以下屬性 --- */
+        align-items: center;    /* 讓 flex 項目在水平方向置中 */
+    }
+
+
             .menu.active { display: flex; }
+                .menu li { 
+        margin: 0; 
+        border-bottom: 1px solid #f9f9f9; 
+        width: 100%;           /* 讓點擊範圍撐滿寬度 */
+    }
+
+    .menu a { 
+        padding: 15px 25px; 
+        font-size: 16px; 
+        text-align: center;    /* 讓文字在連結內置中 */
+    }
+}
             .winners-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
             .sticky-tools { top: 60px; padding: 15px 0; }
             .page-banner { height: 150px; }
