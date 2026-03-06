@@ -31,7 +31,7 @@
             box-shadow: 0 2px 20px rgba(0,0,0,0.05);
             position: sticky;
             top: 0;
-            z-index: 9999; /* 提高層級確保手機版選單不被遮擋 */
+            z-index: 9999;
         }
 
         .navbar {
@@ -40,7 +40,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 5px 20px; /* 縮小內距讓 Logo 空間更大 */
+            padding: 5px 20px;
         }
 
         .logo a {
@@ -49,9 +49,8 @@
             text-decoration: none;
         }
 
-        /* Logo 最大化 */
         .logo-img {
-            height: 90px; /* 調至最大 */
+            height: 90px;
             width: auto;
             display: block;
         }
@@ -79,7 +78,6 @@
             color: var(--ubot-red); 
         }
 
-        /* 手機漢堡選單按鈕 */
         .menu-toggle {
             display: none;
             flex-direction: column;
@@ -93,12 +91,13 @@
             transition: 0.3s;
         }
 
-        /* ===== 2. 主視覺 Banner (更換為指定圖片，保證清晰) ===== */
+        /* ===== 2. 主視覺 Banner 優化方案 ===== */
         .hero-banner {
             width: 100%;
             height: 600px;
-            /* 移除 linear-gradient 遮罩，直接使用原圖 */
-            background: url('https://i.ibb.co/XkFTQfGz/120181108102853-B-0.jpg'); 
+            /* 使用 linear-gradient 添加一層極淡的黑色遮罩 (0.2)，這能讓白字瞬間變清楚，又不遮蓋圖片 */
+            background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), 
+                        url('https://scontent-tpe1-1.xx.fbcdn.net/v/t39.30808-6/622799593_122094142695246913_5999257336566141825_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=102&ccb=1-7&_nc_sid=2a1932&_nc_ohc=ZMc8NC3Ld84Q7kNvwFolR6z&_nc_oc=AdlHAnNKEi7v-K_W38YwMDtmAel2iym6-e0Hq3JXaKaC6_SNmBvSEb2Ihhkn2ZDXStjx3wBxbUtzWqRT2eHfGOSu&_nc_zt=23&_nc_ht=scontent-tpe1-1.xx&_nc_gid=j-F4cUwo1ceDsbq4X_PYJA&_nc_ss=8&oh=00_AfwEy7yIPSbPZGwCe8A5Bv1pxexdGTXABp6S8DS_GG78lw&oe=69B0654A'); 
             background-size: cover;
             background-position: center;
             display: flex;
@@ -107,36 +106,64 @@
             align-items: center;
             color: white;
             text-align: center;
+            position: relative;
+        }
+
+        /* 在 Banner 底部加一個淡淡的白色漸層，讓它銜接下方白色區塊不突兀 */
+        .hero-banner::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            background: linear-gradient(transparent, rgba(255,255,255,0.3));
         }
 
         .hero-banner h1 { 
-            font-size: 58px; 
+            font-size: 62px; /* 稍微放大 */
             letter-spacing: 8px; 
             margin: 0; 
-            font-weight: 700;
-            text-shadow: 0 4px 15px rgba(0,0,0,0.6); /* 強化陰影確保文字可見 */
+            font-weight: 800;
+            /* 增強文字陰影，確保在任何色彩的畫作前都清晰 */
+            text-shadow: 0 4px 20px rgba(0,0,0,0.8), 0 0 10px rgba(0,0,0,0.5); 
+            z-index: 2;
         }
 
         .hero-banner .sub-title { 
-            font-size: 20px; 
+            font-size: 24px; 
             letter-spacing: 4px; 
             margin-top: 10px; 
-            text-shadow: 0 2px 10px rgba(0,0,0,0.6);
+            font-weight: 500;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+            z-index: 2;
+        }
+
+        .hero-banner .slogan {
+            margin-top: 20px; 
+            font-size: 20px; 
+            letter-spacing: 2px; 
+            font-weight: 600;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+            z-index: 2;
         }
 
         .hero-btn {
             margin-top: 40px;
-            padding: 12px 40px;
+            padding: 14px 45px;
             background: var(--ubot-red);
             color: white;
             text-decoration: none;
             border-radius: 50px;
             font-weight: 600;
+            font-size: 18px;
             transition: 0.3s;
-            box-shadow: 0 4px 15px rgba(230,0,18,0.3);
+            box-shadow: 0 4px 20px rgba(230,0,18,0.5);
+            z-index: 2;
+            border: 2px solid rgba(255,255,255,0.2);
         }
 
-        .hero-btn:hover { background: #c50010; transform: scale(1.05); }
+        .hero-btn:hover { background: #ff1a2b; transform: scale(1.05); }
 
         /* ===== 3. 快捷卡片 ===== */
         .quick-access {
@@ -159,126 +186,53 @@
             color: var(--ubot-blue);
             transition: 0.4s;
             border-radius: 15px;
+            border: 1px solid rgba(0,0,0,0.05);
         }
 
-        .access-card:hover { transform: translateY(-10px); }
+        .access-card:hover { transform: translateY(-10px); box-shadow: 0 15px 40px rgba(0,0,0,0.15); }
         .access-card h3 { margin: 0 0 10px 0; font-size: 22px; }
-        .access-card p { font-size: 14px; color: var(--text-gray); margin: 0; }
 
-        /* ===== 4. 精選作品區 ===== */
-        .featured-art {
-            max-width: 1200px;
-            margin: 0 auto 100px;
-            padding: 0 20px;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-
-        .section-title h2 { 
-            font-size: 32px; 
-            color: var(--ubot-blue); 
-            display: inline-block;
-            position: relative;
-            padding-bottom: 10px;
-        }
-
-        .section-title h2::after {
-            content: ""; width: 50px; height: 3px; background: var(--ubot-red);
-            position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
-        }
-
-        .art-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-        }
-
-        .art-item {
-            overflow: hidden; border-radius: 8px; position: relative; aspect-ratio: 4/5;
-        }
-
-        .art-item img {
-            width: 100%; height: 100%; object-fit: cover; transition: 0.5s;
-        }
-
+        /* ===== 4. 精選作品區 (保持原樣) ===== */
+        .featured-art { max-width: 1200px; margin: 0 auto 100px; padding: 0 20px; }
+        .section-title { text-align: center; margin-bottom: 50px; }
+        .section-title h2 { font-size: 32px; color: var(--ubot-blue); display: inline-block; position: relative; padding-bottom: 10px;}
+        .section-title h2::after { content: ""; width: 50px; height: 3px; background: var(--ubot-red); position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);}
+        .art-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .art-item { overflow: hidden; border-radius: 8px; position: relative; aspect-ratio: 4/5; }
+        .art-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
         .art-item:hover img { transform: scale(1.1); }
+        .art-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 20px; background: linear-gradient(transparent, rgba(0,0,0,0.8)); color: white; }
 
-        .art-info {
-            position: absolute; bottom: 0; left: 0; right: 0; padding: 20px;
-            background: linear-gradient(transparent, rgba(0,0,0,0.8)); color: white;
-        }
-
-        /* ===== 5. 最新消息 ===== */
+        /* ===== 5. 最新消息 (保持原樣) ===== */
         .section-news { max-width: 1000px; margin: 0 auto 100px; padding: 0 20px; }
-        
-        .news-header { 
-            display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 30px; border-bottom: 2px solid var(--ubot-light-blue); padding-bottom: 10px;
-        }
-
-        .news-row {
-            display: flex; align-items: center; padding: 20px 10px; 
-            border-bottom: 1px solid #f0f0f0; text-decoration: none; color: inherit; 
-        }
-
+        .news-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 2px solid var(--ubot-light-blue); padding-bottom: 10px; }
+        .news-row { display: flex; align-items: center; padding: 20px 10px; border-bottom: 1px solid #f0f0f0; text-decoration: none; color: inherit; }
         .news-row:hover { background: #f9f9f9; }
-
-        .tag {
-            background: var(--ubot-blue); color: white;
-            padding: 2px 10px; font-size: 12px; margin-right: 15px; border-radius: 3px;
-        }
+        .tag { background: var(--ubot-blue); color: white; padding: 2px 10px; font-size: 12px; margin-right: 15px; border-radius: 3px; }
 
         /* ===== 6. 頁尾 Footer (還原原始設定) ===== */
-        footer {
-            background: var(--ubot-light-blue); color: var(--ubot-blue); padding: 60px 20px 30px;
-        }
-
-        .footer-container {
-            max-width: 1200px; margin: 0 auto;
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px;
-        }
-
+        footer { background: var(--ubot-light-blue); color: var(--ubot-blue); padding: 60px 20px 30px; }
+        .footer-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; }
         .footer-logo { font-size: 22px; font-weight: 800; margin-bottom: 15px; }
         .footer-info p { margin: 5px 0; font-size: 14px; }
-
         .footer-links h4 { margin: 0 0 15px; border-left: 3px solid var(--ubot-red); padding-left: 10px; }
         .footer-links ul { list-style: none; padding: 0; margin: 0; }
         .footer-links li { margin-bottom: 8px; }
         .footer-links a { text-decoration: none; color: var(--ubot-blue); font-size: 14px; opacity: 0.8; }
         .footer-links a:hover { opacity: 1; color: var(--ubot-red); }
-
-        .footer-bottom {
-            max-width: 1200px; margin: 40px auto 0; padding-top: 20px;
-            border-top: 1px solid rgba(0,51,102,0.1); text-align: center; font-size: 13px; opacity: 0.7;
-        }
+        .footer-bottom { max-width: 1200px; margin: 40px auto 0; padding-top: 20px; border-top: 1px solid rgba(0,51,102,0.1); text-align: center; font-size: 13px; opacity: 0.7; }
 
         /* ===== 7. RWD 手機版選單修正 ===== */
         @media (max-width: 768px) {
             .navbar { padding: 10px 15px; }
-            .logo-img { height: 65px; } /* 手機端稍微縮小以免超出螢幕 */
-
+            .logo-img { height: 65px; }
             .menu-toggle { display: flex; }
-
-            .menu {
-                position: absolute;
-                top: 100%; left: 0; right: 0;
-                background: #fff;
-                flex-direction: column;
-                padding: 10px 0;
-                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-                display: none; 
-                z-index: 10000;
-            }
-
+            .menu { position: absolute; top: 100%; left: 0; right: 0; background: #fff; flex-direction: column; padding: 10px 0; box-shadow: 0 10px 20px rgba(0,0,0,0.1); display: none; z-index: 10000; }
             .menu.active { display: flex; }
-
             .menu li { margin: 0; border-bottom: 1px solid #f5f5f5; }
             .menu a { padding: 15px 0; font-size: 16px; text-align: center; }
-
-            .hero-banner h1 { font-size: 36px; }
+            .hero-banner h1 { font-size: 38px; letter-spacing: 4px; }
+            .hero-banner .slogan { font-size: 16px; }
             .quick-access { grid-template-columns: 1fr; margin-top: 20px; }
         }
     </style>
@@ -292,13 +246,11 @@
                 <img src="https://i.ibb.co/Txzm1B60/0210.jpg" alt="聯邦藝術中心 Logo" class="logo-img">
             </a>
         </div>
-
         <div class="menu-toggle" id="mobile-menu">
             <span></span>
             <span></span>
             <span></span>
         </div>
-
         <ul class="menu" id="nav-list">
             <li><a href="about.html">關於我們</a></li>
             <li><a href="exhibitions.html">展覽動態</a></li>
@@ -314,7 +266,7 @@
 <section class="hero-banner">
     <h1>聯邦藝術中心</h1>
     <p class="sub-title">Union Group Art Gallery</p>
-    <p style="margin-top: 20px; font-size: 18px; letter-spacing: 2px; font-weight: 500;">深耕本土藝術 ‧ 傳承台灣美學薪火</p>
+    <p class="slogan">深耕本土藝術 ‧ 傳承台灣美學薪火</p>
     <a href="exhibitions.html" class="hero-btn">立即探索展覽</a>
 </section>
 
@@ -358,7 +310,6 @@
         <h2 style="color: var(--ubot-blue); margin: 0;">最新消息</h2>
         <a href="#" style="color:var(--ubot-sky-blue); text-decoration:none; font-size: 14px;">查看全部公告 →</a>
     </div>
-
     <a href="#" class="news-row">
         <span class="tag">評選</span>
         <span style="color: #999; font-size: 14px; width: 100px;">2026.02.26</span>
@@ -403,18 +354,14 @@
 </footer>
     
 <script>
-    // 確保點擊事件正常運作
     document.addEventListener('DOMContentLoaded', function() {
         const menuToggle = document.getElementById('mobile-menu');
         const navList = document.getElementById('nav-list');
-
         if (menuToggle && navList) {
             menuToggle.addEventListener('click', function(e) {
-                e.preventDefault(); // 防止默認行為
+                e.preventDefault();
                 navList.classList.toggle('active');
             });
-
-            // 點擊連結後自動關閉
             const navLinks = document.querySelectorAll('.menu a');
             navLinks.forEach(link => {
                 link.addEventListener('click', () => {
