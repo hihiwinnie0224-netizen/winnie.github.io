@@ -300,20 +300,14 @@
         
         let html = `<div class="year-row"><div class="year-label">${labelMap[filterCategory]}</div>`;
 
-        // 特殊處理：如果是「藝之初章」，且包含「許坤成」
         if (filterCategory === 'master') {
             const leader = filtered.find(a => a.name === "許坤成");
             const others = filtered.filter(a => a.name !== "許坤成");
-
-            if (leader) {
-                html += `<div class="special-row">${createCard(leader)}</div>`;
-            }
-            
+            if (leader) html += `<div class="special-row">${createCard(leader)}</div>`;
             html += `<div class="winners-grid">`;
             others.forEach(artist => html += createCard(artist));
             html += `</div>`;
         } else {
-            // 一般分類則全部使用六人網格
             html += `<div class="winners-grid">`;
             filtered.forEach(artist => html += createCard(artist));
             html += `</div>`;
@@ -348,31 +342,39 @@
 
     function switchCategory(cat) {
         document.querySelectorAll('.btn-tab').forEach(btn => btn.classList.remove('active'));
-        document.getElementById(`tab-${cat}`).classList.add('active');
+        const targetTab = document.getElementById(`tab-${cat}`);
+        if(targetTab) targetTab.classList.add('active');
         renderList(cat, document.getElementById('artistSearch').value);
     }
 
     function handleSearch() {
         const term = document.getElementById('artistSearch').value;
-        const activeCat = document.querySelector('.btn-tab.active').id.replace('tab-', '');
+        const activeTab = document.querySelector('.btn-tab.active');
+        const activeCat = activeTab ? activeTab.id.replace('tab-', '') : 'master';
         renderList(activeCat, term);
     }
 
     window.onclick = (e) => { if (e.target.id === 'artistModal') closeModal(); }
-    window.onload = () => renderList('master');
-    // 在 artists.html 的 script 中
-window.onload = () => {
-    const params = new URLSearchParams(window.location.search);
-    const artistName = params.get('artist');
-    
-    if (artistName) {
-        // 舉例：如果找到對應的藝術家，自動滾動到該區塊
-        const element = document.getElementById(artistName);
-        if (element) {
-            element.scrollIntoView({ behavior: 'smooth' });
+
+    // --- 修改後的整合初始化邏輯 ---
+    window.onload = () => {
+        const params = new URLSearchParams(window.location.search);
+        const artistName = params.get('artist');
+
+        if (artistName) {
+            // 1. 在清單中找出這位藝術家
+            const artist = ARTISTS_LIST.find(a => a.name === artistName);
+            if (artist) {
+                // 2. 先切換到該藝術家所屬的分類 (不然會找不到人)
+                switchCategory(artist.category);
+                // 3. 直接彈出該藝術家的簡介窗
+                openModal(artistName);
+            }
+        } else {
+            // 如果沒有參數，正常顯示大師分類
+            renderList('master');
         }
-    }
-};
+    };
 </script>
 
 </body>
