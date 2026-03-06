@@ -6,12 +6,12 @@
     <title>展覽動態｜聯邦藝術中心 Union Art Center</title>
     
     <style>
-        /* ===== 0. 全域設定與變數 (同步首頁) ===== */
+        /* ===== 0. 全域設定與變數 ===== */
         :root {
-            --ubot-red: #E60012;         /* 聯邦紅 */
-            --ubot-blue: #003366;        /* 聯邦深藍 */
-            --ubot-light-blue: #EAF6FC;  /* 聯邦淺藍背景 */
-            --ubot-sky-blue: #00A1E9;    /* 聯邦淺藍點綴 */
+            --ubot-red: #E60012;
+            --ubot-blue: #003366;
+            --ubot-light-blue: #EAF6FC;
+            --ubot-sky-blue: #00A1E9;
             --text-dark: #333333;
             --text-gray: #666666;
             --border-color: #D1CDC4;
@@ -26,7 +26,7 @@
             overflow-x: hidden;
         }
 
-        /* ===== 1. 導覽列 Navbar (同步首頁) ===== */
+        /* ===== 1. 導覽列 Navbar (同步樣式) ===== */
         header {
             background: #ffffff;
             box-shadow: 0 2px 20px rgba(0,0,0,0.05);
@@ -82,20 +82,19 @@
             color: var(--ubot-red); 
         }
 
-        /* 手機漢堡選單按鈕 */
         .menu-toggle {
             display: none;
             flex-direction: column;
             gap: 5px;
             cursor: pointer;
-            padding: 10px;
+            padding: 5px;
         }
         .menu-toggle span {
             width: 25px; height: 3px; background: var(--ubot-blue);
             transition: 0.3s;
         }
 
-        /* ===== 2. 展覽特有樣式 ===== */
+        /* ===== 2. 頁面內容樣式 ===== */
         .page-banner {
             width: 100%;
             height: 250px;
@@ -155,7 +154,6 @@
         .ex-date { font-size: 26px; font-weight: 800; color: var(--ubot-blue); margin-bottom: 15px; letter-spacing: -0.5px; }
         .ex-location { font-size: 20px; font-weight: 700; color: #333; margin-bottom: 30px; }
 
-        /* 按鈕樣式 */
         .btn-group { display: flex; flex-direction: column; gap: 12px; margin-top: auto; }
         .btn {
             display: flex; align-items: center; justify-content: center;
@@ -167,7 +165,6 @@
         .btn-detail { background: white; color: var(--ubot-blue); border: 1.5px solid var(--ubot-blue); }
         .btn-detail:hover { background: var(--ubot-light-blue); }
 
-        /* 狀態色彩變更 */
         .status-past { background: #999 !important; }
         .status-now { background: var(--ubot-red) !important; animation: pulse 2s infinite; }
         @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.7; } 100% { opacity: 1; } }
@@ -175,7 +172,7 @@
         .ex-card.past { opacity: 0.75; filter: grayscale(0.5); border-top-color: #ccc; }
         .ex-card.past .btn { background: #eee; color: #888; border: none; cursor: not-allowed; }
 
-        /* ===== 3. 頁尾 Footer (同步首頁) ===== */
+        /* ===== 3. 頁尾 Footer ===== */
         footer {
             background: var(--ubot-light-blue); color: var(--ubot-blue); padding: 60px 20px 30px;
         }
@@ -199,7 +196,7 @@
             border-top: 1px solid rgba(0,51,102,0.1); text-align: center; font-size: 13px; opacity: 0.7;
         }
 
-        /* ===== 4. RWD 手機版選單優化 ===== */
+        /* ===== 4. RWD 手機版同步優化 ===== */
         @media (max-width: 768px) {
             .navbar { padding: 12px 20px; }
             .menu-toggle { display: flex; }
@@ -216,8 +213,8 @@
             }
 
             .menu.active { display: flex; }
-            .menu li { margin: 0; }
-            .menu a { padding: 15px 25px; font-size: 16px; border-bottom: 1px solid #f9f9f9; }
+            .menu li { margin: 0; border-bottom: 1px solid #f9f9f9; }
+            .menu a { padding: 15px 25px; font-size: 16px; text-align: left; }
             
             .page-banner h1 { font-size: 28px; }
             .ex-grid { grid-template-columns: 1fr; }
@@ -242,6 +239,7 @@
             <li><a href="index.html">首頁</a></li>
             <li><a href="about.html">關於我們</a></li>
             <li><a href="exhibitions.html" class="active">展覽動態</a></li>
+            <li><a href="events.html">活動資訊</a></li>
             <li><a href="artists.html">藝術家</a></li> 
             <li><a href="artworks.html">作品總覽</a></li>
             <li><a href="visit.html">參觀資訊</a></li>
@@ -257,7 +255,6 @@
 
 <main class="container">
     <div class="ex-grid">
-        
         <div class="ex-card past">
             <span class="status-tag status-past">展覽已結束</span>
             <span class="batch-label">【第一梯次】</span>
@@ -278,18 +275,6 @@
                 <button class="btn btn-detail" onclick="handleAction('查看詳細資訊', '正在加載展覽作品清單...')">🔍 查看詳細資訊</button>
             </div>
         </div>
-
-        <div class="ex-card">
-            <span class="status-tag">預計展出</span>
-            <span class="batch-label">【第三梯次】</span>
-            <span class="ex-date">03.21 - 04.01</span>
-            <div class="ex-location">聯邦藝術中心 - 本館</div>
-            <div class="btn-group">
-                <button class="btn btn-calendar" onclick="handleAction('預約提醒', '我們將在展覽開始前通知您！')">📅 預約展覽提醒</button>
-                <button class="btn btn-detail" onclick="handleAction('查看詳細資訊', '本梯次展覽主題：印象台灣')">🔍 查看詳細資訊</button>
-            </div>
-        </div>
-
     </div>
 </main>
 
@@ -313,9 +298,9 @@
         <div class="footer-links">
             <h4>快速連結</h4>
             <ul>
-                <li><a href="#">聯邦銀行官網</a></li>
-                <li><a href="#">場地租借申請</a></li>
-                <li><a href="#">隱私權保護政策</a></li>
+                <li><a href="https://www.ubot.com.tw/">聯邦銀行官網</a></li>
+                <li><a href="contact.html">場地租借申請</a></li>
+                <li><a href="privacy.html">隱私權保護政策</a></li>
             </ul>
         </div>
     </div>
@@ -325,28 +310,25 @@
 </footer>
 
 <script>
-    // 1. 手機漢堡選單控制
     const menuToggle = document.getElementById('mobile-menu');
     const navList = document.getElementById('nav-list');
 
-    menuToggle.addEventListener('click', () => {
+    // 點擊漢堡選單
+    menuToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
         navList.classList.toggle('active');
-        // 選單打開時，漢堡變成 X (簡單動畫效果)
-        const spans = menuToggle.querySelectorAll('span');
-        spans.forEach(span => span.style.backgroundColor = navList.classList.contains('active') ? 'var(--ubot-red)' : 'var(--ubot-blue)');
     });
 
-    // 2. 模擬真實按鈕動作
-    function handleAction(action, message) {
-        alert(`【系統通知】\n您點擊了：${action}\n狀態：${message}`);
-    }
-
-    // 3. 點擊頁面其他地方關閉選單
+    // 點擊頁面其他地方關閉選單
     document.addEventListener('click', (e) => {
-        if (!menuToggle.contains(e.target) && !navList.contains(e.target)) {
+        if (navList.classList.contains('active') && !navList.contains(e.target) && !menuToggle.contains(e.target)) {
             navList.classList.remove('active');
         }
     });
+
+    function handleAction(action, message) {
+        alert(`【系統通知】\n您點擊了：${action}\n狀態：${message}`);
+    }
 </script>
 
 </body>
