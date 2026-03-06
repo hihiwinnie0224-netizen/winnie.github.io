@@ -105,35 +105,37 @@
         .ex-card {
             background: white;
             border-radius: 15px;
-            padding: 30px 25px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            padding: 35px 25px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.07);
             display: flex;
             flex-direction: column;
             border-top: 6px solid var(--ubot-sky-blue);
+            transition: 0.3s;
         }
+        .ex-card:hover { transform: translateY(-5px); }
 
         .status-tag {
             display: inline-block;
-            padding: 4px 12px;
+            padding: 4px 14px;
             border-radius: 50px;
-            font-size: 11px;
+            font-size: 12px;
             font-weight: 700;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             background: var(--ubot-blue);
             color: white;
             align-self: flex-start;
+            letter-spacing: 1px;
         }
 
-        .batch-label { font-size: 13px; color: var(--ubot-red); font-weight: 700; margin-bottom: 5px; }
-        .ex-date { font-size: 22px; font-weight: 800; color: var(--ubot-blue); margin-bottom: 10px; }
-        .ex-location { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
-        .ex-address { font-size: 14px; color: var(--text-gray); margin-bottom: 25px; }
+        .batch-label { font-size: 14px; color: var(--ubot-red); font-weight: 700; margin-bottom: 8px; }
+        .ex-date { font-size: 26px; font-weight: 800; color: var(--ubot-blue); margin-bottom: 15px; letter-spacing: -0.5px; }
+        .ex-location { font-size: 22px; font-weight: 700; color: #333; margin-bottom: 30px; }
 
         /* 按鈕群組 */
         .btn-group {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 12px;
             margin-top: auto;
         }
 
@@ -145,7 +147,7 @@
             text-decoration: none;
             border-radius: 8px;
             font-weight: 700;
-            font-size: 14px;
+            font-size: 15px;
             transition: 0.3s;
         }
 
@@ -161,21 +163,33 @@
         .btn-detail {
             background: white;
             color: var(--ubot-blue);
-            border: 1px solid var(--ubot-blue);
+            border: 1.5px solid var(--ubot-blue);
         }
 
         .btn-detail:hover {
             background: var(--ubot-light-blue);
         }
 
-        /* 已結束狀態 */
-        .ex-card.past { opacity: 0.7; filter: grayscale(1); border-top-color: #ccc; }
-        .ex-card.past .btn { pointer-events: none; background: #eee; color: #999; border: none; }
+        /* 狀態色彩變更 */
+        .status-past { background: #999 !important; }
+        .status-now { background: var(--ubot-red) !important; animation: pulse 2s infinite; }
+        
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        /* 已結束狀態樣式優化 */
+        .ex-card.past { opacity: 0.75; filter: grayscale(0.5); border-top-color: #ccc; }
+        .ex-card.past .btn { pointer-events: none; background: #eee; color: #888; border: none; }
 
         footer {
-            background: var(--ubot-light-blue);
-            padding: 50px 20px;
+            background: var(--ubot-blue);
+            color: white;
+            padding: 40px 20px;
             text-align: center;
+            font-size: 14px;
         }
     </style>
 </head>
@@ -183,11 +197,13 @@
 
 <header>
     <nav class="navbar">
-        <div class="logo"><a href="#">聯邦藝術中心</a></div>
+        <div class="logo"><a href="index.html">聯邦藝術中心</a></div>
         <ul class="menu">
-            <li><a href="#" class="active">展覽動態</a></li>
-            <li><a href="#">參觀資訊</a></li>
-            <li><a href="#">聯絡我們</a></li>
+            <li><a href="about.html">關於我們</a></li>
+            <li><a href="artists.html">藝術家</a></li>
+            <li><a href="artworks.html">作品總覽</a></li>
+            <li><a href="events.html" class="active">展覽動態</a></li>
+            <li><a href="visit.html">參觀資訊</a></li>
         </ul>
     </nav>
 </header>
@@ -199,23 +215,22 @@
 
 <main class="container">
     <div class="ex-grid">
+        
         <div class="ex-card past">
-            <span class="status-tag">展覽已結束</span>
+            <span class="status-tag status-past">展覽已結束</span>
             <span class="batch-label">【第一梯次】</span>
             <span class="ex-date">01.06 - 02.13</span>
             <div class="ex-location">聯邦藝術中心</div>
-            <div class="ex-address">台北市大安區忠孝東路四段219號</div>
             <div class="btn-group">
-                <a href="#" class="btn">展覽已結束</a>
+                <a href="#" class="btn">本梯次已結束</a>
             </div>
         </div>
 
         <div class="ex-card">
-            <span class="status-tag" style="background:var(--ubot-red)">即將開幕</span>
+            <span class="status-tag status-now">展覽進行中</span>
             <span class="batch-label">【第二梯次】</span>
             <span class="ex-date">03.06 - 03.17</span>
             <div class="ex-location">聯邦藝術中心</div>
-            <div class="ex-address">台北市大安區忠孝東路四段219號</div>
             <div class="btn-group">
                 <a href="#" class="btn btn-calendar">📅 加入行事曆</a>
                 <a href="detail.html" class="btn btn-detail">🔍 查看詳細資訊</a>
@@ -227,12 +242,12 @@
             <span class="batch-label">【第三梯次】</span>
             <span class="ex-date">03.21 - 04.01</span>
             <div class="ex-location">聯邦藝術中心</div>
-            <div class="ex-address">台北市大安區忠孝東路四段219號</div>
             <div class="btn-group">
                 <a href="#" class="btn btn-calendar">📅 加入行事曆</a>
                 <a href="detail.html" class="btn btn-detail">🔍 查看詳細資訊</a>
             </div>
         </div>
+
     </div>
 </main>
 
