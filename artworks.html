@@ -162,6 +162,26 @@
         .info-value { color: #333; font-size: 17px; }
         .concept-text { color: #555; font-size: 16px; line-height: 1.8; margin-top: 15px; }
 
+                /* --- 新增：藝術家連結樣式 --- */
+        .artist-link {
+            color: var(--ubot-blue);
+            text-decoration: none;
+            cursor: pointer;
+            transition: 0.3s;
+            display: inline-block;
+            font-weight: 700;
+            border-bottom: 1px solid transparent;
+        }
+        .artist-link:hover {
+            color: var(--ubot-red);
+            border-bottom: 1px solid var(--ubot-red);
+        }
+        .artist-link::after {
+            content: ' → 查看藝術家介紹';
+            font-size: 12px;
+            opacity: 0.6;
+        }
+
         /* ===== 6. 頁尾 Footer ===== */
         footer {
             background: var(--ubot-light-blue); color: var(--ubot-blue); padding: 60px 20px 30px;
@@ -347,17 +367,31 @@
         document.getElementById('noResult').style.display = (filtered.length === 0) ? "block" : "none";
     }
 
+    // --- 修改：開啟彈窗時加入藝術家跳轉連結 ---
     function openModal(title) {
         const work = WORKS_DATA.find(w => w.title === title);
         if(!work) return;
         document.getElementById('m-title').innerText = work.title;
-        document.getElementById('m-artist').innerText = `${work.artist} ${work.artistEn}`;
+        
+        // 將藝術家姓名包裝成連結，並帶入跳轉函數
+        document.getElementById('m-artist').innerHTML = `
+            <a class="artist-link" onclick="goToArtistPage('${work.artist}')">
+                ${work.artist} ${work.artistEn}
+            </a>
+        `;
+
         document.getElementById('m-size').innerText = work.size;
         document.getElementById('m-media').innerText = work.media;
         document.getElementById('m-concept').innerText = work.concept;
         document.getElementById('m-img').src = work.img;
         document.getElementById('workModal').style.display = 'flex';
         document.body.style.overflow = 'hidden';
+    }
+
+    // --- 新增：跳轉至藝術家介紹頁面 ---
+    function goToArtistPage(name) {
+        // 跳轉至 artists.html，並攜帶藝術家姓名的 URL 參數
+        window.location.href = `artists.html?artist=${encodeURIComponent(name)}`;
     }
 
     function closeModal() {
