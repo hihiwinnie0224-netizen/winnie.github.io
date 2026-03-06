@@ -7,10 +7,10 @@
     
     <style>
         :root {
-            --ubot-red: #E60012;
-            --ubot-blue: #003366;
-            --ubot-light-blue: #EAF6FC;
-            --ubot-sky-blue: #00A1E9;
+            --ubot-red: #E60012;         /* 聯邦紅 */
+            --ubot-blue: #003366;        /* 聯邦深藍 */
+            --ubot-light-blue: #EAF6FC;  /* 聯邦淺藍背景 */
+            --ubot-sky-blue: #00A1E9;    /* 聯邦淺藍點綴 */
             --text-dark: #333333;
             --text-gray: #666666;
             --border-color: #D1CDC4;
@@ -18,13 +18,14 @@
 
         body {
             margin: 0;
-            font-family: "Noto Sans TC", -apple-system, sans-serif;
+            font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
             background-color: #f8fbfd;
             color: var(--text-dark);
             line-height: 1.8;
+            overflow-x: hidden;
         }
 
-        /* ===== 導覽列 ===== */
+        /* ===== 1. 導覽列 Navbar (同步首頁) ===== */
         header {
             background: #ffffff;
             box-shadow: 0 2px 20px rgba(0,0,0,0.05);
@@ -39,30 +40,43 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 20px;
+            padding: 12px 25px;
         }
 
         .logo a {
-            font-size: 20px;
+            font-size: 22px;
             font-weight: 800;
             color: var(--ubot-blue);
             text-decoration: none;
             display: flex;
             align-items: center;
+            letter-spacing: 1px;
         }
 
         .logo a::before { 
             content: ""; width: 8px; height: 8px; background: var(--ubot-red); 
-            border-radius: 50%; margin-right: 8px; 
+            border-radius: 50%; margin-right: 10px; 
         }
 
         .menu { display: flex; list-style: none; margin: 0; padding: 0; }
         .menu li { margin-left: 10px; }
         .menu a {
             text-decoration: none; color: #666; font-weight: 600;
-            font-size: 15px; padding: 8px 12px; transition: 0.3s;
+            font-size: 15px; padding: 8px 12px; transition: 0.3s; display: block;
         }
         .menu a:hover, .menu a.active { color: var(--ubot-red); }
+
+        /* 手機漢堡選單按鈕 */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+        .menu-toggle span {
+            width: 25px; height: 3px; background: var(--ubot-blue);
+            transition: 0.3s;
+        }
 
         /* ===== Banner ===== */
         .page-banner {
@@ -79,7 +93,7 @@
             color: white;
             text-align: center;
         }
-        .page-banner h1 { letter-spacing: 4px; margin: 0; }
+        .page-banner h1 { letter-spacing: 4px; margin: 0; font-size: 32px; }
         .page-banner p { opacity: 0.8; font-size: 14px; margin-top: 10px; letter-spacing: 2px; }
 
         /* ===== 篩選器 (Sticky) ===== */
@@ -172,21 +186,59 @@
         .info-concept { margin-top: 30px; padding-top: 25px; border-top: 1px solid #f0f0f0; }
         .concept-text { color: #555; font-size: 16px; line-height: 1.8; text-align: justify; }
 
-        /* ===== 頁尾 ===== */
-        footer { background: #001f3d; padding: 60px 20px 40px; margin-top: 80px; color: #fff; }
-        .footer-container { max-width: 1200px; margin: 0 auto; }
-        .footer-logo { font-size: 22px; font-weight: 800; margin-bottom: 15px; }
-        .footer-bottom { text-align: center; font-size: 13px; margin-top: 60px; opacity: 0.5; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
+        /* ===== 頁尾 Footer (同步首頁樣式) ===== */
+        footer {
+            background: var(--ubot-light-blue); color: var(--ubot-blue); padding: 60px 20px 30px;
+            margin-top: 80px;
+        }
 
-        @media (max-width: 992px) {
+        .footer-container {
+            max-width: 1200px; margin: 0 auto;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px;
+        }
+
+        .footer-logo { font-size: 22px; font-weight: 800; margin-bottom: 15px; }
+        .footer-info p { margin: 5px 0; font-size: 14px; }
+
+        .footer-links h4 { margin: 0 0 15px; border-left: 3px solid var(--ubot-red); padding-left: 10px; }
+        .footer-links ul { list-style: none; padding: 0; margin: 0; }
+        .footer-links li { margin-bottom: 8px; }
+        .footer-links a { text-decoration: none; color: var(--ubot-blue); font-size: 14px; opacity: 0.8; }
+        .footer-links a:hover { opacity: 1; color: var(--ubot-red); }
+
+        .footer-bottom {
+            max-width: 1200px; margin: 40px auto 0; padding-top: 20px;
+            border-top: 1px solid rgba(0,51,102,0.1); text-align: center; font-size: 13px; opacity: 0.7;
+        }
+
+        /* ===== 手機版 RWD 選單 (與首頁同步) ===== */
+        @media (max-width: 768px) {
+            .menu-toggle { display: flex; }
+            .menu {
+                position: absolute;
+                top: 100%; left: 0; right: 0;
+                background: #fff;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+                display: none; 
+            }
+            .menu.active { display: flex; }
+            .menu li { margin: 0; border-bottom: 1px solid #f5f5f5; }
+            .menu a { padding: 15px 0; font-size: 16px; text-align: center; }
+
+            .work-grid { grid-template-columns: 1fr; }
+            .page-banner { height: 200px; }
+            .sticky-filter { top: 60px; }
+
             .modal-content { flex-direction: column; max-height: 95vh; }
             .modal-img-side { height: 400px; flex: none; }
             .modal-info-side { padding: 30px; }
         }
-        @media (max-width: 768px) {
-            .work-grid { grid-template-columns: 1fr; }
-            .page-banner { height: 200px; }
-            .sticky-filter { top: 60px; }
+
+        @media (max-width: 992px) and (min-width: 769px) {
+            .modal-content { flex-direction: column; max-height: 95vh; }
+            .modal-img-side { height: 400px; flex: none; }
         }
     </style>
 </head>
@@ -195,11 +247,21 @@
 <header>
     <nav class="navbar">
         <div class="logo"><a href="index.html">聯邦藝術中心</a></div>
-        <ul class="menu">
+        
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <ul class="menu" id="nav-list">
             <li><a href="about.html">關於我們</a></li>
+            <li><a href="exhibitions.html">展覽動態</a></li>
+            <li><a href="events.html">活動資訊</a></li>
             <li><a href="artists.html">藝術家</a></li>
             <li><a href="artworks.html" class="active">作品總覽</a></li>
             <li><a href="visit.html">參觀資訊</a></li>
+            <li><a href="contact.html">聯絡我們</a></li>
         </ul>
     </nav>
 </header>
@@ -223,8 +285,7 @@
 </div>
 
 <main>
-    <div class="work-grid" id="workGrid">
-        </div>
+    <div class="work-grid" id="workGrid"></div>
     <div id="noResult" style="text-align:center; padding:100px; display:none; color:#999;">查無相關作品</div>
 </main>
 
@@ -262,13 +323,38 @@
             <div class="footer-logo">UNION ART CENTER</div>
             <p>台北市大安區忠孝東路四段219號</p>
             <p>(02) 2536-9999</p>
+            <p>週一至週五 09:00 - 18:00</p>
+        </div>
+        <div class="footer-links">
+            <h4>快速連結</h4>
+            <ul>
+                <li><a href="about.html">關於中心</a></li>
+                <li><a href="exhibitions.html">當期展覽</a></li>
+                <li><a href="artworks.html">典藏作品</a></li>
+            </ul>
+        </div>
+        <div class="footer-links">
+            <h4>相關資源</h4>
+            <ul>
+                <li><a href="awards.html">聯邦美術獎</a></li>
+                <li><a href="visit.html">參觀預約</a></li>
+                <li><a href="privacy.html">隱私權政策</a></li>
+            </ul>
         </div>
     </div>
     <div class="footer-bottom">© 2026 Union Art Center 版權所有</div>
 </footer>
 
 <script>
-    // 1. 作品資料庫
+    // --- 手機版選單切換 ---
+    const mobileMenu = document.getElementById('mobile-menu');
+    const navList = document.getElementById('nav-list');
+
+    mobileMenu.addEventListener('click', () => {
+        navList.classList.toggle('active');
+    });
+
+    // --- 作品資料庫 ---
     const WORKS_DATA = [
         {
             artist: "許坤成",
@@ -328,7 +414,7 @@
             img: "https://www.ubot.org.tw/blob/ArtCenter/%E7%A5%81%E9%80%A3_%E5%91%B3%E6%96%B9%E8%95%83%E8%88%87%E6%97%A5%E8%BB%8D%E5%81%B5%E6%90%9C%E5%B0%8F%E9%9A%8A.jpg",
             size: "91X72.5cm(30F)",
             media: "2025 油畫．麻布",
-            concept: "這幅畫作描繪了台灣日治時期的歷史場景。畫中展示了日本軍隊與台灣原住民之間的互動，背景可能與日軍的「理蕃計畫」或 原住民的抗日事件有關。這類歷史畫作反映了台灣在日本殖民統治下不同族群的衝突與互動。"
+            concept: "這幅畫作描繪了台灣日治時期的歷史場景。畫中展示了日本軍隊與台灣原住民之間的互動，背景可能與日軍的「理蕃計畫」或 原住民的抗日事件有關。"
         },
         {
             artist: "蘇瑞明",
@@ -348,7 +434,7 @@
             img: "https://www.ubot.org.tw/blob/ArtCenter/%E8%98%87%E7%91%9E%E6%98%8E_%E6%B9%9B%E8%97%8D%E5%B8%9D%E5%9C%8B%E7%9A%84%E7%94%A6%E9%86%92.jpg",
             size: "91X72.5cm(30F)",
             media: "2025 油畫．麻布",
-            concept: "沈睡在亞德里亞海藍色靜謚臂灣中輕晃依賴的貢多拉，正緩緩隨散去的朝霧甦醒。陽光逐漸日升，河上蓬勃生動的海權浪潮又將激發出無限歡快豁達的活力與生機。"
+            concept: "沈睡在亞德里亞海藍色靜謚臂灣中輕晃依賴的貢多拉，正緩緩隨散去的朝霧甦醒。"
         },
         {
             artist: "高慶元",
@@ -358,7 +444,7 @@
             img: "https://www.ubot.org.tw/blob/ArtCenter/%E9%AB%98%E6%85%B6%E5%85%83_%E8%97%8D%E5%A2%83.jpg",
             size: "91X72.5cm(30F)",
             media: "2025 油畫．麻布",
-            concept: "未來，當地球的能源慢慢耗盡之時，世界出現了巨大變化。藍眼魚就是棲身在這環境的全新物種，這物種的身體是由很多生命體結合而成。"
+            concept: "未來，當地球的能源慢慢耗盡之時，世界出現了巨大變化。藍眼魚就是棲身在這環境的全新物種。"
         },
         {
             artist: "高慶元",
@@ -368,7 +454,7 @@
             img: "https://www.ubot.org.tw/blob/ArtCenter/%E9%AB%98%E6%85%B6%E5%85%83_%E5%87%BA%E7%99%BC.jpg",
             size: "91X72.5cm(30F)",
             media: "2025 油畫．麻布",
-            concept: "未來，在世界發生了巨大變化之後，所有的物種重新的融合出各種不同的生命體，這些生命體將各自前往自己想去的地方。"
+            concept: "未來，在世界發生了巨大變化之後，所有的物種重新的融合出各種不同的生命體。"
         },
         {
             artist: "林仁山",
@@ -378,7 +464,7 @@
             img: "https://www.ubot.org.tw/blob/ArtCenter/%E6%9E%97%E4%BB%81%E5%B1%B1_%E6%B5%AE%E7%94%9F%E5%8D%8A%E6%97%A5%E9%96%92.jpg",
             size: "91X65cm(30P)",
             media: "2024 油畫．麻布",
-            concept: "假日廣場人們悠閒地沈浸在歡樂聚談中。用印象朦朧技法，將物体之邊緣模糊，營造出光色一体的氛圍感。"
+            concept: "假日廣場人們悠閒地沈浸在歡樂聚談中。用印象朦朧技法，將物体之邊緣模糊。"
         },
         {
             artist: "林仁山",
@@ -388,39 +474,16 @@
             img: "https://www.ubot.org.tw/blob/ArtCenter/%E6%9E%97%E4%BB%81%E5%B1%B1_%E5%B1%B1%E6%B5%B7%E7%B5%84%E6%9B%B2.jpg",
             size: "91X60.5cm(30M)",
             media: "2022 油畫．麻布",
-            concept: "夏日海岸人聲遠去，只留下那亙古堅毅的岩石與來回擺動的潮水互動，共譜一曲天地幽遠之潮音。"
-        },
-        {
-            artist: "劉國正",
-            artistEn: "LIU KUO-CHENG",
-            title: "初鹿",
-            category: "landscape",
-            img: "https://www.ubot.org.tw/blob/ArtCenter/%E5%8A%89%E5%9C%8B%E6%AD%A3_%E5%88%9D%E9%B9%BF.jpg",
-            size: "91X72.5cm(30F)",
-            media: "2025 油畫．麻布",
-            concept: "世界曾是那麼美好，藉由藝術創作對人文生態的關注讓曾是鹿之島的台灣再次美麗！"
-        },
-        {
-            artist: "劉國正",
-            artistEn: "LIU KUO-CHENG",
-            title: "鹿谷",
-            category: "landscape",
-            img: "https://www.ubot.org.tw/blob/ArtCenter/%E5%8A%89%E5%9C%8B%E6%AD%A3_%E9%B9%BF%E8%B0%B7.jpg",
-            size: "91X72.5cm(30F)",
-            media: "2025 油畫．麻布",
-            concept: "世界曾是那麼美好，藉由藝術創作對人文生態的關注讓曾是鹿之島的台灣再次美麗！"
+            concept: "夏日海岸人聲遠去，只留下那亙古堅毅的岩石與來回擺動的潮水互動。"
         }
     ];
 
     let currentCat = 'all';
 
-    // 2. 渲染作品網格
     function renderWorks(data) {
         const grid = document.getElementById('workGrid');
         grid.innerHTML = data.map((work, index) => `
-            <div class="work-card" 
-                 data-category="${work.category}" 
-                 onclick="openModal(${index})">
+            <div class="work-card" onclick="openModal('${work.title}')">
                 <div class="work-img-container">
                     <div class="work-img" style="background-image: url('${work.img}');"></div>
                 </div>
@@ -433,7 +496,6 @@
         `).join('');
     }
 
-    // 3. 篩選邏輯
     function filterCategory(e, cat) {
         currentCat = cat;
         document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -445,8 +507,7 @@
         const search = document.getElementById('workSearch').value.toLowerCase();
         const filtered = WORKS_DATA.filter(work => {
             const matchSearch = work.title.toLowerCase().includes(search) || 
-                                work.artist.toLowerCase().includes(search) ||
-                                work.size.toLowerCase().includes(search);
+                                work.artist.toLowerCase().includes(search);
             const matchCat = (currentCat === 'all' || work.category === currentCat);
             return matchSearch && matchCat;
         });
@@ -455,17 +516,8 @@
         document.getElementById('noResult').style.display = (filtered.length === 0) ? "block" : "none";
     }
 
-    // 4. 彈窗控制
-    function openModal(index) {
-        const search = document.getElementById('workSearch').value.toLowerCase();
-        // 找出目前顯示中的資料集
-        const activeData = WORKS_DATA.filter(work => {
-            const matchSearch = work.title.toLowerCase().includes(search) || work.artist.toLowerCase().includes(search);
-            const matchCat = (currentCat === 'all' || work.category === currentCat);
-            return matchSearch && matchCat;
-        });
-
-        const work = activeData[index];
+    function openModal(title) {
+        const work = WORKS_DATA.find(w => w.title === title);
         if(!work) return;
 
         document.getElementById('m-title').innerText = work.title;
@@ -484,10 +536,8 @@
         document.body.style.overflow = 'auto';
     }
 
-    // 5. 初始化與處理 URL 參數
     window.onload = () => {
         renderWorks(WORKS_DATA);
-        
         const params = new URLSearchParams(window.location.search);
         const artist = params.get('artist');
         if (artist) {
