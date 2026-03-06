@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>關於我們｜聯邦藝術中心 Union Group Art Gallery</title>
     <style>
-        /* ===== 0. 全域設定與變數 (完全同步首頁) ===== */
+        /* ===== 0. 全域設定與變數 ===== */
         :root {
-            --ubot-red: #E60012;         /* 聯邦紅 */
-            --ubot-blue: #003366;        /* 聯邦深藍 */
-            --ubot-light-blue: #EAF6FC;  /* 聯邦淺藍背景 */
-            --ubot-sky-blue: #00A1E9;    /* 聯邦淺藍點綴 */
+            --ubot-red: #E60012;
+            --ubot-blue: #003366;
+            --ubot-light-blue: #EAF6FC;
+            --ubot-sky-blue: #00A1E9;
             --text-dark: #333333;
             --text-gray: #666666;
             --border-color: #D1CDC4;
@@ -25,7 +25,7 @@
             overflow-x: hidden;
         }
 
-        /* ===== 1. 統一頁首樣式 (Header) - 與首頁完全同步 ===== */
+        /* ===== 1. Header (同步) ===== */
         header {
             background: #ffffff;
             box-shadow: 0 2px 20px rgba(0,0,0,0.05);
@@ -43,59 +43,31 @@
             padding: 5px 20px;
         }
 
-        .logo a {
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-        }
-
         .logo-img {
             height: 90px;
             width: auto;
             display: block;
         }
 
-        .menu {
-            display: flex;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-
+        .menu { display: flex; list-style: none; margin: 0; padding: 0; }
         .menu li { margin-left: 10px; }
-
         .menu a {
-            text-decoration: none;
-            color: #666;
-            font-weight: 600;
-            font-size: 15px;
-            transition: 0.3s;
-            padding: 8px 12px;
-            display: block;
+            text-decoration: none; color: #666; font-weight: 600; font-size: 15px;
+            transition: 0.3s; padding: 8px 12px; display: block;
         }
-
         .menu a:hover, .menu a.active { color: var(--ubot-red); }
 
-        /* 手機漢堡選單按鈕 (同步首頁修正) */
         .menu-toggle {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-            padding: 10px;
-            z-index: 10001;
+            display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 10px; z-index: 10001;
         }
-        .menu-toggle span {
-            width: 25px; height: 3px; background: var(--ubot-blue);
-            transition: 0.3s;
-        }
+        .menu-toggle span { width: 25px; height: 3px; background: var(--ubot-blue); transition: 0.3s; }
 
-        /* ===== 2. 關於我們專屬內容樣式 ===== */
+        /* ===== 2. Banner (背景已更新) ===== */
         .page-banner {
             width: 100%;
-            height: 350px;
-            background: linear-gradient(rgba(0,51,102,0.5), rgba(0,51,102,0.5)), 
-                        url('https://images.unsplash.com/photo-1499781350541-7783f6c6a0c8?auto=format&fit=crop&w=1200&q=80');
+            height: 450px;
+            background: linear-gradient(rgba(0,30,60,0.5), rgba(0,30,60,0.5)), 
+                        url('https://scontent-tpe1-1.xx.fbcdn.net/v/t39.30808-6/643380739_122107499067246913_325030247786135822_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=108&ccb=1-7&_nc_sid=13d280&_nc_ohc=53JXj-uvymwQ7kNvwG-jfkd&_nc_oc=AdklCKi5h-ksHL3yMueJDjEoiOIE5mYovo5cuijZEs6mY7dnMOdpzyWjkvzDz3AtuYRdze29nLatu9vnqJmO6sb0&_nc_zt=23&_nc_ht=scontent-tpe1-1.xx&_nc_gid=ei7LZIKFq9YsCoKg3mRDBA&_nc_ss=8&oh=00_AfwBbsVRHs-M34nfzH6rcJq8ZbUy5UmD_7m_B3H4po92XQ&oe=69B07B91');
             background-size: cover;
             background-position: center;
             display: flex;
@@ -107,148 +79,92 @@
             padding: 0 20px;
         }
 
-        .page-banner h1 { font-size: 42px; margin: 0; letter-spacing: 6px; font-weight: 900; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
-        .page-banner p { font-size: 18px; opacity: 0.9; margin-top: 15px; letter-spacing: 2px; }
+        .page-banner h1 { font-size: 48px; margin: 0; letter-spacing: 8px; font-weight: 900; text-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        .page-banner p { font-size: 18px; opacity: 0.95; margin-top: 15px; letter-spacing: 3px; font-weight: 500; text-shadow: 0 2px 8px rgba(0,0,0,0.5); }
 
+        /* ===== 3. 關於我們內容區 ===== */
         .about-container {
             max-width: 1000px;
-            margin: -60px auto 80px;
+            margin: -80px auto 80px;
             display: grid;
-            gap: 30px;
+            gap: 40px;
             padding: 0 20px;
             position: relative;
             z-index: 10;
         }
 
         .about-section {
-            padding: 40px 35px;
+            padding: 50px 40px;
             background: #ffffff;
-            border: 1px solid rgba(0,0,0,0.05);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            border-radius: 12px;
+            border-radius: 16px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
         }
 
         .about-section h2 {
-            color: var(--ubot-blue);
-            font-size: 1.5rem;
-            margin: 0 0 25px 0;
-            display: flex;
-            align-items: center;
+            color: var(--ubot-blue); font-size: 1.6rem; margin: 0 0 30px 0;
+            display: flex; align-items: center;
         }
 
         .about-section h2::before {
-            content: ""; width: 5px; height: 24px;
-            background: var(--ubot-red);
-            margin-right: 15px;
-            border-radius: 2px;
+            content: ""; width: 6px; height: 26px; background: var(--ubot-red); margin-right: 15px; border-radius: 2px;
         }
 
-        .about-content { font-size: 1.1rem; color: #444; text-align: justify; line-height: 2; }
+        .about-content { font-size: 1.15rem; color: #444; text-align: justify; line-height: 2.1; }
         .about-content b { color: var(--ubot-red); font-weight: 600; }
 
-        /* 內容引用樣式 */
         .quote-box {
             background: var(--ubot-light-blue);
-            padding: 30px;
-            border-radius: 8px;
-            border-left: 5px solid var(--ubot-sky-blue);
-            margin-bottom: 25px;
-            font-style: italic;
-            color: var(--ubot-blue);
+            padding: 30px; border-radius: 12px; border-left: 6px solid var(--ubot-sky-blue);
+            margin-bottom: 30px; font-style: italic; color: var(--ubot-blue); font-weight: 500;
         }
 
-        .milestone-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            margin-top: 25px;
-        }
+        .milestone-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 30px; }
         .milestone-item {
-            background: #fcfcfc;
-            padding: 25px;
-            border: 1px solid #f0f0f0;
-            border-radius: 8px;
-            transition: 0.3s;
+            background: #fcfcfc; padding: 25px; border: 1px solid #f0f0f0; border-radius: 12px; transition: 0.3s;
         }
-        .milestone-item:hover { border-color: var(--ubot-sky-blue); transform: translateY(-3px); }
-        .milestone-year { font-weight: 900; color: var(--ubot-red); font-size: 1.4rem; display: block; margin-bottom: 8px; }
+        .milestone-item:hover { border-color: var(--ubot-sky-blue); transform: translateY(-5px); }
+        .milestone-year { font-weight: 900; color: var(--ubot-red); font-size: 1.5rem; display: block; margin-bottom: 8px; }
 
-        .space-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin-top: 25px;
-        }
+        .space-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 30px; }
         .space-item {
-            background: #fff;
-            padding: 25px 15px;
-            text-align: center;
-            border: 1px solid #eee;
-            border-radius: 8px;
-            color: var(--ubot-blue);
-            font-weight: 700;
-            transition: 0.3s;
+            background: #fff; padding: 30px 15px; text-align: center; border: 1.5px solid #eee;
+            border-radius: 12px; color: var(--ubot-blue); font-weight: 700; transition: 0.3s;
         }
-        .space-item:hover { background: var(--ubot-blue); color: #fff; }
+        .space-item:hover { background: var(--ubot-blue); color: #fff; border-color: var(--ubot-blue); }
 
-        /* ===== 3. 統一頁尾樣式 (Footer) - 保持原始設定 ===== */
-        footer {
-            background: var(--ubot-light-blue);
-            color: var(--ubot-blue);
-            padding: 60px 20px 30px;
-        }
-
-        .footer-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-        }
-
+        /* ===== 4. Footer ===== */
+        footer { background: var(--ubot-light-blue); color: var(--ubot-blue); padding: 60px 20px 30px; }
+        .footer-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; }
         .footer-logo { font-size: 22px; font-weight: 800; margin-bottom: 15px; }
-        .footer-info p { margin: 8px 0; font-size: 14px; }
-        .footer-links h4 { margin: 0 0 15px; border-left: 3px solid var(--ubot-red); padding-left: 10px; }
-        .footer-links ul { list-style: none; padding: 0; margin: 0; }
-        .footer-links li { margin-bottom: 8px; }
-        .footer-links a { text-decoration: none; color: var(--ubot-blue); font-size: 14px; opacity: 0.8; transition: 0.3s; }
-        .footer-links a:hover { opacity: 1; color: var(--ubot-red); }
+        .footer-bottom { max-width: 1200px; margin: 40px auto 0; padding-top: 20px; border-top: 1px solid rgba(0,51,102,0.1); text-align: center; font-size: 13px; opacity: 0.7; }
 
-        .footer-bottom {
-            max-width: 1200px;
-            margin: 40px auto 0;
-            padding-top: 20px;
-            border-top: 1px solid rgba(0,51,102,0.1);
-            text-align: center;
-            font-size: 13px;
-            opacity: 0.7;
-        }
-
-        /* ===== 4. RWD 手機版修正 ===== */
+        /* ===== 5. RWD 手機版排版優化 ===== */
         @media (max-width: 768px) {
-            .navbar { padding: 10px 15px; }
             .logo-img { height: 65px; }
             .menu-toggle { display: flex; }
-
             .menu {
-                position: absolute;
-                top: 100%; left: 0; right: 0;
-                background: #fff;
-                flex-direction: column;
-                padding: 10px 0;
-                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-                display: none;
-                z-index: 10000;
+                position: absolute; top: 100%; left: 0; right: 0; background: #fff;
+                flex-direction: column; padding: 10px 0; box-shadow: 0 10px 20px rgba(0,0,0,0.1); display: none;
             }
-
             .menu.active { display: flex; }
             .menu li { margin: 0; border-bottom: 1px solid #f5f5f5; }
             .menu a { padding: 15px 0; font-size: 16px; text-align: center; }
 
-            .page-banner { height: 250px; }
-            .page-banner h1 { font-size: 32px; }
-            .about-container { margin-top: -30px; }
-            .milestone-grid, .space-grid { grid-template-columns: 1fr; }
+            /* Banner 手機高度優化 */
+            .page-banner { height: 300px; }
+            .page-banner h1 { font-size: 32px; letter-spacing: 4px; }
+            .page-banner p { font-size: 15px; letter-spacing: 1px; }
+
+            /* 內容區手機排版優化 */
+            .about-container { margin-top: -40px; gap: 25px; padding: 0 15px; }
+            .about-section { padding: 35px 25px; border-radius: 12px; }
+            .about-content { font-size: 1.05rem; line-height: 1.9; }
+            .quote-box { padding: 20px; font-size: 1rem; }
+
+            /* 網格自動改為單欄排版 */
+            .milestone-grid, .space-grid { grid-template-columns: 1fr; gap: 15px; }
+            .milestone-item, .space-item { padding: 20px; }
+            .space-item { padding: 25px 15px; }
         }
     </style>
 </head>
@@ -261,13 +177,9 @@
                 <img src="https://i.ibb.co/Txzm1B60/0210.jpg" alt="聯邦藝術中心 Logo" class="logo-img">
             </a>
         </div>
-        
         <div class="menu-toggle" id="mobile-menu">
-            <span></span>
-            <span></span>
-            <span></span>
+            <span></span><span></span><span></span>
         </div>
-
         <ul class="menu" id="nav-list">
             <li><a href="about.html" class="active">關於我們</a></li>
             <li><a href="exhibitions.html">展覽動態</a></li>
@@ -338,7 +250,7 @@
             <div class="footer-logo">UNION GROUP Art Gallery</div>
             <p><strong>地址：</strong>台北市大安區忠孝東路四段219號</p>
             <p><strong>電話：</strong>(02) 2771-8599</p>
-            <p><strong>時間：</strong>週二至週日 10:00 - 19:00 (週一及國定假日公休)</p>
+            <p><strong>時間：</strong>週二至週日 10:00 - 19:00 (週一公休)</p>
         </div>
         <div class="footer-links">
             <h4>探索中心</h4>
@@ -364,22 +276,12 @@
 </footer>
 
 <script>
-    // 漢堡選單修正腳本
     document.addEventListener('DOMContentLoaded', function() {
         const menuToggle = document.getElementById('mobile-menu');
         const navList = document.getElementById('nav-list');
-
         if (menuToggle && navList) {
-            menuToggle.addEventListener('click', function(e) {
-                e.preventDefault();
+            menuToggle.addEventListener('click', function() {
                 navList.classList.toggle('active');
-            });
-
-            const navLinks = document.querySelectorAll('.menu a');
-            navLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    navList.classList.remove('active');
-                });
             });
         }
     });
