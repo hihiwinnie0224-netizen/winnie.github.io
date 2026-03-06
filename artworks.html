@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>作品總覽｜聯邦藝術中心 Union Art Center</title>
+    <title>作品總覽｜聯邦藝術中心 Union Group Art Gallery</title>
     
     <style>
         :root {
-            --ubot-red: #E60012;         /* 聯邦紅 */
-            --ubot-blue: #003366;        /* 聯邦深藍 */
-            --ubot-light-blue: #EAF6FC;  /* 聯邦淺藍背景 */
-            --ubot-sky-blue: #00A1E9;    /* 聯邦淺藍點綴 */
+            --ubot-red: #E60012;          /* 聯邦紅 */
+            --ubot-blue: #003366;         /* 聯邦深藍 */
+            --ubot-light-blue: #EAF6FC;   /* 聯邦淺藍背景 */
+            --ubot-sky-blue: #00A1E9;     /* 聯邦淺藍點綴 */
             --text-dark: #333333;
             --text-gray: #666666;
             --border-color: #D1CDC4;
@@ -25,7 +25,7 @@
             overflow-x: hidden;
         }
 
-        /* ===== 1. Navbar ===== */
+        /* ===== 1. Navbar (Logo 已更換) ===== */
         header {
             background: #ffffff;
             box-shadow: 0 2px 20px rgba(0,0,0,0.05);
@@ -40,22 +40,19 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 25px;
+            padding: 5px 25px; /* 配合 Logo 高度 */
         }
 
         .logo a {
-            font-size: 22px;
-            font-weight: 800;
-            color: var(--ubot-blue);
-            text-decoration: none;
             display: flex;
             align-items: center;
-            letter-spacing: 1px;
+            text-decoration: none;
         }
 
-        .logo a::before { 
-            content: ""; width: 8px; height: 8px; background: var(--ubot-red); 
-            border-radius: 50%; margin-right: 10px; 
+        .logo-img {
+            height: 90px;
+            width: auto;
+            display: block;
         }
 
         .menu { display: flex; list-style: none; margin: 0; padding: 0; }
@@ -69,21 +66,21 @@
         .menu-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
         .menu-toggle span { width: 25px; height: 3px; background: var(--ubot-blue); transition: 0.3s; }
 
-        /* ===== Banner ===== */
+        /* ===== 2. Banner (背景圖已更換) ===== */
         .page-banner {
-            width: 100%; height: 250px;
-            background: linear-gradient(rgba(0,51,102,0.7), rgba(0,51,102,0.7)), 
-                        url('https://images.unsplash.com/photo-1518998053574-53f026344594?auto=format&fit=crop&w=1200');
+            width: 100%; height: 280px;
+            background: linear-gradient(rgba(0,30,60,0.55), rgba(0,30,60,0.55)), 
+                        url('https://scontent-tpe1-1.xx.fbcdn.net/v/t39.30808-6/644526482_122107498983246913_4150014603889655988_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=105&ccb=1-7&_nc_sid=13d280&_nc_ohc=I919aZRXBxsQ7kNvwFQxctT&_nc_oc=AdnhWpwufOu8ais_9wFHgQueg7mOZOcvKw3m4phlXp51DDgMODC2NCw-O4ZSlh9z8blqZltMml8l4SUiDLV52SKi&_nc_zt=23&_nc_ht=scontent-tpe1-1.xx&_nc_gid=w_EdSFRIb_5i1k4__E6AHw&_nc_ss=8&oh=00_AfxBZWn5eCNNaXIpI9R96M4vHqdLC8dQXkuIYnl8Kx101Q&oe=69B04DDE');
             background-size: cover; background-position: center;
             display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center;
         }
-        .page-banner h1 { letter-spacing: 4px; margin: 0; font-size: 32px; }
-        .page-banner p { opacity: 0.8; font-size: 14px; margin-top: 10px; letter-spacing: 2px; }
+        .page-banner h1 { letter-spacing: 6px; margin: 0; font-size: 38px; font-weight: 900; text-shadow: 0 2px 15px rgba(0,0,0,0.3); }
+        .page-banner p { opacity: 0.9; font-size: 14px; margin-top: 12px; letter-spacing: 3px; font-weight: 500; }
 
-        /* ===== 篩選器 ===== */
+        /* ===== 3. 篩選器 ===== */
         .sticky-filter {
             background: rgba(255,255,255,0.98); padding: 20px 0;
-            position: sticky; top: 64px; z-index: 900;
+            position: sticky; top: 100px; z-index: 900;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05); backdrop-filter: blur(10px);
         }
         .search-container { max-width: 1200px; margin: 0 auto; padding: 0 20px 15px; }
@@ -106,12 +103,11 @@
         }
         .filter-btn.active { background: var(--ubot-blue); color: #fff; border-color: var(--ubot-blue); }
 
-        /* ===== 作品網格 (核心修改：三張一排) ===== */
+        /* ===== 4. 作品網格 ===== */
         .work-grid {
             display: grid;
             max-width: 1200px;
             margin: 0 auto;
-            /* 強制設定為三列，間距調寬一點更有質感 */
             grid-template-columns: repeat(3, 1fr); 
             gap: 30px;
             padding: 40px 20px;
@@ -139,7 +135,7 @@
         .work-title { font-size: 18px; font-weight: 700; margin: 8px 0; color: var(--ubot-blue); }
         .work-artist { font-size: 14px; color: var(--text-gray); }
 
-        /* ===== Modal ===== */
+        /* ===== 5. Modal ===== */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,15,30,0.9); display: none;
@@ -162,56 +158,41 @@
         .info-value { color: #333; font-size: 17px; }
         .concept-text { color: #555; font-size: 16px; line-height: 1.8; margin-top: 15px; }
 
-                /* --- 新增：藝術家連結樣式 --- */
         .artist-link {
-            color: var(--ubot-blue);
-            text-decoration: none;
-            cursor: pointer;
-            transition: 0.3s;
-            display: inline-block;
-            font-weight: 700;
-            border-bottom: 1px solid transparent;
+            color: var(--ubot-blue); text-decoration: none; cursor: pointer; transition: 0.3s;
+            display: inline-block; font-weight: 700; border-bottom: 1px solid transparent;
         }
-        .artist-link:hover {
-            color: var(--ubot-red);
-            border-bottom: 1px solid var(--ubot-red);
-        }
-        .artist-link::after {
-            content: ' → 查看藝術家介紹';
-            font-size: 12px;
-            opacity: 0.6;
-        }
+        .artist-link:hover { color: var(--ubot-red); border-bottom: 1px solid var(--ubot-red); }
+        .artist-link::after { content: ' → 查看介紹'; font-size: 12px; opacity: 0.6; }
 
-        /* ===== 6. 頁尾 Footer ===== */
+        /* ===== 6. Footer ===== */
         footer {
             background: var(--ubot-light-blue); color: var(--ubot-blue); padding: 60px 20px 30px;
         }
-
         .footer-container {
             max-width: 1200px; margin: 0 auto;
             display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px;
         }
-
         .footer-logo { font-size: 22px; font-weight: 800; margin-bottom: 15px; }
         .footer-info p { margin: 5px 0; font-size: 14px; }
-
         .footer-links h4 { margin: 0 0 15px; border-left: 3px solid var(--ubot-red); padding-left: 10px; }
         .footer-links ul { list-style: none; padding: 0; margin: 0; }
         .footer-links li { margin-bottom: 8px; }
-        .footer-links a { text-decoration: none; color: var(--ubot-blue); font-size: 14px; opacity: 0.8; }
+        .footer-links a { text-decoration: none; color: var(--ubot-blue); font-size: 14px; opacity: 0.8; transition: 0.3s; }
         .footer-links a:hover { opacity: 1; color: var(--ubot-red); }
-
         .footer-bottom {
             max-width: 1200px; margin: 40px auto 0; padding-top: 20px;
             border-top: 1px solid rgba(0,51,102,0.1); text-align: center; font-size: 13px; opacity: 0.7;
         }
 
-        /* ===== RWD ===== */
+        /* ===== 7. RWD ===== */
         @media (max-width: 992px) {
-            .work-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; } /* 平板兩排 */
+            .work-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
         }
 
         @media (max-width: 768px) {
+            .logo-img { height: 65px; }
+            .sticky-filter { top: 75px; }
             .menu-toggle { display: flex; }
             .menu {
                 position: absolute; top: 100%; left: 0; right: 0;
@@ -221,9 +202,11 @@
             .menu.active { display: flex; }
             .menu li { width: 100%; text-align: center; border-bottom: 1px solid #f9f9f9; }
             .menu a { padding: 15px; }
-            .work-grid { grid-template-columns: 1fr; } /* 手機一排 */
+            .work-grid { grid-template-columns: 1fr; }
             .modal-content { flex-direction: column; }
             .modal-img-side { height: 350px; }
+            .page-banner { height: 180px; }
+            .page-banner h1 { font-size: 28px; }
         }
     </style>
 </head>
@@ -231,7 +214,11 @@
 
 <header>
     <nav class="navbar">
-        <div class="logo"><a href="index.html">聯邦藝術中心</a></div>
+        <div class="logo">
+            <a href="index.html">
+                <img src="https://i.ibb.co/Txzm1B60/0210.jpg" alt="聯邦藝術中心 Logo" class="logo-img">
+            </a>
+        </div>
         <div class="menu-toggle" id="mobile-menu">
             <span></span><span></span><span></span>
         </div>
@@ -287,10 +274,10 @@
 <footer>
     <div class="footer-container">
         <div class="footer-info">
-            <div class="footer-logo">UNION ART CENTER</div>
+            <div class="footer-logo">UNION GROUP Art Gallery</div>
             <p><strong>地址：</strong>台北市大安區忠孝東路四段219號</p>
-            <p><strong>電話：</strong>(02) 2536-9999</p>
-            <p><strong>時間：</strong>週二至週日 09:00 - 17:00 (週一休館)</p>
+            <p><strong>電話：</strong>(02) 2771-8599</p>
+            <p><strong>時間：</strong>週二至週日 10:00 - 19:00 (週一休館)</p>
         </div>
         <div class="footer-links">
             <h4>探索中心</h4>
@@ -311,11 +298,12 @@
         </div>
     </div>
     <div class="footer-bottom">
-        <p>© 2026 Union Art Center 聯邦藝術中心 版權所有</p>
+        <p>© 2026 Union Group Art Gallery 聯邦藝術中心 版權所有</p>
     </div>
 </footer>
 
 <script>
+    // 資料內容與邏輯保持不變
     const mobileMenu = document.getElementById('mobile-menu');
     const navList = document.getElementById('nav-list');
     mobileMenu.onclick = () => navList.classList.toggle('active');
@@ -367,19 +355,15 @@
         document.getElementById('noResult').style.display = (filtered.length === 0) ? "block" : "none";
     }
 
-    // --- 修改：開啟彈窗時加入藝術家跳轉連結 ---
     function openModal(title) {
         const work = WORKS_DATA.find(w => w.title === title);
         if(!work) return;
         document.getElementById('m-title').innerText = work.title;
-        
-        // 將藝術家姓名包裝成連結，並帶入跳轉函數
         document.getElementById('m-artist').innerHTML = `
             <a class="artist-link" onclick="goToArtistPage('${work.artist}')">
                 ${work.artist} ${work.artistEn}
             </a>
         `;
-
         document.getElementById('m-size').innerText = work.size;
         document.getElementById('m-media').innerText = work.media;
         document.getElementById('m-concept').innerText = work.concept;
@@ -388,9 +372,7 @@
         document.body.style.overflow = 'hidden';
     }
 
-    // --- 新增：跳轉至藝術家介紹頁面 ---
     function goToArtistPage(name) {
-        // 跳轉至 artists.html，並攜帶藝術家姓名的 URL 參數
         window.location.href = `artists.html?artist=${encodeURIComponent(name)}`;
     }
 
