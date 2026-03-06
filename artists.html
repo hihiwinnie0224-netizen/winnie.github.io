@@ -83,8 +83,8 @@
         /* ===== Banner ===== */
         .page-banner {
             width: 100%;
-            height: 200px;
-            background: linear-gradient(rgba(0,51,102,0.7), rgba(0,51,102,0.7)), 
+            height: 220px;
+            background: linear-gradient(rgba(0,51,102,0.8), rgba(0,51,102,0.6)), 
                         url('https://images.unsplash.com/photo-1460666819451-7410f5238d41?auto=format&fit=crop&w=800&q=80');
             background-size: cover;
             background-position: center;
@@ -96,7 +96,7 @@
             text-align: center;
         }
         .page-banner h1 { font-size: 32px; margin: 0; letter-spacing: 4px; }
-        .page-banner p { font-size: 14px; opacity: 0.8; margin-top: 5px; }
+        .page-banner p { font-size: 14px; opacity: 0.8; margin-top: 5px; text-transform: uppercase; }
 
         /* ===== 搜尋與篩選 (Sticky) ===== */
         .sticky-tools { 
@@ -111,20 +111,20 @@
         
         .search-row { max-width: 600px; margin: 0 auto 15px; padding: 0 20px; }
         .search-box { 
-            width: 100%; padding: 12px 20px; border: 1px solid var(--border-color); 
+            width: 100%; padding: 12px 25px; border: 1.5px solid var(--border-color); 
             border-radius: 50px; font-size: 15px; box-sizing: border-box;
             outline: none; transition: 0.3s;
         }
-        .search-box:focus { border-color: var(--ubot-sky-blue); box-shadow: 0 0 8px rgba(0,161,233,0.1); }
+        .search-box:focus { border-color: var(--ubot-sky-blue); box-shadow: 0 0 12px rgba(0,161,233,0.15); }
 
         .tab-wrapper {
-            display: flex; justify-content: center; gap: 10px; overflow-x: auto; padding: 0 20px;
+            display: flex; justify-content: center; gap: 12px; overflow-x: auto; padding: 0 20px;
             scrollbar-width: none;
         }
         .tab-wrapper::-webkit-scrollbar { display: none; }
 
         .btn-tab { 
-            white-space: nowrap; padding: 8px 24px; border: 1.5px solid var(--ubot-blue); 
+            white-space: nowrap; padding: 10px 24px; border: 1.5px solid var(--ubot-blue); 
             background: white; color: var(--ubot-blue); border-radius: 50px; 
             font-size: 14px; font-weight: bold; cursor: pointer; transition: 0.3s;
         }
@@ -132,96 +132,109 @@
 
         /* ===== 藝術家網格 ===== */
         .main-content { max-width: 1200px; margin: 40px auto; padding: 0 20px; min-height: 400px; }
-        .year-row { background: white; border-radius: 12px; padding: 30px; margin-bottom: 30px; border: 1px solid #eee; }
+        .year-row { background: white; border-radius: 16px; padding: 35px; margin-bottom: 30px; border: 1px solid #eee; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
         .year-label { 
-            font-size: 20px; color: var(--ubot-blue); margin-bottom: 25px; font-weight: 800; 
-            border-left: 5px solid var(--ubot-red); padding-left: 15px; 
+            font-size: 22px; color: var(--ubot-blue); margin-bottom: 30px; font-weight: 800; 
+            border-left: 6px solid var(--ubot-red); padding-left: 15px; 
         }
 
-        .winners-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; }
+        .winners-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 25px; }
         .winner-card { 
-            text-align: center; padding: 25px 15px; border-radius: 12px; 
-            border: 1px solid #f2f2f2; background: #fff; transition: 0.3s; cursor: pointer;
+            text-align: center; padding: 30px 20px; border-radius: 15px; 
+            border: 1px solid #f2f2f2; background: #fff; transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); cursor: pointer;
         }
-        .winner-card:hover { transform: translateY(-5px); border-color: var(--ubot-sky-blue); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .winner-card:hover { transform: translateY(-8px); border-color: var(--ubot-sky-blue); box-shadow: 0 15px 30px rgba(0,51,102,0.08); }
 
-        .avatar { 
-            width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 15px; 
-            display: flex; align-items: center; justify-content: center; 
-            color: white; font-weight: bold; font-size: 24px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        .avatar-box {
+            width: 110px; height: 110px; border-radius: 50%; margin: 0 auto 18px;
+            overflow: hidden; border: 3px solid #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            background: linear-gradient(135deg, #eee, #ddd);
+            display: flex; align-items: center; justify-content: center;
         }
+        .avatar-img { width: 100%; height: 100%; object-fit: cover; }
         
-        .tag { font-size: 11px; padding: 2px 10px; border-radius: 50px; display: inline-block; margin-bottom: 10px; font-weight: 600; }
-        .tag-首獎 { background: #fff3cd; color: #856404; }
+        .tag { font-size: 11px; padding: 3px 12px; border-radius: 50px; display: inline-block; margin-bottom: 12px; font-weight: 700; text-transform: uppercase; }
+        .tag-首獎 { background: #FFF9E6; color: #B08900; border: 1px solid #FFE58F; }
         .tag-大師 { background: var(--ubot-blue); color: #fff; }
 
-        .name { font-size: 18px; font-weight: 700; margin-bottom: 5px; color: var(--text-main); }
-        .year-text { font-size: 13px; color: #999; margin-bottom: 15px; }
+        .name { font-size: 19px; font-weight: 700; margin-bottom: 6px; color: var(--text-main); }
+        .year-text { font-size: 14px; color: #888; margin-bottom: 20px; }
 
         .btn-view { 
-            width: 100%; padding: 8px; background: transparent; 
-            border: 1px solid var(--ubot-blue); color: var(--ubot-blue); 
-            border-radius: 6px; font-size: 13px; cursor: pointer; transition: 0.3s;
+            width: 100%; padding: 10px; background: #f8f9fa; 
+            border: 1px solid #eee; color: var(--ubot-blue); 
+            border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: 0.3s;
         }
-        .winner-card:hover .btn-view { background: var(--ubot-blue); color: white; }
+        .winner-card:hover .btn-view { background: var(--ubot-blue); color: white; border-color: var(--ubot-blue); }
 
         /* ===== 介紹彈窗 (Modal) ===== */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.7);
+            background: rgba(0,15,30,0.85);
             display: none;
             justify-content: center;
             align-items: center;
             z-index: 2000;
             padding: 20px;
+            backdrop-filter: blur(5px);
         }
         .modal-content {
             background: white;
             width: 100%;
-            max-width: 500px;
-            border-radius: 20px;
+            max-width: 550px;
+            max-height: 85vh;
+            overflow-y: auto;
+            border-radius: 24px;
             position: relative;
-            padding: 40px 30px;
+            padding: 50px 40px;
             text-align: center;
-            animation: modalFadeIn 0.3s ease;
+            animation: modalFadeIn 0.4s cubic-bezier(0.23, 1, 0.32, 1);
         }
         @keyframes modalFadeIn {
-            from { transform: translateY(30px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+            from { transform: scale(0.9) translateY(20px); opacity: 0; }
+            to { transform: scale(1) translateY(0); opacity: 1; }
         }
         .close-modal {
             position: absolute;
-            top: 20px; right: 20px;
-            font-size: 28px; cursor: pointer; color: #ccc;
+            top: 25px; right: 25px;
+            font-size: 32px; cursor: pointer; color: #999;
+            transition: 0.3s; line-height: 1;
         }
+        .close-modal:hover { color: var(--ubot-red); }
+
         .modal-avatar {
-            width: 100px; height: 100px; border-radius: 50%;
-            margin: 0 auto 20px; display: flex; align-items: center; justify-content: center;
-            color: white; font-size: 36px; font-weight: bold;
+            width: 120px; height: 120px; border-radius: 50%;
+            margin: 0 auto 20px; border: 4px solid var(--ubot-light-blue);
+            object-fit: cover; box-shadow: 0 8px 20px rgba(0,0,0,0.1);
         }
         .modal-description { 
-            text-align: left; color: #555; font-size: 15px; line-height: 1.8; 
-            margin: 20px 0 30px; padding-top: 20px; border-top: 1px solid #eee;
+            text-align: left; color: #444; font-size: 15px; line-height: 1.8; 
+            margin: 25px 0 35px; padding-top: 25px; border-top: 1px solid #f0f0f0;
+            white-space: pre-line; /* 保留換行 */
         }
         .btn-go-artworks {
-            display: block; width: 100%; padding: 15px;
+            display: block; width: 100%; padding: 16px;
             background: var(--ubot-blue); color: white; text-decoration: none;
-            border-radius: 10px; font-weight: 600; transition: 0.3s;
+            border-radius: 12px; font-weight: 600; transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(0,51,102,0.2);
         }
-        .btn-go-artworks:hover { background: var(--ubot-sky-blue); }
+        .btn-go-artworks:hover { background: var(--ubot-sky-blue); transform: translateY(-2px); }
 
         /* ===== 頁尾 ===== */
-        footer { background: var(--ubot-light-blue); padding: 50px 20px 30px; margin-top: 60px; }
-        .footer-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; }
-        .footer-logo { font-size: 20px; font-weight: 800; margin-bottom: 15px; color: var(--ubot-blue); }
-        .footer-bottom { text-align: center; font-size: 12px; margin-top: 40px; opacity: 0.6; }
+        footer { background: #001f3d; padding: 60px 20px 40px; margin-top: 80px; color: #fff; }
+        .footer-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 30px; }
+        .footer-logo { font-size: 22px; font-weight: 800; margin-bottom: 15px; letter-spacing: 2px; }
+        .footer-info p { opacity: 0.7; font-size: 14px; margin: 5px 0; }
+        .footer-bottom { text-align: center; font-size: 13px; margin-top: 60px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); opacity: 0.5; }
 
         /* ===== RWD ===== */
         @media (max-width: 768px) {
-            .winners-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-            .sticky-tools { top: 60px; }
+            .winners-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+            .sticky-tools { top: 60px; padding: 15px 0; }
             .navbar { padding: 10px 20px; }
+            .menu { display: none; } /* 手機版通常會收起，這裡簡化處理 */
+            .modal-content { padding: 40px 25px; }
         }
     </style>
 </head>
@@ -251,8 +264,8 @@
     </div>
     <div class="tab-wrapper">
         <button class="btn-tab active" id="tab-master" onclick="switchCategory('master')">藝之初章</button>
-        <button class="btn-tab" id="tab-newbie" onclick="switchCategory('newbie')">新人獎</button>
         <button class="btn-tab" id="tab-impression" onclick="switchCategory('impression')">印象大獎</button>
+        <button class="btn-tab" id="tab-newbie" onclick="switchCategory('newbie')">新人獎</button>
     </div>
 </div>
 
@@ -279,22 +292,116 @@
 </footer>
 
 <script>
-    // 1. 資料庫 (Bio 建議 100-150 字最合適)
+    // 1. 資料庫 (補齊所有提供之資料)
     const ARTISTS_LIST = [
         { 
             name: "許坤成", 
             category: "master", 
             tag: "大師", 
-            year: "評審召集人", 
-            color: "#003366",
-            bio: "許坤成教授為台灣當代藝術界的泰斗，曾任中國文化大學藝術學院院長。他以其開創性的繪畫風格與深厚的學術背景，帶領聯邦美術獎邁向專業與高度。其創作融合了東西方美學，並在推廣台灣寫實繪畫發展上不遺餘力。"
+            year: "評審委員會召集人", 
+            img: "https://www.ubot.org.tw/blob/ArtCenter/%E8%A8%B1%E5%9D%A4%E6%88%90.jpg",
+            bio: `<經歷>
+法國國立東方研究院美術史博士學位
+1977年-2016年文化大學專任教授
+1979年-1981年擔任文大美術系副主任代理主任
+1994年華岡藝術學校校長
+2002年國立台灣藝術大學造形藝術研究所兼任教授
+2009年-2015年文大美術系主任
+2014年文大美術系碩士在職班所長
+後立體派畫會理事長、漆畫學會理事長、紗帽山畫會榮譽會長、後立體派畫會榮譽理事長
+1997年李登輝總統參觀許坤成國父紀念館中山國家畫廊個展
+聯邦美術獎第一屆至第二十八屈評審委員會召集人
+國父紀念館審議委員會評議組委員、全國美術獎評審委員、文化部藝術家徵選會議評審委員
+2021年榮獲文化部文協獎章`
+        },
+        { 
+            name: "祁連", 
+            category: "impression", 
+            tag: "首獎", 
+            year: "第一屆聯邦美術印象大獎", 
+            img: "https://www.ubot.org.tw/blob/ArtCenter/%E7%A5%81%E9%80%A3.jpg",
+            bio: `學歷：
+國立台南藝術大學造形藝術研究所碩士
+國立台灣藝術大學(國立台灣藝專)美術科西畫組
+
+經歷：
+東方設計學院美術工藝系講師、建國科技大學商業設計系講師
+大葉大學推廣班教授《生活與色彩》課程
+南華大學．文化創意事業管理學系課座
+
+獲獎與入會：
+第一屆聯邦美術印象大獎 首獎
+1993年入五月畫會、2013年入中部美術協會
+2013年入台灣國際藝術協會
+2014年~2015年五月畫會理事
+2014年~2017年台灣國際藝術協會常務監事
+2017年入台灣世界水彩聯盟、2018年奇美博物館畫畫課
+2019年中部美展油畫類評審`
+        },
+        { 
+            name: "蘇瑞明", 
+            category: "impression", 
+            tag: "首獎", 
+            year: "第三屆聯邦美術印象大獎", 
+            img: "https://www.ubot.org.tw/blob/ArtCenter/%E8%98%87%E7%91%9E%E6%98%8E.jpg",
+            bio: `獲獎經歷：
+台灣國展油畫比賽 第一名
+全國油畫展 銀牌獎
+第三屆聯邦印象大獎 首獎
+台灣國展油畫比賽 第二名
+國泰潛力畫家 國泰獎`
+        },
+        { 
+            name: "高慶元", 
+            category: "impression", 
+            tag: "首獎", 
+            year: "第四屆聯邦美術印象大獎", 
+            img: "https://www.ubot.org.tw/blob/ArtCenter/%E9%AB%98%E6%85%B6%E5%85%83.jpg",
+            bio: `獲獎經歷：
+第四屆聯邦美術印象大獎 首獎
+第四十六屆全國油畫展 金牌獎
+第七屆中山青年藝術獎 中山獎`
+        },
+        { 
+            name: "林仁山", 
+            category: "impression", 
+            tag: "首獎", 
+            year: "第五屆聯邦美術印象大獎", 
+            img: "https://www.ubot.org.tw/blob/ArtCenter/%E6%9E%97%E4%BB%81%E5%B1%B1.jpg",
+            bio: `經歷：
+臺灣國際水彩畫協會理事長
+中華民國油畫學會秘書長
+臺陽美術協會、中華民國油畫學會、臺灣國際水彩協會、臺灣水彩協會、臺灣北岸藝術學會、臺灣五月畫會會員
+
+獲獎：
+第二十七屆全國油畫 銀牌獎
+第六十八屆臺陽美展 金牌獎
+第五屆聯邦印象大賽 首獎
+大墩美展水彩類 大墩獎`
+        },
+        { 
+            name: "劉國正", 
+            category: "impression", 
+            tag: "首獎", 
+            year: "第六屆聯邦美術印象大獎", 
+            img: "https://www.ubot.org.tw/blob/ArtCenter/%E5%8A%89%E5%9C%8B%E6%AD%A3.jpg",
+            bio: `學歷：
+2005 國立台灣藝術大學造形所碩士畢業
+
+獲獎經歷：
+2008 第六屆聯邦印象油畫大獎 首獎
+2004 第四屆廖繼春油畫 創作獎
+2000 台陽美展油畫 金牌獎
+2000 南瀛美展油畫 南瀛獎
+1998 全省美展油畫 銀牌獎
+1994 教育部文藝創作獎水彩 首獎`
         },
         { 
             name: "李郁汝", 
             category: "newbie", 
             tag: "首獎", 
             year: "2024", 
-            color: "#E60012",
+            img: "",
             bio: "李郁汝以極具渲染力的筆觸與獨特的觀察視角，榮獲2024年聯邦美術新人獎首獎。她的作品擅長描繪光影在日常空間中的微妙變化，展現出靜謐且富有情感深度的藝術張力，是近年備受期待的青年藝術家。"
         }
     ];
@@ -311,24 +418,39 @@
         });
 
         if (filtered.length === 0) {
-            container.innerHTML = '<p style="text-align:center; padding:50px; color:#999;">目前無相符的藝術家資料</p>';
+            container.innerHTML = `
+                <div style="text-align:center; padding:80px 20px;">
+                    <p style="color:#999; font-size:16px;">查無相關藝術家資料</p>
+                    <button onclick="clearSearch()" style="background:none; border:none; color:var(--ubot-sky-blue); cursor:pointer; text-decoration:underline;">顯示全部</button>
+                </div>`;
             return;
         }
 
-        const label = filterCategory === 'master' ? '歷屆大師 / 評審' : '獲獎藝術家';
+        const labelMap = {
+            'master': '評審委員會 / 大師典藏',
+            'impression': '歷屆 印象大獎 首獎得主',
+            'newbie': '歷屆 新人獎 首獎得主'
+        };
 
         html += `<div class="year-row">
-                    <div class="year-label">${label}</div>
+                    <div class="year-label">${labelMap[filterCategory]}</div>
                     <div class="winners-grid">`;
 
         filtered.forEach(artist => {
+            const avatarHtml = artist.img 
+                ? `<img src="${artist.img}" class="avatar-img" onerror="this.style.display='none'; this.nextSibling.style.display='flex';">
+                   <div style="display:none; width:100%; height:100%; align-items:center; justify-content:center; background:linear-gradient(135deg, var(--ubot-blue), var(--ubot-sky-blue)); color:white; font-size:32px; font-weight:bold;">${artist.name[0]}</div>`
+                : `<div style="width:100%; height:100%; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg, var(--ubot-blue), var(--ubot-sky-blue)); color:white; font-size:32px; font-weight:bold;">${artist.name[0]}</div>`;
+
             html += `
                 <div class="winner-card" onclick="openModal('${artist.name}')">
-                    <div class="avatar" style="background:${artist.color}">${artist.name[0]}</div>
+                    <div class="avatar-box">
+                        ${avatarHtml}
+                    </div>
                     <div class="tag tag-${artist.tag}">${artist.tag}</div>
                     <div class="name">${artist.name}</div>
                     <div class="year-text">${artist.year}</div>
-                    <button class="btn-view">查看簡介</button>
+                    <button class="btn-view">查看詳細簡介</button>
                 </div>
             `;
         });
@@ -343,10 +465,16 @@
         if (!artist) return;
 
         const modalBody = document.getElementById('modalBody');
+        const fallbackAvatar = `<div style="width:120px; height:120px; border-radius:50%; margin:0 auto 20px; display:flex; align-items:center; justify-content:center; background:var(--ubot-blue); color:white; font-size:40px; font-weight:bold;">${artist.name[0]}</div>`;
+        
+        const avatarImg = artist.img 
+            ? `<img src="${artist.img}" class="modal-avatar" onerror="this.outerHTML='${fallbackAvatar}'">`
+            : fallbackAvatar;
+
         modalBody.innerHTML = `
-            <div class="modal-avatar" style="background:${artist.color}">${artist.name[0]}</div>
-            <h2 style="margin:0">${artist.name}</h2>
-            <div style="color:var(--ubot-red); font-weight:bold; margin-top:5px;">${artist.year} · ${artist.tag}</div>
+            ${avatarImg}
+            <h2 style="margin:0; font-size:26px; color:var(--ubot-blue);">${artist.name}</h2>
+            <div style="color:var(--ubot-red); font-weight:bold; margin-top:8px; font-size:16px;">${artist.year} · ${artist.tag}</div>
             <div class="modal-description">${artist.bio}</div>
             <a href="artworks.html?artist=${encodeURIComponent(artist.name)}" class="btn-go-artworks">
                 瀏覽 ${artist.name} 的典藏作品
@@ -354,7 +482,7 @@
         `;
 
         document.getElementById('artistModal').style.display = 'flex';
-        document.body.style.overflow = 'hidden'; // 禁止底層捲動
+        document.body.style.overflow = 'hidden';
     }
 
     function closeModal() {
@@ -375,7 +503,11 @@
         renderList(activeCat, term);
     }
 
-    // 背景點擊關閉
+    function clearSearch() {
+        document.getElementById('artistSearch').value = '';
+        handleSearch();
+    }
+
     window.onclick = (e) => {
         if (e.target.id === 'artistModal') closeModal();
     }
