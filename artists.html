@@ -360,6 +360,19 @@
 
     window.onclick = (e) => { if (e.target.id === 'artistModal') closeModal(); }
     window.onload = () => renderList('master');
+    // 在 artists.html 的 script 中
+window.onload = () => {
+    const params = new URLSearchParams(window.location.search);
+    const artistName = params.get('artist');
+    
+    if (artistName) {
+        // 舉例：如果找到對應的藝術家，自動滾動到該區塊
+        const element = document.getElementById(artistName);
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+};
 </script>
 
 </body>
