@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>活動資訊｜聯邦藝術中心 Union Art Center</title>
     <style>
+        /* ===== 0. 全域設定與變數 (同步首頁) ===== */
         :root {
             --ubot-red: #E60012;         /* 聯邦紅 */
             --ubot-blue: #003366;        /* 聯邦深藍 */
-            --ubot-light-blue: #EAF6FC;  /* 聯邦淺藍底色 */
-            --ubot-sky-blue: #00A1E9;    /* 聯邦淺藍 */
-            --text-main: #222222;
-            --text-sub: #666666;
+            --ubot-light-blue: #EAF6FC;  /* 聯邦淺藍背景 */
+            --ubot-sky-blue: #00A1E9;    /* 聯邦淺藍點綴 */
+            --text-dark: #333333;
+            --text-gray: #666666;
             --border-color: #D1CDC4;
         }
 
@@ -19,11 +20,12 @@
             margin: 0;
             font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
             background-color: #f8fbfd;
-            color: var(--text-main);
+            color: var(--text-dark);
             line-height: 1.8;
+            overflow-x: hidden;
         }
 
-        /* ===== 1. 頁首導覽列 ===== */
+        /* ===== 1. 導覽列 Navbar (同步首頁) ===== */
         header {
             background: #ffffff;
             box-shadow: 0 2px 20px rgba(0,0,0,0.05);
@@ -38,21 +40,58 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 20px;
+            padding: 12px 25px;
         }
 
         .logo a {
-            font-size: 20px; font-weight: 800; color: var(--ubot-blue); text-decoration: none; display: flex; align-items: center;
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--ubot-blue);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            letter-spacing: 1px;
         }
 
         .logo a::before { 
-            content: ""; width: 8px; height: 8px; background: var(--ubot-red); border-radius: 50%; margin-right: 8px; 
+            content: ""; width: 8px; height: 8px; background: var(--ubot-red); 
+            border-radius: 50%; margin-right: 10px; 
         }
 
-        .menu { display: flex; list-style: none; margin: 0; padding: 0; }
+        .menu {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
         .menu li { margin-left: 10px; }
-        .menu a { text-decoration: none; color: #666; font-weight: 600; font-size: 15px; padding: 8px 12px; transition: 0.3s; }
-        .menu a:hover, .menu a.active { color: var(--ubot-red); }
+
+        .menu a {
+            text-decoration: none;
+            color: #666;
+            font-weight: 600;
+            font-size: 15px;
+            transition: 0.3s;
+            padding: 8px 12px;
+            display: block;
+        }
+
+        .menu a:hover, .menu a.active { 
+            color: var(--ubot-red); 
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 5px;
+        }
+        .menu-toggle span {
+            width: 25px; height: 3px; background: var(--ubot-blue);
+            transition: 0.3s;
+        }
 
         /* ===== 2. 頁面 Banner ===== */
         .page-banner {
@@ -63,6 +102,7 @@
             display: flex; flex-direction: column; justify-content: center; align-items: center; color: white;
         }
         .page-banner h1 { font-size: 36px; margin: 0; letter-spacing: 6px; font-weight: 900; }
+        .page-banner p { opacity: 0.8; margin-top: 10px; font-size: 14px; letter-spacing: 2px; }
 
         /* ===== 3. 頁籤按鈕 ===== */
         .tab-container {
@@ -89,7 +129,6 @@
             gap: 30px;
         }
 
-        /* 活動卡片樣式 */
         .activity-card {
             background: white; border-radius: 12px; overflow: hidden;
             box-shadow: 0 5px 20px rgba(0,0,0,0.05); border: 1px solid #eee;
@@ -108,11 +147,10 @@
         }
         .activity-title { font-size: 20px; font-weight: 800; color: var(--ubot-blue); margin-bottom: 15px; height: 56px; overflow: hidden; }
         
-        .info-list { list-style: none; padding: 0; margin: 0 0 20px 0; font-size: 14px; color: var(--text-sub); }
+        .info-list { list-style: none; padding: 0; margin: 0 0 20px 0; font-size: 14px; color: var(--text-gray); }
         .info-list li { margin-bottom: 5px; display: flex; align-items: center; }
         .info-list li::before { content: "•"; color: var(--ubot-red); font-weight: bold; margin-right: 8px; }
 
-        /* 按鈕設計 */
         .btn-group { display: flex; gap: 10px; }
         .btn {
             flex: 1; text-align: center; padding: 10px 0; text-decoration: none;
@@ -123,7 +161,6 @@
         .btn-reg { background: var(--ubot-blue); color: white; }
         .btn-reg:hover { background: var(--ubot-red); }
 
-        /* 表單區塊 */
         .form-section { 
             background: #fff; padding: 40px; border-radius: 12px; border-top: 8px solid var(--ubot-red);
             max-width: 800px; margin: 0 auto; box-shadow: 0 10px 30px rgba(0,0,0,0.05);
@@ -137,11 +174,57 @@
             font-size: 18px; font-weight: bold; border-radius: 50px; cursor: pointer; display: block; margin: 30px auto;
         }
 
-        footer { background: var(--ubot-light-blue); padding: 40px 20px; text-align: center; font-size: 14px; }
+        /* ===== 5. 頁尾 Footer (同步首頁) ===== */
+        footer {
+            background: var(--ubot-light-blue); color: var(--ubot-blue); padding: 60px 20px 30px;
+            margin-top: 80px;
+        }
 
+        .footer-container {
+            max-width: 1200px; margin: 0 auto;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px;
+        }
+
+        .footer-logo { font-size: 22px; font-weight: 800; margin-bottom: 15px; text-align: left; }
+        .footer-info p { margin: 5px 0; font-size: 14px; text-align: left; }
+
+        .footer-links h4 { margin: 0 0 15px; border-left: 3px solid var(--ubot-red); padding-left: 10px; text-align: left; }
+        .footer-links ul { list-style: none; padding: 0; margin: 0; text-align: left; }
+        .footer-links li { margin-bottom: 8px; }
+        .footer-links a { text-decoration: none; color: var(--ubot-blue); font-size: 14px; opacity: 0.8; }
+        .footer-links a:hover { opacity: 1; color: var(--ubot-red); }
+
+        .footer-bottom {
+            max-width: 1200px; margin: 40px auto 0; padding-top: 20px;
+            border-top: 1px solid rgba(0,51,102,0.1); text-align: center; font-size: 13px; opacity: 0.7;
+        }
+
+        /* ===== 6. RWD 手機版同步優化 (同步首頁與置中修正) ===== */
         @media (max-width: 768px) {
+            .navbar { padding: 12px 20px; }
+            .menu-toggle { display: flex; }
+
+            .menu {
+                position: absolute;
+                top: 100%; left: 0; right: 0;
+                background: #fff;
+                flex-direction: column;
+                padding: 10px 0;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+                display: none;
+                border-top: 1px solid #eee;
+                /* 置中修正 */
+                align-items: center;
+            }
+
+            .menu.active { display: flex; }
+            .menu li { margin: 0; border-bottom: 1px solid #f9f9f9; width: 100%; }
+            .menu a { padding: 15px 25px; font-size: 16px; text-align: center; }
+
+            .page-banner h1 { font-size: 28px; }
             .activity-grid { grid-template-columns: 1fr; }
             .tab-button { padding: 8px 15px; font-size: 13px; }
+            .tab-container { top: 60px; }
         }
     </style>
 </head>
@@ -149,12 +232,24 @@
 
 <header>
     <nav class="navbar">
-        <div class="logo"><a href="index.html">聯邦藝術中心</a></div>
-        <ul class="menu">
+        <div class="logo">
+            <a href="index.html">聯邦藝術中心</a>
+        </div>
+
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <ul class="menu" id="nav-list">
             <li><a href="about.html">關於我們</a></li>
             <li><a href="exhibitions.html">展覽動態</a></li>
-            <li><a href="#" class="active">活動資訊</a></li>
+            <li><a href="events.html" class="active">活動資訊</a></li>
+            <li><a href="artists.html">藝術家</a></li> 
+            <li><a href="artworks.html">作品總覽</a></li>
             <li><a href="visit.html">參觀資訊</a></li>
+            <li><a href="contact.html">聯絡我們</a></li>
         </ul>
     </nav>
 </header>
@@ -171,138 +266,178 @@
     <button class="tab-button" onclick="openTab('apply')">活動線上報名</button>
 </div>
 
-<div id="course" class="tab-content active">
-    <div class="activity-grid">
-        <div class="activity-card">
-            <div class="activity-img" style="background-image: url('https://images.unsplash.com/photo-1513364776144-60967b0f800f?q=80&w=600')"></div>
-            <div class="activity-body">
-                <span class="activity-tag">油畫進階</span>
-                <div class="activity-title">光影的詩篇：印象派油畫技巧研習班</div>
-                <ul class="info-list">
-                    <li>時間：2026.04.12 (日) 14:00 - 17:00</li>
-                    <li>講師：陳大衛 老師</li>
-                    <li>名額：剩餘 5 名</li>
-                </ul>
-                <div class="btn-group">
-                    <a href="#" class="btn btn-cal">📅 加入行事曆</a>
-                    <a href="javascript:void(0)" onclick="openTab('apply')" class="btn btn-reg">立即報名</a>
-                </div>
-            </div>
-        </div>
-        </div>
-</div>
-
-<div id="experience" class="tab-content">
-    <div class="activity-grid">
-        <div class="activity-card">
-            <div class="activity-img" style="background-image: url('https://images.unsplash.com/photo-1460666819451-e161150e73c4?q=80&w=600')"></div>
-            <div class="activity-body">
-                <span class="activity-tag">親子活動</span>
-                <div class="activity-title">色彩躲貓貓：週末兒童美感體驗營</div>
-                <ul class="info-list">
-                    <li>時間：2026.04.18 (六) 10:00 - 12:00</li>
-                    <li>費用：免費（需事先報名）</li>
-                    <li>地點：1F 多功能教室</li>
-                </ul>
-                <div class="btn-group">
-                    <a href="#" class="btn btn-cal">📅 加入行事曆</a>
-                    <a href="#" class="btn btn-reg">立即報名</a>
+<main>
+    <div id="course" class="tab-content active">
+        <div class="activity-grid">
+            <div class="activity-card">
+                <div class="activity-img" style="background-image: url('https://images.unsplash.com/photo-1513364776144-60967b0f800f?q=80&w=600')"></div>
+                <div class="activity-body">
+                    <span class="activity-tag">油畫進階</span>
+                    <div class="activity-title">光影的詩篇：印象派油畫技巧研習班</div>
+                    <ul class="info-list">
+                        <li>時間：2026.04.12 (日) 14:00 - 17:00</li>
+                        <li>講師：陳大衛 老師</li>
+                        <li>名額：剩餘 5 名</li>
+                    </ul>
+                    <div class="btn-group">
+                        <a href="#" class="btn btn-cal">📅 加入行事曆</a>
+                        <a href="javascript:void(0)" onclick="openTab('apply')" class="btn btn-reg">立即報名</a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<div id="seminar" class="tab-content">
-    <div class="activity-grid">
-        <div class="activity-card">
-            <div class="activity-img" style="background-image: url('https://images.unsplash.com/photo-1475721027785-f74dea327912?q=80&w=600')"></div>
-            <div class="activity-body">
-                <span class="activity-tag">藝術講座</span>
-                <div class="activity-title">當當代遇見經典：聯邦新人獎 30 年回顧</div>
-                <ul class="info-list">
-                    <li>時間：2026.05.02 (六) 14:30 - 16:30</li>
-                    <li>主講：林教授、張館長</li>
-                    <li>形式：實體講座 / 線上同步</li>
-                </ul>
-                <div class="btn-group">
-                    <a href="#" class="btn btn-cal">📅 加入行事曆</a>
-                    <a href="#" class="btn btn-reg">立即報名</a>
+    <div id="experience" class="tab-content">
+        <div class="activity-grid">
+            <div class="activity-card">
+                <div class="activity-img" style="background-image: url('https://images.unsplash.com/photo-1460666819451-e161150e73c4?q=80&w=600')"></div>
+                <div class="activity-body">
+                    <span class="activity-tag">親子活動</span>
+                    <div class="activity-title">色彩躲貓貓：週末兒童美感體驗營</div>
+                    <ul class="info-list">
+                        <li>時間：2026.04.18 (六) 10:00 - 12:00</li>
+                        <li>費用：免費（需事先報名）</li>
+                        <li>地點：1F 多功能教室</li>
+                    </ul>
+                    <div class="btn-group">
+                        <a href="#" class="btn btn-cal">📅 加入行事曆</a>
+                        <a href="#" class="btn btn-reg">立即報名</a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<div id="apply" class="tab-content">
-    <div class="form-section">
-        <h2 style="text-align:center; color:var(--ubot-blue); margin-bottom:30px;">活動預約報名</h2>
-        <form>
-            <div class="form-group">
-                <label>選擇活動名稱</label>
-                <select required>
-                    <option value="">請選擇欲參加的活動</option>
-                    <option>【課程】光影的詩篇：印象派油畫技巧研習班</option>
-                    <option>【體驗】色彩躲貓貓：週末兒童美感體驗營</option>
-                    <option>【座談】當當代遇見經典：聯邦新人獎回顧</option>
-                </select>
+    <div id="seminar" class="tab-content">
+        <div class="activity-grid">
+            <div class="activity-card">
+                <div class="activity-img" style="background-image: url('https://images.unsplash.com/photo-1475721027785-f74dea327912?q=80&w=600')"></div>
+                <div class="activity-body">
+                    <span class="activity-tag">藝術講座</span>
+                    <div class="activity-title">當當代遇見經典：聯邦新人獎 30 年回顧</div>
+                    <ul class="info-list">
+                        <li>時間：2026.05.02 (六) 14:30 - 16:30</li>
+                        <li>主講：林教授、張館長</li>
+                        <li>形式：實體講座 / 線上同步</li>
+                    </ul>
+                    <div class="btn-group">
+                        <a href="#" class="btn btn-cal">📅 加入行事曆</a>
+                        <a href="#" class="btn btn-reg">立即報名</a>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label>姓名</label>
-                <input type="text" placeholder="請輸入中文姓名" required>
-            </div>
-            <div class="form-group">
-                <label>手機號碼</label>
-                <input type="tel" placeholder="例：0912345678" required>
-            </div>
-            <div class="form-group">
-                <label>電子信箱</label>
-                <input type="email" placeholder="example@mail.com" required>
-            </div>
-            <div class="form-group">
-                <label>參加人數</label>
-                <select>
-                    <option>1 位</option>
-                    <option>2 位</option>
-                    <option>3 位</option>
-                    <option>4 位</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>備註事項</label>
-                <textarea rows="4" placeholder="是否有特殊需求或想詢問老師的問題？"></textarea>
-            </div>
-            <button type="submit" class="btn-submit">確認送出報名</button>
-        </form>
+        </div>
     </div>
-</div>
+
+    <div id="apply" class="tab-content">
+        <div class="form-section">
+            <h2 style="text-align:center; color:var(--ubot-blue); margin-bottom:30px;">活動預約報名</h2>
+            <form>
+                <div class="form-group">
+                    <label>選擇活動名稱</label>
+                    <select required>
+                        <option value="">請選擇欲參加的活動</option>
+                        <option>【課程】光影的詩篇：印象派油畫技巧研習班</option>
+                        <option>【體驗】色彩躲貓貓：週末兒童美感體驗營</option>
+                        <option>【座談】當當代遇見經典：聯邦新人獎回顧</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>姓名</label>
+                    <input type="text" placeholder="請輸入中文姓名" required>
+                </div>
+                <div class="form-group">
+                    <label>手機號碼</label>
+                    <input type="tel" placeholder="例：0912345678" required>
+                </div>
+                <div class="form-group">
+                    <label>電子信箱</label>
+                    <input type="email" placeholder="example@mail.com" required>
+                </div>
+                <div class="form-group">
+                    <label>參加人數</label>
+                    <select>
+                        <option>1 位</option>
+                        <option>2 位</option>
+                        <option>3 位</option>
+                        <option>4 位</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>備註事項</label>
+                    <textarea rows="4" placeholder="是否有特殊需求或想詢問老師的問題？"></textarea>
+                </div>
+                <button type="submit" class="btn-submit">確認送出報名</button>
+            </form>
+        </div>
+    </div>
+</main>
 
 <footer>
-    <p>© 2026 Union Art Center 聯邦藝術中心 版權所有</p>
+    <div class="footer-container">
+        <div class="footer-info">
+            <div class="footer-logo">UNION ART CENTER</div>
+            <p><strong>地址：</strong>台北市大安區忠孝東路四段219號</p>
+            <p><strong>電話：</strong>(02) 2536-9999</p>
+            <p><strong>時間：</strong>週二至週日 09:00 - 17:00 (週一休館)</p>
+        </div>
+        <div class="footer-links">
+            <h4>探索中心</h4>
+            <ul>
+                <li><a href="about.html">關於我們</a></li>
+                <li><a href="exhibitions.html">最新展覽</a></li>
+                <li><a href="artists.html">合作藝術家</a></li>
+                <li><a href="visit.html">參觀指引</a></li>
+            </ul>
+        </div>
+        <div class="footer-links">
+            <h4>快速連結</h4>
+            <ul>
+                <li><a href="https://www.ubot.com.tw/">聯邦銀行官網</a></li>
+                <li><a href="contact.html">場地租借申請</a></li>
+                <li><a href="privacy.html">隱私權保護政策</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2026 Union Art Center 聯邦藝術中心 版權所有</p>
+    </div>
 </footer>
 
 <script>
+    // 1. 手機選單控制
+    const menuToggle = document.getElementById('mobile-menu');
+    const navList = document.getElementById('nav-list');
+
+    menuToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        navList.classList.toggle('active');
+    });
+
+    document.addEventListener('click', (e) => {
+        if (navList.classList.contains('active') && !navList.contains(e.target) && !menuToggle.contains(e.target)) {
+            navList.classList.remove('active');
+        }
+    });
+
+    // 2. 頁籤切換功能
     function openTab(tabName) {
-        // 隱藏所有內容
         var contents = document.getElementsByClassName("tab-content");
         for (var i = 0; i < contents.length; i++) {
             contents[i].classList.remove("active");
         }
         
-        // 取消按鈕啟動狀態
         var buttons = document.getElementsByClassName("tab-button");
         for (var i = 0; i < buttons.length; i++) {
             buttons[i].classList.remove("active");
         }
         
-        // 顯示點選內容與按鈕狀態
         document.getElementById(tabName).classList.add("active");
         
-        // 找出對應的按鈕（如果是透過按鈕點擊）
         const activeBtn = Array.from(buttons).find(btn => btn.getAttribute('onclick').includes(tabName));
         if (activeBtn) activeBtn.classList.add("active");
 
-        // 平滑捲動
         window.scrollTo({
             top: document.querySelector('.tab-container').offsetTop - 80,
             behavior: 'smooth'
