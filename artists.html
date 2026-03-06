@@ -26,7 +26,7 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        /* ===== 1. 導覽列 Navbar (同步首頁樣式) ===== */
+        /* ===== 1. 導覽列 Navbar ===== */
         header {
             background: #ffffff;
             box-shadow: 0 2px 20px rgba(0,0,0,0.05);
@@ -80,7 +80,6 @@
 
         .menu a:hover, .menu a.active { color: var(--ubot-red); }
 
-        /* 手機漢堡選單按鈕 */
         .menu-toggle {
             display: none;
             flex-direction: column;
@@ -196,20 +195,27 @@
         }
 
         /* ===== 6. 頁尾 Footer (同步首頁樣式) ===== */
-        footer { background: var(--ubot-light-blue); color: var(--ubot-blue); padding: 50px 20px 20px; margin-top: 60px; }
-        .footer-container { 
-            max-width: 1200px; margin: 0 auto; 
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; 
+        footer {
+            background: var(--ubot-light-blue); color: var(--ubot-blue); padding: 60px 20px 30px; margin-top: 60px;
         }
-        .footer-logo { font-size: 20px; font-weight: 800; margin-bottom: 15px; }
-        .footer-info p { margin: 5px 0; font-size: 14px; opacity: 0.8; }
-        .footer-links h4 { margin: 0 0 15px; border-left: 3px solid var(--ubot-red); padding-left: 10px; font-size: 16px; }
+
+        .footer-container {
+            max-width: 1200px; margin: 0 auto;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px;
+        }
+
+        .footer-logo { font-size: 22px; font-weight: 800; margin-bottom: 15px; }
+        .footer-info p { margin: 5px 0; font-size: 14px; }
+
+        .footer-links h4 { margin: 0 0 15px; border-left: 3px solid var(--ubot-red); padding-left: 10px; }
         .footer-links ul { list-style: none; padding: 0; margin: 0; }
         .footer-links li { margin-bottom: 8px; }
-        .footer-links a { text-decoration: none; color: var(--ubot-blue); font-size: 14px; opacity: 0.7; }
-        .footer-bottom { 
-            max-width: 1200px; margin: 30px auto 0; padding-top: 20px; 
-            border-top: 1px solid rgba(0,51,102,0.1); text-align: center; font-size: 12px; opacity: 0.6; 
+        .footer-links a { text-decoration: none; color: var(--ubot-blue); font-size: 14px; opacity: 0.8; transition: 0.3s; }
+        .footer-links a:hover { opacity: 1; color: var(--ubot-red); }
+
+        .footer-bottom {
+            max-width: 1200px; margin: 40px auto 0; padding-top: 20px;
+            border-top: 1px solid rgba(0,51,102,0.1); text-align: center; font-size: 13px; opacity: 0.7;
         }
 
         /* ===== 7. RWD 手機版調整 ===== */
@@ -217,13 +223,13 @@
             .menu-toggle { display: flex; }
             .menu {
                 position: absolute; top: 100%; left: 0; right: 0;
-                background: #fff; flex-direction: column; padding: 0;
+                background: #fff; flex-direction: column; padding: 20px;
                 box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-                display: none; /* 點擊後顯示 */
+                display: none;
             }
             .menu.active { display: flex; }
             .menu li { margin: 0; border-bottom: 1px solid #f5f5f5; }
-            .menu a { padding: 15px; text-align: center; }
+            .menu a { padding: 15px 0; font-size: 16px; text-align: center; }
 
             .winners-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
             .sticky-tools { top: 60px; }
@@ -287,15 +293,35 @@
     <div class="footer-container">
         <div class="footer-info">
             <div class="footer-logo">UNION ART CENTER</div>
-            <p>台北市大安區忠孝東路四段219號</p>
-            <p>(02) 2536-9999</p>
+            <p><strong>地址：</strong>台北市大安區忠孝東路四段219號</p>
+            <p><strong>電話：</strong>(02) 2536-9999</p>
+            <p><strong>時間：</strong>週二至週日 09:00 - 17:00 (週一休館)</p>
+        </div>
+        <div class="footer-links">
+            <h4>探索中心</h4>
+            <ul>
+                <li><a href="about.html">關於我們</a></li>
+                <li><a href="exhibitions.html">最新展覽</a></li>
+                <li><a href="artists.html">合作藝術家</a></li>
+                <li><a href="visit.html">參觀指引</a></li>
+            </ul>
+        </div>
+        <div class="footer-links">
+            <h4>快速連結</h4>
+            <ul>
+                <li><a href="https://www.ubot.com.tw/">聯邦銀行官網</a></li>
+                <li><a href="contact.html">場地租借申請</a></li>
+                <li><a href="privacy.html">隱私權保護政策</a></li>
+            </ul>
         </div>
     </div>
-    <div class="footer-bottom">© 2026 Union Art Center 版權所有</div>
+    <div class="footer-bottom">
+        <p>© 2026 Union Art Center 聯邦藝術中心 版權所有</p>
+    </div>
 </footer>
 
 <script>
-    // 1. 資料庫 (補齊所有提供之資料)
+    // 1. 資料庫
     const ARTISTS_LIST = [
         { 
             name: "許坤成", 
@@ -405,11 +431,9 @@
             tag: "首獎", 
             year: "2024", 
             img: "https://www.ubot.org.tw/blob/collections/1/6.%E6%9D%8E%E9%83%81%E6%B1%9D.jpg",
-            bio: "台中教育大學美術系
-2023大墩美展入選"
-        }
-    ];
-            { 
+            bio: "台中教育大學美術系。2023大墩美展入選"
+        },
+        { 
             name: "吳羽宸", 
             category: "newbie", 
             tag: "首獎", 
@@ -419,7 +443,24 @@
         }
     ];
 
-    // 2. 渲染清單
+    // 2. 手機選單控制
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const navMenu = document.getElementById('nav-menu');
+
+    if (menuBtn && navMenu) {
+        menuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // 點擊選單連結後自動關閉
+        document.querySelectorAll('.menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+            });
+        });
+    }
+
+    // 3. 渲染清單邏輯
     function renderList(filterCategory = 'master', searchTerm = '') {
         const container = document.getElementById('contentList');
         let html = '';
@@ -472,28 +513,23 @@
         container.innerHTML = html;
     }
 
-    // 3. 彈窗邏輯
+    // 4. 彈窗與其它功能
     function openModal(name) {
         const artist = ARTISTS_LIST.find(a => a.name === name);
         if (!artist) return;
-
         const modalBody = document.getElementById('modalBody');
         const fallbackAvatar = `<div style="width:120px; height:120px; border-radius:50%; margin:0 auto 20px; display:flex; align-items:center; justify-content:center; background:var(--ubot-blue); color:white; font-size:40px; font-weight:bold;">${artist.name[0]}</div>`;
-        
         const avatarImg = artist.img 
-            ? `<img src="${artist.img}" class="modal-avatar" onerror="this.outerHTML='${fallbackAvatar}'">`
+            ? `<img src="${artist.img}" style="width:120px; height:120px; border-radius:50%; object-fit:cover; margin-bottom:20px;" onerror="this.outerHTML='${fallbackAvatar}'">`
             : fallbackAvatar;
 
         modalBody.innerHTML = `
             ${avatarImg}
             <h2 style="margin:0; font-size:26px; color:var(--ubot-blue);">${artist.name}</h2>
             <div style="color:var(--ubot-red); font-weight:bold; margin-top:8px; font-size:16px;">${artist.year} · ${artist.tag}</div>
-            <div class="modal-description">${artist.bio}</div>
-            <a href="artworks.html?artist=${encodeURIComponent(artist.name)}" class="btn-go-artworks">
-                瀏覽 ${artist.name} 的典藏作品
-            </a>
+            <div style="text-align:left; margin-top:20px; white-space:pre-line; color:#444; font-size:15px; max-height:300px; overflow-y:auto; padding-right:10px;">${artist.bio}</div>
+            <a href="artworks.html?artist=${encodeURIComponent(artist.name)}" style="display:inline-block; margin-top:25px; padding:12px 25px; background:var(--ubot-blue); color:white; text-decoration:none; border-radius:50px; font-weight:600; transition:0.3s;">瀏覽 ${artist.name} 的典藏作品</a>
         `;
-
         document.getElementById('artistModal').style.display = 'flex';
         document.body.style.overflow = 'hidden';
     }
@@ -503,7 +539,6 @@
         document.body.style.overflow = 'auto';
     }
 
-    // 4. 事件處理
     function switchCategory(cat) {
         document.querySelectorAll('.btn-tab').forEach(btn => btn.classList.remove('active'));
         document.getElementById(`tab-${cat}`).classList.add('active');
@@ -521,11 +556,7 @@
         handleSearch();
     }
 
-    window.onclick = (e) => {
-        if (e.target.id === 'artistModal') closeModal();
-    }
-
-    // 初始化
+    window.onclick = (e) => { if (e.target.id === 'artistModal') closeModal(); }
     window.onload = () => renderList('master');
 </script>
 
