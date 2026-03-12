@@ -1,0 +1,218 @@
+
+
+
+語法測試版
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>聯邦藝術中心 | Union Group Art Gallery</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700;900&family=Playfair+Display:ital,wght@0,900;1,900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --main-red: #E60012;
+            --soft-white: #fcfcfc;
+            --dark-gray: #1a1a1a;
+        }
+
+        body { 
+            margin: 0; 
+            background: var(--soft-white); 
+            color: var(--dark-gray); 
+            font-family: "Noto Serif TC", serif; 
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* 背景實驗性巨型文字 */
+        .bg-typo {
+            position: fixed; top: 10%; left: -5%; width: 120vw; 
+            font-size: 25vw; font-family: 'Playfair Display', serif; 
+            font-weight: 900; font-style: italic; line-height: 0.8;
+            color: rgba(0,0,0,0.02); word-break: break-all; z-index: -2;
+            user-select: none; pointer-events: none;
+        }
+
+        /* 導覽列 */
+        nav {
+            padding: 30px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+        .nav-links a {
+            text-decoration: none; color: #000; margin-left: 30px;
+            font-size: 14px; letter-spacing: 0.1rem; font-weight: 500;
+        }
+
+        /* 英雄視覺區 */
+        .hero-section { 
+            height: 90vh; display: flex; align-items: center; justify-content: center; text-align: center;
+        }
+        
+        .box-frame {
+            border: 1px solid #000; padding: 80px 120px; position: relative;
+            background: rgba(255,255,255,0.6); backdrop-filter: blur(8px);
+            max-width: 800px;
+        }
+        
+        .stamp-logo {
+            position: absolute; top: -25px; left: 50%; transform: translateX(-50%);
+            background: var(--main-red); color: #fff; padding: 12px 25px; 
+            font-weight: 900; letter-spacing: 0.3rem; font-size: 1.2rem;
+        }
+
+        h1 { font-size: 4rem; letter-spacing: 1.5rem; margin: 20px 0; font-weight: 900; }
+        .hero-sub { letter-spacing: 0.6rem; color: #888; font-size: 0.9rem; margin-bottom: 40px; }
+
+        .btn-enter {
+            display: inline-block; padding: 15px 40px; border: 1px solid #000;
+            text-decoration: none; color: #000; font-size: 12px; font-weight: bold;
+            transition: all 0.3s; letter-spacing: 0.2rem;
+        }
+        .btn-enter:hover { background: #000; color: #fff; }
+
+        /* 內容區塊通用 */
+        section { padding: 100px 10%; }
+        .section-title { font-size: 2rem; border-left: 5px solid var(--main-red); padding-left: 20px; margin-bottom: 50px; }
+
+        /* 網格佈局 */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
+        .card { border-bottom: 1px solid #ddd; padding-bottom: 20px; }
+        .card span { font-size: 12px; color: var(--main-red); font-weight: bold; }
+        .card h3 { margin: 10px 0; font-size: 1.5rem; }
+
+        /* 頁腳 */
+        footer {
+            background: #f4f4f4; padding: 80px 10%; border-top: 1px solid #eee;
+            display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 50px;
+        }
+        .footer-logo h2 { margin: 0; font-weight: 900; }
+        .footer-links h4 { margin-top: 0; color: var(--main-red); }
+        .footer-links ul { list-style: none; padding: 0; font-size: 14px; }
+        .footer-links li { margin-bottom: 10px; }
+        
+        .copyright {
+            grid-column: 1 / -1; text-align: center; font-size: 12px; color: #999;
+            margin-top: 50px; padding-top: 20px; border-top: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-typo">UNION<br>GALLERY</div>
+
+    <nav>
+        <div style="font-weight: 900; letter-spacing: 0.2rem;">UNION GROUP</div>
+        <div class="nav-links">
+            <a href="#">關於我們</a>
+            <a href="#">展覽動態</a>
+            <a href="#">藝術家</a>
+            <a href="#">作品總覽</a>
+            <a href="#">參觀資訊</a>
+            <a href="#">聯絡我們</a>
+        </div>
+    </nav>
+    
+    <main class="hero-section">
+        <div class="box-frame">
+            <div class="stamp-logo">聯邦藝術</div>
+            <h1>真實之境</h1>
+            <p class="hero-sub">UNION GROUP ART GALLERY</p>
+            <p style="max-width: 500px; margin: 0 auto 40px;">深耕本土藝術 ‧ 傳承台灣美學薪火</p>
+            <a href="#exhibition" class="btn-enter">立即探索展覽</a>
+        </div>
+    </main>
+
+    <section id="exhibition">
+        <h2 class="section-title">當期特展 / EXHIBITION</h2>
+        <div class="grid">
+            <div class="card">
+                <span>NEW EXHIBITION</span>
+                <h3>【光影交織】</h3>
+                <p>第23屆聯邦美術獎獲獎作品展</p>
+            </div>
+            <div class="card">
+                <span>CALL FOR ENTRIES</span>
+                <h3>聯邦美術獎</h3>
+                <p>新人獎 / 印象大獎 徵件開始</p>
+            </div>
+            <div class="card">
+                <span>DIGITAL ARCHIVE</span>
+                <h3>數位典藏</h3>
+                <p>線上探索寫實油畫之美</p>
+            </div>
+        </div>
+    </section>
+
+    <section style="background: #fff;">
+        <h2 class="section-title">精選典藏 / COLLECTION</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>林風采 - 鄉土情懷</h3>
+                <p>第21屆印象大獎 首獎</p>
+            </div>
+            <div class="card">
+                <h3>陳曉東 - 靜物之詩</h3>
+                <p>第22屆新人獎 優選</p>
+            </div>
+            <div class="card">
+                <h3>王大明 - 台北街頭</h3>
+                <p>2024 年度典藏作品</p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-title">最新消息 / NEWS</h2>
+        <div style="max-width: 800px;">
+            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 15px 0;">
+                <span>評選｜2026.02.26</span>
+                <span style="font-weight: bold;">第 23 屆聯邦美術獎複審結果公佈</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 15px 0;">
+                <span>展覽｜2026.02.15</span>
+                <span style="font-weight: bold;">「台灣鄉土之美」寫實油畫聯展：巡迴展資訊</span>
+            </div>
+            <a href="#" style="display: inline-block; margin-top: 20px; color: #000; font-size: 13px;">查看全部公告 →</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-logo">
+            <h2>聯邦藝術中心</h2>
+            <p>UNION GROUP Art Gallery</p>
+            <p style="font-size: 14px; color: #666; margin-top: 20px;">
+                地址：台北市大安區忠孝東路四段219號<br>
+                電話：(02) 2771-8599<br>
+                時間：週二至週日 10:00 - 19:00
+            </p>
+        </div>
+        <div class="footer-links">
+            <h4>探索中心</h4>
+            <ul>
+                <li>關於我們</li>
+                <li>最新展覽</li>
+                <li>合作藝術家</li>
+                <li>參觀指引</li>
+            </ul>
+        </div>
+        <div class="footer-links">
+            <h4>快速連結</h4>
+            <ul>
+                <li>聯邦銀行官網</li>
+                <li>場地租借申請</li>
+                <li>隱私權保護政策</li>
+            </ul>
+        </div>
+        <div class="copyright">
+            © 2026 Union Group Art Gallery 聯邦藝術中心 版權所有
+        </div>
+    </footer>
+
+</body>
+</html>
+  
+按「預覽」可查看輸入後的效果 ；按「拷貝」可將程式碼剪下貼用 。
