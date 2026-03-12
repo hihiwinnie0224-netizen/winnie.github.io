@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>聯邦藝術中心 | 解構鋼筆稿</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;900&family=Playfair+Display:ital,wght@1,900&display=swap');
+
+        :root {
+            --ink-red: #C30010;
+            --ink-black: #1A1A1A;
+            --paper-bg: #F2F0E9; /* 更黃一點的古董紙感 */
+        }
+
+        body { 
+            margin: 0; 
+            background: var(--paper-bg); 
+            font-family: "Noto Serif TC", serif; 
+            color: var(--ink-black);
+            overflow-x: hidden;
+            /* 模擬紙張纖維與墨水噴濺 */
+            background-image: 
+                radial-gradient(#d1cfc7 1px, transparent 0),
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'%3E%3Cfilter id='ink'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='3'/%3E%3CfeDisplacementMap in='SourceGraphic' scale='5'/%3E%3C/filter%3E%3Cpath d='M10,10 Q30,50 10,90' stroke='%23e0e0e0' stroke-width='0.5' fill='none' filter='url(%23ink)'/%3E%3C/svg%3E");
+            background-size: 40px 40px, 100% 100%;
+        }
+
+        /* 導覽列：錯落排列 */
+        nav {
+            position: absolute; top: 40px; right: 5vw;
+            display: flex; flex-direction: column; align-items: flex-end; gap: 10px; z-index: 100;
+        }
+        nav a { 
+            text-decoration: none; color: inherit; font-size: 13px; 
+            border-bottom: 1px solid transparent; transition: 0.3s;
+            transform: rotate(-2deg); /* 輕微歪斜 */
+            background: rgba(255,255,255,0.4); padding: 2px 8px;
+        }
+        nav a:hover { color: var(--ink-red); border-bottom-color: var(--ink-red); transform: rotate(0deg); }
+
+        /* Hero：解構式排版 */
+        .hero-wrap {
+            height: 120vh; position: relative; display: flex; align-items: center; justify-content: center;
+        }
+
+        .sketch-box {
+            position: absolute; border: 1px solid #333; overflow: hidden;
+            box-shadow: 10px 10px 30px rgba(0,0,0,0.1);
+            transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        /* 左側大圖：刻意超出邊界並旋轉 */
+        .box-left {
+            width: 35vw; height: 50vh; left: -5vw; top: 15vh;
+            transform: rotate(-3deg);
+            z-index: 1;
+        }
+        
+        /* 右側圖片：細長且偏移 */
+        .box-right {
+            width: 20vw; height: 60vh; right: 10vw; bottom: 10vh;
+            transform: rotate(2deg);
+            z-index: 2;
+        }
+
+        .middle-content {
+            z-index: 10; pointer-events: none; text-align: center;
+        }
+
+        .middle-content h1 {
+            font-size: 22vw; font-family: 'Playfair Display', serif; font-style: italic;
+            margin: 0; color: transparent; -webkit-text-stroke: 1.5px var(--ink-red);
+            line-height: 0.7; opacity: 0.8;
+            /* 讓大字更有筆觸感 */
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='6'%3E%3Cpath d='M0,6 L6,0' stroke='%23C30010' stroke-width='0.5'/%3E%3C/svg%3E");
+            -webkit-background-clip: text;
+        }
+
+        .brand-info {
+            transform: rotate(90deg); position: absolute; left: 40vw; top: 50vh;
+            white-space: nowrap; font-size: 14px; letter-spacing: 10px;
+            border-left: 1px solid #000; padding-left: 20px;
+        }
+
+        /* 內容區塊：不再置中對齊，而是左右交錯 */
+        section { padding: 100px 5vw; position: relative; }
+
+        .section-label {
+            font-family: 'Playfair Display', serif; font-style: italic; font-size: 80px;
+            position: absolute; opacity: 0.05; top: 20px; left: 2vw; z-index: -1;
+        }
+
+        /* 卡片解構 */
+        .card-container { display: flex; flex-wrap: wrap; gap: 80px; justify-content: space-around; }
+
+        .art-item {
+            width: 300px; position: relative; transition: 0.4s;
+        }
+        .art-item:nth-child(even) { margin-top: 100px; } /* 交錯高度 */
+        
+        .art-item .img-frame {
+            border: 1px solid #000; padding: 10px; background: #fff;
+            transform: rotate(calc(var(--r) * 1deg));
+        }
+        .art-item img { width: 100%; filter: contrast(1.1) sepia(0.2); mix-blend-mode: multiply; }
+
+        .art-item .desc {
+            position: absolute; bottom: -40px; right: -20px;
+            background: var(--ink-red); color: #fff; padding: 15px;
+            font-size: 13px; transform: rotate(-2deg);
+            box-shadow: 5px 5px 0 #000;
+        }
+
+        /* 最新消息：隨性清單 */
+        .news-post {
+            max-width: 600px; margin: 40px auto; position: relative;
+            padding: 20px; border-left: 3px double #333;
+        }
+        .news-post::before {
+            content: "NEW"; position: absolute; left: -50px; top: 0;
+            color: var(--ink-red); font-weight: 900; transform: rotate(-90deg);
+        }
+
+        /* 按鈕：手繪圓圈感 */
+        .explore-btn {
+            display: inline-block; padding: 20px 40px; margin-top: 50px;
+            border: 1px solid #000; color: #000; text-decoration: none;
+            border-radius: 45% 55% 50% 50% / 50% 50% 50% 50%; /* 不規則圓形 */
+            transition: 0.3s;
+        }
+        .explore-btn:hover { background: #000; color: #fff; transform: scale(1.1) rotate(5deg); }
+
+        footer {
+            margin-top: 150px; padding: 100px 10vw; background: #1a1a1a; color: #777;
+            clip-path: polygon(0 15%, 100% 0, 100% 100%, 0 100%); /* 頂部斜切 */
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#">展覽動態 Exhibition</a>
+        <a href="#">關於中心 About</a>
+        <a href="#">藝術家 Artists</a>
+        <a href="#">參觀資訊 Visit</a>
+        <a href="#">聯絡我們 Contact</a>
+    </nav>
+
+    <div class="hero-wrap">
+        <div class="sketch-box box-left">
+            <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?auto=format&fit=crop&w=800" style="width:100%; height:100%; object-fit:cover; filter: grayscale(1) contrast(1.5);">
+        </div>
+
+        <div class="middle-content">
+            <h1 style="transform: translateX(-5vw);">U</h1>
+            <h1 style="transform: translateX(5vw);">A</h1>
+            <div style="margin-top: 20px; font-weight: 300; letter-spacing: 5px; opacity: 0.7;">
+                [ 2026 ARCHIVE ]
+            </div>
+            <a href="#work" class="explore-btn">進入探索之旅</a>
+        </div>
+
+        <div class="brand-info">
+            聯邦藝術中心 / UNION GROUP ART GALLERY
+        </div>
+
+        <div class="sketch-box box-right">
+            <img src="https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?auto=format&fit=crop&w=800" style="width:100%; height:100%; object-fit:cover;">
+        </div>
+    </div>
+
+    <section id="work">
+        <div class="section-label">SELECTED</div>
+        <h2 style="font-size: 40px; margin-left: 5vw; margin-bottom: 100px;">精選典藏<br><span style="font-size: 14px; font-weight: normal; color: var(--ink-red);">/ 手繪速寫紀錄</span></h2>
+        
+        <div class="card-container">
+            <div class="art-item" style="--r: 3">
+                <div class="img-frame">
+                    <img src="https://images.unsplash.com/photo-1576132710323-863a974b9468?auto=format&fit=crop&w=500" alt="">
+                </div>
+                <div class="desc">
+                    <strong>林風采 - 鄉土情懷</strong><br>
+                    第21屆印象大獎 首獎
+                </div>
+            </div>
+
+            <div class="art-item" style="--r: -2">
+                <div class="img-frame">
+                    <img src="https://images.unsplash.com/photo-1577083552431-6e5fd01aa342?auto=format&fit=crop&w=500" alt="">
+                </div>
+                <div class="desc" style="background: var(--ink-black);">
+                    <strong>陳曉東 - 靜物之詩</strong><br>
+                    第22屆新人獎 優選
+                </div>
+            </div>
+
+            <div class="art-item" style="--r: 1">
+                <div class="img-frame">
+                    <img src="https://images.unsplash.com/photo-1579762795188-aa33d23f8992?auto=format&fit=crop&w=500" alt="">
+                </div>
+                <div class="desc">
+                    <strong>王大明 - 台北街頭</strong><br>
+                    2024 年度典藏
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="section-label" style="left: auto; right: 2vw;">BULLETIN</div>
+        <div class="news-post">
+            <span style="font-size: 12px; color: var(--ink-red);">2026.02.26 / PING XUAN</span>
+            <h3 style="margin: 10px 0;">第 23 屆聯邦美術獎複審結果公佈</h3>
+            <p style="font-size: 14px; opacity: 0.7;">經過多輪嚴謹評選，最終獲獎名單已正式揭曉，誠摯邀請各位藝術愛好者蒞臨中心觀展...</p>
+        </div>
+        <div class="news-post" style="margin-left: 30vw;">
+            <span style="font-size: 12px; color: var(--ink-red);">2026.02.15 / NEWS</span>
+            <h3 style="margin: 10px 0;">「台灣鄉土之美」寫實油畫聯展：巡迴展資訊</h3>
+            <p style="font-size: 14px; opacity: 0.7;">本年度最受矚目的寫實派盛會，首站將於台北啟程，接續巡迴至台中與高雄...</p>
+        </div>
+    </section>
+
+    <footer>
+        <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 40px;">
+            <div>
+                <h3 style="color: #fff; font-family: 'Playfair Display', serif; font-style: italic;">Union Group Art Gallery</h3>
+                <p>台北市大安區忠孝東路四段219號</p>
+                <p>(02) 2771-8599</p>
+                <p>Tue - Sun 10:00 - 19:00</p>
+            </div>
+            <div style="display: flex; gap: 60px;">
+                <div>
+                    <h4 style="color: #eee;">Quick Links</h4>
+                    <a href="#" style="color: #666; text-decoration: none; display: block; margin-bottom: 10px;">場地租借申請</a>
+                    <a href="#" style="color: #666; text-decoration: none; display: block;">隱私權保護政策</a>
+                </div>
+                <div style="text-align: right;">
+                    <p>© 2026 聯邦藝術中心</p>
+                    <p style="font-size: 10px;">DESIGNED BY ARTIST HAND</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
