@@ -1,27 +1,25 @@
-
-
-
-語法測試版
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>U.G.A.G. | 聯邦藝術中心 2026</title>
+    <title>Union Group Art Gallery | 聯邦藝術中心 2026</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,900&family=Noto+Sans+TC:wght@300;900&family=Noto+Serif+TC:wght@900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,900&family=Noto+Sans+TC:wght@400;700;900&family=Noto+Serif+TC:wght@700;900&display=swap');
 
         :root {
             --accent: #E60012;
             --dark: #121212;
+            --light-gray: #f8f8f8;
         }
 
         body { 
-            margin: 0; background: #fdfdfd; color: var(--dark); 
+            margin: 0; background: #fff; color: var(--dark); 
             font-family: "Noto Sans TC", sans-serif; overflow-x: hidden;
+            line-height: 1.6;
         }
 
-        /* 背景流動大字 - 旋轉動效 */
+        /* 背景流動大字 */
         .bg-rotating {
             position: fixed; top: -10%; left: -10%; font-size: 30vw;
             font-family: 'Montserrat', sans-serif; font-style: italic;
@@ -30,82 +28,91 @@
         }
         @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-        /* 垂直導覽列 - 增加設計感 */
+        /* 導覽 Logo */
+        .top-logo {
+            position: fixed; top: 30px; left: 40px; z-index: 101; width: 180px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+
+        /* 右側導覽選單 */
         nav {
             position: fixed; right: 40px; top: 50%; transform: translateY(-50%);
-            display: flex; flex-direction: column; gap: 20px; z-index: 100;
+            display: flex; flex-direction: column; gap: 15px; z-index: 100;
             writing-mode: vertical-rl; text-transform: uppercase; letter-spacing: 2px;
-            font-size: 13px; font-weight: 300;
+            font-size: 14px; background: rgba(255,255,255,0.9); padding: 25px 8px;
+            border: 1px solid #eee; box-shadow: -5px 0 15px rgba(0,0,0,0.05);
         }
-        nav a { text-decoration: none; color: #999; transition: 0.3s; }
-        nav a:hover { color: var(--accent); font-weight: 900; }
+        nav a { text-decoration: none; color: #333; transition: 0.3s; padding: 10px 0; font-weight: 700; }
+        nav a:hover { color: var(--accent); transform: scale(1.1); }
 
-        .container { position: relative; width: 100%; }
-
-        /* --- 第一區塊：錯位排版 --- */
-        .hero { height: 120vh; position: relative; display: flex; align-items: center; }
+        /* --- Hero Section --- */
+        .hero { height: 100vh; position: relative; display: flex; align-items: center; overflow: hidden; background: #000; }
         
         .hero-image {
-            width: 55vw; height: 75vh; margin-left: 10vw;
-            background: url('https://images.unsplash.com/photo-1549490349-8643362247b5?auto=format&fit=crop&w=1200') center/cover;
-            clip-path: polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%); /* 斜邊切角 */
-            animation: morph 15s infinite alternate ease-in-out;
-            filter: grayscale(20%);
-        }
-        @keyframes morph {
-            0% { clip-path: polygon(5% 0%, 100% 0%, 95% 100%, 0% 100%); }
-            50% { clip-path: polygon(0% 10%, 90% 0%, 100% 90%, 10% 100%); }
-            100% { clip-path: polygon(10% 0%, 100% 10%, 90% 100%, 0% 90%); }
+            width: 100%; height: 100%; position: absolute; left: 0; top: 0;
+            background: linear-gradient(to right, rgba(255,255,255,0.9) 30%, rgba(255,255,255,0.2)),
+                        url('https://scontent.ftpe7-3.fna.fbcdn.net/v/t39.30808-6/622799593_122094142695246913_5999257336566141825_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=102&ccb=1-7&_nc_sid=2a1932&_nc_ohc=fSrD3eG5dAgQ7kNvwGKMPcn&_nc_oc=AdnmwHIsEHwUSjC132-jtMDpii-E8AhtGmOOJoBnEH-Nm2c7SQmeMOqey-qaD2cssLsxa7KG0YebQeEr0YlNWmBt&_nc_zt=23&_nc_ht=scontent.ftpe7-3.fna&_nc_gid=nDEPalzxnNGQ_5boQ9s4oQ&_nc_ss=8&oh=00_Afwv49JH27shTmBca-LaBdwLmzofa1joCmRcwaIL0OG8FA&oe=69B8160A') center/cover;
+            opacity: 0.8;
         }
 
         .hero-title {
-            position: absolute; left: 55vw; top: 25vh;
-            font-family: 'Noto Serif TC', serif;
+            position: relative; margin-left: 10vw; z-index: 2;
+            max-width: 600px;
         }
         .hero-title h1 { 
-            font-size: 8vw; line-height: 0.9; margin: 0;
-            text-shadow: 10px 10px 0 rgba(230,0,18,0.1);
+            font-family: 'Noto Serif TC', serif; font-size: 5.5rem; line-height: 1.1; margin: 0; 
+            color: var(--dark); text-shadow: 2px 2px 0px #fff, 4px 4px 15px rgba(0,0,0,0.1);
         }
         .hero-title .subtitle {
-            font-size: 1.2rem; background: var(--accent); color: white;
-            display: inline-block; padding: 5px 20px; transform: rotate(-5deg);
-            margin-top: 20px; font-weight: 900;
+            font-size: 1.5rem; background: var(--accent); color: white;
+            display: inline-block; padding: 8px 25px; margin-top: 20px; font-weight: 900;
+            box-shadow: 5px 5px 0 var(--dark);
+        }
+        .hero-description {
+            margin-top: 30px; font-size: 1.1rem; color: #333; font-weight: 700;
+            background: rgba(255,255,255,0.6); padding: 15px; display: inline-block;
         }
 
-        /* --- 第二區塊：垂直卡片排版 --- */
-        .grid-section { 
-            padding: 10vh 15vw; display: flex; gap: 100px;
-        }
-        .vertical-text { 
-            writing-mode: vertical-rl; font-family: 'Noto Serif TC', serif;
-            font-size: 3rem; border-left: 2px solid var(--accent); padding-right: 20px;
-        }
+        /* --- 精選典藏 --- */
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header h2 { font-family: 'Noto Serif TC', serif; font-size: 3.5rem; margin-bottom: 0; }
+        .section-header p { color: var(--accent); font-weight: 900; letter-spacing: 2px; }
 
-        .card-group { display: flex; flex-direction: column; gap: 150px; }
-        .art-card { position: relative; max-width: 400px; }
-        .art-card:nth-child(even) { align-self: flex-end; transform: translateY(-50px); }
-        
-        .art-card img { width: 100%; border-radius: 0; transition: 0.5s; }
-        .art-card:hover img { transform: scale(0.95) rotate(2deg); }
-        
-        .card-info {
-            position: absolute; bottom: -40px; right: -40px;
-            background: white; border: 1px solid #000; padding: 30px;
-            width: 250px; box-shadow: 15px 15px 0 #000;
+        .art-grid { 
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; padding: 0 10vw;
         }
+        .art-card { background: #fff; border: 1px solid #eee; padding: 20px; transition: 0.4s; }
+        .art-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        .art-card img { width: 100%; height: 450px; object-fit: cover; border: 1px solid #ddd; }
+        .art-card .info { margin-top: 20px; border-left: 4px solid var(--accent); padding-left: 15px; }
+        .art-card h3 { margin: 0; font-size: 1.4rem; font-weight: 900; }
+        .art-card p { margin: 5px 0 0; font-size: 0.95rem; color: #666; font-weight: 700; }
 
-        /* --- 頁尾大標 --- */
-        .big-footer {
-            padding: 100px 5vw; border-top: 10px solid var(--dark);
-            background: var(--dark); color: white;
+        /* --- 頁尾設計 --- */
+        footer {
+            padding: 100px 10vw; background: var(--dark); color: #fff;
         }
-        .contact-box {
-            display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 50px;
+        .footer-grid {
+            display: grid; grid-template-columns: 2fr 1fr 1fr 1.2fr; gap: 60px;
         }
-        .marquee {
-            font-size: 5vw; white-space: nowrap; overflow: hidden;
-            border-bottom: 1px solid #333; padding: 20px 0;
-            color: var(--accent); font-family: 'Montserrat', sans-serif;
+        .footer-logo-wrap { margin-bottom: 30px; }
+        .footer-logo { 
+    width: 180px;      /* 確保有寬度 */
+    height: auto; 
+    display: block;
+    margin-bottom: 20px;
+}
+        footer h4 { color: var(--accent); font-size: 1.2rem; margin-bottom: 25px; border-bottom: 2px solid #333; padding-bottom: 10px; }
+        footer ul { list-style: none; padding: 0; line-height: 2.2; color: #bbb; font-size: 15px; }
+        footer a { color: inherit; text-decoration: none; transition: 0.3s; }
+        footer a:hover { color: #fff; text-decoration: underline; }
+
+        /* 文字 marquee */
+        .marquee { background: var(--accent); color: white; padding: 15px 0; font-weight: 900; overflow: hidden; white-space: nowrap; }
+
+        @media (max-width: 1024px) {
+            .footer-grid, .art-grid { grid-template-columns: 1fr; }
+            .hero-title h1 { font-size: 3.5rem; }
         }
     </style>
 </head>
@@ -113,89 +120,140 @@
 
     <div class="bg-rotating">UNION</div>
 
+    <a href="/"><img src="https://i.ibb.co/Txzm1B60/0210.jpg" class="top-logo" alt="Union Group Art Gallery Logo"></a>
+
     <nav>
-        <a href="#">About</a>
-        <a href="#">Exhibition</a>
-        <a href="#">Artists</a>
-        <a href="#">Archive</a>
-        <a href="#">Contact</a>
+        <a href="#">關於我們 About</a>
+        <a href="#">展覽動態 Exhibition</a>
+        <a href="#">活動資訊 Events</a>
+        <a href="#">藝術家 Artists</a>
+        <a href="#">作品總覽 Collection</a>
+        <a href="#">參觀資訊 Visit</a>
+        <a href="#">聯絡我們 Contact</a>
     </nav>
 
-    <main class="container">
+    <main>
         <section class="hero">
             <div class="hero-image"></div>
             <div class="hero-title">
-                <span class="tag-red" style="font-weight: 900; color: var(--accent);">Vol. 23</span>
-                <h1>寫實<br>之境</h1>
-                <div class="subtitle">2026 聯邦美術獎巡迴展</div>
-                <p style="max-width: 300px; margin-top: 40px; letter-spacing: 1px;">
-                    深耕本土藝術 ‧ 傳承台灣美學薪火。在數位浪潮中，重新定義筆觸與光影的重量。
-                </p>
-            </div>
-        </section>
-
-        <section class="grid-section">
-            <div class="vertical-text">當期特展 / Special</div>
-            <div class="card-group">
-                <div class="art-card">
-                    <img src="https://images.unsplash.com/photo-1578321272176-b7bbc0679853?auto=format&fit=crop&w=800" alt="">
-                    <div class="card-info">
-                        <small>2026.02.15</small>
-                        <h3 style="margin:10px 0;">台灣鄉土之美</h3>
-                        <p style="font-size: 13px;">寫實油畫聯展巡迴中</p>
-                        <div style="font-weight: 900; text-align: right;">→</div>
-                    </div>
-                </div>
-
-                <div class="art-card">
-                    <img src="https://images.unsplash.com/photo-1577083288073-40892c0860a4?auto=format&fit=crop&w=800" alt="">
-                    <div class="card-info" style="right: auto; left: -60px; box-shadow: -15px 15px 0 var(--accent);">
-                        <small>OPEN CALL</small>
-                        <h3 style="margin:10px 0;">美術獎徵件</h3>
-                        <p style="font-size: 13px;">新人獎 / 印象大獎 報名開始</p>
-                        <div style="font-weight: 900; text-align: right;">→</div>
-                    </div>
+                <span style="font-weight: 900; letter-spacing: 5px; color: var(--dark);">ESTABLISHED 1998</span>
+                <h1>聯邦藝術中心</h1>
+                <div class="subtitle">Union Group Art Gallery</div>
+                <br>
+                <div class="hero-description">
+                    深耕本土藝術 ‧ 傳承台灣美學薪火<br>
+                    探索寫實油畫之美，記錄這片土地的色彩與光影。
                 </div>
             </div>
         </section>
 
-        <div class="marquee">UNION GROUP ART GALLERY • 2026 COLLECTION • 2026 COLLECTION</div>
+        <div class="marquee">
+             UNION GROUP ART GALLERY • 當期特展：【光影交織】第 23 屆聯邦美術獎獲獎作品展 • 數位典藏中心：匯聚歷屆大師名作 • 
+        </div>
 
-        <footer class="big-footer">
-            <div class="contact-box">
-                <div>
-                    <h2 style="font-size: 3rem; margin-top: 0;">聯邦藝術中心</h2>
-                    <p style="color: #888;">Union Group Art Gallery</p>
-                    <p style="margin-top: 50px;">台北市大安區忠孝東路四段219號<br>(02) 2771-8599</p>
+        <section style="padding: 120px 0; background: var(--light-gray);">
+            <div class="section-header">
+                <h2>精選典藏</h2>
+                <p>SELECTED COLLECTION</p>
+            </div>
+            
+            <div class="art-grid">
+                <div class="art-card">
+                    <img src="https://www.ubot.org.tw/blob/ArtCenter/%E8%A8%B1%E5%9D%A4%E6%88%90_%E7%99%BD%E8%89%B2%E7%B3%BB%E5%88%97NO.10.jpg" alt="許坤成作品">
+                    <div class="info">
+                        <h3>林風采 - 鄉土情懷</h3>
+                        <p>第 21 屆印象大獎 首獎</p>
+                    </div>
                 </div>
-                <div>
-                    <h4 style="color: var(--accent);">FOLLOW</h4>
-                    <p>Facebook<br>Instagram<br>YouTube</p>
+                <div class="art-card">
+                    <img src="https://www.ubot.org.tw/blob/ArtCenter/%E8%A8%B1%E5%9D%A4%E6%88%90_%E7%99%BD%E8%89%B2%E7%B3%BB%E5%88%97NO.27.jpeg" alt="許坤成作品">
+                    <div class="info">
+                        <h3>陳曉東 - 靜物之詩</h3>
+                        <p>第 22 屆新人獎 優選</p>
+                    </div>
                 </div>
-                <div>
-                    <h4 style="color: var(--accent);">HOURS</h4>
-                    <p>Tue - Sun<br>10:00 - 19:00<br>Monday Closed</p>
+                <div class="art-card">
+                    <img src="https://www.ubot.org.tw/blob/ArtCenter/%E8%A8%B1%E5%9D%A4%E6%88%90_%E7%99%BD%E8%89%B2%E7%B3%BB%E5%88%97NO.42.jpeg" alt="許坤成作品">
+                    <div class="info">
+                        <h3>王大明 - 台北街頭</h3>
+                        <p>2024 年度典藏作品</p>
+                    </div>
                 </div>
             </div>
-            <div style="margin-top: 100px; font-size: 10px; color: #444; letter-spacing: 5px;">
-                © 2026 UNION GROUP ART GALLERY. ALL RIGHTS RESERVED.
+        </section>
+
+        <section style="padding: 100px 10vw;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 40px; border-bottom: 2px solid #000; padding-bottom: 20px;">
+                <h2 style="font-family: 'Noto Serif TC'; font-size: 2.5rem; margin: 0;">最新消息 News</h2>
+                <a href="#" style="color: var(--accent); font-weight: 900; text-decoration: none;">查看全部公告 All Notices →</a>
+            </div>
+            
+            <div style="display: grid; gap: 20px;">
+                <div style="background: #fff; padding: 25px; border: 1px solid #eee; display: flex; gap: 40px; align-items: center;">
+                    <div style="color: var(--accent); font-weight: 900; font-size: 1.2rem; min-width: 120px;">2026.02.26</div>
+                    <div style="flex: 1;">
+                        <span style="border: 1px solid var(--accent); color: var(--accent); font-size: 12px; padding: 2px 8px; font-weight: 900;">評選</span>
+                        <h3 style="margin: 10px 0 0;">第 23 屆聯邦美術獎複審結果公佈</h3>
+                    </div>
+                </div>
+                <div style="background: #fff; padding: 25px; border: 1px solid #eee; display: flex; gap: 40px; align-items: center;">
+                    <div style="color: var(--accent); font-weight: 900; font-size: 1.2rem; min-width: 120px;">2026.02.15</div>
+                    <div style="flex: 1;">
+                        <span style="border: 1px solid #333; color: #333; font-size: 12px; padding: 2px 8px; font-weight: 900;">展覽</span>
+                        <h3 style="margin: 10px 0 0;">「台灣鄉土之美」寫實油畫聯展：巡迴展資訊</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-logo-wrap">
+                        <img src="https://i.ibb.co/Txzm1B60/0210.jpg" 
+                             class="footer-logo" 
+                             alt="Union Group Art Gallery"
+                             onerror="this.src='https://www.ubot.org.tw/Content/images/logo.png'; this.style.filter='none';">
+                    </div>
+                    <h3 style="font-family: 'Noto Serif TC'; font-size: 1.5rem; margin-top: 0;">Union Group Art Gallery</h3>
+                    <p style="font-size: 14px; line-height: 1.8;">
+                        台北市大安區忠孝東路四段219號<br>
+                        電話：(02) 2771-8599<br>
+                        時間：週二至週日 10:00 - 19:00<br>
+                        <span style="color: #666;">(週一及國定假日公休)</span>
+                    </p>
+                </div>
+                <div>
+                    <h4>探索中心</h4>
+                    <ul>
+                        <li><a href="#">關於我們</a></li>
+                        <li><a href="#">最新展覽</a></li>
+                        <li><a href="#">合作藝術家</a></li>
+                        <li><a href="#">參觀指引</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>快速連結</h4>
+                    <ul>
+                        <li><a href="https://www.ubot.com.tw" target="_blank">聯邦銀行官網</a></li>
+                        <li><a href="#">場地租借申請</a></li>
+                        <li><a href="#">隱私權保護政策</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>SOCIAL</h4>
+                    <ul>
+                        <li><a href="#">Facebook</a></li>
+                        <li><a href="#">Instagram</a></li>
+                        <li><a href="#">YouTube</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div style="margin-top: 80px; padding-top: 30px; border-top: 1px solid #222; font-size: 12px; color: #555; text-align: center; letter-spacing: 2px;">
+                © 2026 Union Group Art Gallery 聯邦藝術中心 版權所有
             </div>
         </footer>
     </main>
 
-    <script>
-        // 增加滑動時的平滑錯位感
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const images = document.querySelectorAll('.art-card img');
-            
-            images.forEach((img, index) => {
-                const speed = (index + 1) * 0.05;
-                img.style.transform = `translateY(${scrolled * speed}px)`;
-            });
-        });
-    </script>
 </body>
 </html>
-  
-按「預覽」可查看輸入後的效果 ；按「拷貝」可將程式碼剪下貼用 。
