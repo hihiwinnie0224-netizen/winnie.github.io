@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>U.G.A.G. | 放射導覽系統</title>
+    <style>
+        :root { --main-red: #E60012; }
+        body { 
+            margin: 0; background: #fff; 
+            font-family: "Arial Black", "Noto Sans TC", sans-serif; 
+            display: flex; align-items: center; justify-content: center; 
+            height: 100vh; overflow: hidden; color: #000;
+        }
+
+        /* 背景資訊裝飾 (將地址與聯絡資訊融入背景) */
+        .bg-info {
+            position: fixed; font-size: 12px; line-height: 2; 
+            color: #ccc; z-index: 0; font-family: sans-serif;
+            text-transform: uppercase; letter-spacing: 1px;
+        }
+
+        /* 中心核心 */
+        .core {
+            width: 18vw; height: 18vw; border: 8px solid #000; border-radius: 50%;
+            padding: 10px; position: relative; z-index: 5;
+            transition: 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            background: #fff; box-shadow: 0 0 50px rgba(0,0,0,0.05);
+        }
+        .core img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; filter: grayscale(1); transition: 0.5s; }
+        .core:hover { transform: scale(1.05); border-color: var(--main-red); }
+        .core:hover img { filter: grayscale(0%); }
+
+        /* 放射文字 */
+        .ray {
+            position: absolute; top: 50%; left: 50%; transform-origin: left center;
+            width: 42vw; transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); 
+            cursor: pointer; text-decoration: none; color: #000;
+        }
+        .ray-text { 
+            font-size: 1.2rem; font-weight: 900; padding-left: 11vw; 
+            white-space: nowrap; display: inline-block;
+        }
+        .ray-sub { font-size: 0.7rem; display: block; color: #999; margin-top: -5px; }
+
+        /* 角度設定 */
+        .r1 { transform: rotate(-60deg); }
+        .r2 { transform: rotate(-30deg); color: var(--main-red); }
+        .r3 { transform: rotate(0deg); }
+        .r4 { transform: rotate(30deg); }
+        .r5 { transform: rotate(60deg); }
+        .r6 { transform: rotate(150deg); }
+        .r7 { transform: rotate(180deg); }
+        .r8 { transform: rotate(210deg); }
+
+        .ray:hover { width: 46vw; color: var(--main-red); }
+        .ray:hover .ray-text { font-size: 1.8rem; }
+        .ray:hover .ray-sub { color: var(--main-red); }
+
+        /* 角落固定元件 */
+        .nav-fixed { position: fixed; font-weight: 900; z-index: 100; text-decoration: none; color: #000; }
+        .btn-explore { border: 2px solid #000; padding: 12px 24px; transition: 0.3s; }
+        .btn-explore:hover { background: #000; color: #fff; }
+
+        /* 最新消息跑馬燈 (底部) */
+        .news-ticker {
+            position: fixed; bottom: 0; width: 100%; background: #000; color: #fff;
+            padding: 8px 0; font-size: 12px; display: flex; white-space: nowrap;
+        }
+        .ticker-content { display: inline-block; animation: scroll 20s linear infinite; }
+        @keyframes scroll { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+
+    </style>
+</head>
+<body>
+
+    <div class="bg-info" style="top:15%; left:5%;">
+        219, SEC. 4, ZHONGXIAO E. RD., DA’AN DIST., TAIPEI<br>
+        T: (02) 2771-8599 / OPEN: TUE-SUN 10:00-19:00
+    </div>
+
+    <a href="#" class="nav-fixed" style="top:40px; left:40px; border-bottom: 2px solid #000;">INDEX / INDEX</a>
+    
+    <div class="nav-fixed" style="top:40px; right:40px; text-align: right; font-size: 12px;">
+        EST. 2026<br>UNION GROUP ART GALLERY
+    </div>
+
+    <a href="#" class="nav-fixed btn-explore" style="bottom:60px; right:40px;">
+        立即探索展覽 →
+    </a>
+
+    <div class="core">
+        <img src="https://images.unsplash.com/photo-1549490349-8643362247b5?auto=format&fit=crop&w=600">
+        
+        <a href="#" class="ray r1">
+            <div class="ray-text">ABOUT US<span class="ray-sub">關於我們 / 傳承台灣美學</span></div>
+        </a>
+        <a href="#" class="ray r2">
+            <div class="ray-text">CURRENT SHOW<span class="ray-sub">【光影交織】第23屆聯邦美術獎獲獎作品展</span></div>
+        </a>
+        <a href="#" class="ray r3">
+            <div class="ray-text">ARTISTS<span class="ray-sub">林風采 / 陳曉東 / 王大明</span></div>
+        </a>
+        <a href="#" class="ray r4">
+            <div class="ray-text">AWARDS<span class="ray-sub">聯邦美術獎：新人獎 / 印象大獎 徵件中</span></div>
+        </a>
+        <a href="#" class="ray r5">
+            <div class="ray-text">NEWS<span class="ray-sub">2026.02.26 第23屆複審結果公佈</span></div>
+        </a>
+        
+        <a href="#" class="ray r6">
+            <div class="ray-text">VISIT INFO<span class="ray-sub">參觀指引 / 週一休館</span></div>
+        </a>
+        <a href="#" class="ray r7">
+            <div class="ray-text">ARCHIVE<span class="ray-sub">數位典藏 / 線上探索寫實油畫</span></div>
+        </a>
+        <a href="#" class="ray r8">
+            <div class="ray-text">CONTACT<span class="ray-sub">聯絡我們 / 場地租借</span></div>
+        </a>
+    </div>
+
+    <div class="news-ticker">
+        <div class="ticker-content">
+            LATEST NEWS: [評選] 2026.02.26 第 23 屆聯邦美術獎複審結果公佈 ● [展覽] 2026.02.15 「台灣鄉土之美」寫實油畫聯展：巡迴展資訊 ● 
+            精選典藏：林風采 - 鄉土情懷 (第21屆印象大獎首獎) ● 陳曉東 - 靜物之詩 (第22屆新人獎優選)
+        </div>
+    </div>
+
+    <div style="position: fixed; bottom: 60px; left: 40px; font-size: 10px; width: 250px; line-height: 1.8;">
+        <b>UNION GROUP ART GALLERY</b><br>
+        深耕本土藝術 ‧ 傳承台灣美學薪火<br>
+        © 2026 版權所有
+    </div>
+
+</body>
+</html>
