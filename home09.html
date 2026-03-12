@@ -1,451 +1,349 @@
+
+
+
+語法測試版
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>U.G.A.G. | 聯邦藝術中心 - 墨染寫實</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Playfair+Display+SC:wght@400;700;900&display=swap" rel="stylesheet">
+    <title>Union Group Art Gallery | 聯邦藝術中心</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=IM+Fell+Double+Pica+SC&family=Noto+Serif+TC:wght@300;600;900&display=swap" rel="stylesheet">
     <style>
         :root { 
-            /* 調整為更具藝術感的墨色系 */
-            --ink-red: #A52A2A; /* 赭紅，像乾掉的墨水 */
-            --ink-blue: #1A2238; /* 深邃的濃墨藍 */
-            --parchment: #FDFCF5; /* 羊皮紙底色，增加溫度 */
+            --ink-red: #A52A2A; 
+            --ink-blue: #1A2238; 
+            --parchment: #FDFCF5; 
             --text-dark: #222;
-            
-            /* 字體設定 */
-            --font-en-serif: 'Playfair Display SC', serif; /* 鋼筆印刷體感 */
-            --font-en-script: 'Dancing Script', cursive; /* 鋼筆草書感 */
-            /* 中文字體：優先使用楷體，增加人文手寫感 */
-            --font-zh: "STKaiti", "KaiTi", "Microsoft JhengHei", serif; 
+            /* 將英文 Serif 改為 IM Fell Double Pica SC */
+            --font-en-serif: 'IM Fell Double Pica SC', serif;
+            --font-en-script: 'Dancing Script', cursive;
+            --font-zh: "Noto Serif TC", "STKaiti", "KaiTi", serif; 
         }
         
-        * { box-sizing: border-box; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body { 
-            margin: 0; 
             background: var(--parchment); 
             font-family: var(--font-zh); 
-            overflow-x: hidden; 
             color: var(--text-dark);
-            line-height: 1.6;
+            line-height: 1.8;
+            overflow-x: hidden;
         }
 
         a { text-decoration: none; color: inherit; transition: 0.3s; }
 
-        /* 側邊垂直文字 - 浮水印感 */
+        /* --- 修正後的導覽列 (加入 Logo 樣式) --- */
+        nav { 
+            display: flex; 
+            /* 調整對齊方式，讓 Logo 在左，選單在右 */
+            justify-content: space-between; 
+            align-items: center; /* 垂直居中 */
+            padding: 15px 5%; /* 稍微縮小垂直 padding */
+            flex-wrap: wrap;
+            position: fixed; /* 固定在頂部 */
+            width: 100%; 
+            top: 0; 
+            z-index: 1000;
+            background: rgba(253, 252, 245, 0.9); /* 稍微增加不透明度 */
+            backdrop-filter: blur(10px); /* 毛玻璃效果 */
+            border-bottom: 1px solid rgba(26, 34, 56, 0.1);
+        }
+
+        /* Logo 容器樣式 */
+        .logo-link {
+            display: flex;
+            align-items: center;
+            height: 100%; /* 確保 Logo 撐開高度 */
+        }
+        .logo-img {
+            height: 50px; /* 限制 Logo 高度，請依需求調整 */
+            width: auto;
+            display: block;
+        }
+
+        /* 選單容器樣式 */
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        nav a.nav-item { 
+            font-family: var(--font-en-serif);
+            font-size: 14px; /* 新字體稍微調大一點 */
+            font-weight: 400; /* IM Fell 不需要太重 */
+            text-align: center;
+            letter-spacing: 1px; /* 減少間距以適應字體 */
+            color: var(--ink-blue);
+            position: relative;
+        }
+        nav a.nav-item span.zh { 
+            display: block; 
+            font-family: var(--font-zh); 
+            font-size: 12px; 
+            opacity: 0.5; 
+            margin-top: 2px; 
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        nav a.nav-item:hover { color: var(--ink-red); }
+        nav a.nav-item:hover span.zh { opacity: 1; color: var(--ink-red); }
+
+        /* 側邊品牌水印 */
         .side-brand {
-            position: fixed; left: 15px; top: 50%; transform: translateY(-50%);
+            position: fixed; left: 20px; top: 50%; transform: translateY(-50%);
             writing-mode: vertical-rl; 
             font-family: var(--font-en-serif);
-            font-size: clamp(40px, 8vw, 80px); 
-            font-weight: 700;
-            color: rgba(26, 34, 56, 0.04); /* 極淡的墨藍 */
+            font-size: clamp(30px, 6vw, 60px); 
+            font-weight: 400;
+            color: rgba(26, 34, 56, 0.05);
             z-index: -1; 
             text-transform: uppercase;
-            letter-spacing: 15px;
+            letter-spacing: 12px;
         }
 
-        /* 藝術感散亂導覽列 */
-        nav { 
-            display: flex; justify-content: flex-end; padding: 40px 5%; 
-            gap: 20px; flex-wrap: wrap;
-            position: absolute; width: 100%; top: 0; z-index: 100;
-        }
-        nav a { 
-            font-family: var(--font-en-serif);
-            font-size: 14px; 
-            border-bottom: 1px solid rgba(0,0,0,0); /* 預留底線空間 */
-            padding: 5px 10px;
-            letter-spacing: 1px;
-        }
-        nav a .zh { /* 導覽列中的中文微調 */
-            font-family: var(--font-zh);
-            font-size: 12px;
-            opacity: 0.7;
-            display: block;
-            text-align: right;
-            margin-top: -4px;
-        }
-        nav a:hover { 
-            color: var(--ink-red); 
-            border-bottom: 1px solid var(--ink-red);
-        }
-
-        /* Hero 主視覺 - 墨染風格 */
+        /* Hero 主視覺 */
         .hero { 
             position: relative; 
-            min-height: 100vh; 
-            padding: 150px 10% 50px; 
+            height: 100vh; 
             display: flex; 
             align-items: center;
-            /* 模擬墨水暈染背景 */
-            background: radial-gradient(circle at 70% 30%, rgba(226, 232, 240, 0.5) 0%, rgba(253, 252, 245, 0) 60%);
+            padding: 0 10%;
+            background-color: var(--ink-blue);
+            overflow: hidden;
+            margin-top: 0; /* 移除 top margin，因為 nav 是 fixed */
         }
-        .hero-text { z-index: 2; width: 100%; position: relative; }
-        
-        .hero h1 { 
+        /* 確保 Hero 內容不被導覽列遮擋 */
+        .hero-text { 
+            position: relative; 
+            z-index: 2; 
+            color: #fff; 
+            max-width: 650px; 
+            padding-top: 100px; /* 增加頂部 padding 避開 fixed nav */
+        }
+
+        .hero-bg {
+            position: absolute; top: 0; right: 0; width: 65%; height: 100%;
+            /* 修正圖片網址中的括號 */
+            background: url('https://scontent.ftpe7-3.fna.fbcdn.net/v/t39.30808-6/622799593_122094142695246913_5999257336566141825_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=102&ccb=1-7&_nc_sid=2a1932&_nc_ohc=fSrD3eG5dAgQ7kNvwGKMPcn&_nc_oc=AdnmwHIsEHwUSjC132-jtMDpii-E8AhtGmOOJoBnEH-Nm2c7SQmeMOqey-qaD2cssLsxa7KG0YebQeEr0YlNWmBt&_nc_zt=23&_nc_ht=scontent.ftpe7-3.fna&_nc_gid=nDEPalzxnNGQ_5boQ9s4oQ&_nc_ss=8&oh=00_Afwv49JH27shTmBca-LaBdwLmzofa1joCmRcwaIL0OG8FA&oe=69B8160A') center/cover;
+            mask-image: linear-gradient(to left, rgba(0,0,0,1) 50%, rgba(0,0,0,0));
+            -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,1) 50%, rgba(0,0,0,0));
+            filter: grayscale(0.1) contrast(1.05);
+        }
+        .hero h1.zh-main { font-size: 2.2rem; font-weight: 900; letter-spacing: 8px; margin-bottom: 10px; color: #fff; }
+        .hero h1.en-main { 
             font-family: var(--font-en-serif);
-            font-size: clamp(50px, 12vw, 160px); 
-            line-height: 0.85; margin: 0; 
-            color: var(--ink-blue); 
-            letter-spacing: -2px;
-            font-weight: 900;
-        }
-        .hero h1 span { 
-            color: var(--ink-red); 
-            display: block; 
-            margin-left: 8vw; 
-            position: relative;
-        }
-        /* 在 GALLERY 下方加入草書點綴 */
-        .hero h1 span::after {
-            content: "Art Gallery";
-            font-family: var(--font-en-script);
-            font-size: 0.3em;
-            color: var(--text-dark);
-            position: absolute;
-            bottom: -10px; right: 0;
+            font-size: clamp(40px, 6vw, 75px); /* IM Fell 較大，稍微調小 */
+            line-height: 0.9; margin-bottom: 25px;
             font-weight: 400;
-            letter-spacing: 2px;
         }
-        
-        .hero-tagline {
-            font-family: var(--font-zh);
-            font-weight: 400; 
-            font-size: 20px; 
-            margin-top: 40px; 
-            margin-left: 2vw;
-            color: var(--text-dark);
-            border-left: 2px solid var(--ink-red);
-            padding-left: 20px;
-            max-width: 600px;
-            letter-spacing: 1px;
+        .hero h1.en-main span { color: var(--ink-red); display: block; margin-left: 60px; }
+        .hero-tagline { 
+            font-size: 18px; letter-spacing: 2px; border-left: 3px solid var(--ink-red);
+            padding-left: 20px; margin-bottom: 45px; font-weight: 300; color: rgba(255,255,255,0.9);
         }
-        .hero-tagline em {
-            font-family: var(--font-en-script);
-            font-style: normal;
-            font-size: 1.2em;
-            color: var(--ink-red);
-            margin: 0 5px;
-        }
-
-        .hero-img { 
-            position: absolute; right: 8%; top: 20%; width: 40vw; height: 65vh;
-            background: url('https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?auto=format&fit=crop&q=80&w=800') center/cover;
-            z-index: 1; 
-            /* 不規則裁切，像撕裂的紙或墨跡 */
-            clip-path: polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%);
-            filter: sepia(20%) contrast(110%);
-            box-shadow: 20px 20px 0 rgba(26, 34, 56, 0.05);
-        }
-
-        /* 藝術感區塊標題 */
-        .section-header {
-            padding: 100px 10% 30px;
-            margin-left: 5%;
-        }
-        .section-header h2 {
-            font-family: var(--font-en-serif);
-            font-size: 32px;
-            color: var(--ink-blue);
-            margin: 0;
-            letter-spacing: 4px;
-        }
-        .section-header .zh-title {
-            font-family: var(--font-zh);
-            font-size: 16px;
-            color: var(--ink-red);
-            display: block;
-            margin-top: 5px;
-            letter-spacing: 2px;
-        }
-
-        /* 當期特展 - 解構書頁風格 */
-        .exhibition-section {
-            display: grid;
-            grid-template-columns: 1.2fr 1fr;
-            padding: 0 10% 100px;
-            gap: 50px;
-            align-items: center;
-        }
-        .ex-paper {
-            background: #fff;
-            padding: 60px;
-            box-shadow: 5px 5px 20px rgba(0,0,0,0.05);
-            position: relative;
-            transform: rotate(-1deg);
-        }
-        /* 模擬紙張裝訂孔 */
-        .ex-paper::before {
-            content: '';
-            position: absolute; left: 20px; top: 0; height: 100%; width: 10px;
-            background-image: radial-gradient(#d1d1d1 2px, transparent 2px);
-            background-size: 100% 30px;
-        }
-        
-        .ex-paper small { 
-            font-family: var(--font-en-script); 
-            font-size: 20px; 
-            color: var(--ink-red);
-        }
-        .ex-paper h3 { 
-            font-family: var(--font-zh);
-            font-size: 40px; 
-            margin: 10px 0; 
-            color: var(--ink-blue);
-            font-weight: 700;
-            letter-spacing: 2px;
-        }
-        .ex-paper p { font-size: 16px; color: #555; margin-bottom: 30px; }
 
         .btn-ink { 
-            display: inline-block; 
-            padding: 10px 35px; 
-            background: var(--ink-blue); 
-            color: var(--parchment); 
-            font-family: var(--font-en-serif);
-            font-size: 12px;
-            letter-spacing: 2px;
+            display: inline-block; padding: 14px 45px; 
+            border: 1px solid #fff; color: #fff;
+            font-family: var(--font-en-serif); font-size: 14px; letter-spacing: 2px;
             transition: 0.4s;
-            border: 1px solid var(--ink-blue);
+            font-weight: 400;
         }
-        .btn-ink:hover { 
-            background: transparent; 
-            color: var(--ink-blue); 
-        }
+        .btn-ink:hover { background: #fff; color: var(--ink-blue); font-weight: 600; }
 
-        /* 藝術家與作品 Collection - 散落的相片感 */
-        .collection { 
-            display: flex; flex-wrap: wrap; padding: 0 10% 150px; gap: 80px; justify-content: center;
-        }
-        .art-card { 
-            width: 300px; 
-            background: #fff;
-            padding: 15px 15px 60px 15px; /* 底部留白像拍立得 */
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            transition: 0.5s ease-in-out;
-            position: relative;
-        }
-        /* 隨機旋轉角度 */
-        .art-card:nth-child(1) { transform: rotate(2deg); }
-        .art-card:nth-child(2) { transform: rotate(-3deg); margin-top: 50px;}
+        /* 區塊標題 */
+        .section-header { padding: 120px 10% 50px; text-align: center; }
+        .section-header h2 { font-family: var(--font-en-serif); font-size: 40px; letter-spacing: 4px; color: var(--ink-blue); font-weight: 400; }
+        .section-header .zh-title { display: block; color: var(--ink-red); font-size: 16px; margin-top: 8px; font-weight: 600; }
+
+        /* 當期特展 */
+        .exhibition { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 60px; padding: 0 10% 120px; align-items: center; }
+        .ex-paper { background: #fff; padding: 70px; box-shadow: 25px 25px 70px rgba(0,0,0,0.06); transform: rotate(-0.5deg); border: 1px solid #f0f0f0; }
+        .ex-paper h3 { font-size: 42px; color: var(--ink-blue); margin: 15px 0; font-weight: 900; letter-spacing: 2px; }
+        .ex-desc { color: #555; font-size: 16px; margin-bottom: 40px; }
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; border-top: 1px solid #eee; padding-top: 30px; }
+        .info-item h4 { font-size: 18px; color: var(--ink-red); margin-bottom: 8px; font-weight: 900; }
+        .info-item p { font-size: 14px; color: #777; line-height: 1.6; }
+
+        /* 精選典藏 */
+        .collection { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; padding: 0 10% 120px; }
+        .art-card { background: #fff; padding: 18px 18px 80px; box-shadow: 0 20px 45px rgba(0,0,0,0.08); position: relative; transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .art-card:hover { transform: translateY(-15px) rotate(0deg); z-index: 10; box-shadow: 0 30px 60px rgba(0,0,0,0.15); }
+        .art-card:nth-child(1) { transform: rotate(-1.5deg); }
         .art-card:nth-child(3) { transform: rotate(1.5deg); }
-
-        .art-card:hover { transform: rotate(0deg) scale(1.05); z-index: 10; }
-
-        .art-card .img-wrap { 
-            width: 100%; height: 300px; overflow: hidden; 
-            margin-bottom: 20px;
-        }
+        
+        .img-wrap { width: 100%; aspect-ratio: 1/1; overflow: hidden; margin-bottom: 25px; border: 1px solid #f9f9f9; }
         .art-card img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s; }
-        
-        .art-card .card-meta {
-            text-align: center;
-        }
-        .art-card h4 { 
-            font-family: var(--font-zh);
-            font-size: 24px; margin: 0; 
-            color: var(--text-dark);
-            font-weight: 700;
-        }
-        .art-card p { 
-            font-size: 14px; color: #777; margin: 5px 0 0; 
-            font-family: var(--font-zh);
-        }
-        
-        /* 鋼筆手寫感的獲獎標記 */
+        .art-card:hover img { transform: scale(1.08); }
+        .card-meta { text-align: center; }
+        .card-meta h4 { font-size: 22px; color: var(--ink-blue); font-weight: 900; }
+        .card-meta p { font-size: 14px; color: #666; margin-top: 4px; }
         .award-ink { 
-            position: absolute; bottom: 15px; right: 15px;
-            font-family: var(--font-en-script); 
-            color: var(--ink-red); 
-            font-size: 16px;
-            transform: rotate(-5deg);
+            position: absolute; bottom: 25px; right: 25px; 
+            font-family: var(--font-en-script); color: var(--ink-red); font-size: 20px; transform: rotate(-10deg);
         }
 
-        /* 最新消息 - 簡約清單 */
-        .news-section { 
-            padding: 80px 15%; 
-            background: rgba(26, 34, 56, 0.03); /* 極淡藍底 */
-        }
-        .news-item {
-            display: grid;
-            grid-template-columns: 120px 80px 1fr;
-            align-items: center;
-            padding: 25px 0;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-            font-family: var(--font-zh);
-        }
-        .news-item:hover { background: rgba(255,255,255,0.5); padding-left: 10px; }
-        
-        .news-date { 
-            font-family: var(--font-en-serif); 
-            color: #888; font-size: 14px; 
-        }
-        .news-cat { 
-            color: var(--ink-red); font-size: 14px; 
-            border: 1px solid var(--ink-red);
-            padding: 2px 8px; text-align: center; width: 60px;
-        }
-        .news-title { font-size: 16px; color: var(--text-dark); padding-left: 20px; }
+        /* 最新消息 */
+        .news-section { padding: 100px 10%; background: #fdfcf5; border-top: 1px solid rgba(0,0,0,0.03); }
+        .news-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 50px; border-bottom: 2px solid var(--ink-blue); padding-bottom: 20px; }
+        .news-item { display: flex; padding: 28px 0; border-bottom: 1px solid rgba(0,0,0,0.06); align-items: center; }
+        .news-date { font-family: var(--font-en-serif); width: 140px; color: #999; font-weight: 400; }
+        .news-cat { border: 1px solid var(--ink-red); color: var(--ink-red); padding: 2px 14px; font-size: 13px; margin-right: 35px; font-weight: 600; }
+        .news-title { font-weight: 600; flex: 1; font-size: 17px; }
+        .news-item:hover { color: var(--ink-red); padding-left: 20px; background: rgba(255,255,255,0.6); }
 
-        /* 頁尾 - 墨色基底 */
-        footer { 
-            background: var(--ink-blue); color: rgba(255,255,255,0.8); 
-            padding: 100px 10% 50px; 
-            display: grid; grid-template-columns: 1.5fr repeat(2, 1fr); gap: 60px;
-            font-family: var(--font-zh);
-            font-size: 14px;
-        }
-        footer h5 { 
-            font-family: var(--font-en-serif);
-            color: var(--parchment); font-size: 20px; margin: 0 0 25px; 
-            letter-spacing: 2px;
-        }
-        footer p { line-height: 2; margin: 0; }
-        .footer-links { list-style: none; padding: 0; margin: 0; }
-        .footer-links li { margin-bottom: 12px; }
-        .footer-links a:hover { color: var(--ink-red); text-decoration: underline; }
-        
-        .copyright { 
-            grid-column: 1 / -1; 
-            border-top: 1px solid rgba(255,255,255,0.1); 
-            padding-top: 40px; margin-top: 20px;
-            text-align: center; font-size: 12px; color: rgba(255,255,255,0.5); 
-        }
+        /* 頁尾 */
+        footer { background: var(--ink-blue); color: rgba(255,255,255,0.7); padding: 100px 10% 50px; display: grid; grid-template-columns: 1.5fr repeat(2, 1fr); gap: 70px; font-size: 15px; }
+        footer h5 { font-family: var(--font-en-serif); color: #fff; font-size: 22px; margin-bottom: 35px; letter-spacing: 2px; font-weight: 400; }
+        footer p { margin-bottom: 12px; }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 15px; }
+        .footer-links a:hover { color: #fff; text-decoration: underline; }
+        .copyright { grid-column: 1/-1; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 40px; margin-top: 30px; text-align: center; font-size: 13px; opacity: 0.6; }
 
-        /* 響應式 */
-        @media (max-width: 992px) {
-            .hero-img { width: 80vw; height: 50vh; opacity: 0.15; top: 30%; }
-            .exhibition-section { grid-template-columns: 1fr; }
-            .art-card:nth-child(even) { margin-top: 0; }
-        }
-        @media (max-width: 768px) {
-            nav { padding: 20px; justify-content: center; background: var(--parchment); position: sticky; }
-            .hero { padding-top: 80px; }
-            .news-item { grid-template-columns: 1fr; gap: 10px; }
-            .news-title { padding-left: 0; }
-            footer { grid-template-columns: 1fr; gap: 40px; }
+        @media (max-width: 1024px) {
+            nav { justify-content: center; padding: 10px 5%; gap: 10px; }
+            .nav-links { justify-content: center; gap: 15px; width: 100%; margin-top: 10px; }
+            .hero-bg { width: 100%; opacity: 0.3; mask-image: none; }
+            .exhibition, .collection, footer { grid-template-columns: 1fr; }
+            .side-brand { display: none; }
         }
     </style>
 </head>
 <body>
 
-    <div class="side-brand">UNION ART</div>
+    <div class="side-brand">Union Group</div>
 
     <nav>
-        <a href="#">ABOUT<span class="zh">關於我們</span></a>
-        <a href="#">EXHIBITION<span class="zh">展覽動態</span></a>
-        <a href="#">ARTISTS<span class="zh">藝術家</span></a>
-        <a href="#">COLLECTION<span class="zh">作品總覽</span></a>
-        <a href="#">VISIT<span class="zh">參觀資訊</span></a>
-        <a href="#">CONTACT<span class="zh">聯絡我們</span></a>
+        <a href="#" class="logo-link">
+            <img src="https://i.ibb.co/Txzm1B60/0210.jpg" alt="Union Group Logo" class="logo-img">
+        </a>
+        
+        <div class="nav-links">
+            <a href="#" class="nav-item">ABOUT<span class="zh">關於我們</span></a>
+            <a href="#" class="nav-item">EXHIBITION<span class="zh">展覽動態</span></a>
+            <a href="#" class="nav-item">EVENTS<span class="zh">活動資訊</span></a>
+            <a href="#" class="nav-item">ARTISTS<span class="zh">藝術家</span></a>
+            <a href="#" class="nav-item">COLLECTION<span class="zh">作品總覽</span></a>
+            <a href="#" class="nav-item">VISIT<span class="zh">參觀資訊</span></a>
+            <a href="#" class="nav-item">CONTACT<span class="zh">聯絡我們</span></a>
+        </div>
     </nav>
 
     <section class="hero">
+        <div class="hero-bg"></div>
         <div class="hero-text">
-            <h1>UGA<span>GALLERY</span></h1>
+            <h1 class="zh-main">聯邦藝術中心</h1>
+            <h1 class="en-main">Union Group<span>Art Gallery</span></h1>
             <div class="hero-tagline">
-                深耕本土藝術 ‧ 傳承台灣美學薪火
-                <br>
-                在墨色與油彩之間，尋找寫實油畫的叛逆與<em>新生</em>。
+                深耕本土藝術 ‧ 傳承台灣美學薪火<br>
+                在墨色與油彩之間，尋找寫實油畫的叛逆與新生。
             </div>
-            <div style="margin-top: 50px; margin-left: 2vw;">
-                <a href="#" class="btn-ink">EXPLORE NOW</a>
-            </div>
+            <a href="#" class="btn-ink">立即探索展覽 EXPLORE NOW</a>
         </div>
-        <div class="hero-img"></div>
     </section>
 
     <div class="section-header">
-        <h2>CURRENT</h2>
+        <h2>CURRENT EXHIBITION</h2>
         <span class="zh-title">當期特展</span>
     </div>
-    <section class="exhibition-section">
+
+    <section class="exhibition">
         <div class="ex-paper">
-            <small>Featured Exhibition</small>
+            <small style="font-family: var(--font-en-script); color: var(--ink-red); font-size: 24px;">Selected Exhibition</small>
             <h3>【光影交織】</h3>
-            <p>第 23 屆聯邦美術獎獲獎作品展</p>
-            <p style="font-size: 14px; line-height: 1.8;">
-                鼓勵本土藝術創作，匯聚歷屆大師名作。<br>
-                新人獎 / 印象大獎 徵件開始，邀請您線上探索寫實油畫之美。
-            </p>
-            <a href="#" class="btn-ink">VIEW DETAILS</a>
+            <p class="ex-desc">第 23 屆聯邦美術獎獲獎作品展。匯聚當代寫實油畫之巔峰，看見本土藝術家如何透過畫筆勾勒時代的溫度與土地的深情。</p>
+            
+            <div class="info-grid">
+                <div class="info-item">
+                    <h4>聯邦美術獎</h4>
+                    <p>鼓勵本土藝術創作，包含「新人獎」與「印象大獎」，現正徵件開始，期待您的參與。</p>
+                </div>
+                <div class="info-item">
+                    <h4>數位典藏</h4>
+                    <p>匯聚歷屆大師名作，透過高解析影像，邀請您線上探索寫實油畫的精湛工藝。</p>
+                </div>
+            </div>
+            <a href="#" class="btn-ink" style="border-color: var(--ink-blue); color: var(--ink-blue); margin-top: 40px;">VIEW DETAILS</a>
         </div>
-        <div style="font-size: 16px; color: #666; font-family: var(--font-zh);">
-            「繪畫，是光與影的無聲對話。」
+        <div style="font-family: var(--font-en-script); font-size: 38px; color: #ccc; line-height: 1.3; text-align: center;">
+            "Every portrait <br>painted with soul<br>is a portrait of <br>the artist."
         </div>
     </section>
 
-    <div class="section-header" style="text-align: center; margin-left: 0;">
+    <div class="section-header">
         <h2>COLLECTION</h2>
         <span class="zh-title">精選典藏</span>
     </div>
+
     <section class="collection">
         <div class="art-card">
             <div class="img-wrap">
-                <img src="https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?auto=format&fit=crop&q=80&w=500" alt="林風采作品">
+                <img src="https://www.ubot.org.tw/blob/ArtCenter/%E8%A8%B1%E5%9D%A4%E6%88%90_%E7%99%BD%E8%89%B2%E7%B3%BB%E5%88%97NO.10.jpg" alt="許坤成 白色系列 NO.10">
             </div>
             <div class="card-meta">
-                <h4>林風采</h4>
-                <p>鄉土情懷 / 油畫</p>
+                <h4>許坤成</h4>
+                <p>白色系列 NO.10 / 油畫</p>
+                <p style="font-size: 12px; margin-top: 8px; color: var(--ink-red);">第 21 屆印象大獎 ‧ 首獎</p>
             </div>
             <div class="award-ink">Impression Award</div>
         </div>
 
         <div class="art-card">
             <div class="img-wrap">
-                <img src="https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&q=80&w=500" alt="陳曉東作品">
+                <img src="https://www.ubot.org.tw/blob/ArtCenter/%E8%A8%B1%E5%9D%A4%E6%88%90_%E7%99%BD%E8%89%B2%E7%B3%BB%E5%88%97NO.27.jpeg" alt="許坤成 白色系列 NO.27">
             </div>
             <div class="card-meta">
-                <h4>陳曉東</h4>
-                <p>靜物之詩 / 油畫</p>
+                <h4>許坤成</h4>
+                <p>白色系列 NO.27 / 油畫</p>
+                <p style="font-size: 12px; margin-top: 8px; color: var(--ink-red);">第 22 屆新人獎 ‧ 優選</p>
             </div>
             <div class="award-ink">Newcomer Award</div>
         </div>
 
         <div class="art-card">
             <div class="img-wrap">
-                <img src="https://images.unsplash.com/photo-1577083552431-6e5fd01aa342?auto=format&fit=crop&q=80&w=500" alt="王大明作品">
+                <img src="https://www.ubot.org.tw/blob/ArtCenter/%E8%A8%B1%E5%9D%A4%E6%88%90_%E7%99%BD%E8%89%B2%E7%B3%BB%E5%88%97NO.42.jpeg" alt="許坤成 白色系列 NO.42">
             </div>
             <div class="card-meta">
-                <h4>王大明</h4>
-                <p>台北街頭 / 油畫</p>
+                <h4>許坤成</h4>
+                <p>白色系列 NO.42 / 油畫</p>
+                <p style="font-size: 12px; margin-top: 8px; color: var(--ink-red);">2024 年度典藏作品</p>
             </div>
             <div class="award-ink">Archive 2024</div>
         </div>
     </section>
 
     <section class="news-section">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; font-family: var(--font-zh);">
-            <h3 style="margin: 0; font-size: 28px; color: var(--ink-blue);">最新消息 NEWS</h3>
-            <a href="#" style="color: var(--ink-red); font-size: 14px;">查看全部公告 →</a>
+        <div class="news-header">
+            <h3 style="font-size: 30px; color: var(--ink-blue); font-weight: 900;">最新消息 <span style="font-family: var(--font-en-serif); font-size: 18px; margin-left: 12px; opacity: 0.4; font-weight: 400;">NEWS</span></h3>
+            <a href="#" style="color: var(--ink-red); font-size: 15px; font-weight: 600;">查看全部公告 →</a>
         </div>
         
         <a href="#" class="news-item">
             <div class="news-date">2026.02.26</div>
             <div class="news-cat">評選</div>
-            <div class="news-title">第 23 屆聯邦美術獎複審結果公佈</div>
+            <div class="news-title">第 23 屆聯邦美術獎複審結果正式公佈</div>
         </a>
         <a href="#" class="news-item">
             <div class="news-date">2026.02.15</div>
             <div class="news-cat">展覽</div>
-            <div class="news-title">「台灣鄉土之美」寫實油畫聯展：巡迴展資訊</div>
+            <div class="news-title">「台灣鄉土之美」寫實油畫聯展：全國巡迴展資訊</div>
         </a>
     </section>
 
     <footer>
         <div>
-            <h5>U.G.A.G.</h5>
-            <p style="color: var(--parchment); font-size: 16px; margin-bottom: 10px;">聯邦藝術中心</p>
-            <p>
-                台北市大安區忠孝東路四段219號<br>
-                (02) 2771-8599<br>
-                週二至週日 10:00 - 19:00<br>
-                <span style="opacity: 0.5;">(週一及國定假日公休)</span>
-            </p>
+            <h5 style="color: #fff; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; display: inline-block; font-weight: 400;">Union Group Art Gallery</h5>
+            <p style="margin-top: 25px;"><strong>聯邦藝術中心</strong></p>
+            <p>台北市大安區忠孝東路四段219號</p>
+            <p>電話：(02) 2771-8599</p>
+            <p>時間：週二至週日 10:00 - 19:00<br><span style="opacity: 0.5;">(週一及國定假日公休)</span></p>
         </div>
         <div>
-            <h5>EXPLORE</h5>
+            <h5>探索中心 EXPLORE</h5>
             <ul class="footer-links">
                 <li><a href="#">關於我們</a></li>
                 <li><a href="#">最新展覽</a></li>
@@ -454,7 +352,7 @@
             </ul>
         </div>
         <div>
-            <h5>LINKS</h5>
+            <h5>快速連結 LINKS</h5>
             <ul class="footer-links">
                 <li><a href="#">聯邦銀行官網</a></li>
                 <li><a href="#">場地租借申請</a></li>
@@ -462,9 +360,11 @@
             </ul>
         </div>
         <div class="copyright">
-            © 2026 Union Group Art Gallery All Rights Reserved. 
+            © 2026 Union Group Art Gallery 聯邦藝術中心 版權所有
         </div>
     </footer>
 
 </body>
 </html>
+  
+按「預覽」可查看輸入後的效果 ；按「拷貝」可將程式碼剪下貼用 。
