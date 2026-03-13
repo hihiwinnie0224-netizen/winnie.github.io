@@ -1,119 +1,142 @@
+
+
+
+語法測試版
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Union Group Art Gallery | 聯邦藝術中心</title>
-    <link href="https://fonts.googleapis.com/css2?family=Mrs+Saint+Delafield&family=Noto+Serif+TC:wght@300;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Mrs+Saint+Delafield&family=Noto+Serif+TC:wght@300;600;900&display=swap" rel="stylesheet">
     <style>
         :root { 
             --red: #E60012; 
-            --black: #000; 
+            --black: #1a1a1a; 
+            --gray: #f8f8f8;
             --pen-font: 'Mrs Saint Delafield', cursive;
             --zh-font: 'Noto Serif TC', serif;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background: #fff; color: var(--black); font-family: var(--zh-font); overflow-x: hidden; }
+        body { background: #fff; color: var(--black); font-family: var(--zh-font); overflow-x: hidden; line-height: 1.6; }
 
-        /* --- 選單按鈕 --- */
-        .menu-trigger {
-            position: fixed; top: 40px; right: 40px; z-index: 9999;
-            cursor: pointer; background: var(--black); width: 55px; height: 55px;
-            border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center;
+        /* --- Header --- */
+        header {
+            position: fixed; top: 0; width: 100%; padding: 15px 30px;
+            display: flex; justify-content: space-between; align-items: center; z-index: 10000;
         }
-        .menu-trigger span { display: block; width: 22px; height: 2px; background: #fff; margin: 3px 0; transition: 0.4s; }
+        .logo-wrap { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--black); }
+        .logo-img { width: 35px; height: auto; border-radius: 4px; }
+        .logo-text { font-family: var(--pen-font); font-size: 1.5rem; }
+
+        .menu-trigger {
+            cursor: pointer; background: var(--black); width: 45px; height: 45px;
+            border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            transition: 0.3s;
+        }
+        .menu-trigger span { display: block; width: 18px; height: 2px; background: #fff; margin: 3px 0; transition: 0.4s; }
+        .menu-active .menu-trigger { background: var(--red); }
         .menu-active .menu-trigger span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
         .menu-active .menu-trigger span:nth-child(2) { opacity: 0; }
         .menu-active .menu-trigger span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
-        /* --- 修正後的選單：縮小比例並增加間距 --- */
+        /* --- Full Navigation --- */
         .full-nav {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background: #fff; z-index: 9000; display: flex; align-items: center; justify-content: center;
-            visibility: hidden; opacity: 0; transform: translateY(-100%);
-            transition: all 0.7s cubic-bezier(0.85, 0, 0.15, 1);
+            visibility: hidden; opacity: 0; transition: 0.5s ease-in-out;
         }
-        .menu-active .full-nav { visibility: visible; opacity: 1; transform: translateY(0); }
-
-        .nav-links { list-style: none; width: 90%; max-height: 90vh; overflow-y: auto; text-align: center; }
-        .nav-links li { margin-bottom: 2vh; } /* 增加垂直間距 */
-        
+        .menu-active .full-nav { visibility: visible; opacity: 1; }
+        .nav-links { list-style: none; text-align: center; width: 100%; }
+        .nav-links li { margin-bottom: 2.5vh; }
         .nav-links a {
-            font-family: var(--pen-font);
-            /* 縮小草寫大小，確保不重疊 */
-            font-size: clamp(2.5rem, 6vw, 5rem); 
-            color: var(--black); text-decoration: none; display: inline-block; line-height: 1;
+            font-family: var(--pen-font); font-size: clamp(2rem, 4vw, 3.5rem); 
+            color: var(--black); text-decoration: none; line-height: 1.2;
         }
         .nav-links a small { 
-            font-family: var(--zh-font); font-size: 1rem; display: block; 
-            font-weight: 300; opacity: 0.5; margin-top: 5px; letter-spacing: 3px;
+            font-family: var(--zh-font); font-size: 0.85rem; display: block; 
+            opacity: 0.4; letter-spacing: 4px; margin-top: 5px; font-weight: 300;
         }
-        .nav-links a:hover { color: var(--red); transform: rotate(-3deg); }
+        .nav-links a:hover { color: var(--red); }
 
-        /* --- 主內容 --- */
-        main { padding: 0 6vw; transition: 0.6s; }
-        .menu-active main { filter: blur(15px); opacity: 0.2; }
+        /* --- Hero --- */
+        .hero { 
+            height: 100vh; display: flex; align-items: center; position: relative; 
+            background: linear-gradient(rgba(255,255,255,0.6), rgba(255,255,255,0.6)), 
+                        url('https://scontent.ftpe7-3.fna.fbcdn.net/v/t39.30808-6/622799593_122094142695246913_5999257336566141825_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=102&ccb=1-7&_nc_sid=2a1932&_nc_ohc=fSrD3eG5dAgQ7kNvwGKMPcn&_nc_oc=AdnmwHIsEHwUSjC132-jtMDpii-E8AhtGmOOJoBnEH-Nm2c7SQmeMOqey-qaD2cssLsxa7KG0YebQeEr0YlNWmBt&_nc_zt=23&_nc_ht=scontent.ftpe7-3.fna&_nc_gid=nDEPalzxnNGQ_5boQ9s4oQ&_nc_ss=8&oh=00_Afwv49JH27shTmBca-LaBdwLmzofa1joCmRcwaIL0OG8FA&oe=69B8160A') center/cover no-repeat;
+            padding: 0 8vw;
+        }
+        .hero-content { max-width: 900px; padding-top: 60px; }
+        .hero-subtitle { font-size: 1.4rem; font-weight: 900; letter-spacing: 8px; margin-bottom: 10px; }
+        .hero-title { font-family: var(--pen-font); font-size: clamp(3.5rem, 9vw, 10rem); line-height: 0.9; margin-bottom: 25px; }
+        .hero-desc { font-size: 1.2rem; margin-bottom: 30px; color: #444; font-weight: 300; }
+        .cta-btn { 
+            display: inline-block; padding: 12px 35px; background: var(--black); color: #fff; 
+            text-decoration: none; font-size: 0.9rem; letter-spacing: 2px; transition: 0.3s;
+        }
+        .cta-btn:hover { background: var(--red); }
 
-        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; position: relative; }
+        /* --- Sections --- */
+        .section-padding { padding: 80px 8vw; }
+        .section-header { font-family: var(--pen-font); font-size: 3.5rem; margin-bottom: 40px; color: var(--red); line-height: 1; }
         
-        /* 標題大小優化：避免在小螢幕爆版 */
-        .main-brand-title {
-            font-family: var(--pen-font);
-            font-size: clamp(4rem, 12vw, 15rem);
-            line-height: 0.75;
-            z-index: 10;
-        }
-        .main-brand-title .red-ink { 
-            color: var(--red); margin-left: 5vw; display: inline-block; transform: rotate(-5deg); 
-        }
+        /* --- Exhibition Cards --- */
+        .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 25px; }
+        .card { grid-column: span 6; padding: 40px; border: 1px solid #ddd; transition: 0.4s; }
+        .card:hover { border-color: var(--red); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .card-tag { font-family: var(--pen-font); font-size: 2.2rem; color: var(--red); margin-bottom: 10px; display: block; }
+        .card h3 { font-size: 1.6rem; margin-bottom: 15px; font-weight: 900; }
+        .card p { opacity: 0.6; font-size: 0.95rem; }
 
-        .hero-image-box {
-            position: absolute; top: 15%; right: 0; width: 35vw; height: 60vh;
-            z-index: 5; overflow: hidden; clip-path: polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%);
-        }
-        .hero-image {
-            width: 100%; height: 100%;
-            background: url('https://scontent-tpe1-1.xx.fbcdn.net/v/t39.30808-6/622799593_122094142695246913_5999257336566141825_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=102&ccb=1-7&_nc_sid=2a1932&_nc_ohc=ZMc8NC3Ld84Q7kNvwFolR6z&_nc_oc=AdlHAnNKEi7v-K_W38YwMDtmAel2iym6-e0Hq3JXaKaC6_SNmBvSEb2Ihhkn2ZDXStjx3wBxbUtzWqRT2eHfGOSu&_nc_zt=23&_nc_ht=scontent-tpe1-1.xx&_nc_gid=j-F4cUwo1ceDsbq4X_PYJA&_nc_ss=8&oh=00_AfwEy7yIPSbPZGwCe8A5Bv1pxexdGTXABp6S8DS_GG78lw&oe=69B0654A') center/cover;
-            filter: grayscale(1);
-        }
+        /* --- Art Pieces --- */
+        .art-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 20px; }
+        .art-item { text-align: left; }
+        .art-img-box { width: 100%; aspect-ratio: 1/1; overflow: hidden; margin-bottom: 15px; border: 1px solid #eee; }
+        .art-img-box img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s; }
+        .art-item:hover img { transform: scale(1.08); }
+        .art-info h5 { font-weight: 900; font-size: 1rem; }
+        .art-info span { font-family: var(--pen-font); font-size: 1.8rem; color: var(--red); }
 
-        /* --- 區塊標題優化 --- */
-        .section-header { 
-            font-family: var(--pen-font); font-size: clamp(3rem, 6vw, 6rem); 
-            margin-bottom: 40px; border-bottom: 1px solid #000; display: inline-block;
+        /* --- News --- */
+        .news-row { 
+            display: grid; grid-template-columns: 120px 80px 1fr; 
+            padding: 20px 0; border-bottom: 1px solid #eee; text-decoration: none; color: inherit; font-size: 0.95rem;
         }
+        .news-row:hover { color: var(--red); padding-left: 10px; transition: 0.3s; }
+        .date { opacity: 0.4; }
+        .tag { color: var(--red); font-weight: 600; }
 
-        .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 30px; padding-bottom: 100px; }
-        .card { grid-column: span 6; padding: 60px 40px; border: 1px solid #000; }
-        .card-ink { font-family: var(--pen-font); font-size: clamp(3rem, 5vw, 5.5rem); color: var(--red); line-height: 0.8; margin-bottom: 20px; }
-        .card h3 { font-size: 2rem; font-weight: 900; margin-bottom: 10px; }
-        .card-red { background: var(--red); color: #fff; border: none; }
-        .card-red .card-ink { color: #fff; }
-
-        /* --- 頁尾優化 --- */
-        footer { 
-            padding: 80px 0; border-top: 10px solid #000;
-            display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 40px; 
-        }
-        .footer-brand { font-family: var(--pen-font); font-size: clamp(2.5rem, 5vw, 5rem); line-height: 0.8; }
-        footer h4 { margin-bottom: 15px; font-weight: 900; text-transform: uppercase; }
-        footer ul { list-style: none; opacity: 0.6; font-size: 0.9rem; }
-        footer a { text-decoration: none; color: inherit; }
+        /* --- Footer --- */
+        footer { background: var(--black); color: #fff; padding: 80px 8vw 40px; }
+        .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 50px; margin-bottom: 50px; }
+        .footer-brand { font-family: var(--pen-font); font-size: 3.5rem; line-height: 0.8; margin-bottom: 20px; }
+        .footer-info p { opacity: 0.5; font-size: 0.85rem; margin-bottom: 8px; }
+        .footer-col h4 { font-size: 0.8rem; letter-spacing: 2px; color: var(--red); margin-bottom: 20px; text-transform: uppercase; }
+        .footer-col ul { list-style: none; }
+        .footer-col a { color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.85rem; transition: 0.3s; }
+        .footer-col a:hover { color: #fff; }
 
         @media (max-width: 768px) {
-            .hero-image-box { display: none; }
-            .card { grid-column: span 12; }
-            footer { grid-template-columns: 1fr; text-align: center; }
-            footer h4::after { content: none; }
+            header { padding: 15px; }
+            .footer-grid, .art-grid, .grid { grid-template-columns: 1fr; }
+            .card { grid-column: span 1; }
+            .hero-title { font-size: 4rem; margin-top: 10px; }
+            .news-row { grid-template-columns: 1fr; gap: 5px; }
         }
     </style>
 </head>
 <body id="body">
 
-    <div class="menu-trigger" onclick="toggleMenu()">
-        <span></span><span></span><span></span>
-    </div>
+    <header>
+        <a href="#" class="logo-wrap">
+            <img src="https://i.ibb.co/Txzm1B60/0210.jpg" alt="Union Logo" class="logo-img">
+            <span class="logo-text">Union Group</span>
+        </a>
+        <div class="menu-trigger" onclick="toggleMenu()">
+            <span></span><span></span><span></span>
+        </div>
+    </header>
 
     <nav class="full-nav" id="fullNav">
         <ul class="nav-links">
@@ -129,73 +152,126 @@
 
     <main>
         <section class="hero">
-            <h1 class="main-brand-title">
-                <span>Union Group</span>
-                <span class="red-ink">Art Gallery.</span>
-            </h1>
-            <div class="hero-image-box"><div class="hero-image"></div></div>
-            <div class="hero-sub">
-                <h2 style="font-weight: 900;">聯邦藝術中心</h2>
-                <p style="font-family: var(--pen-font); font-size: 2.5rem; color: var(--red);">The Spirit of Realism.</p>
+            <div class="hero-content">
+                <h2 class="hero-subtitle">聯邦藝術中心</h2>
+                <h1 class="hero-title">Union Group<br><span style="color: var(--red);">Art Gallery</span></h1>
+                <p class="hero-desc">深耕本土藝術 ‧ 傳承台灣美學薪火</p>
+                <a href="#main-content" class="cta-btn">立即探索展覽</a>
             </div>
         </section>
 
-        <section class="grid">
+        <section id="main-content" class="section-padding grid">
             <div class="card">
-                <div class="card-ink">Current Exhibition</div>
+                <span class="card-tag">Current Exhibition</span>
                 <h3>【光影交織】<br>第23屆聯邦美術獎</h3>
-                <p>發掘台灣寫實藝術的新力量。</p>
+                <p>獲獎作品展覽，見證台灣當代寫實油畫的新巔峰。</p>
             </div>
-            <div class="card card-red">
-                <div class="card-ink">Open for Entries</div>
-                <h3>聯邦美術獎<br>徵件開始</h3>
-                <p>新人獎與印象大獎，挑戰你的創作巔峰。</p>
+            <div class="card" style="background: var(--gray); border: none;">
+                <span class="card-tag">Call for Entries</span>
+                <h3>聯邦美術獎 徵件中</h3>
+                <p>新人獎與印象大獎正式啟動，誠邀本土藝術家參與。</p>
             </div>
         </section>
 
-        <section style="margin-bottom: 100px;">
-            <h2 class="section-header">Masterpieces</h2>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;">
-                <div style="border-left: 2px solid #000; padding-left: 20px;">
-                    <span style="font-family: var(--pen-font); font-size: 3rem; color: var(--red);">Lin Feng-Cai</span>
-                    <h5 style="font-weight: 900;">林風采 — 鄉土情懷</h5>
+        <section class="section-padding" style="background: #fff; border-top: 1px solid #eee;">
+            <h2 class="section-header">Digital Archive</h2>
+            <p style="margin-top: -30px; margin-bottom: 40px; opacity: 0.5;">線上探索寫實油畫之美</p>
+            <div class="art-grid">
+                <div class="art-item">
+                    <div class="art-img-box"><img src="https://www.ubot.org.tw/blob/ArtCenter/%E8%A8%B1%E5%9D%A4%E6%88%90_%E7%99%BD%E8%89%B2%E7%B3%BB%E5%88%97NO.10.jpg" alt="許坤成"></div>
+                    <div class="art-info"><span>Artist</span><h5>許坤成 — 白色系列 NO.10</h5></div>
                 </div>
-                <div style="border-left: 2px solid #000; padding-left: 20px;">
-                    <span style="font-family: var(--pen-font); font-size: 3rem; color: var(--red);">Chen Xiao-Dong</span>
-                    <h5 style="font-weight: 900;">陳曉東 — 靜物之詩</h5>
+                <div class="art-item">
+                    <div class="art-img-box"><img src="https://www.ubot.org.tw/blob/ArtCenter/%E8%A8%B1%E5%9D%A4%E6%88%90_%E7%99%BD%E8%89%B2%E7%B3%BB%E5%88%97NO.27.jpeg" alt="許坤成"></div>
+                    <div class="art-info"><span>Artist</span><h5>許坤成 — 白色系列 NO.27</h5></div>
                 </div>
+                <div class="art-item">
+                    <div class="art-img-box"><img src="https://www.ubot.org.tw/blob/ArtCenter/%E8%A8%B1%E5%9D%A4%E6%88%90_%E7%99%BD%E8%89%B2%E7%B3%BB%E5%88%97NO.42.jpeg" alt="許坤成"></div>
+                    <div class="art-info"><span>Artist</span><h5>許坤成 — 白色系列 NO.42</h5></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-padding" style="background: var(--gray);">
+            <h2 class="section-header" style="font-size: 3rem;">Selected Masterpieces</h2>
+            <div class="grid" style="margin-top: 20px;">
+                <div style="grid-column: span 4; border-left: 2px solid var(--red); padding-left: 20px;">
+                    <h4 style="font-weight: 900;">林風采 — 鄉土情懷</h4>
+                    <p style="font-size: 0.8rem; opacity: 0.5;">第21屆印象大獎 首獎</p>
+                </div>
+                <div style="grid-column: span 4; border-left: 2px solid var(--red); padding-left: 20px;">
+                    <h4 style="font-weight: 900;">陳曉東 — 靜物之詩</h4>
+                    <p style="font-size: 0.8rem; opacity: 0.5;">第22屆新人獎 優選</p>
+                </div>
+                <div style="grid-column: span 4; border-left: 2px solid var(--red); padding-left: 20px;">
+                    <h4 style="font-weight: 900;">王大明 — 台北街頭</h4>
+                    <p style="font-size: 0.8rem; opacity: 0.5;">2024 年度典藏作品</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-padding">
+            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 30px;">
+                <h2 class="section-header">Latest News</h2>
+                <a href="#" style="text-decoration: none; color: var(--black); font-size: 0.8rem; font-weight: 900;">查看全部公告 →</a>
+            </div>
+            <div class="news-list">
+                <a href="#" class="news-row">
+                    <span class="date">2026.02.26</span>
+                    <span class="tag">評選</span>
+                    <span class="title">第 23 屆聯邦美術獎複審結果公佈</span>
+                </a>
+                <a href="#" class="news-row">
+                    <span class="date">2026.02.15</span>
+                    <span class="tag">展覽</span>
+                    <span class="title">「台灣鄉土之美」寫實油畫聯展：巡迴展資訊</span>
+                </a>
             </div>
         </section>
 
         <footer>
-            <div class="footer-brand">Union Group<br><span style="color:var(--red)">Art Gallery</span></div>
-            <div>
-                <h4>Contact Info</h4>
-                <ul>
-                    <li>台北市大安區忠孝東路四段219號</li>
-                    <li>(02) 2771-8599</li>
-                    <li>週二至週日 10:00 - 19:00</li>
-                </ul>
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-brand">Union Group Art Gallery</div>
+                    <div class="footer-info">
+                        <p style="color: var(--red); font-weight: 900; margin-bottom: 15px;">聯邦藝術中心</p>
+                        <p>台北市大安區忠孝東路四段219號</p>
+                        <p>(02) 2771-8599</p>
+                        <p>週二至週日 10:00 - 19:00 (週一公休)</p>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Explore</h4>
+                    <ul>
+                        <li><a href="#">關於我們</a></li>
+                        <li><a href="#">最新展覽</a></li>
+                        <li><a href="#">合作藝術家</a></li>
+                        <li><a href="#">參觀指引</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Links</h4>
+                    <ul>
+                        <li><a href="#">聯邦銀行官網</a></li>
+                        <li><a href="#">場地租借申請</a></li>
+                        <li><a href="#">隱私權保護政策</a></li>
+                    </ul>
+                </div>
             </div>
-            <div>
-                <h4>Explore</h4>
-                <ul>
-                    <li><a href="#">聯邦銀行官網</a></li>
-                    <li><a href="#">場地租借</a></li>
-                    <li><a href="#">隱私政策</a></li>
-                </ul>
-            </div>
-            <div style="grid-column: 1/-1; text-align: center; opacity: 0.3; font-size: 0.8rem; padding-top: 40px;">
-                © 2026 Union Group Art Gallery
+            <div style="text-align: center; opacity: 0.2; font-size: 0.7rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px;">
+                © 2026 Union Group Art Gallery 聯邦藝術中心 版權所有
             </div>
         </footer>
     </main>
 
     <script>
         function toggleMenu() {
-            document.getElementById('body').classList.toggle('menu-active');
-            document.body.style.overflow = document.getElementById('body').classList.contains('menu-active') ? 'hidden' : 'auto';
+            document.body.classList.toggle('menu-active');
+            const isActive = document.body.classList.contains('menu-active');
+            document.body.style.overflow = isActive ? 'hidden' : 'auto';
         }
     </script>
 </body>
 </html>
+  
+按「預覽」可查看輸入後的效果 ；按「拷貝」可將程式碼剪下貼用 。
