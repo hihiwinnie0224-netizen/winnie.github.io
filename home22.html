@@ -36,7 +36,7 @@
         .bg-slices { position: absolute; inset: 0; display: flex; z-index: 1; }
         .slice { 
             flex: 1; 
-            background: url('https://i.ibb.co/XrsFZkdh/622799593-122094142695246913-5999257336566141825-n.jpg') no-repeat; 
+            background: url('https://i.ibb.co/XrsFZkdh/622799593-122094142695246913-5999257336566141825_n.jpg') no-repeat; 
             background-size: 100vw 100vh; 
             opacity: 0.1; 
             border-left: 1px solid rgba(0,0,0,0.03); 
@@ -47,19 +47,30 @@
         .slice:nth-child(4) { background-position: -60vw 0; }
         .slice:nth-child(5) { background-position: -80vw 0; }
         
-        .portal-ui { position: relative; z-index: 10; text-align: center; }
-        /* 修改：縮小標題字級 */
-        .main-portal-title { font-family: var(--cursive); font-size: clamp(60px, 8vw, 100px); color: var(--light-accent); margin: 0; opacity: 0; transform: translateY(30px); }
+        .portal-ui { position: relative; z-index: 10; text-align: center; padding: 0 20px; }
+        .main-portal-title { font-family: var(--cursive); font-size: clamp(50px, 8vw, 100px); color: var(--light-accent); margin: 0; opacity: 0; transform: translateY(30px); }
         .sub-portal-text { font-family: var(--serif); font-weight: 200; letter-spacing: 12px; color: #999; margin-bottom: 40px; font-size: 16px; opacity: 0; }
         
+        /* 手機版微調標題間距 */
+        @media (max-width: 768px) {
+            .sub-portal-text { letter-spacing: 5px; font-size: 14px; }
+        }
+
         .enter-btn { background: none; border: 1px solid var(--light-accent); padding: 18px 55px; color: var(--light-accent); font-family: var(--serif); letter-spacing: 5px; cursor: pointer; position: relative; overflow: hidden; opacity: 0; transition: 0.3s; font-weight: 700; }
         .enter-btn:hover { color: #fff; border-color: var(--accent); }
         .enter-btn::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: var(--accent); transition: 0.4s; z-index: -1; }
         .enter-btn:hover::before { left: 0; }
 
         /* ===== [2. 導覽列與選單] ===== */
-        .nav-logo { position: fixed; top: 30px; left: 30px; z-index: 10000; width: 110px; opacity: 0; transition: 0.5s; }
-        .menu-btn { position: fixed; top: 30px; right: 30px; z-index: 10001; width: 55px; height: 55px; background: #fff; border: 1px solid var(--border); border-radius: 50%; display: flex; flex-direction: column; justify-content: center; align-items: center; cursor: pointer; opacity: 0; transition: 0.5s; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .nav-logo { position: fixed; top: 20px; left: 20px; z-index: 10000; width: 80px; opacity: 0; transition: 0.5s; }
+        .menu-btn { position: fixed; top: 20px; right: 20px; z-index: 10001; width: 50px; height: 50px; background: #fff; border: 1px solid var(--border); border-radius: 50%; display: flex; flex-direction: column; justify-content: center; align-items: center; cursor: pointer; opacity: 0; transition: 0.5s; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        
+        /* 電腦版放大一點按鈕 */
+        @media (min-width: 992px) {
+            .nav-logo { top: 30px; left: 30px; width: 110px; }
+            .menu-btn { top: 30px; right: 30px; width: 55px; height: 55px; }
+        }
+
         .menu-btn span { width: 22px; height: 1.5px; background: var(--light-accent); margin: 3px; transition: 0.4s; }
 
         .nav-full { position: fixed; inset: 0; background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(15px); z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; clip-path: circle(0% at 90% 10%); transition: 0.8s cubic-bezier(0.7, 0, 0.3, 1); pointer-events: none; }
@@ -69,24 +80,36 @@
         .nav-full a:hover { color: var(--accent); }
 
         /* ===== [3. 主內容區] ===== */
-        .hero { height: 100vh; display: flex; align-items: center; padding: 0 10%; background: var(--bg); position: relative; gap: 50px; }
-        .hero-text h1 { font-family: var(--serif); font-size: clamp(36px, 5.5vw, 64px); line-height: 1.3; margin: 20px 0; font-weight: 900; color: var(--text); }
+        .hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 100px 8% 60px; background: var(--bg); position: relative; gap: 40px; }
         
-        /* 統一英文手寫字體類別 */
-        .cursive-sub { font-family: var(--cursive); font-size: 40px; color: var(--light-accent); display: block; }
-        
-        .hero-img-wrap { flex: 1.2; height: 70vh; position: relative; border-radius: 2px; overflow: hidden; box-shadow: 20px 20px 60px rgba(0,0,0,0.03); border: 15px solid #fff; }
+        @media (min-width: 992px) {
+            .hero { flex-direction: row; height: 100vh; padding: 0 10%; gap: 50px; }
+        }
 
-        .news-section { padding: 100px 10%; background: var(--section-bg); }
-        .news-item-text { display: flex; padding: 40px 0; border-bottom: 1px solid var(--border); transition: 0.4s; align-items: baseline; }
+        .hero-text { text-align: center; }
+        @media (min-width: 992px) { .hero-text { text-align: left; } }
+
+        .hero-text h1 { font-family: var(--serif); font-size: clamp(32px, 5.5vw, 64px); line-height: 1.3; margin: 20px 0; font-weight: 900; color: var(--text); }
+        .cursive-sub { font-family: var(--cursive); font-size: clamp(30px, 5vw, 40px); color: var(--light-accent); display: block; }
+        
+        .hero-img-wrap { width: 100%; height: 45vh; position: relative; border-radius: 2px; overflow: hidden; box-shadow: 20px 20px 60px rgba(0,0,0,0.03); border: 10px solid #fff; }
+        @media (min-width: 992px) { .hero-img-wrap { flex: 1.2; height: 70vh; border: 15px solid #fff; } }
+
+        .news-section { padding: 80px 10%; background: var(--section-bg); }
+        .news-item-text { display: flex; flex-direction: column; padding: 30px 0; border-bottom: 1px solid var(--border); transition: 0.4s; }
+        @media (min-width: 768px) { .news-item-text { flex-direction: row; align-items: baseline; } }
         .news-item-text:hover { background: #FAF9F8; padding-left: 15px; }
 
-        .stage-3d { height: 95vh; display: flex; flex-direction: column; justify-content: center; align-items: center; background: #EFEDE9; perspective: 1200px; overflow: hidden; position: relative; }
-        .ring { position: relative; width: 220px; height: 310px; transform-style: preserve-3d; }
-        .card img { width: 100%; height: 100%; object-fit: cover; border: 10px solid #fff; box-shadow: 0 15px 35px rgba(0,0,0,0.1); transition: 0.5s; cursor: pointer; }
+        .stage-3d { height: 80vh; min-height: 600px; display: flex; flex-direction: column; justify-content: center; align-items: center; background: #EFEDE9; perspective: 1200px; overflow: hidden; position: relative; }
+        .ring { position: relative; width: 180px; height: 250px; transform-style: preserve-3d; }
+        @media (min-width: 768px) { .ring { width: 220px; height: 310px; } }
+        .card img { width: 100%; height: 100%; object-fit: cover; border: 8px solid #fff; box-shadow: 0 15px 35px rgba(0,0,0,0.1); transition: 0.5s; cursor: pointer; }
 
-        footer { background: var(--footer-bg); color: var(--text); padding: 80px 10% 40px; }
-        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; }
+        footer { background: var(--footer-bg); color: var(--text); padding: 60px 8% 40px; }
+        .footer-grid { display: grid; grid-template-columns: 1fr; gap: 40px; }
+        @media (min-width: 768px) { .footer-grid { grid-template-columns: 2fr 1fr 1fr; } }
+        @media (min-width: 992px) { .footer-grid { grid-template-columns: 2fr 1fr 1fr 1fr; } }
+
         .footer-logo-box h2 { font-family: var(--cursive); color: var(--light-accent); font-size: 38px; margin: 0 0 10px; }
         .footer-info-text { font-size: 13.5px; color: #777; line-height: 1.8; margin: 5px 0; }
         .footer-links-column h4 { font-family: var(--serif); font-size: 16px; margin-bottom: 25px; color: var(--text); position: relative; }
@@ -94,8 +117,7 @@
         .footer-links-column ul { list-style: none; padding: 0; margin: 0; }
         .footer-links-column li { margin-bottom: 10px; }
         .footer-links-column a { font-size: 13.5px; color: #888; transition: 0.3s; }
-        .footer-links-column a:hover { color: var(--accent); padding-left: 5px; }
-        .copyright-bar { margin-top: 60px; padding-top: 30px; border-top: 1px solid rgba(0,0,0,0.05); text-align: center; color: #BBB; font-size: 11px; letter-spacing: 1px; }
+        .copyright-bar { margin-top: 40px; padding-top: 30px; border-top: 1px solid rgba(0,0,0,0.05); text-align: center; color: #BBB; font-size: 11px; letter-spacing: 1px; }
     </style>
 </head>
 <body class="locked">
@@ -110,8 +132,6 @@
     <nav class="nav-full">
         <a onclick="scrollToSection('.hero')">關於我們</a>
         <a onclick="scrollToSection('.news-section')">展覽動態</a>
-        <a onclick="scrollToSection('.news-section')">活動資訊</a>
-        <a onclick="scrollToSection('#collection')">藝術家</a>
         <a onclick="scrollToSection('#collection')">作品總覽</a>
         <a onclick="scrollToSection('footer')">參觀資訊</a>
         <a onclick="scrollToSection('footer')">聯絡我們</a>
@@ -133,10 +153,10 @@
             <div class="hero-text">
                 <span class="cursive-sub">Since 1998</span>
                 <h1>本土藝術<br><span style="color:var(--light-accent)">✧ 薪火相傳</span></h1>
-                <p style="color:#888; line-height:2.4; max-width:480px; margin-top:25px; font-weight:300; font-size: 15px;">
+                <p style="color:#888; line-height:2.4; max-width:480px; margin:25px auto 0; font-weight:300; font-size: 15px;">
                     Union Group Art Gallery 致力於挖掘台灣本土優秀藝術人才，透過「聯邦美術新人獎」等賽事，為藝術界注入新血。
                 </p>
-                <button class="enter-btn" style="opacity:1; margin-top:40px; padding:15px 45px;" onclick="scrollToSection('#collection')">探索典藏</button>
+                <button class="enter-btn" style="opacity:1; margin:40px auto 0; display:block; padding:15px 45px;" onclick="scrollToSection('#collection')">探索典藏</button>
             </div>
             <div class="hero-img-wrap">
                 <div class="hero-img" style="width:100%; height:100%; background: url('https://i.ibb.co/XrsFZkdh/622799593_122094142695246913_5999257336566141825_n.jpg') center/cover;"></div>
@@ -150,7 +170,7 @@
             </div>
             <div class="news-list" style="max-width:900px; margin:0 auto;">
                 <div class="news-item-text">
-                    <div style="min-width:140px; color:var(--light-accent); font-family:var(--serif); font-size:14px;">2026.03.15</div>
+                    <div style="min-width:140px; color:var(--light-accent); font-family:var(--serif); font-size:14px; margin-bottom:8px;">2026.03.15</div>
                     <div>
                         <h3 style="margin:0 0 10px; font-family:var(--serif); font-size: 18px;">【徵件】第 28 屆聯邦美術新人獎正式開跑</h3>
                         <p style="color:#888; font-size:15px;">最高獎金 60 萬元，歡迎各界藝術新秀踴躍報名。</p>
@@ -174,36 +194,29 @@
                     <p class="footer-info-text" style="letter-spacing: 2px; color: var(--light-accent); font-weight: 700;">聯邦藝術中心</p>
                     <p class="footer-info-text" style="margin-top: 15px;">地址：台北市大安區忠孝東路四段219號</p>
                     <p class="footer-info-text">電話：(02) 2771-8599</p>
-                    <p class="footer-info-text">時間：週二至週日 10:00 - 19:00<br>(週一及國定假日公休)</p>
                 </div>
                 <div class="footer-links-column">
                     <h4>探索中心</h4>
                     <ul>
                         <li><a onclick="scrollToSection('.hero')">關於我們</a></li>
                         <li><a onclick="scrollToSection('.news-section')">最新展覽</a></li>
-                        <li><a onclick="scrollToSection('#collection')">合作藝術家</a></li>
-                        <li><a onclick="scrollToSection('footer')">參觀指引</a></li>
                     </ul>
                 </div>
                 <div class="footer-links-column">
                     <h4>快速連結</h4>
                     <ul>
                         <li><a href="https://www.ubot.com.tw" target="_blank">聯邦銀行官網</a></li>
-                        <li><a>場地租借申請</a></li>
-                        <li><a>隱私權保護政策</a></li>
                     </ul>
                 </div>
                 <div class="footer-links-column">
                     <h4>追蹤我們</h4>
                     <ul>
-                        <li><a>Facebook</a></li>
-                        <li><a>Instagram</a></li>
-                        <li><a>Line Official</a></li>
+                        <li><a>Facebook</a> / <a>Instagram</a></li>
                     </ul>
                 </div>
             </div>
             <div class="copyright-bar">
-                © 2026 Union Group Art Gallery 聯邦藝術中心 版權所有
+                © 2026 Union Group Art Gallery 版權所有
             </div>
         </footer>
     </main>
@@ -255,12 +268,16 @@
 
         function initGallery() {
             const ring = document.getElementById('ring');
+            // 手機版縮小旋轉半徑
+            const isMobile = window.innerWidth < 768;
+            const radius = isMobile ? 220 : 320;
+
             artworks.forEach((art, i) => {
                 const card = document.createElement('div');
                 card.className = 'card';
                 card.style.position = 'absolute';
                 card.style.inset = '0';
-                card.style.transform = `rotateY(${i * 120}deg) translateZ(320px)`;
+                card.style.transform = `rotateY(${i * 120}deg) translateZ(${radius}px)`;
                 card.innerHTML = `<img src="${art.img}">`;
                 ring.appendChild(card);
             });
@@ -273,6 +290,15 @@
                 onUpdate: () => gsap.set("#ring", { rotationY: ringRotation.val })
             });
         }
+
+        // 監聽視窗縮放，動態調整 3D 距離
+        window.addEventListener('resize', () => {
+            const isMobile = window.innerWidth < 768;
+            const radius = isMobile ? 220 : 320;
+            document.querySelectorAll('.card').forEach((card, i) => {
+                card.style.transform = `rotateY(${i * 120}deg) translateZ(${radius}px)`;
+            });
+        });
     </script>
 </body>
 </html>
