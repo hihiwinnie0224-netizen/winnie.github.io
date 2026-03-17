@@ -23,11 +23,25 @@
             --cursive: 'Ms Madi', cursive; 
         }
         
-        * { box-sizing: border-box; }
+        * { box-sizing: border-box; cursor: none !important; }
         body, html { margin: 0; padding: 0; background: var(--bg); color: var(--text); font-family: 'Noto Sans TC', sans-serif; overflow-x: hidden; scroll-behavior: smooth; }
         
         body.locked { overflow: hidden; height: 100vh; }
         a { text-decoration: none; color: inherit; transition: 0.3s; cursor: pointer; }
+
+        /* ===== [滑鼠效果] ===== */
+        .custom-cursor {
+            position: fixed;
+            width: 25px;
+            height: 25px;
+            border: 1px solid var(--light-accent);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999999;
+            transition: transform 0.1s ease-out;
+            mix-blend-mode: multiply;
+        }
+        @media (max-width: 1024px) { .custom-cursor { display: none; } * { cursor: auto !important; } }
 
         .bg-watermark { position: fixed; font-size: 15vh; font-family: var(--serif); font-weight: 900; color: rgba(157, 138, 177, 0.05); z-index: -1; white-space: nowrap; pointer-events: none; top: 15%; left: -5%; transform: rotate(-5deg); user-select: none; }
 
@@ -36,7 +50,7 @@
         .bg-slices { position: absolute; inset: 0; display: flex; z-index: 1; }
         .slice { 
             flex: 1; 
-            background: url('https://i.ibb.co/XrsFZkdh/622799593-122094142695246913-5999257336566141825_n.jpg') no-repeat; 
+            background: url('https://i.ibb.co/XrsFZkdh/622799593_122094142695246913_5999257336566141825_n.jpg') no-repeat; 
             background-size: 100vw 100vh; 
             opacity: 0.1; 
             border-left: 1px solid rgba(0,0,0,0.03); 
@@ -51,10 +65,7 @@
         .main-portal-title { font-family: var(--cursive); font-size: clamp(50px, 8vw, 100px); color: var(--light-accent); margin: 0; opacity: 0; transform: translateY(30px); }
         .sub-portal-text { font-family: var(--serif); font-weight: 200; letter-spacing: 12px; color: #999; margin-bottom: 40px; font-size: 16px; opacity: 0; }
         
-        /* 手機版微調標題間距 */
-        @media (max-width: 768px) {
-            .sub-portal-text { letter-spacing: 5px; font-size: 14px; }
-        }
+        @media (max-width: 768px) { .sub-portal-text { letter-spacing: 5px; font-size: 14px; } }
 
         .enter-btn { background: none; border: 1px solid var(--light-accent); padding: 18px 55px; color: var(--light-accent); font-family: var(--serif); letter-spacing: 5px; cursor: pointer; position: relative; overflow: hidden; opacity: 0; transition: 0.3s; font-weight: 700; }
         .enter-btn:hover { color: #fff; border-color: var(--accent); }
@@ -65,7 +76,6 @@
         .nav-logo { position: fixed; top: 20px; left: 20px; z-index: 10000; width: 80px; opacity: 0; transition: 0.5s; }
         .menu-btn { position: fixed; top: 20px; right: 20px; z-index: 10001; width: 50px; height: 50px; background: #fff; border: 1px solid var(--border); border-radius: 50%; display: flex; flex-direction: column; justify-content: center; align-items: center; cursor: pointer; opacity: 0; transition: 0.5s; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
         
-        /* 電腦版放大一點按鈕 */
         @media (min-width: 992px) {
             .nav-logo { top: 30px; left: 30px; width: 110px; }
             .menu-btn { top: 30px; right: 30px; width: 55px; height: 55px; }
@@ -81,10 +91,7 @@
 
         /* ===== [3. 主內容區] ===== */
         .hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 100px 8% 60px; background: var(--bg); position: relative; gap: 40px; }
-        
-        @media (min-width: 992px) {
-            .hero { flex-direction: row; height: 100vh; padding: 0 10%; gap: 50px; }
-        }
+        @media (min-width: 992px) { .hero { flex-direction: row; height: 100vh; padding: 0 10%; gap: 50px; } }
 
         .hero-text { text-align: center; }
         @media (min-width: 992px) { .hero-text { text-align: left; } }
@@ -105,23 +112,42 @@
         @media (min-width: 768px) { .ring { width: 220px; height: 310px; } }
         .card img { width: 100%; height: 100%; object-fit: cover; border: 8px solid #fff; box-shadow: 0 15px 35px rgba(0,0,0,0.1); transition: 0.5s; cursor: pointer; }
 
-        footer { background: var(--footer-bg); color: var(--text); padding: 60px 8% 40px; }
+        /* ===== [4. Lightbox 彈窗] ===== */
+        .lightbox {
+            position: fixed; inset: 0; z-index: 2000000; background: rgba(255,255,255,0.85); backdrop-filter: blur(15px);
+            display: none; opacity: 0; justify-content: center; align-items: center; padding: 40px;
+        }
+        .lightbox-content { 
+            max-width: 1000px; width: 100%; display: flex; flex-direction: column; align-items: center; gap: 30px; 
+            background: #fff; padding: 20px; box-shadow: 0 30px 60px rgba(0,0,0,0.1); position: relative;
+        }
+        @media (min-width: 768px) { .lightbox-content { flex-direction: row; padding: 40px; } }
+        .lightbox-img { width: 100%; max-height: 60vh; object-fit: contain; flex: 1; }
+        .lightbox-info { flex: 1; text-align: left; }
+        .lightbox-info h2 { font-family: var(--serif); font-size: 28px; color: var(--text); margin-top: 0; }
+        .lightbox-info p { font-size: 15px; color: #777; line-height: 1.8; }
+        .close-lightbox { position: absolute; top: 20px; right: 20px; font-size: 30px; cursor: pointer; color: var(--light-accent); }
+
+        /* ===== [5. Footer 頁尾] ===== */
+        footer { background: var(--footer-bg); color: var(--text); padding: 80px 8% 40px; border-top: 1px solid var(--border); }
         .footer-grid { display: grid; grid-template-columns: 1fr; gap: 40px; }
         @media (min-width: 768px) { .footer-grid { grid-template-columns: 2fr 1fr 1fr; } }
         @media (min-width: 992px) { .footer-grid { grid-template-columns: 2fr 1fr 1fr 1fr; } }
 
         .footer-logo-box h2 { font-family: var(--cursive); color: var(--light-accent); font-size: 38px; margin: 0 0 10px; }
-        .footer-info-text { font-size: 13.5px; color: #777; line-height: 1.8; margin: 5px 0; }
-        .footer-links-column h4 { font-family: var(--serif); font-size: 16px; margin-bottom: 25px; color: var(--text); position: relative; }
+        .footer-info-text { font-size: 14px; color: #777; line-height: 1.8; margin: 5px 0; }
+        .footer-links-column h4 { font-family: var(--serif); font-size: 16px; margin-bottom: 25px; color: var(--text); position: relative; font-weight: 700; }
         .footer-links-column h4::after { content: ''; position: absolute; bottom: -8px; left: 0; width: 30px; height: 1.5px; background: var(--light-accent); }
         .footer-links-column ul { list-style: none; padding: 0; margin: 0; }
-        .footer-links-column li { margin-bottom: 10px; }
-        .footer-links-column a { font-size: 13.5px; color: #888; transition: 0.3s; }
-        .copyright-bar { margin-top: 40px; padding-top: 30px; border-top: 1px solid rgba(0,0,0,0.05); text-align: center; color: #BBB; font-size: 11px; letter-spacing: 1px; }
+        .footer-links-column li { margin-bottom: 12px; }
+        .footer-links-column a { font-size: 14px; color: #888; transition: 0.3s; }
+        .footer-links-column a:hover { color: var(--accent); padding-left: 5px; }
+        .copyright-bar { margin-top: 60px; padding-top: 30px; border-top: 1px solid rgba(0,0,0,0.05); text-align: center; color: #BBB; font-size: 11px; letter-spacing: 1px; }
     </style>
 </head>
 <body class="locked">
 
+    <div class="custom-cursor" id="cursor"></div>
     <div class="bg-watermark">UNION GROUP ART GALLERY</div>
 
     <img src="https://i.ibb.co/Txzm1B60/0210.jpg" class="nav-logo" id="header-logo">
@@ -132,10 +158,28 @@
     <nav class="nav-full">
         <a onclick="scrollToSection('.hero')">關於我們</a>
         <a onclick="scrollToSection('.news-section')">展覽動態</a>
+        <a onclick="scrollToSection('.news-section')">活動資訊</a>
+        <a onclick="scrollToSection('#collection')">藝術家</a>
         <a onclick="scrollToSection('#collection')">作品總覽</a>
         <a onclick="scrollToSection('footer')">參觀資訊</a>
         <a onclick="scrollToSection('footer')">聯絡我們</a>
     </nav>
+
+    <div class="lightbox" id="art-lightbox">
+        <div class="close-lightbox" onclick="closeLightbox()">✕</div>
+        <div class="lightbox-content">
+            <img src="" class="lightbox-img" id="lb-img">
+            <div class="lightbox-info">
+                <span class="cursive-sub" style="font-size: 20px;">Masterpiece</span>
+                <h2 id="lb-title">作品名稱</h2>
+                <p id="lb-desc">這裡是關於藝術作品的詳細描述。每一幅畫作都承載著藝術家的靈魂與對生命的體悟。透過流暢的線條與細膩的色彩，引領觀者進入一個靜謐的沉思空間。</p>
+                <div style="border-top: 1px solid #eee; padding-top: 20px; margin-top: 20px;">
+                    <p style="margin:0; font-weight:700;">藝術家：許坤成</p>
+                    <p style="margin:0;">系列：白色系列</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div id="art-portal">
         <div class="bg-slices">
@@ -194,42 +238,61 @@
                     <p class="footer-info-text" style="letter-spacing: 2px; color: var(--light-accent); font-weight: 700;">聯邦藝術中心</p>
                     <p class="footer-info-text" style="margin-top: 15px;">地址：台北市大安區忠孝東路四段219號</p>
                     <p class="footer-info-text">電話：(02) 2771-8599</p>
+                    <p class="footer-info-text">時間：週二至週日 10:00 - 19:00<br>(週一及國定假日公休)</p>
                 </div>
                 <div class="footer-links-column">
                     <h4>探索中心</h4>
                     <ul>
                         <li><a onclick="scrollToSection('.hero')">關於我們</a></li>
                         <li><a onclick="scrollToSection('.news-section')">最新展覽</a></li>
+                        <li><a onclick="scrollToSection('#collection')">合作藝術家</a></li>
+                        <li><a onclick="scrollToSection('footer')">參觀指引</a></li>
                     </ul>
                 </div>
                 <div class="footer-links-column">
                     <h4>快速連結</h4>
                     <ul>
                         <li><a href="https://www.ubot.com.tw" target="_blank">聯邦銀行官網</a></li>
+                        <li><a href="#">場地租借申請</a></li>
+                        <li><a href="#">隱私權保護政策</a></li>
                     </ul>
                 </div>
                 <div class="footer-links-column">
                     <h4>追蹤我們</h4>
                     <ul>
-                        <li><a>Facebook</a> / <a>Instagram</a></li>
+                        <li><a href="#">Facebook</a></li>
+                        <li><a href="#">Instagram</a></li>
+                        <li><a href="#">Youtube Channel</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="copyright-bar">
-                © 2026 Union Group Art Gallery 版權所有
-            </div>
+            <div class="copyright-bar">© 2026 Union Group Art Gallery 聯邦藝術中心 版權所有</div>
         </footer>
     </main>
 
     <script>
         gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
+        // ===== 1. 滑鼠跟隨 =====
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', (e) => {
+            gsap.to(cursor, { x: e.clientX - 12, y: e.clientY - 12, duration: 0.2 });
+        });
+        const addCursorHover = (targets) => {
+            targets.forEach(t => {
+                t.addEventListener('mouseenter', () => gsap.to(cursor, { scale: 2, background: 'rgba(157,138,177,0.1)' }));
+                t.addEventListener('mouseleave', () => gsap.to(cursor, { scale: 1, background: 'transparent' }));
+            });
+        }
+
+        // ===== 2. 初始化邏輯 =====
         window.onload = () => {
             gsap.timeline()
                 .to(".main-portal-title", { opacity: 1, y: 0, duration: 1.5, ease: "power3.out" })
                 .to(".sub-portal-text", { opacity: 1, duration: 1 }, "-=0.8")
                 .to(".enter-btn", { opacity: 1, duration: 1 }, "-=0.5");
             initGallery();
+            addCursorHover(document.querySelectorAll('a, button, .menu-btn'));
         };
 
         function exitPortal() {
@@ -237,10 +300,7 @@
                 .to(".portal-ui", { opacity: 0, duration: 0.5 })
                 .to(".slice", { 
                     y: (i) => i % 2 === 0 ? '-100%' : '100%', 
-                    opacity: 0, 
-                    stagger: 0.1, 
-                    duration: 1.2, 
-                    ease: "power4.inOut" 
+                    opacity: 0, stagger: 0.1, duration: 1.2, ease: "power4.inOut" 
                 })
                 .set("#art-portal", { display: "none" })
                 .set("#main-content", { display: "block" })
@@ -260,15 +320,17 @@
             gsap.to(window, { duration: 1.2, scrollTo: target, ease: "power3.inOut" });
         }
 
+        // ===== 3. 作品集與 Lightbox 邏輯 =====
         const artworks = [
-            { img: "https://www.ubot.org.tw/blob/ArtCenter/%E8%A8%B1%E5%9D%A4%E6%88%90_%E7%99%BD%E8%89%B2%E7%B3%BB%E5%88%97NO.10.jpg" },
-            { img: "https://www.ubot.org.tw/blob/ArtCenter/%E8%A8%B1%E5%9D%A4%E6%88%90_%E7%99%BD%E8%89%B2%E7%B3%BB%E5%88%97NO.27.jpeg" },
-            { img: "https://www.ubot.org.tw/blob/ArtCenter/%E8%A8%B1%E5%9D%A4%E6%88%90_%E7%99%BD%E8%89%B2%E7%B3%BB%E5%88%97NO.42.jpeg" }
+            { title: "白色系列 NO.10", img: "https://www.ubot.org.tw/blob/ArtCenter/%E8%A8%B1%E5%9D%A4%E6%88%90_%E7%99%BD%E8%89%B2%E7%B3%BB%E5%88%97NO.10.jpg" },
+            { title: "白色系列 NO.27", img: "https://www.ubot.org.tw/blob/ArtCenter/%E8%A8%B1%E5%9D%A4%E6%88%90_%E7%99%BD%E8%89%B2%E7%B3%BB%E5%88%97NO.27.jpeg" },
+            { title: "白色系列 NO.42", img: "https://www.ubot.org.tw/blob/ArtCenter/%E8%A8%B1%E5%9D%A4%E6%88%90_%E7%99%BD%E8%89%B2%E7%B3%BB%E5%88%97NO.42.jpeg" }
         ];
+
+        let ringTween; 
 
         function initGallery() {
             const ring = document.getElementById('ring');
-            // 手機版縮小旋轉半徑
             const isMobile = window.innerWidth < 768;
             const radius = isMobile ? 220 : 320;
 
@@ -279,19 +341,39 @@
                 card.style.inset = '0';
                 card.style.transform = `rotateY(${i * 120}deg) translateZ(${radius}px)`;
                 card.innerHTML = `<img src="${art.img}">`;
+                card.onclick = () => openLightbox(art);
                 ring.appendChild(card);
             });
+            addCursorHover(document.querySelectorAll('.card img'));
         }
 
         let ringRotation = { val: 0 };
         function startRingRotation() {
-            gsap.to(ringRotation, {
+            ringTween = gsap.to(ringRotation, {
                 val: 360, duration: 50, repeat: -1, ease: "none",
                 onUpdate: () => gsap.set("#ring", { rotationY: ringRotation.val })
             });
         }
 
-        // 監聽視窗縮放，動態調整 3D 距離
+        function openLightbox(art) {
+            const lb = document.getElementById('art-lightbox');
+            document.getElementById('lb-img').src = art.img;
+            document.getElementById('lb-title').innerText = art.title;
+            if(ringTween) ringTween.pause();
+            lb.style.display = "flex";
+            gsap.to(lb, { opacity: 1, duration: 0.5 });
+            document.body.style.overflow = "hidden";
+        }
+
+        function closeLightbox() {
+            const lb = document.getElementById('art-lightbox');
+            gsap.to(lb, { opacity: 0, duration: 0.4, onComplete: () => {
+                lb.style.display = "none";
+                if(ringTween) ringTween.play();
+                document.body.style.overflow = "auto";
+            }});
+        }
+
         window.addEventListener('resize', () => {
             const isMobile = window.innerWidth < 768;
             const radius = isMobile ? 220 : 320;
