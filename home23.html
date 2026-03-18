@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Union Group Art Gallery | 聯邦藝術中心</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@1,400;1,700&family=Noto+Sans+TC:wght@300;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+
+    <style>
+        :root {
+            --bg: #F5F5F3;
+            --text: #111111;
+            --gold: #A68B67;
+            --glass: rgba(255, 255, 255, 0.85);
+            --font-serif: 'Bodoni Moda', serif;
+            --font-tc: 'Noto Sans TC', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { 
+            background: var(--bg); 
+            color: var(--text); 
+            font-family: var(--font-tc); 
+            overflow-x: hidden; 
+        }
+
+        /* --- 進場引導樣式 --- */
+        #montage-loader {
+            position: fixed; inset: 0; background: #fff; z-index: 10000;
+            display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(2, 1fr);
+            gap: 10px; padding: 10px; pointer-events: none;
+        }
+        .montage-tile { position: relative; overflow: hidden; opacity: 0; transform: scale(1.1); background: #eee; }
+        .montage-tile img { width: 100%; height: 100%; object-fit: cover; }
+        .loader-logo {
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            z-index: 10001; text-align: center; pointer-events: none;
+        }
+
+        /* --- 導覽與 Hero --- */
+        .main-content { opacity: 0; }
+        nav { 
+            position: fixed; top: 0; width: 100%; padding: 25px 50px; 
+            display: flex; justify-content: space-between; align-items: center; 
+            z-index: 1000; background: var(--glass); backdrop-filter: blur(10px); 
+            border-bottom: 1px solid rgba(0,0,0,0.05); transform: translateY(-100%); 
+        }
+        .logo { font-family: var(--font-serif); font-weight: 700; font-size: 1.4rem; letter-spacing: 1px; }
+        .nav-links { display: flex; gap: 30px; font-size: 0.9rem; font-weight: 700; }
+        .nav-links div { cursor: pointer; transition: 0.3s; }
+        .nav-links div:hover { color: var(--gold); }
+        
+        #hero { 
+            height: 100vh; display: flex; align-items: center; justify-content: center; 
+            position: relative; overflow: hidden; 
+        }
+        .hero-title { font-size: 8vw; font-family: var(--font-serif); line-height: 1; text-align: center; z-index: 10; }
+        .marquee-bg { 
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-5deg); 
+            width: 150vw; opacity: 0.03; font-size: 10vw; font-weight: 900; 
+            white-space: nowrap; pointer-events: none; 
+        }
+
+        /* --- 當期特展 --- */
+        #exhibition { 
+            background: #eeedea; perspective: 1200px; width: 100%; 
+            min-height: 100vh; position: relative; display: flex; 
+            align-items: center; justify-content: center; overflow: hidden; 
+        }
+        .tunnel-img { position: absolute; width: 320px; height: 440px; box-shadow: 0 30px 60px rgba(0,0,0,0.15); z-index: 5; }
+        .tunnel-img img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* --- 精選典藏 --- */
+        #collection { width: 100%; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 120px 0; }
+        .pixel-container { width: 85%; display: grid; grid-template-columns: repeat(3, 1fr); gap: 60px; }
+        .pixel-art-wrapper { position: relative; background: #fff; padding: 15px; box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
+        .pixel-image-box { width: 100%; aspect-ratio: 3/4; overflow: hidden; position: relative; background: #eee; }
+        .pixel-image-box img { width: 100%; height: 100%; object-fit: cover; }
+        .pixel-shards { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(8, 1fr); grid-template-rows: repeat(8, 1fr); pointer-events: none; }
+        .shard { background: var(--bg); border: 0.5px solid var(--bg); }
+
+        /* --- 最新消息 --- */
+        #news { padding: 120px 10%; background: #fff; position: relative; min-height: 80vh; }
+        .news-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 50px; border-bottom: 1px solid #eee; padding-bottom: 20px; }
+        .news-item { display: flex; gap: 40px; padding: 35px 0; border-bottom: 1px solid #f0f0f0; text-decoration: none; color: inherit; transition: 0.4s ease; opacity: 0; transform: translateY(30px); }
+        .news-tag { background: var(--gold); color: #fff; padding: 4px 12px; font-size: 12px; height: fit-content; letter-spacing: 1px; }
+        .news-date { font-family: var(--font-serif); font-weight: 700; color: #999; width: 120px; font-style: italic; }
+        .news-title { font-size: 1.2rem; font-weight: 700; }
+        .news-item:hover { padding-left: 20px; background: rgba(166,139,103,0.03); color: var(--gold); }
+
+        /* --- 數位典藏 --- */
+        #digital-archive { position: relative; padding: 120px 0; background-color: #111; color: #ffffff; overflow: hidden; }
+        .gallery-track { display: flex; gap: 40px; width: max-content; }
+        .gallery-item { flex: 0 0 400px; height: 520px; background: #222; overflow: hidden; border: 1px solid #333; transition: 0.5s; }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; transition: 0.8s; }
+        .gallery-item:hover img { opacity: 1; transform: scale(1.05); }
+
+        .archive-dots { display: flex; justify-content: center; gap: 12px; margin-top: 50px; }
+        .arch-dot { width: 6px; height: 6px; background: rgba(255,255,255,0.2); border-radius: 50%; transition: 0.4s; }
+        .arch-dot.active { width: 30px; background: var(--gold); border-radius: 3px; }
+
+        footer { background: #f9f9f9; padding: 80px 10%; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 50px; border-top: 1px solid #eee; }
+    </style>
+</head>
+<body>
+
+    <div id="montage-loader">
+        <div class="montage-tile"><img src="https://www.ubot.org.tw/blob/ArtCenter/%E7%A5%81%E9%80%A3_%E8%83%BD%E4%B9%85%E8%A6%AA%E7%8E%8B%E9%80%B2%E5%8F%B0%E5%8C%97%E5%9F%8E.jpg"></div>
+        <div class="montage-tile"><img src="https://www.ubot.org.tw/blob/ArtCenter/%E5%90%B3%E7%BE%BD%E5%AE%B8_%E5%85%B1%E9%A4%90.jpeg"></div>
+        <div class="montage-tile"><img src="https://www.ubot.org.tw/blob/ArtCenter/%E5%90%B3%E4%BD%A9%E7%8F%8A_%E7%8E%89%E5%B1%B1%E9%9B%B2%E9%9C%9E%E6%BC%AB%E8%88%9E.jpg"></div>
+        <div class="montage-tile"><img src="https://www.ubot.org.tw/blob/ArtCenter/%E5%90%B3%E4%BD%A9%E7%8F%8A_%E7%8E%89%E5%B1%B1%E9%87%91%E5%85%89%E5%88%9D%E7%8F%BE.jpg"></div>
+        <div class="montage-tile"><img src="https://www.ubot.org.tw/blob/ArtCenter/%E5%90%B3%E4%BD%A9%E7%8F%8A_%E7%8E%89%E5%B1%B1%E9%9B%B2%E9%9C%9E%E6%BC%AB%E8%88%9E.jpg"></div>
+        <div class="montage-tile"><img src="https://www.ubot.org.tw/blob/ArtCenter/%E7%A5%81%E9%80%A3_%E8%83%BD%E4%B9%85%E8%A6%AA%E7%8E%8B%E9%80%B2%E5%8F%B0%E5%8C%97%E5%9F%8E.jpg"></div>
+        <div class="montage-tile"><img src="https://www.ubot.org.tw/blob/ArtCenter/%E5%90%B3%E7%BE%BD%E5%AE%B8_%E5%85%B1%E9%A4%90.jpeg"></div>
+        <div class="montage-tile"><img src="https://www.ubot.org.tw/blob/ArtCenter/%E5%90%B3%E4%BD%A9%E7%8F%8A_%E7%8E%89%E5%B1%B1%E9%87%91%E5%85%89%E5%88%9D%E7%8F%BE.jpg"></div>
+    </div>
+
+    <div class="loader-logo">
+        <h1 style="font-family: var(--font-serif); font-style: italic; font-size: 3rem;">Union Art Gallery</h1>
+        <p style="letter-spacing: 10px; margin-top: 10px; color: var(--gold);">LOADING BEAUTY</p>
+    </div>
+
+    <div class="main-content" id="main-site">
+        <nav>
+            <div class="logo">Union Group Art Gallery</div>
+            <div class="nav-links">
+                <div onclick="gsap.to(window, {scrollTo: '#hero', duration: 1})">關於我們</div>
+                <div onclick="gsap.to(window, {scrollTo: '#exhibition', duration: 1})">展覽動態</div>
+                <div onclick="gsap.to(window, {scrollTo: '#collection', duration: 1})">典藏匯聚</div>
+                <div onclick="gsap.to(window, {scrollTo: '#news', duration: 1})">最新消息</div>
+                <div onclick="gsap.to(window, {scrollTo: '#digital-archive', duration: 1})">數位典藏</div>
+            </div>
+        </nav>
+
+        <section id="hero">
+            <div class="marquee-bg" id="marquee">UNION ART GALLERY ⊹ UNSEEN BEAUTY ⊹ TAIWAN AESTHETICS ⊹</div>
+            <h1 class="hero-title">AESTHETICS<br><span style="color:var(--gold); margin-left: 10vw;">REDEFINED</span></h1>
+            <div style="position:absolute; bottom: 15%; text-align:center;">
+                <p style="letter-spacing: 8px; color: var(--gold); font-weight: 700;">深耕本土藝術 ‧ 傳承台灣美學</p>
+            </div>
+        </section>
+
+        <section id="exhibition">
+            <div class="tunnel-img t1" style="top:8%; left:8%;"><img src="https://www.ubot.org.tw/blob/ArtCenter/%E7%A5%81%E9%80%A3_%E8%83%BD%E4%B9%85%E8%A6%AA%E7%8E%8B%E9%80%B2%E5%8F%B0%E5%8C%97%E5%9F%8E.jpg"></div>
+            <div class="tunnel-img t2" style="bottom:8%; left:12%;"><img src="https://www.ubot.org.tw/blob/ArtCenter/%E5%90%B3%E7%BE%BD%E5%AE%B8_%E5%85%B1%E9%A4%90.jpeg"></div>
+            <div class="tunnel-img t3" style="top:5%; right:10%;"><img src="https://www.ubot.org.tw/blob/ArtCenter/%E5%90%B3%E4%BD%A9%E7%8F%8A_%E7%8E%89%E5%B1%B1%E9%9B%B2%E9%9C%9E%E6%BC%AB%E8%88%9E.jpg"></div>
+            <div class="tunnel-img t4" style="bottom:12%; right:8%;"><img src="https://www.ubot.org.tw/blob/ArtCenter/%E5%90%B3%E4%BD%A9%E7%8F%8A_%E7%8E%89%E5%B1%B1%E9%87%91%E5%85%89%E5%88%9D%E7%8F%BE.jpg"></div>
+            
+            <div style="z-index:10; text-align:center; background: rgba(245,245,243,0.7); padding: 40px; backdrop-filter: blur(10px); border: 1px solid rgba(166,139,103,0.2);">
+                <h3 style="letter-spacing: 5px; font-weight: 300; color: #666;">CURRENT EXHIBITION</h3>
+                <h2 style="font-size: 3.5rem; font-family: 'Bodoni Moda', serif; margin: 20px 0;">【 光 影 交 織 】</h2>
+                <p style="font-size: 1.2rem; letter-spacing: 2px;">第 23 屆聯邦美術獎獲獎作品巡迴展</p>
+            </div>
+        </section>
+
+        <section id="collection">
+            <div class="pixel-container">
+                <div class="pixel-art-wrapper">
+                    <div class="pixel-image-box">
+                        <img src="https://www.ubot.org.tw/blob/ArtCenter/%E5%90%B3%E4%BD%A9%E7%8F%8A_%E7%8E%89%E5%B1%B1%E9%9B%B2%E9%9C%9E%E6%BC%AB%E8%88%9E.jpg">
+                        <div class="pixel-shards"></div>
+                    </div>
+                    <div style="margin-top:20px; text-align:center;">
+                        <h3 style="font-family: 'Bodoni Moda', serif;">Jade Mountain Dance</h3>
+                        <p style="color:#A68B67; font-size: 14px; margin-top:5px;">吳佩珊 | 2024 典藏</p>
+                    </div>
+                </div>
+                <div class="pixel-art-wrapper">
+                    <div class="pixel-image-box">
+                        <img src="https://www.ubot.org.tw/blob/ArtCenter/%E5%90%B3%E7%BE%BD%E5%AE%B8_%E5%85%B1%E9%A4%90.jpeg">
+                        <div class="pixel-shards"></div>
+                    </div>
+                    <div style="margin-top:20px; text-align:center;">
+                        <h3 style="font-family: 'Bodoni Moda', serif;">The Dinner</h3>
+                        <p style="color:#A68B67; font-size: 14px; margin-top:5px;">吳羽宸 | 2024 典藏</p>
+                    </div>
+                </div>
+                <div class="pixel-art-wrapper">
+                    <div class="pixel-image-box">
+                        <img src="https://www.ubot.org.tw/blob/ArtCenter/%E5%90%B3%E4%BD%A9%E7%8F%8A_%E7%8E%89%E5%B1%B1%E9%87%91%E5%85%89%E5%88%9D%E7%8F%BE.jpg">
+                        <div class="pixel-shards"></div>
+                    </div>
+                    <div style="margin-top:20px; text-align:center;">
+                        <h3 style="font-family: 'Bodoni Moda', serif;">Golden Peak</h3>
+                        <p style="color:#A68B67; font-size: 14px; margin-top:5px;">吳佩珊 | 2024 典藏</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="news">
+            <div class="news-header">
+                <div>
+                    <h2 style="font-family: var(--font-serif); font-size: 2.5rem;">Latest News</h2>
+                    <p style="color: var(--gold); letter-spacing: 3px;">最新動態與藝術紀實</p>
+                </div>
+                <a href="#" style="text-decoration: none; color: #999; font-size: 0.9rem;">VIEW ALL +</a>
+            </div>
+
+            <div class="news-list">
+                <a href="#" class="news-item">
+                    <span class="news-date">MAR 15, 2026</span>
+                    <span class="news-tag">展覽訊息</span>
+                    <span class="news-title">「光影交織」巡迴展首站於台北總部正式開幕</span>
+                </a>
+                <a href="#" class="news-item">
+                    <span class="news-date">MAR 08, 2026</span>
+                    <span class="news-tag">藝術獎項</span>
+                    <span class="news-title">第 24 屆聯邦美術新人獎開始徵件，歡迎青年創作者參與</span>
+                </a>
+                <a href="#" class="news-item">
+                    <span class="news-date">FEB 20, 2026</span>
+                    <span class="news-tag">中心公告</span>
+                    <span class="news-title">清明連假期間開館時間調整公告</span>
+                </a>
+            </div>
+        </section>
+
+        <section id="digital-archive">
+            <div style="max-width: 1400px; margin: 0 auto; padding: 0 40px;">
+                <h2 style="text-align: center; font-size: 2.8rem; font-family: var(--font-serif); margin-bottom: 10px;">數位典藏 ⊹ 沉浸式藝廊</h2>
+                <p style="text-align: center; opacity: 0.6; letter-spacing: 4px; margin-bottom: 60px; font-weight: 300;">THE VIRTUAL COLLECTION OF TAIWANESE MASTERPIECES</p>
+                
+                <div class="gallery-container">
+                    <div class="gallery-track" id="galleryTrack">
+                        <div class="gallery-item"><img src="https://www.ubot.org.tw/blob/ArtCenter/%E8%A8%B1%E5%9D%A4%E6%88%90_%E7%99%BD%E8%89%B2%E7%B3%BB%E5%88%97NO.10.jpg"></div>
+                        <div class="gallery-item"><img src="https://www.ubot.org.tw/blob/ArtCenter/%E8%A8%B1%E5%9D%A4%E6%88%90_%E7%99%BD%E8%89%B2%E7%B3%BB%E5%88%97NO.27.jpeg"></div>
+                        <div class="gallery-item"><img src="https://www.ubot.org.tw/blob/ArtCenter/%E8%A8%B1%E5%9D%A4%E6%88%90_%E7%99%BD%E8%89%B2%E7%B3%BB%E5%88%97NO.42.jpeg"></div>
+                        <div class="gallery-item"><img src="https://www.ubot.org.tw/blob/ArtCenter/%E5%90%B3%E4%BD%A9%E7%8F%8A_%E7%8E%89%E5%B1%B1%E9%9B%B2%E9%9C%9E%E6%BC%AB%E8%88%9E.jpg"></div>
+                        <div class="gallery-item"><img src="https://www.ubot.org.tw/blob/ArtCenter/%E7%A5%81%E9%80%A3_%E8%83%BD%E4%B9%85%E8%A6%AA%E7%8E%8B%E9%80%B2%E5%8F%B0%E5%8C%97%E5%9F%8E.jpg"></div>
+                        <div class="gallery-item"><img src="https://www.ubot.org.tw/blob/ArtCenter/%E8%A8%B1%E5%9D%A4%E6%88%90_%E7%99%BD%E8%89%B2%E7%B3%BB%E5%88%97NO.10.jpg"></div>
+                        <div class="gallery-item"><img src="https://www.ubot.org.tw/blob/ArtCenter/%E8%A8%B1%E5%9D%A4%E6%88%90_%E7%99%BD%E8%89%B2%E7%B3%BB%E5%88%97NO.27.jpeg"></div>
+                    </div>
+                </div>
+
+                <div class="archive-dots" id="archiveDots"></div>
+            </div>
+        </section>
+
+        <footer>
+            <div>
+                <h4 style="color: var(--gold); font-size: 1.5rem; margin-bottom: 15px;">UNION GROUP ART GALLERY</h4>
+                <p>地址：台北市大安區忠孝東路四段219號</p>
+                <p>電話：(02) 2771-8599</p>
+                <p>時間：週二至週日 10:00 - 19:00</p>
+                <p style="font-size: 0.7rem; margin-top: 20px;">© 2026 Union Group Art Gallery 版權所有</p>
+            </div>
+            <div>
+                <h4 style="margin-bottom: 15px;">探索中心</h4>
+                <ul style="list-style: none; line-height: 2;"><li>關於我們</li><li>最新展覽</li><li>合作藝術家</li><li>參觀指引</li></ul>
+            </div>
+            <div>
+                <h4 style="margin-bottom: 15px;">快速連結</h4>
+                <ul style="list-style: none; line-height: 2;"><li>聯邦銀行官網</li><li>場地租借申請</li><li>隱私權保護政策</li></ul>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
+        // 1. 進場動畫
+        function initIntro() {
+            const tiles = gsap.utils.toArray(".montage-tile");
+            const tl = gsap.timeline();
+
+            tl.to(tiles, {
+                opacity: 1, scale: 1, duration: 0.8, 
+                stagger: { amount: 1, grid: [2, 4], from: "random" },
+                ease: "power2.out"
+            })
+            .to(".loader-logo", { opacity: 0, y: -20, duration: 0.5 }, "+=0.5")
+            .to(tiles, {
+                yPercent: -100, stagger: 0.05, duration: 1, ease: "expo.inOut"
+            })
+            .to(".main-content", { opacity: 1, duration: 0.5 }, "-=0.5")
+            .to("nav", { y: 0, duration: 0.8 }, "-=0.3")
+            .set("#montage-loader", { display: "none" });
+        }
+
+        // 2. 修正滾動偵測邏輯：移除側邊導覽，改為優化區塊進場偵測
+        function initScrollEffects() {
+            // 所有區塊的進場淡入優化
+            const sections = gsap.utils.toArray("section");
+            sections.forEach(section => {
+                if(section.id === 'hero') return; // Hero 不需要再次淡入
+                
+                gsap.from(section, {
+                    opacity: 0,
+                    y: 50,
+                    duration: 1.2,
+                    ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: section,
+                        start: "top 80%", // 當區塊進入視窗 80% 時觸發
+                        toggleActions: "play none none none"
+                    }
+                });
+            });
+        }
+
+        // 3. 最新消息進場
+        function initNews() {
+            gsap.to(".news-item", {
+                opacity: 1,
+                y: 0,
+                stagger: 0.2,
+                duration: 1,
+                scrollTrigger: {
+                    trigger: "#news",
+                    start: "top 70%"
+                }
+            });
+        }
+
+        // 4. 當期特展飛散動畫
+        function initExhibition() {
+            const exhibitionTL = gsap.timeline({
+                scrollTrigger: {
+                    trigger: "#exhibition",
+                    start: "top top",
+                    end: "+=1500", 
+                    scrub: 1,
+                    pin: true,
+                    anticipatePin: 1
+                }
+            });
+
+            exhibitionTL
+                .to(".t1", { x: -350, y: -350, z: 1000, opacity: 0, rotate: -20 }, 0)
+                .to(".t2", { x: -450, y: 350, z: 1000, opacity: 0, rotate: 20 }, 0)
+                .to(".t3", { x: 450, y: -350, z: 1000, opacity: 0, rotate: 15 }, 0)
+                .to(".t4", { x: 350, y: 350, z: 1000, opacity: 0, rotate: -15 }, 0);
+        }
+
+        // 5. 典藏區塊碎裂效果
+        function initCollection() {
+            document.querySelectorAll(".pixel-shards").forEach(container => {
+                for(let i=0; i<64; i++) {
+                    const shard = document.createElement("div");
+                    shard.classList.add("shard");
+                    container.appendChild(shard);
+                }
+            });
+
+            document.querySelectorAll(".pixel-art-wrapper").forEach((wrapper) => {
+                const shards = wrapper.querySelectorAll(".shard");
+                gsap.to(shards, {
+                    scale: 0, opacity: 0, rotate: () => Math.random() * 90,
+                    stagger: { amount: 0.8, from: "center", grid: [8, 8] },
+                    scrollTrigger: {
+                        trigger: wrapper,
+                        start: "top 70%",
+                        toggleActions: "play none none reverse"
+                    }
+                });
+            });
+        }
+
+        // 6. 數位典藏
+        function initDigitalArchive() {
+            const track = document.getElementById("galleryTrack");
+            const dotsContainer = document.getElementById("archiveDots");
+            const itemCount = 5; 
+
+            for (let i = 0; i < itemCount; i++) {
+                const d = document.createElement("div");
+                d.classList.add("arch-dot");
+                if(i===0) d.classList.add("active");
+                dotsContainer.appendChild(d);
+            }
+
+            const dots = document.querySelectorAll(".arch-dot");
+            const singleWidth = 440; 
+            const totalWidth = singleWidth * itemCount;
+
+            const loop = gsap.to(track, {
+                x: -totalWidth,
+                duration: 25,
+                ease: "none",
+                repeat: -1,
+                onUpdate: function() {
+                    const progress = Math.abs(gsap.getProperty(track, "x") / totalWidth);
+                    const activeIndex = Math.floor((progress * itemCount) % itemCount);
+                    dots.forEach((dot, idx) => dot.classList.toggle("active", idx === activeIndex));
+                }
+            });
+
+            track.addEventListener("mouseenter", () => loop.pause());
+            track.addEventListener("mouseleave", () => loop.play());
+        }
+
+        window.onload = () => {
+            initIntro();
+            initScrollEffects();
+            initExhibition();
+            initCollection();
+            initNews();
+            initDigitalArchive();
+            // Marquee animation
+            gsap.to("#marquee", { xPercent: -20, repeat: -1, duration: 30, ease: "linear" });
+        };
+    </script>
+</body>
+</html>
