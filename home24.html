@@ -59,11 +59,17 @@
         .logo { font-family: var(--font-serif); font-weight: 700; font-size: 1.1rem; letter-spacing: 1px; }
         @media (min-width: 768px) { .logo { font-size: 1.4rem; } }
 
-        /* 手機導覽列優化 */
+        /* 導覽列優化 */
         .nav-links { display: none; gap: 30px; font-size: 0.9rem; font-weight: 700; }
         @media (min-width: 1024px) { .nav-links { display: flex; } }
         .nav-links div { cursor: pointer; transition: 0.3s; }
         .nav-links div:hover { color: var(--gold); }
+        
+        .mobile-menu-btn { 
+            font-size: 0.7rem; color: var(--gold); border: 1px solid var(--gold); 
+            padding: 4px 10px; border-radius: 4px; font-weight: 700;
+        }
+        @media (min-width: 1024px) { .mobile-menu-btn { display: none; } }
         
         #hero { 
             height: 100vh; display: flex; align-items: center; justify-content: center; 
@@ -74,7 +80,7 @@
 
         .marquee-bg { 
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-5deg); 
-            width: 200vw; opacity: 0.03; font-size: 12vw; font-weight: 900; 
+            width: 250vw; opacity: 0.03; font-size: 12vw; font-weight: 900; 
             white-space: nowrap; pointer-events: none; 
         }
 
@@ -121,10 +127,16 @@
 
         /* --- 數位典藏 --- */
         #digital-archive { position: relative; padding: 80px 0; background-color: #111; color: #ffffff; overflow: hidden; }
+        .gallery-container { overflow: hidden; width: 100%; }
         .gallery-track { display: flex; gap: 20px; width: max-content; padding-left: 20px; }
-        .gallery-item { flex: 0 0 280px; height: 380px; background: #222; overflow: hidden; border: 1px solid #333; transition: 0.5s; }
+        .gallery-item { flex: 0 0 280px; height: 380px; background: #222; overflow: hidden; border: 1px solid #333; }
         @media (min-width: 768px) { .gallery-item { flex: 0 0 400px; height: 520px; } }
         .gallery-item img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; transition: 0.8s; }
+        .gallery-item:hover img { opacity: 1; transform: scale(1.05); }
+
+        .archive-dots { display: flex; justify-content: center; gap: 10px; margin-top: 30px; }
+        .arch-dot { width: 6px; height: 6px; background: #333; border-radius: 50%; transition: 0.3s; }
+        .arch-dot.active { background: var(--gold); width: 20px; border-radius: 10px; }
 
         footer { background: #f9f9f9; padding: 60px 10%; display: grid; grid-template-columns: 1fr; gap: 40px; border-top: 1px solid #eee; }
         @media (min-width: 768px) { footer { grid-template-columns: 2fr 1fr 1fr; gap: 50px; } }
@@ -137,7 +149,7 @@
         <div class="montage-tile"><img src="https://www.ubot.org.tw/blob/ArtCenter/%E5%90%B3%E7%BE%BD%E5%AE%B8_%E5%85%B1%E9%A4%90.jpeg"></div>
         <div class="montage-tile"><img src="https://www.ubot.org.tw/blob/ArtCenter/%E5%90%B3%E4%BD%A9%E7%8F%8A_%E7%8E%89%E5%B1%B1%E9%9B%B2%E9%9C%9E%E6%BC%AB%E8%88%9E.jpg"></div>
         <div class="montage-tile"><img src="https://www.ubot.org.tw/blob/ArtCenter/%E5%90%B3%E4%BD%A9%E7%8F%8A_%E7%8E%89%E5%B1%B1%E9%87%91%E5%85%89%E5%88%9D%E7%8F%BE.jpg"></div>
-        <div class="montage-tile"><img src="https://www.ubot.org.tw/blob/ArtCenter/%E5%90%B3%E4%BD%A9%E7%8F%8A_%E7%8E%89%E5%B1%B1%E9%9B%B2%E9%9C%9E%E6%BC%AB%E8%88%9E.jpg"></div>
+        <div class="montage-tile"><img src="https://www.ubot.org.tw/blob/ArtCenter/%E8%A8%B1%E5%9D%A4%E6%88%90_%E7%99%BD%E8%89%B2%E7%B3%BB%E5%88%97NO.42.jpeg"></div>
         <div class="montage-tile"><img src="https://www.ubot.org.tw/blob/ArtCenter/%E7%A5%81%E9%80%A3_%E8%83%BD%E4%B9%85%E8%A6%AA%E7%8E%8B%E9%80%B2%E5%8F%B0%E5%8C%97%E5%9F%8E.jpg"></div>
         <div class="montage-tile"><img src="https://www.ubot.org.tw/blob/ArtCenter/%E5%90%B3%E7%BE%BD%E5%AE%B8_%E5%85%B1%E9%A4%90.jpeg"></div>
         <div class="montage-tile"><img src="https://www.ubot.org.tw/blob/ArtCenter/%E5%90%B3%E4%BD%A9%E7%8F%8A_%E7%8E%89%E5%B1%B1%E9%87%91%E5%85%89%E5%88%9D%E7%8F%BE.jpg"></div>
@@ -158,7 +170,7 @@
                 <div onclick="gsap.to(window, {scrollTo: '#news', duration: 1})">最新消息</div>
                 <div onclick="gsap.to(window, {scrollTo: '#digital-archive', duration: 1})">數位典藏</div>
             </div>
-            <div style="font-size: 0.7rem; color: var(--gold); border: 1px solid var(--gold); padding: 4px 8px; border-radius: 4px;" class="mobile-only">MENU</div>
+            <div class="mobile-menu-btn">MENU</div>
         </nav>
 
         <section id="hero">
@@ -305,16 +317,16 @@
             .set("#montage-loader", { display: "none" });
         }
 
-        // 2. 滾動偵測優化
+        // 2. 滾動偵測與區塊進入動畫
         function initScrollEffects() {
             const sections = gsap.utils.toArray("section");
             sections.forEach(section => {
-                if(section.id === 'hero') return;
+                if(section.id === 'hero' || section.id === 'exhibition') return; // Skip hero and exhibition(pinned)
                 
                 gsap.from(section, {
                     opacity: 0,
                     y: 30,
-                    duration: 1,
+                    duration: 1.2,
                     ease: "power3.out",
                     scrollTrigger: {
                         trigger: section,
@@ -353,7 +365,7 @@
                 }
             });
 
-            const moveVal = isMobile ? 200 : 400;
+            const moveVal = isMobile ? 250 : 500;
 
             exhibitionTL
                 .to(".t1", { x: -moveVal, y: -moveVal, z: 800, opacity: 0, rotate: -20 }, 0)
@@ -393,6 +405,9 @@
             const items = document.querySelectorAll(".gallery-item");
             const itemCount = items.length;
 
+            if(!track || items.length === 0) return;
+
+            // 生成點點
             for (let i = 0; i < itemCount; i++) {
                 const d = document.createElement("div");
                 d.classList.add("arch-dot");
@@ -406,7 +421,7 @@
 
             const loop = gsap.to(track, {
                 x: -totalScroll,
-                duration: 20,
+                duration: 25,
                 ease: "none",
                 repeat: -1,
                 yoyo: true,
@@ -417,6 +432,7 @@
                 }
             });
 
+            // 手機觸碰暫停
             track.addEventListener("touchstart", () => loop.pause());
             track.addEventListener("touchend", () => loop.play());
         }
@@ -428,8 +444,20 @@
             initCollection();
             initNews();
             initDigitalArchive();
-            gsap.to("#marquee", { xPercent: -30, repeat: -1, duration: 40, ease: "linear" });
+            
+            // Marquee 背景動畫
+            gsap.to("#marquee", { 
+                xPercent: -20, 
+                repeat: -1, 
+                duration: 30, 
+                ease: "linear" 
+            });
         };
+
+        // 處理視窗大小改變
+        window.addEventListener('resize', () => {
+            ScrollTrigger.refresh();
+        });
     </script>
 </body>
 </html>
