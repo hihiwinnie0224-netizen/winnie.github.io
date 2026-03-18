@@ -30,7 +30,7 @@
             overflow-x: hidden; 
         }
 
-        /* --- 進場引導樣式 (優化手機端網格) --- */
+        /* --- 進場引導樣式 --- */
         #montage-loader {
             position: fixed; inset: 0; background: #fff; z-index: 10000;
             display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(4, 1fr);
@@ -59,7 +59,6 @@
         .logo { font-family: var(--font-serif); font-weight: 700; font-size: 1.1rem; letter-spacing: 1px; }
         @media (min-width: 768px) { .logo { font-size: 1.4rem; } }
 
-        /* 導覽列優化 */
         .nav-links { display: none; gap: 30px; font-size: 0.9rem; font-weight: 700; }
         @media (min-width: 1024px) { .nav-links { display: flex; } }
         .nav-links div { cursor: pointer; transition: 0.3s; }
@@ -68,8 +67,28 @@
         .mobile-menu-btn { 
             font-size: 0.7rem; color: var(--gold); border: 1px solid var(--gold); 
             padding: 4px 10px; border-radius: 4px; font-weight: 700;
+            cursor: pointer; transition: 0.3s; z-index: 3000; /* 提高層級確保在選單上方 */
         }
         @media (min-width: 1024px) { .mobile-menu-btn { display: none; } }
+
+        /* --- 手機版全螢幕選單 --- */
+        .mobile-overlay {
+            position: fixed; inset: 0; background: var(--bg); z-index: 2000;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            gap: 30px; transform: translateX(100%); transition: transform 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+        .mobile-overlay.active { transform: translateX(0); }
+        .mobile-overlay div { font-size: 1.5rem; font-weight: 700; color: var(--text); cursor: pointer; }
+        .mobile-overlay div:hover { color: var(--gold); }
+
+        /* 新增：選單內的關閉按鈕樣式 */
+        .mobile-close-item {
+            margin-top: 20px;
+            font-size: 0.9rem !important;
+            letter-spacing: 4px;
+            color: var(--gold) !important;
+            opacity: 0.8;
+        }
         
         #hero { 
             height: 100vh; display: flex; align-items: center; justify-content: center; 
@@ -84,7 +103,7 @@
             white-space: nowrap; pointer-events: none; 
         }
 
-        /* --- 當期特展 (手機端調整) --- */
+        /* --- 當期特展 --- */
         #exhibition { 
             background: #eeedea; perspective: 1200px; width: 100%; 
             min-height: 100vh; position: relative; display: flex; 
@@ -99,9 +118,8 @@
             padding: 30px 20px; backdrop-filter: blur(10px); border: 1px solid rgba(166,139,103,0.2);
             width: 90%; max-width: 600px;
         }
-        @media (min-width: 768px) { .exhibition-box { padding: 40px; } }
 
-        /* --- 精選典藏 (手機改為單欄) --- */
+        /* --- 精選典藏 --- */
         #collection { width: 100%; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 80px 0; }
         .pixel-container { width: 85%; display: grid; grid-template-columns: 1fr; gap: 40px; }
         @media (min-width: 768px) { .pixel-container { grid-template-columns: repeat(3, 1fr); gap: 60px; } }
@@ -132,7 +150,6 @@
         .gallery-item { flex: 0 0 280px; height: 380px; background: #222; overflow: hidden; border: 1px solid #333; }
         @media (min-width: 768px) { .gallery-item { flex: 0 0 400px; height: 520px; } }
         .gallery-item img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; transition: 0.8s; }
-        .gallery-item:hover img { opacity: 1; transform: scale(1.05); }
 
         .archive-dots { display: flex; justify-content: center; gap: 10px; margin-top: 30px; }
         .arch-dot { width: 6px; height: 6px; background: #333; border-radius: 50%; transition: 0.3s; }
@@ -160,6 +177,15 @@
         <p style="letter-spacing: 5px; margin-top: 10px; color: var(--gold); font-size: 0.8rem;">LOADING BEAUTY</p>
     </div>
 
+    <div class="mobile-overlay" id="mobileOverlay">
+        <div onclick="mobileScrollTo('#hero')">關於我們</div>
+        <div onclick="mobileScrollTo('#exhibition')">展覽動態</div>
+        <div onclick="mobileScrollTo('#collection')">典藏匯聚</div>
+        <div onclick="mobileScrollTo('#news')">最新消息</div>
+        <div onclick="mobileScrollTo('#digital-archive')">數位典藏</div>
+        <div class="mobile-close-item" onclick="toggleMenu()">✕ CLOSE</div>
+    </div>
+
     <div class="main-content" id="main-site">
         <nav>
             <div class="logo">Union Group Art Gallery</div>
@@ -170,7 +196,7 @@
                 <div onclick="gsap.to(window, {scrollTo: '#news', duration: 1})">最新消息</div>
                 <div onclick="gsap.to(window, {scrollTo: '#digital-archive', duration: 1})">數位典藏</div>
             </div>
-            <div class="mobile-menu-btn">MENU</div>
+            <div class="mobile-menu-btn" id="menuBtn" onclick="toggleMenu()">MENU</div>
         </nav>
 
         <section id="hero">
@@ -298,6 +324,23 @@
     <script>
         gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
+        // 選單開關邏輯：確保按鈕文字與狀態同步
+        function toggleMenu() {
+            const overlay = document.getElementById('mobileOverlay');
+            const btn = document.getElementById('menuBtn');
+            const isActive = overlay.classList.toggle('active');
+            btn.innerText = isActive ? 'CLOSE' : 'MENU';
+        }
+
+        // 手機版捲動並關閉選單
+        function mobileScrollTo(target) {
+            const overlay = document.getElementById('mobileOverlay');
+            if (overlay.classList.contains('active')) {
+                toggleMenu();
+            }
+            gsap.to(window, {scrollTo: target, duration: 1});
+        }
+
         // 1. 進場動畫
         function initIntro() {
             const tiles = gsap.utils.toArray(".montage-tile");
@@ -317,11 +360,11 @@
             .set("#montage-loader", { display: "none" });
         }
 
-        // 2. 滾動偵測與區塊進入動畫
+        // 2. 滾動偵測
         function initScrollEffects() {
             const sections = gsap.utils.toArray("section");
             sections.forEach(section => {
-                if(section.id === 'hero' || section.id === 'exhibition') return; // Skip hero and exhibition(pinned)
+                if(section.id === 'hero' || section.id === 'exhibition') return; 
                 
                 gsap.from(section, {
                     opacity: 0,
@@ -351,7 +394,7 @@
             });
         }
 
-        // 4. 當期特展飛散動畫 (手機版減緩幅度以防破版)
+        // 4. 當期特展
         function initExhibition() {
             const isMobile = window.innerWidth < 768;
             const exhibitionTL = gsap.timeline({
@@ -398,7 +441,7 @@
             });
         }
 
-        // 6. 數位典藏自動輪播
+        // 6. 數位典藏
         function initDigitalArchive() {
             const track = document.getElementById("galleryTrack");
             const dotsContainer = document.getElementById("archiveDots");
@@ -407,7 +450,6 @@
 
             if(!track || items.length === 0) return;
 
-            // 生成點點
             for (let i = 0; i < itemCount; i++) {
                 const d = document.createElement("div");
                 d.classList.add("arch-dot");
@@ -432,7 +474,6 @@
                 }
             });
 
-            // 手機觸碰暫停
             track.addEventListener("touchstart", () => loop.pause());
             track.addEventListener("touchend", () => loop.play());
         }
@@ -445,7 +486,6 @@
             initNews();
             initDigitalArchive();
             
-            // Marquee 背景動畫
             gsap.to("#marquee", { 
                 xPercent: -20, 
                 repeat: -1, 
@@ -454,7 +494,6 @@
             });
         };
 
-        // 處理視窗大小改變
         window.addEventListener('resize', () => {
             ScrollTrigger.refresh();
         });
