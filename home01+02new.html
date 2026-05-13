@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Union Group Art Gallery | 聯邦藝術中心</title>
+    <title>UNION GROUP Art Gallery | 聯邦藝術中心</title>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Noto+Sans+TC:wght@400;700;900&family=Noto+Serif+TC:wght@900&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -11,7 +11,6 @@
             --text: #000000;
             --accent: #E60012;
             --sub-blue: #00A1E9;
-            /* 移除草寫字體，統一改用標準字體 */
             --font-main: 'Oswald', 'Noto Sans TC', sans-serif;
         }
 
@@ -34,7 +33,6 @@
             display: flex;
         }
 
-        /* Logo 樣式 */
         .logo-box {
             display: flex;
             align-items: center;
@@ -43,12 +41,11 @@
             padding: 15px;
         }
         .logo-img {
-            width: 140px; /* 放大 Logo */
+            width: 140px; 
             height: auto;
             display: block;
         }
 
-        /* 手機版樣式 (底部固定) */
         @media (max-width: 991px) {
             .nav-container {
                 bottom: 0; left: 0; width: 100%;
@@ -57,7 +54,7 @@
                 scrollbar-width: none;
                 flex-direction: row;
             }
-            .logo-box { display: none; } /* 手機版通常隱藏側邊欄 Logo 以節省空間 */
+            .logo-box { display: none; }
             .nav-container::-webkit-scrollbar { display: none; }
             .nav-container a {
                 padding: 12px 20px;
@@ -67,10 +64,9 @@
             main { margin-bottom: 70px; }
         }
 
-        /* 桌機版樣式 (側邊固定) */
         @media (min-width: 992px) {
             .nav-container {
-                top: 0; left: 0; height: 100vh; width: 160px; /* 寬度稍微加寬以容納大 Logo */
+                top: 0; left: 0; height: 100vh; width: 160px;
                 flex-direction: column;
                 border-right: 4px solid var(--accent);
                 justify-content: flex-start;
@@ -93,7 +89,6 @@
             align-items: center;
             transition: 0.3s;
         }
-        /* 移除原本的草寫屬性，改為標準字體 */
         .nav-container a span { 
             font-family: var(--font-main); 
             font-size: 14px; 
@@ -128,7 +123,7 @@
         .hero-content { z-index: 2; position: relative; }
         .hero-title {
             font-family: var(--font-main);
-            font-size: clamp(50px, 10vw, 90px); /* 調整大小以適應非草寫字體 */
+            font-size: clamp(50px, 10vw, 90px);
             line-height: 1;
             margin: 0;
             color: var(--text);
@@ -208,13 +203,14 @@
             gap: 40px;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
         }
-        .footer-logo { 
-            font-family: var(--font-main); 
-            font-size: 28px; 
-            font-weight: 700;
-            color: var(--accent); 
-            margin-bottom: 15px; 
+        /* 頁尾 Logo 圖片樣式 */
+        .footer-logo-img {
+            max-width: 220px; /* 控制頁尾 Logo 大小 */
+            height: auto;
             display: block;
+            margin-bottom: 20px;
+            background: #fff; /* 因為 Logo 本身可能有背景色，加個白色基底更乾淨 */
+            padding: 10px;
         }
         .footer-col h4 {
             font-size: 18px;
@@ -253,7 +249,6 @@
 </head>
 <body>
 
-<!-- Logo 已整合進 nav-container 內部 -->
 <nav class="nav-container">
     <div class="logo-box">
         <a href="#" style="background:none; border:none; padding:0;">
@@ -273,7 +268,7 @@
     <section class="hero">
         <div class="hero-bg"></div>
         <div class="hero-content">
-            <h1 class="hero-title">Union Group<br>Art Gallery</h1>
+            <h1 class="hero-title">UNION GROUP<br>Art Gallery</h1>
             <div class="hero-sub">聯邦藝術中心</div>
             <p class="hero-tagline">深耕本土藝術 ‧ 傳承台灣美學薪火</p>
         </div>
@@ -311,7 +306,8 @@
 
     <footer>
         <div class="footer-col">
-            <div class="footer-logo">UNION GROUP Art Gallery</div>
+            <!-- 頁尾 Logo 圖片替換處 -->
+            <img src="https://i.ibb.co/Txzm1B60/0210.jpg" alt="UNION GROUP Art Gallery Logo" class="footer-logo-img">
             <p><strong>地址：</strong>台北市大安區忠孝東路四段219號</p>
             <p><strong>電話：</strong>(02) 2771-8599</p>
             <p><strong>時間：</strong>週二至週日 10:00 - 19:00</p>
@@ -338,7 +334,7 @@
         </div>
 
         <div class="copyright">
-            © 2026 Union Group Art Gallery 聯邦藝術中心 版權所有
+            © 2026 UNION GROUP Art Gallery 聯邦藝術中心 版權所有
         </div>
     </footer>
 </main>
