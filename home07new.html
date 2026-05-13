@@ -30,7 +30,6 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
         .logo-wrap { display: flex; align-items: center; text-decoration: none; }
-        /* Logo 放大並確保清晰 */
         .logo-img { width: 150px; height: auto; display: block; } 
 
         .menu-trigger {
@@ -122,8 +121,8 @@
         /* --- Footer --- */
         footer { background: var(--black); color: #fff; padding: 80px 8vw 40px; }
         .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 50px; margin-bottom: 50px; }
-        /* 頁尾字體縮小調整 */
-        .footer-brand { font-family: var(--zh-font); font-weight: 900; font-size: 1.6rem; line-height: 1.2; margin-bottom: 20px; color: #fff; }
+        /* 頁尾 Logo 樣式 */
+        .footer-logo-img { width: 180px; height: auto; margin-bottom: 20px; display: block; }
         .footer-info p { opacity: 0.5; font-size: 0.85rem; margin-bottom: 8px; }
         .footer-col h4 { font-size: 0.8rem; letter-spacing: 2px; color: var(--red); margin-bottom: 20px; text-transform: uppercase; }
         .footer-col ul { list-style: none; }
@@ -245,9 +244,9 @@
         <footer>
             <div class="footer-grid">
                 <div>
-                    <div class="footer-brand">UNION GROUP Art Gallery</div>
+                    <!-- 頁尾品牌文字已換成圖片 Logo -->
+                    <img src="https://i.ibb.co/Txzm1B60/0210.jpg" alt="Union Logo" class="footer-logo-img">
                     <div class="footer-info">
-                        <p style="color: var(--red); font-weight: 900; margin-bottom: 15px;">聯邦藝術中心</p>
                         <p>台北市大安區忠孝東路四段219號</p>
                         <p>(02) 2771-8599</p>
                         <p>週二至週日 10:00 - 19:00 (週一公休)</p>
